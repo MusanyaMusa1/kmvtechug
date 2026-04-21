@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>King Musah Media — Driving Your Imagination to Reality</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--red:#E63B1F;--orange:#F47C20;--dark:#111;--darker:#0A0A0A;--white:#fff;--light:#F5F5F5;--gray:#888}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--darker);color:var(--white);overflow-x:hidden}
+
+    nav{position:fixed;top:0;left:0;right:0;height:66px;background:rgba(10,10,10,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(230,59,31,0.2);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw}
+    .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+    .nav-logo img{height:36px;object-fit:contain}
+    .nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;color:var(--white)}
+    .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+    .nav-links a{text-decoration:none;color:rgba(255,255,255,.7);font-size:.87rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--red)}
+    .nav-cta{background:var(--red)!important;color:var(--white)!important;padding:.4rem 1.1rem;border-radius:3px;font-weight:600!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--white)}
+    .mobile-menu{display:none;position:fixed;top:66px;left:0;right:0;background:var(--darker);border-bottom:1px solid rgba(230,59,31,.2);padding:1.5rem 5vw;z-index:199}
+    .mobile-menu.open{display:block}
+    .mobile-menu a{display:block;padding:.7rem 0;color:rgba(255,255,255,.7);text-decoration:none;font-weight:500;border-bottom:1px solid rgba(255,255,255,.08)}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 5vw 60px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0A0A0A 0%,#1a0a05 50%,#0A0A0A 100%)}
+    .hero-accent{position:absolute;top:0;right:0;width:50%;height:100%;background:linear-gradient(135deg,transparent 40%,rgba(230,59,31,.06) 100%);pointer-events:none}
+    .hero-lines{position:absolute;top:0;left:0;right:0;bottom:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(255,255,255,.02) 80px,rgba(255,255,255,.02) 81px);pointer-events:none}
+    .live-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--red);color:var(--white);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2px;margin-bottom:1.5rem;animation:fadeUp .5s ease both}
+    .live-badge::before{content:'';width:7px;height:7px;background:var(--white);border-radius:50%;animation:pulse 1.2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,9rem);line-height:.95;letter-spacing:.02em;color:var(--white);max-width:900px;margin-bottom:1.5rem;animation:fadeUp .6s .1s ease both}
+    .hero h1 span{color:var(--red)}
+    .hero p{font-size:1.05rem;color:rgba(255,255,255,.6);max-width:500px;line-height:1.8;margin-bottom:2.5rem;font-weight:300;animation:fadeUp .6s .2s ease both}
+    .btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+    .btn-red{background:var(--red);color:var(--white);padding:.82rem 1.9rem;border-radius:3px;text-decoration:none;font-weight:700;font-size:.92rem;transition:all .2s;display:inline-block;letter-spacing:.03em}
+    .btn-red:hover{background:var(--orange);transform:translateY(-2px)}
+    .btn-ghost{background:transparent;color:var(--white);padding:.82rem 1.9rem;border-radius:3px;text-decoration:none;font-weight:600;font-size:.92rem;border:1px solid rgba(255,255,255,.3);transition:all .2s;display:inline-block}
+    .btn-ghost:hover{border-color:var(--red);color:var(--red)}
+    .hero-stats{display:flex;gap:2.5rem;margin-top:4rem;flex-wrap:wrap;animation:fadeUp .6s .4s ease both}
+    .stat h3{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--white);letter-spacing:.04em}
+    .stat span{color:var(--red)}
+    .stat p{font-size:.72rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-top:.15rem}
+
+    /* SECTIONS */
+    .sec{padding:90px 5vw}
+    .sec-tag{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:.7rem}
+    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4vw,3.8rem);letter-spacing:.03em;line-height:1.05}
+    .sec-sub{font-size:.95rem;color:rgba(255,255,255,.5);margin-top:.7rem;max-width:480px;line-height:1.75}
+    .sec-header{margin-bottom:3rem}
+
+    /* CONTENT AREAS */
+    .content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem}
+    .content-card{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:1.8rem;transition:transform .25s,border-color .25s}
+    .content-card:hover{transform:translateY(-5px);border-color:rgba(230,59,31,.3)}
+    .content-card-icon{font-size:2rem;margin-bottom:1rem}
+    .content-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.04em;margin-bottom:.5rem}
+    .content-card p{font-size:.87rem;color:rgba(255,255,255,.5);line-height:1.65}
+
+    /* PERFORMANCE */
+    .perf-section{background:#0f0f0f;padding:80px 5vw}
+    .perf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-top:2.5rem}
+    .perf-card{text-align:center;padding:2rem 1rem;background:#161616;border-radius:10px;border-top:2px solid var(--red)}
+    .perf-card h2{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--white);letter-spacing:.04em}
+    .perf-card h2 span{color:var(--red)}
+    .perf-card p{font-size:.78rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-top:.4rem}
+
+    /* PLATFORMS */
+    .platform-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:2.5rem}
+    .platform{background:#161616;border-radius:10px;padding:1.5rem;display:flex;align-items:center;gap:1rem;text-decoration:none;color:var(--white);border:1px solid rgba(255,255,255,.06);transition:all .2s}
+    .platform:hover{border-color:var(--red);transform:translateY(-3px)}
+    .platform-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .platform h4{font-size:.95rem;font-weight:600;margin-bottom:.2rem}
+    .platform p{font-size:.78rem;color:rgba(255,255,255,.45)}
+
+    /* CONTACT */
+    .contact-sec{background:linear-gradient(135deg,var(--red) 0%,#8B1A0A 100%);padding:80px 5vw;text-align:center}
+    .contact-sec h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:.03em;margin-bottom:1rem}
+    .contact-sec p{font-size:1rem;color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 2.5rem;line-height:1.7}
+    .contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem}
+    .contact-link{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);color:var(--white);padding:.75rem 1.5rem;border-radius:4px;text-decoration:none;font-weight:600;font-size:.88rem;border:1px solid rgba(255,255,255,.25);transition:all .2s;backdrop-filter:blur(8px)}
+    .contact-link:hover{background:rgba(255,255,255,.25)}
+
+    /* BACK TO HUB */
+    .back-bar{background:#0A0A0A;padding:1rem 5vw;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+    .back-link{color:rgba(255,255,255,.45);text-decoration:none;font-size:.83rem;display:flex;align-items:center;gap:.4rem;transition:color .2s}
+    .back-link:hover{color:var(--red)}
+    .hub-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+    .hub-links a{color:rgba(255,255,255,.35);text-decoration:none;font-size:.8rem;transition:color .2s}
+    .hub-links a:hover{color:var(--red)}
+
+    footer{background:var(--darker);color:rgba(255,255,255,.35);padding:40px 5vw 24px;border-top:1px solid rgba(255,255,255,.06)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.78rem}
+    .footer-bottom a{color:var(--red);text-decoration:none}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:640px){.nav-links{display:none}.hamburger{display:flex}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="../../assets/logo-kmm.png" alt="King Musah Media" onerror="this.style.display='none'"/>
+    <span class="nav-logo-text">King Musah Media</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#content">Content</a></li>
+    <li><a href="#platforms">Platforms</a></li>
+    <li><a href="#performance">Stats</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="../index.html">← KMVTECHUG</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="#content" onclick="document.getElementById('mob').classList.remove('open')">Content</a>
+  <a href="#platforms" onclick="document.getElementById('mob').classList.remove('open')">Platforms</a>
+  <a href="#performance" onclick="document.getElementById('mob').classList.remove('open')">Stats</a>
+  <a href="#contact" onclick="document.getElementById('mob').classList.remove('open')">Contact</a>
+  <a href="../index.html">← Back to KMVTECHUG</a>
+</div>
+
+<section class="hero">
+  <div class="hero-accent"></div>
+  <div class="hero-lines"></div>
+  <div class="live-badge">Live & Growing</div>
+  <h1>King<br/><span>Musah</span><br/>Media</h1>
+  <p>Delivering news, current affairs, and entertainment to a growing digital audience across Uganda and beyond. <em>Driving your imagination to reality.</em></p>
+  <div class="btns">
+    <a href="https://www.youtube.com/@kingmusahmedia" target="_blank" class="btn-red">Watch on YouTube</a>
+    <a href="#contact" class="btn-ghost">Partner With Us</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><h3>1.3<span>K+</span></h3><p>YouTube Subscribers</p></div>
+    <div class="stat"><h3>152<span>K+</span></h3><p>Total Views</p></div>
+    <div class="stat"><h3>2020</h3><p>Established</p></div>
+  </div>
+</section>
+
+<!-- CONTENT AREAS -->
+<section class="sec" id="content">
+  <div class="sec-header">
+    <span class="sec-tag">What We Cover</span>
+    <h2 class="sec-title">Content That Matters</h2>
+    <p class="sec-sub">Relevant, accessible, and engaging digital content built for today's online audience.</p>
+  </div>
+  <div class="content-grid">
+    <div class="content-card"><div class="content-card-icon">📰</div><h3>News & Current Affairs</h3><p>Timely reporting on local, national, and international news. Keeping audiences informed on what matters most.</p></div>
+    <div class="content-card"><div class="content-card-icon">💬</div><h3>Social Commentary</h3><p>Thoughtful analysis of social issues, policies, and trends shaping Uganda and Africa today.</p></div>
+    <div class="content-card"><div class="content-card-icon">🎭</div><h3>Entertainment</h3><p>Engaging entertainment content that connects with youth, students, and the general online community.</p></div>
+    <div class="content-card"><div class="content-card-icon">📖</div><h3>Digital Storytelling</h3><p>Compelling narratives and stories told through video, social media, and written content.</p></div>
+  </div>
+</section>
+
+<!-- PERFORMANCE -->
+<section class="perf-section" id="performance">
+  <span class="sec-tag">Our Numbers</span>
+  <h2 class="sec-title">Growing Every Day</h2>
+  <div class="perf-grid">
+    <div class="perf-card"><h2>1.3<span>K</span></h2><p>YouTube Subscribers</p></div>
+    <div class="perf-card"><h2>152<span>K</span></h2><p>Total Views</p></div>
+    <div class="perf-card"><h2>2020</h2><p>Year Founded</p></div>
+    <div class="perf-card"><h2>4<span>+</span></h2><p>Platforms Active</p></div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="sec" id="platforms">
+  <div class="sec-header">
+    <span class="sec-tag">Find Us Online</span>
+    <h2 class="sec-title">Our Platforms</h2>
+    <p class="sec-sub">Follow King Musah Media on all major platforms for daily updates.</p>
+  </div>
+  <div class="platform-grid">
+    <a href="https://www.youtube.com/@kingmusahmedia" target="_blank" class="platform">
+      <div class="platform-icon" style="background:#FF0000">▶</div>
+      <div><h4>YouTube</h4><p>@kingmusahmedia · 1.3K subscribers</p></div>
+    </a>
+    <a href="https://x.com/KingMusahMedia" target="_blank" class="platform">
+      <div class="platform-icon" style="background:#000;border:1px solid #333">𝕏</div>
+      <div><h4>X / Twitter</h4><p>@KingMusahMedia</p></div>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=100082996675651" target="_blank" class="platform">
+      <div class="platform-icon" style="background:#1877F2">f</div>
+      <div><h4>Facebook</h4><p>King Musah Media</p></div>
+    </a>
+    <a href="https://www.instagram.com/king_musah_media" target="_blank" class="platform">
+      <div class="platform-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)">📷</div>
+      <div><h4>Instagram</h4><p>@king_musah_media</p></div>
+    </a>
+    <a href="https://linkedin.com/company/king-musah-media" target="_blank" class="platform">
+      <div class="platform-icon" style="background:#0A66C2">in</div>
+      <div><h4>LinkedIn</h4><p>King Musah Media</p></div>
+    </a>
+    <a href="https://wa.me/message/XMUHKTZJ6633I1" target="_blank" class="platform">
+      <div class="platform-icon" style="background:#25D366">💬</div>
+      <div><h4>WhatsApp</h4><p>Message King Musah Media</p></div>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <h2>Let's Work Together</h2>
+  <p>For media partnerships, news tips, advertising, or collaborations — reach out directly. We're always open to good stories and great partners.</p>
+  <div class="contact-links">
+    <a href="mailto:kingmusahmedia@gmail.com" class="contact-link">📧 kingmusahmedia@gmail.com</a>
+    <a href="tel:+256759405181" class="contact-link">📱 +256 759 405 181</a>
+    <a href="https://wa.me/256759405181" target="_blank" class="contact-link">💬 WhatsApp</a>
+  </div>
+</section>
+
+<div class="back-bar">
+  <a href="../index.html" class="back-link">← Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="../kmvtech/index.html">KMVTECH</a>
+    <a href="../kmvtech-education/index.html">KMVTECH Education</a>
+    <a href="../musanya-musa/index.html">Musanya Musa</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 King Musah Media. A brand under <a href="../index.html">KMVTECHUG</a>.</span>
+    <span>📍 Kampala, Uganda</span>
+  </div>
+</footer>
+
+</body>
+</html>

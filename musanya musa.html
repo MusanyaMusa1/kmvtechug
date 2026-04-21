@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Musanya Musa — Entrepreneur · Educator · Advocate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--red:#E63B1F;--dark:#111;--mid:#222;--white:#fff;--cream:#FAFAF8;--light:#F5F5F3;--gray:#888;--gold:#C9922A}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+
+    nav{position:fixed;top:0;left:0;right:0;height:66px;background:rgba(250,250,248,0.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw}
+    .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+    .nav-logo img{height:36px;object-fit:contain}
+    .nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--dark)}
+    .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+    .nav-links a{text-decoration:none;color:var(--dark);font-size:.87rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--red)}
+    .nav-cta{background:var(--dark)!important;color:var(--white)!important;padding:.4rem 1.1rem;border-radius:3px;font-weight:600!important}
+    .nav-cta:hover{background:var(--red)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--dark)}
+    .mobile-menu{display:none;position:fixed;top:66px;left:0;right:0;background:var(--cream);padding:1.5rem 5vw;z-index:199;border-bottom:1px solid rgba(0,0,0,.06)}
+    .mobile-menu.open{display:block}
+    .mobile-menu a{display:block;padding:.7rem 0;color:var(--dark);text-decoration:none;font-weight:500;border-bottom:1px solid var(--light)}
+
+    /* HERO */
+    .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem;padding:100px 5vw 60px;position:relative;overflow:hidden}
+    .hero-bg-text{position:absolute;bottom:-20px;left:-10px;font-family:'Cormorant Garamond',serif;font-size:clamp(80px,16vw,220px);font-weight:700;color:rgba(0,0,0,.04);pointer-events:none;line-height:1;white-space:nowrap}
+    .hero-left{position:relative;z-index:1}
+    .hero-tag{display:inline-block;background:var(--red);color:var(--white);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .8rem;border-radius:2px;margin-bottom:1.4rem;animation:fadeUp .5s ease both}
+    .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,5rem);font-weight:700;line-height:1.05;color:var(--dark);margin-bottom:1.2rem;animation:fadeUp .6s .1s ease both}
+    .hero h1 em{font-style:italic;color:var(--red)}
+    .hero-role{font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:1.5rem;animation:fadeUp .6s .15s ease both}
+    .hero-role span{color:var(--dark)}
+    .hero p{font-size:1rem;color:var(--gray);max-width:480px;line-height:1.82;margin-bottom:2.4rem;font-weight:300;animation:fadeUp .6s .2s ease both}
+    .btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+    .btn-d{background:var(--dark);color:var(--white);padding:.8rem 1.8rem;border-radius:3px;text-decoration:none;font-weight:600;font-size:.9rem;transition:all .2s;display:inline-block}
+    .btn-d:hover{background:var(--red);transform:translateY(-2px)}
+    .btn-o{background:transparent;color:var(--dark);padding:.8rem 1.8rem;border-radius:3px;text-decoration:none;font-weight:600;font-size:.9rem;border:1.5px solid var(--dark);transition:all .2s;display:inline-block}
+    .btn-o:hover{background:var(--dark);color:var(--white)}
+    .hero-right{position:relative;z-index:1;display:flex;justify-content:center}
+    .hero-img-wrap{position:relative;display:inline-block}
+    .hero-img-wrap img{width:100%;max-width:420px;object-fit:cover;border-radius:4px;display:block;filter:grayscale(10%)}
+    .img-accent{position:absolute;bottom:-12px;right:-12px;width:100%;height:100%;border:2px solid var(--red);border-radius:4px;z-index:-1}
+    .img-badge{position:absolute;top:20px;left:-20px;background:var(--dark);color:var(--white);padding:.8rem 1rem;border-radius:6px;font-size:.78rem;line-height:1.4;font-weight:500}
+    .img-badge strong{display:block;font-size:1rem;color:var(--gold)}
+
+    .sec{padding:80px 5vw}
+    .sec-tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:.7rem}
+    .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;line-height:1.1}
+    .sec-sub{font-size:.95rem;color:var(--gray);margin-top:.7rem;max-width:500px;line-height:1.75}
+    .sec-header{margin-bottom:2.8rem}
+
+    /* ABOUT DETAILS */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    .about-block h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;margin-bottom:.8rem;color:var(--dark)}
+    .about-block p{font-size:.92rem;color:var(--gray);line-height:1.82;margin-bottom:.8rem}
+    .competency-list{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+    .comp{background:var(--light);color:var(--dark);font-size:.75rem;font-weight:600;padding:.3rem .7rem;border-radius:3px;border-left:2px solid var(--red)}
+
+    /* EDUCATION */
+    .edu-timeline{margin-top:2.5rem}
+    .edu-item{display:grid;grid-template-columns:120px 1fr;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid var(--light)}
+    .edu-year{font-size:.8rem;font-weight:700;color:var(--red);padding-top:.2rem;letter-spacing:.04em}
+    .edu-item h4{font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:.2rem}
+    .edu-item p{font-size:.85rem;color:var(--gray);line-height:1.5}
+
+    /* EXPERIENCE */
+    .exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;margin-top:2.5rem}
+    .exp-card{background:var(--white);border-radius:8px;padding:1.6rem;border:1px solid rgba(0,0,0,.06)}
+    .exp-card .org{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem}
+    .exp-card h4{font-size:1rem;font-weight:600;color:var(--dark);margin-bottom:.3rem}
+    .exp-card .period{font-size:.78rem;color:var(--gray);margin-bottom:.7rem}
+    .exp-card p{font-size:.84rem;color:var(--gray);line-height:1.62}
+
+    /* ACHIEVEMENTS */
+    .ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:2.5rem}
+    .ach{background:var(--dark);color:var(--white);border-radius:8px;padding:1.5rem;position:relative;overflow:hidden}
+    .ach::after{content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;background:rgba(230,59,31,.15);border-radius:50%}
+    .ach-icon{font-size:1.6rem;margin-bottom:.7rem}
+    .ach h4{font-size:.95rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+    .ach p{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.55}
+
+    /* CONNECT */
+    .connect-sec{background:var(--dark);padding:80px 5vw}
+    .connect-sec .sec-tag{color:rgba(255,255,255,.45)}
+    .connect-sec .sec-title{color:var(--white)}
+    .connect-sec .sec-sub{color:rgba(255,255,255,.45)}
+    .socials-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2.5rem}
+    .soc{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--white);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:.9rem 1.2rem;border-radius:6px;transition:all .2s;font-size:.88rem;font-weight:500}
+    .soc:hover{background:var(--red);border-color:var(--red);transform:translateY(-2px)}
+    .soc-icon{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+
+    .back-bar{background:#0A0A0A;padding:1rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+    .back-link{color:rgba(255,255,255,.4);text-decoration:none;font-size:.83rem;transition:color .2s}
+    .back-link:hover{color:var(--red)}
+    .hub-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+    .hub-links a{color:rgba(255,255,255,.3);text-decoration:none;font-size:.8rem;transition:color .2s}
+    .hub-links a:hover{color:var(--red)}
+
+    footer{background:#0A0A0A;color:rgba(255,255,255,.3);padding:24px 5vw;border-top:1px solid rgba(255,255,255,.05)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.78rem}
+    .footer-bottom a{color:#F47C20;text-decoration:none}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}.hero-right{display:none}.about-grid{grid-template-columns:1fr}}
+    @media(max-width:640px){.nav-links{display:none}.hamburger{display:flex}.edu-item{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="FounderKMVTECH.png" alt="FounderKMVTECH" onerror="this.style.display='none'"/>
+    <span class="nav-logo-text">Musanya Musa</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#connect">Connect</a></li>
+    <li><a href="../index.html">← KMVTECHUG</a></li>
+    <li><a href="mailto:counselmusanyamusa@gmail.com" class="nav-cta">Hire Me</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="#about" onclick="document.getElementById('mob').classList.remove('open')">About</a>
+  <a href="#experience" onclick="document.getElementById('mob').classList.remove('open')">Experience</a>
+  <a href="#achievements" onclick="document.getElementById('mob').classList.remove('open')">Achievements</a>
+  <a href="#connect" onclick="document.getElementById('mob').classList.remove('open')">Connect</a>
+  <a href="../index.html">← Back to KMVTECHUG</a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg-text">MUSANYA</div>
+  <div class="hero-left">
+    <div class="hero-tag">Kampala, Uganda · Est. 2020</div>
+    <div class="hero-role"><span>Founder & CEO</span> · Entrepreneur · Educator · Advocate</div>
+    <h1>Musanya<br/><em>Musa</em></h1>
+    <p>Technology entrepreneur, law student at Cavendish University, digital educator, and human rights advocate. Founder of KMVTECHUG and King Musah Media. Building Africa's digital future one solution at a time.</p>
+    <div class="btns">
+      <a href="#about" class="btn-d">My Story</a>
+      <a href="mailto:counselmusanyamusa@gmail.com" class="btn-o">Work With Me</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img src="../../assets/founder.png" alt="Musanya Musa" onerror="this.style.minHeight='450px';this.style.background='#f5f5f3'"/>
+      <div class="img-accent"></div>
+      <div class="img-badge"><strong>Since 2020</strong>Founder & CEO<br/>KMVTECHUG</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about" style="background:var(--white)">
+  <div class="sec-header">
+    <span class="sec-tag">About Me</span>
+    <h2 class="sec-title">Dynamic Entrepreneur<br/>& Digital Innovator</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-block">
+      <h3>Professional Summary</h3>
+      <p>Dynamic entrepreneur and educator with 5+ years of experience in IT training, graphics design, and content creation. Founder and CEO of KMVTECHUG a multi-brand digital ecosystem operating in technology, media, and education.</p>
+      <p>Currently pursuing a Bachelor's degree in Laws at Cavendish University Uganda (2024–2028) while enrolled in AI & Digital Transformation in Government at the University of Oxford.</p>
+      <p>Published in the Uganda Law Students Association Journal and submitted work to the Harvard Art Law Review. Passionate about making technology accessible, ethical, and impactful for all especially marginalized communities.</p>
+    </div>
+    <div class="about-block">
+      <h3>Core Competencies</h3>
+      <div class="competency-list">
+        <span class="comp">IT Training</span><span class="comp">Cybersecurity</span><span class="comp">Graphic Design</span>
+        <span class="comp">Leadership</span><span class="comp">Content Creation</span><span class="comp">Community Advocacy</span>
+        <span class="comp">Team Management</span><span class="comp">Problem Solving</span><span class="comp">Legal Research</span>
+        <span class="comp">Public Speaking</span><span class="comp">Event Management</span><span class="comp">Digital Marketing</span>
+        <span class="comp">Data Collection</span><span class="comp">Contract Analysis</span><span class="comp">Web Design</span>
+      </div>
+      <div style="margin-top:1.5rem">
+        <h3>Languages</h3>
+        <p>English (Fluent) · Luganda (Native) · Currently learning Ugandan Sign Language</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="sec" id="education">
+  <div class="sec-header">
+    <span class="sec-tag">Education</span>
+    <h2 class="sec-title">Academic Background</h2>
+  </div>
+  <div class="edu-timeline">
+    <div class="edu-item"><div class="edu-year">2025 – Present</div><div><h4>AI and Digital Transformation in Government</h4><p>University of Oxford</p></div></div>
+    <div class="edu-item"><div class="edu-year">2024 – 2028</div><div><h4>Bachelor of Laws (LLB) — Expected</h4><p>Cavendish University Uganda · Awarded fully-funded scholarship</p></div></div>
+    <div class="edu-item"><div class="edu-year">2022 – 2023</div><div><h4>Uganda Advanced Certificate of Education (A-Level)</h4><p>New High Tech Secondary School, Kajjansi</p></div></div>
+    <div class="edu-item"><div class="edu-year">2017 – 2020</div><div><h4>Uganda Certificate of Education (O-Level)</h4><p>New High Tech Secondary School, Kajjansi</p></div></div>
+    <div class="edu-item"><div class="edu-year">2010 – 2016</div><div><h4>Primary Leaving Examination (PLE)</h4><p>Bweya Muslim Primary School</p></div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec" id="experience" style="background:var(--light)">
+  <div class="sec-header">
+    <span class="sec-tag">Experience</span>
+    <h2 class="sec-title">Professional Journey</h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card"><div class="org">KMVTECHUG</div><h4>Founder & CEO</h4><div class="period">January 2023 – Present · Kampala</div><p>Founded Uganda's growing digital ecosystem. Built educational platform, delivers IT training in cybersecurity, computer ethics, and digital literacy. Leads team across 3 brands.</p></div>
+    <div class="exp-card"><div class="org">Cavendish University DSA</div><h4>Academic Minister</h4><div class="period">January – December 2025 · Kampala</div><p>Led academic affairs for the Diplomatic Students Association. Organized public lectures mobilizing 500+ students each. Managed event logistics, speakers, and promotional campaigns.</p></div>
+    <div class="exp-card"><div class="org">Uganda Bureau of Statistics</div><h4>Census Enumerator</h4><div class="period">May 2024 · Uganda</div><p>Collected demographic data using digital tablets for the national population census. Daily data transmission and community mobilization across assigned enumeration areas.</p></div>
+    <div class="exp-card"><div class="org">Trinity High School Nakigalala</div><h4>ICT Teacher (Part-time)</h4><div class="period">May – December 2024</div><p>Taught ICT curriculum to Senior 4 students. Prepared lesson materials, assessed performance, and maintained student records.</p></div>
+    <div class="exp-card"><div class="org">Clay Products Manufacturing</div><h4>Production Manager</h4><div class="period">June 2020 – January 2024</div><p>Promoted from casual worker to Production Manager. Supervised teams, managed budgets, operated machinery, and handled production planning for 3+ years.</p></div>
+    <div class="exp-card"><div class="org">UNESCO · United Nations</div><h4>Volunteer & Team Leader</h4><div class="period">Multiple · International</div><p>Team Leader at UNESCO Youth Hackathon on Media and Information Literacy 2025. UN Online Volunteer with 4 certificates of participation across multiple global assignments.</p></div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="sec" id="achievements">
+  <div class="sec-header">
+    <span class="sec-tag">Achievements</span>
+    <h2 class="sec-title">Key Milestones</h2>
+  </div>
+  <div class="ach-grid">
+    <div class="ach"><div class="ach-icon">🏛️</div><h4>Oxford Programme</h4><p>Enrolled in AI & Digital Transformation in Government at the University of Oxford.</p></div>
+    <div class="ach"><div class="ach-icon">📜</div><h4>Fully-Funded Scholarship</h4><p>Awarded full scholarship for Bachelor of Laws at Cavendish University Uganda.</p></div>
+    <div class="ach"><div class="ach-icon">🌍</div><h4>UNESCO Team Leader</h4><p>Led team at UNESCO Youth Hackathon on Media and Information Literacy 2025.</p></div>
+    <div class="ach"><div class="ach-icon">🗳️</div><h4>Elected Advocate</h4><p>Elected Chairman for Persons with Special Needs at LC2 — village and parish levels.</p></div>
+    <div class="ach"><div class="ach-icon">📝</div><h4>Published Author</h4><p>Published in Uganda Law Students Association Journal. Submitted to Harvard Art Law Review.</p></div>
+    <div class="ach"><div class="ach-icon">🚀</div><h4>Built a Digital Empire</h4><p>Founded KMVTECHUG and King Musah Media from scratch — growing to 1.3K+ subscribers.</p></div>
+    <div class="ach"><div class="ach-icon">🇺🇳</div><h4>UN Volunteer</h4><p>4 UN certificates of participation across multiple international volunteer assignments.</p></div>
+    <div class="ach"><div class="ach-icon">📖</div><h4>Upcoming Book</h4><p>"Walking Without Support: The Cost of Fitting In" — releasing August 2026.</p></div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="sec" style="background:var(--white)" id="certs">
+  <div class="sec-header">
+    <span class="sec-tag">Certifications</span>
+    <h2 class="sec-title">Professional Credentials</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
+    <div style="background:var(--light);padding:1rem 1.2rem;border-radius:6px;font-size:.84rem;border-left:2px solid var(--red)"><strong style="display:block;margin-bottom:.2rem;color:var(--dark)">Diploma in Legal Studies</strong><span style="color:var(--gray)">Alison · May 2025</span></div>
+    <div style="background:var(--light);padding:1rem 1.2rem;border-radius:6px;font-size:.84rem;border-left:2px solid var(--red)"><strong style="display:block;margin-bottom:.2rem;color:var(--dark)">Introduction to Contract Law</strong><span style="color:var(--gray)">Alison · October 2024</span></div>
+    <div style="background:var(--light);padding:1rem 1.2rem;border-radius:6px;font-size:.84rem;border-left:2px solid var(--red)"><strong style="display:block;margin-bottom:.2rem;color:var(--dark)">Customs Clearing Agent</strong><span style="color:var(--gray)">Uganda Revenue Authority · 2024</span></div>
+    <div style="background:var(--light);padding:1rem 1.2rem;border-radius:6px;font-size:.84rem;border-left:2px solid var(--red)"><strong style="display:block;margin-bottom:.2rem;color:var(--dark)">Effective Leadership</strong><span style="color:var(--gray)">HP LIFE · October 2024</span></div>
+    <div style="background:var(--light);padding:1rem 1.2rem;border-radius:6px;font-size:.84rem;border-left:2px solid var(--red)"><strong style="display:block;margin-bottom:.2rem;color:var(--dark)">Digital Marketing</strong><span style="color:var(--gray)">FutureLearn / Accenture · 2021</span></div>
+    <div style="background:var(--light);padding:1rem 1.2rem;border-radius:6px;font-size:.84rem;border-left:2px solid var(--red)"><strong style="display:block;margin-bottom:.2rem;color:var(--dark)">Media & Information Literacy</strong><span style="color:var(--gray)">UNESCO MGIEP · November 2025</span></div>
+    <div style="background:var(--light);padding:1rem 1.2rem;border-radius:6px;font-size:.84rem;border-left:2px solid var(--red)"><strong style="display:block;margin-bottom:.2rem;color:var(--dark)">Data Journalism & Media Standards</strong><span style="color:var(--gray)">Alison · January 2024</span></div>
+    <div style="background:var(--light);padding:1rem 1.2rem;border-radius:6px;font-size:.84rem;border-left:2px solid var(--red)"><strong style="display:block;margin-bottom:.2rem;color:var(--dark)">Business Communications</strong><span style="color:var(--gray)">HP LIFE · October 2024</span></div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section class="connect-sec" id="connect">
+  <div class="sec-header">
+    <span class="sec-tag">Get In Touch</span>
+    <h2 class="sec-title" style="color:white">Let's Connect</h2>
+    <p class="sec-sub">Open to collaborations, speaking engagements, partnerships, and opportunities.</p>
+  </div>
+  <div class="socials-list">
+    <a href="https://x.com/MusanyaMusa" target="_blank" class="soc"><div class="soc-icon" style="background:#111">𝕏</div>@MusanyaMusa</a>
+    <a href="https://www.instagram.com/musanyamusa" target="_blank" class="soc"><div class="soc-icon" style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888)">📷</div>@musanyamusa</a>
+    <a href="https://www.linkedin.com/in/musanya-musa-74b3682a8" target="_blank" class="soc"><div class="soc-icon" style="background:#0A66C2">in</div>LinkedInS</a>
+    <a href="mailto:counselmusanyamusa@gmail.com" class="soc"><div class="soc-icon" style="background:#E63B1F">✉</div> E-MAIL ME</a>
+    <a href="tel:+256759405181" class="soc"><div class="soc-icon" style="background:#333">📱</div>+256 759 405 181</a>
+    <a href="https://wa.me/256759405181" target="_blank" class="soc"><div class="soc-icon" style="background:#25D366">💬</div>WhatsApp</a>
+  </div>
+</section>
+
+<div class="back-bar">
+  <a href="../index.html" class="back-link">← Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="../king-musah-media/index.html">King Musah Media</a>
+    <a href="../kmvtech/index.html">KMVTECH</a>
+    <a href="../kmvtech-education/index.html">KMVTECH Education</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 Musanya Musa. Part of the <a href="../index.html">KMVTECHUG</a> family.</span>
+    <span>📍 Kampala, Uganda</span>
+  </div>
+</footer>
+</body>
+</html>

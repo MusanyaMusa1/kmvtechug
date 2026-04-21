@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KMVTECH Education — Scripting a New World</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--blue:#2B3FBF;--purple:#6B2ECC;--grad:linear-gradient(135deg,#2B3FBF,#6B2ECC);--white:#fff;--cream:#F8F8FF;--light:#EEF0FF;--dark:#111827;--gray:#6B7280}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+
+    nav{position:fixed;top:0;left:0;right:0;height:66px;background:rgba(248,248,255,0.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(107,46,204,.12);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw}
+    .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+    .nav-logo img{height:38px;object-fit:contain}
+    .nav-logo-text{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+    .nav-links a{text-decoration:none;color:var(--dark);font-size:.87rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--purple)}
+    .nav-cta{background:var(--grad)!important;color:var(--white)!important;padding:.4rem 1.1rem;border-radius:20px;font-weight:600!important;-webkit-text-fill-color:var(--white)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--purple)}
+    .mobile-menu{display:none;position:fixed;top:106px;left:0;right:0;background:var(--cream);padding:1.5rem 5vw;z-index:199;border-bottom:1px solid rgba(107,46,204,.12)}
+    .mobile-menu.open{display:block}
+    .mobile-menu a{display:block;padding:.7rem 0;color:var(--dark);text-decoration:none;font-weight:500;border-bottom:1px solid var(--light)}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 5vw 60px;position:relative;overflow:hidden;background:var(--cream)}
+    .hero-blob{position:absolute;top:-150px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(107,46,204,.07) 0%,transparent 65%);pointer-events:none;border-radius:50%}
+    .hero-blob2{position:absolute;bottom:-200px;left:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(43,63,191,.06) 0%,transparent 65%);pointer-events:none;border-radius:50%}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--light);border:1px solid rgba(107,46,204,.2);color:var(--purple);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:20px;margin-bottom:1.4rem;animation:fadeUp .5s ease both}
+    .hero h1{font-family:'Nunito',sans-serif;font-size:clamp(2.5rem,5.5vw,5rem);font-weight:900;line-height:1.08;color:var(--dark);max-width:750px;margin-bottom:1.4rem;animation:fadeUp .6s .1s ease both}
+    .hero h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero p{font-size:1.05rem;color:var(--gray);max-width:500px;line-height:1.8;margin-bottom:2.4rem;font-weight:300;animation:fadeUp .6s .2s ease both}
+    .btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+    .btn-grad{background:var(--grad);color:var(--white);padding:.82rem 1.9rem;border-radius:25px;text-decoration:none;font-weight:700;font-size:.92rem;transition:all .2s;display:inline-block}
+    .btn-grad:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 10px 28px rgba(107,46,204,.3)}
+    .btn-out{background:transparent;color:var(--purple);padding:.82rem 1.9rem;border-radius:25px;text-decoration:none;font-weight:600;font-size:.92rem;border:2px solid var(--purple);transition:all .2s;display:inline-block}
+    .btn-out:hover{background:var(--purple);color:var(--white)}
+    .hero-stats{display:flex;gap:2rem;margin-top:3rem;flex-wrap:wrap;animation:fadeUp .6s .4s ease both}
+    .stat{background:var(--white);border-radius:10px;padding:1rem 1.4rem;border:1px solid rgba(107,46,204,.1);text-align:center}
+    .stat h3{font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stat p{font-size:.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-top:.15rem}
+
+    .sec{padding:90px 5vw}
+    .sec-tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);display:block;margin-bottom:.7rem}
+    .sec-title{font-family:'Nunito',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;line-height:1.1}
+    .sec-sub{font-size:.95rem;color:var(--gray);margin-top:.7rem;max-width:480px;line-height:1.75}
+    .sec-header{margin-bottom:3rem}
+
+    /* COURSES */
+    .courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem}
+    .course-card{background:var(--white);border-radius:14px;padding:1.8rem;border:1px solid rgba(107,46,204,.08);transition:all .25s;position:relative;overflow:hidden}
+    .course-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+    .course-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(107,46,204,.1);border-color:rgba(107,46,204,.2)}
+    .course-card:hover::before{transform:scaleX(1)}
+    .course-icon{font-size:2rem;margin-bottom:1rem}
+    .course-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--light);color:var(--purple);padding:.2rem .6rem;border-radius:20px;display:inline-block;margin-bottom:.7rem}
+    .course-card h3{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:.5rem}
+    .course-card p{font-size:.85rem;color:var(--gray);line-height:1.65}
+    .course-status{margin-top:1rem;font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:.4rem}
+    .status-live{color:#16a34a}.status-soon{color:var(--purple)}
+
+    /* YOUTUBE */
+    .yt-section{background:linear-gradient(135deg,var(--blue) 0%,var(--purple) 100%);padding:80px 5vw;text-align:center}
+    .yt-section h2{font-family:'Nunito',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--white);margin-bottom:1rem}
+    .yt-section p{font-size:1rem;color:rgba(255,255,255,.75);max-width:480px;margin:0 auto 2.5rem;line-height:1.7}
+    .yt-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;margin-bottom:2.5rem}
+    .yt-stat h3{font-family:'Nunito',sans-serif;font-size:2.2rem;font-weight:900;color:var(--white)}
+    .yt-stat p{font-size:.75rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em}
+    .yt-btn{display:inline-flex;align-items:center;gap:.6rem;background:#FF0000;color:var(--white);padding:.9rem 2rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:.95rem;transition:opacity .2s}
+    .yt-btn:hover{opacity:.88}
+
+    /* FEATURES */
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.3rem;margin-top:2.5rem}
+    .feature{background:var(--white);border-radius:12px;padding:1.6rem;border:1px solid rgba(107,46,204,.08);text-align:center}
+    .feature-icon{font-size:2rem;margin-bottom:.8rem}
+    .feature h4{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:.4rem}
+    .feature p{font-size:.84rem;color:var(--gray);line-height:1.6}
+    .feature .coming-soon{font-size:.72rem;font-weight:700;color:var(--purple);background:var(--light);padding:.2rem .6rem;border-radius:10px;display:inline-block;margin-top:.6rem}
+
+    /* CONTACT */
+    .contact-sec{background:var(--light);padding:80px 5vw}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2.5rem}
+    .contact-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.3rem}
+    .c-icon{width:42px;height:42px;background:var(--grad);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;color:white}
+    .contact-item h5{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin-bottom:.25rem}
+    .contact-item a,.contact-item p{font-size:.9rem;color:var(--dark);text-decoration:none;font-weight:500;line-height:1.5}
+    .contact-item a:hover{color:var(--purple)}
+    .whatsapp-btn{display:inline-flex;align-items:center;gap:.6rem;background:#25D366;color:var(--white);padding:.8rem 1.6rem;border-radius:20px;text-decoration:none;font-weight:700;font-size:.88rem;margin-top:1rem;transition:opacity .2s}
+
+    .back-bar{background:var(--dark);padding:1rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+    .back-link{color:rgba(255,255,255,.45);text-decoration:none;font-size:.83rem;transition:color .2s}
+    .back-link:hover{color:#A8C4FF}
+    .hub-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+    .hub-links a{color:rgba(255,255,255,.35);text-decoration:none;font-size:.8rem;transition:color .2s}
+    .hub-links a:hover{color:#A8C4FF}
+
+    footer{background:var(--dark);color:rgba(255,255,255,.35);padding:24px 5vw;border-top:1px solid rgba(255,255,255,.06)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.78rem}
+    .footer-bottom a{color:#C4A8FF;text-decoration:none}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:640px){.nav-links{display:none}.hamburger{display:flex}.contact-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<div style="background:#F59E0B;color:#1C1100;text-align:center;padding:.65rem 1rem;font-size:.85rem;font-weight:600;position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:center;gap:.6rem;letter-spacing:.02em">🚧 This website is currently under construction — content and courses will be updated soon. Stay tuned! 🚧</div><nav style="top:40px">
+  <a class="nav-logo" href="#">
+    <img src="../../assets/logo-kmvedu.png" alt="KMVTECH Education" onerror="this.style.display='none'"/>
+    <span class="nav-logo-text">KMVTECH EDUCATION</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#youtube">YouTube</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="../index.html">← KMVTECHUG</a></li>
+    <li><a href="https://www.youtube.com/@KMVTECHEducation" target="_blank" class="nav-cta">Watch Free</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="#courses" onclick="document.getElementById('mob').classList.remove('open')">Courses</a>
+  <a href="#youtube" onclick="document.getElementById('mob').classList.remove('open')">YouTube</a>
+  <a href="#features" onclick="document.getElementById('mob').classList.remove('open')">Features</a>
+  <a href="#contact" onclick="document.getElementById('mob').classList.remove('open')">Contact</a>
+  <a href="../index.html">← Back to KMVTECHUG</a>
+</div>
+
+<section class="hero">
+  <div class="hero-blob"></div><div class="hero-blob2"></div>
+  <div class="hero-badge">🎓 E-Learning Platform · Uganda</div>
+  <h1>Learn <span>Digital Skills</span><br/>That Open Doors</h1>
+  <p>KMVTECH Education delivers practical, simplified courses in digital skills, professional development, and technology — accessible to everyone in Uganda and beyond.</p>
+  <div class="btns">
+    <a href="https://www.youtube.com/@KMVTECHEducation" target="_blank" class="btn-grad">Start Learning Free</a>
+    <a href="#courses" class="btn-out">View Courses</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><h3>71</h3><p>Subscribers</p></div>
+    <div class="stat"><h3>8.7K</h3><p>Views</p></div>
+    <div class="stat"><h3>~1yr</h3><p>& Growing</p></div>
+    <div class="stat"><h3>Free</h3><p>On YouTube</p></div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="sec" id="courses">
+  <div class="sec-header">
+    <span class="sec-tag">What You'll Learn</span>
+    <h2 class="sec-title">Course Areas</h2>
+    <p class="sec-sub">Practical skills that you can use immediately — explained simply and clearly.</p>
+  </div>
+  <div class="courses-grid">
+    <div class="course-card"><div class="course-icon">💻</div><span class="course-badge">Digital Skills</span><h3>Computer Basics & Digital Literacy</h3><p>Master computers, internet, Microsoft Office, Google Workspace, and essential digital tools for daily work and study.</p><div class="course-status status-live">🟢 Available on YouTube</div></div>
+    <div class="course-card"><div class="course-icon">📱</div><span class="course-badge">Digital Skills</span><h3>Content Creation & Social Media</h3><p>Learn how to create engaging content, manage social media accounts, and build an online audience from scratch.</p><div class="course-status status-live">🟢 Available on YouTube</div></div>
+    <div class="course-card"><div class="course-icon">📰</div><span class="course-badge">Professional</span><h3>Journalism & Communication</h3><p>Practical journalism skills, digital reporting, writing for media, and professional communication techniques.</p><div class="course-status status-live">🟢 Available on YouTube</div></div>
+    <div class="course-card"><div class="course-icon">⚖️</div><span class="course-badge">Academic</span><h3>Basic Law & Legal Literacy</h3><p>Simplified introductions to contract law, digital rights, and legal concepts relevant to everyday life in Uganda.</p><div class="course-status status-soon">🔜 Coming Soon</div></div>
+    <div class="course-card"><div class="course-icon">🧠</div><span class="course-badge">Academic</span><h3>Psychology Fundamentals</h3><p>Introduction to human psychology — behaviour, communication, and understanding people in professional settings.</p><div class="course-status status-soon">🔜 Coming Soon</div></div>
+    <div class="course-card"><div class="course-icon">🔒</div><span class="course-badge">Digital Skills</span><h3>Cybersecurity & Computer Ethics</h3><p>Stay safe online. Learn cybersecurity basics, ethical use of technology, and how to protect your data and devices.</p><div class="course-status status-live">🟢 Available on YouTube</div></div>
+  </div>
+</section>
+
+<!-- YOUTUBE -->
+<section class="yt-section" id="youtube">
+  <h2>Watch & Learn — Free on YouTube</h2>
+  <p>All our beginner content is freely available on YouTube. Subscribe to stay updated with new lessons, tutorials, and course content.</p>
+  <div class="yt-stats">
+    <div class="yt-stat"><h3>71</h3><p>Subscribers</p></div>
+    <div class="yt-stat"><h3>8.7K</h3><p>Total Views</p></div>
+    <div class="yt-stat"><h3>~1yr</h3><p>Channel Age</p></div>
+  </div>
+  <a href="https://www.youtube.com/@KMVTECHEducation" target="_blank" class="yt-btn">
+    ▶ Subscribe on YouTube
+  </a>
+</section>
+
+<!-- FEATURES COMING -->
+<section class="sec" id="features" style="background:var(--white)">
+  <div class="sec-header">
+    <span class="sec-tag">Platform Features</span>
+    <h2 class="sec-title">What's Coming to<br/>This Website</h2>
+    <p class="sec-sub">We're building a full e-learning platform with powerful features to support your learning journey.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature"><div class="feature-icon">📊</div><h4>Student Progress Tracking</h4><p>Monitor your course completion, quiz scores, and learning milestones in your personal dashboard.</p><span class="coming-soon">Coming Soon</span></div>
+    <div class="feature"><div class="feature-icon">🏆</div><h4>Course Certificates</h4><p>Earn verified certificates upon completing courses. Shareable on LinkedIn and recognized by employers.</p><span class="coming-soon">Coming Soon</span></div>
+    <div class="feature"><div class="feature-icon">📚</div><h4>Structured Course Library</h4><p>Browse a full library of organized courses with lessons, quizzes, assignments, and supplementary materials.</p><span class="coming-soon">Coming Soon</span></div>
+    <div class="feature"><div class="feature-icon">💬</div><h4>Community Forum</h4><p>Ask questions, share knowledge, and connect with fellow learners and instructors.</p><span class="coming-soon">Coming Soon</span></div>
+    <div class="feature"><div class="feature-icon">📱</div><h4>Mobile Friendly</h4><p>Full access on any device — phone, tablet, or computer. Learn anytime, anywhere.</p><span class="coming-soon">Coming Soon</span></div>
+    <div class="feature"><div class="feature-icon">💰</div><h4>Affordable Pricing</h4><p>Free beginner content, affordable paid courses, and flexible payment via Mobile Money.</p><span class="coming-soon">Coming Soon</span></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <span class="sec-tag">Get in Touch</span>
+  <h2 class="sec-title">Questions About Learning?</h2>
+  <p class="sec-sub">Ask us about courses, enrolment, or how to get started. We reply fast on WhatsApp.</p>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-item"><div class="c-icon">📧</div><div><h5>Email</h5><a href="/cdn-cgi/l/email-protection#1c77716a68797f74697b5c7b717d7570327f7371"><span class="__cf_email__" data-cfemail="eb80869d9f8e88839e8cab8c868a8287c5888486">[email&#160;protected]</span></a></div></div>
+      <div class="contact-item"><div class="c-icon">📱</div><div><h5>Phone / WhatsApp</h5><a href="tel:+256759405181">+256 759 405 181</a><br/><a href="tel:+256760108150">+256 760 108 150</a></div></div>
+      <div class="contact-item"><div class="c-icon">📍</div><div><h5>Location</h5><p>144 Sir Apollo Kaggwa Rd,<br/>Kikoni Makerere, Kampala</p></div></div>
+      <a href="https://wa.me/256759405181" target="_blank" class="whatsapp-btn">💬 Ask on WhatsApp</a>
+    </div>
+    <div>
+      <div class="contact-item"><div class="c-icon">▶</div><div><h5>YouTube</h5><a href="https://www.youtube.com/@KMVTECHEducation" target="_blank">@KMVTECHEducation</a></div></div>
+      <p style="font-size:.88rem;color:var(--gray);line-height:1.7;margin-top:1rem">Social media handles for KMVTECH Education are being set up. Subscribe on YouTube and follow KMVTECHUG for all updates.</p>
+    </div>
+  </div>
+</section>
+
+<div class="back-bar">
+  <a href="../index.html" class="back-link">← Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="../king-musah-media/index.html">King Musah Media</a>
+    <a href="../kmvtech/index.html">KMVTECH</a>
+    <a href="../musanya-musa/index.html">Musanya Musa</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 KMVTECH Education

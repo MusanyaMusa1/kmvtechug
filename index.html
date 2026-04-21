@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KMVTECHUG — Powering Digital Solutions. Enabling Growth.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#0D1B2A;--gold:#C9922A;--gold-light:#F0B84A;
+      --cream:#FAF8F3;--light:#F1EEE8;--gray:#9A9590;
+      --dark:#1C1C1C;--white:#fff;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;height:68px;background:rgba(250,248,243,0.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,146,42,0.15);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw}
+    .logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--navy);text-decoration:none;letter-spacing:-.02em}
+    .logo span{color:var(--gold)}
+    .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+    .nav-links a{text-decoration:none;color:var(--navy);font-size:.87rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-cta{background:var(--navy)!important;color:var(--white)!important;padding:.42rem 1.1rem;border-radius:4px;font-weight:600!important}
+    .nav-cta:hover{background:var(--gold)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--navy);transition:.3s}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:var(--cream);border-bottom:1px solid rgba(201,146,42,.15);padding:1.5rem 5vw;z-index:199}
+    .mobile-menu.open{display:block}
+    .mobile-menu a{display:block;padding:.7rem 0;color:var(--navy);text-decoration:none;font-weight:500;border-bottom:1px solid var(--light)}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 5vw 60px;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;top:-100px;right:-150px;width:700px;height:700px;background:radial-gradient(circle,rgba(201,146,42,.1) 0%,transparent 65%);pointer-events:none;border-radius:50%}
+    .hero-watermark{position:absolute;bottom:-40px;right:-10px;font-family:'Playfair Display',serif;font-size:clamp(70px,13vw,190px);font-weight:900;color:rgba(13,27,42,.04);pointer-events:none;white-space:nowrap;letter-spacing:-.04em}
+    .hero-tag{display:inline-block;background:var(--gold);color:var(--white);font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .8rem;border-radius:2px;margin-bottom:1.4rem;animation:fadeUp .6s ease both}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5.5vw,5rem);font-weight:900;line-height:1.06;color:var(--navy);max-width:780px;margin-bottom:1.4rem;animation:fadeUp .7s .1s ease both}
+    .hero h1 em{font-style:normal;color:var(--gold)}
+    .hero-sub{font-size:1.05rem;color:var(--gray);max-width:500px;line-height:1.8;margin-bottom:2.4rem;font-weight:300;animation:fadeUp .7s .2s ease both}
+    .btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .7s .3s ease both}
+    .btn-p{background:var(--navy);color:var(--white);padding:.82rem 1.9rem;border-radius:4px;text-decoration:none;font-weight:600;font-size:.93rem;transition:background .2s,transform .2s;display:inline-block}
+    .btn-p:hover{background:var(--gold);transform:translateY(-2px)}
+    .btn-o{background:transparent;color:var(--navy);padding:.82rem 1.9rem;border-radius:4px;text-decoration:none;font-weight:600;font-size:.93rem;border:2px solid var(--navy);transition:all .2s;display:inline-block}
+    .btn-o:hover{background:var(--navy);color:var(--white);transform:translateY(-2px)}
+    .stats{display:flex;gap:2.5rem;margin-top:3.5rem;flex-wrap:wrap;animation:fadeUp .7s .4s ease both}
+    .stat h3{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--navy)}
+    .stat p{font-size:.75rem;color:var(--gray);letter-spacing:.05em;text-transform:uppercase;margin-top:.15rem}
+
+    /* SECTIONS */
+    .sec{padding:90px 5vw}
+    .sec-tag{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.7rem}
+    .sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--navy);line-height:1.15}
+    .sec-sub{font-size:.97rem;color:var(--gray);margin-top:.7rem;max-width:480px;line-height:1.72}
+    .sec-header{margin-bottom:3rem}
+
+    /* BRANDS */
+    .brands-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.4rem}
+    .brand-card{background:var(--white);border:1px solid rgba(201,146,42,.1);border-radius:12px;padding:1.8rem;text-decoration:none;color:inherit;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden;display:block}
+    .brand-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+    .brand-card:hover{transform:translateY(-6px);box-shadow:0 18px 45px rgba(13,27,42,.1);border-color:rgba(201,146,42,.3)}
+    .brand-card:hover::before{transform:scaleX(1)}
+    .brand-logo-wrap{height:60px;display:flex;align-items:center;margin-bottom:1.1rem}
+    .brand-logo-wrap img{max-height:55px;max-width:160px;object-fit:contain}
+    .brand-logo-text{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--navy)}
+    .brand-card h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
+    .brand-card p{font-size:.86rem;color:var(--gray);line-height:1.65;margin-bottom:1.2rem}
+    .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.2rem}
+    .tag{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:var(--light);color:var(--navy);padding:.22rem .55rem;border-radius:3px}
+    .brand-arrow{font-size:.84rem;font-weight:600;color:var(--gold);display:flex;align-items:center;gap:.35rem}
+    .brand-arrow::after{content:'→';transition:transform .2s}
+    .brand-card:hover .brand-arrow::after{transform:translateX(4px)}
+
+    /* SERVICES */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.3rem}
+    .srv{background:var(--white);border-radius:10px;border:1px solid var(--light);padding:1.8rem}
+    .srv-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:rgba(201,146,42,.15);margin-bottom:.4rem}
+    .srv h4{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);margin-bottom:.5rem}
+    .srv p{font-size:.85rem;color:var(--gray);line-height:1.62}
+    .srv .price{font-size:.8rem;font-weight:600;color:var(--gold);margin-top:.8rem}
+
+    /* ABOUT */
+    .about-wrap{background:var(--navy);padding:90px 5vw;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+    .about-img-wrap{position:relative}
+    .about-img-wrap img{width:100%;max-width:380px;border-radius:12px;object-fit:cover;display:block}
+    .about-img-badge{position:absolute;bottom:-16px;right:-16px;background:var(--gold);color:var(--white);padding:1rem 1.3rem;border-radius:8px;font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;line-height:1.3}
+    .about-text .sec-tag{color:var(--gold-light)}
+    .about-text .sec-title{color:var(--white)}
+    .about-text p{color:rgba(255,255,255,.62);line-height:1.8;margin-top:1.2rem;font-size:.95rem}
+    .about-text .btn-p{margin-top:2rem;background:var(--gold)}
+    .about-text .btn-p:hover{background:var(--gold-light)}
+
+    /* TESTIMONIALS */
+    .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;margin-top:2.5rem}
+    .testi{background:var(--white);border-radius:10px;padding:1.6rem;border-left:3px solid var(--gold)}
+    .testi p{font-size:.9rem;color:var(--dark);line-height:1.7;font-style:italic}
+    .testi-source{font-size:.75rem;font-weight:600;color:var(--gold);margin-top:.9rem;text-transform:uppercase;letter-spacing:.06em}
+
+    /* CONTACT */
+    .contact-wrap{background:var(--light);padding:80px 5vw}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2.5rem}
+    .contact-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.4rem}
+    .contact-icon{width:42px;height:42px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .contact-item h5{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin-bottom:.25rem}
+    .contact-item a,.contact-item p{font-size:.92rem;color:var(--navy);text-decoration:none;font-weight:500;line-height:1.5}
+    .contact-item a:hover{color:var(--gold)}
+    .whatsapp-btn{display:inline-flex;align-items:center;gap:.6rem;background:#25D366;color:var(--white);padding:.8rem 1.6rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.9rem;margin-top:1rem;transition:opacity .2s}
+    .whatsapp-btn:hover{opacity:.88}
+    .social-list{display:flex;flex-direction:column;gap:.8rem;margin-top:1rem}
+    .soc-link{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--navy);font-size:.9rem;font-weight:500;padding:.6rem .9rem;background:var(--white);border-radius:6px;border:1px solid rgba(201,146,42,.15);transition:all .2s}
+    .soc-link:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
+    .soc-link svg{width:18px;height:18px;flex-shrink:0}
+
+    /* MISSION */
+    .mission-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.3rem;margin-top:2.5rem}
+    .value-card{background:var(--white);border-radius:10px;padding:1.6rem;border-top:3px solid var(--gold);text-align:center}
+    .value-icon{font-size:1.8rem;margin-bottom:.8rem}
+    .value-card h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:.4rem}
+    .value-card p{font-size:.82rem;color:var(--gray);line-height:1.6}
+
+    /* FOOTER */
+    footer{background:var(--dark);color:rgba(255,255,255,.45);padding:55px 5vw 28px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .footer-brand .logo{color:var(--white);font-size:1.4rem;display:block;margin-bottom:.9rem}
+    .footer-brand p{font-size:.83rem;line-height:1.7;max-width:240px}
+    .footer-col h5{color:var(--white);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+    .footer-col a{display:block;color:rgba(255,255,255,.42);text-decoration:none;font-size:.84rem;margin-bottom:.55rem;transition:color .2s}
+    .footer-col a:hover{color:var(--gold-light)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.4rem;font-size:.77rem;flex-wrap:wrap;gap:.8rem}
+    .footer-bottom a{color:var(--gold-light);text-decoration:none}
+
+    /* REGISTRATION BADGE */
+    .reg-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,146,42,.1);border:1px solid rgba(201,146,42,.3);color:var(--gold);font-size:.72rem;font-weight:600;letter-spacing:.06em;padding:.3rem .8rem;border-radius:20px;margin-top:1rem;text-transform:uppercase}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+    @media(max-width:900px){
+      .about-wrap{grid-template-columns:1fr;gap:3rem}
+      .contact-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .footer-grid{grid-template-columns:1fr}
+      .about-img-wrap img{max-width:100%}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#"><span>KMV</span>TECHUG</a>
+  <ul class="nav-links">
+    <li><a href="#brands">Our Brands</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="mailto:kmvtechug@gmail.com" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="#brands" onclick="document.getElementById('mob').classList.remove('open')">Our Brands</a>
+  <a href="#services" onclick="document.getElementById('mob').classList.remove('open')">Services</a>
+  <a href="#about" onclick="document.getElementById('mob').classList.remove('open')">About</a>
+  <a href="#contact" onclick="document.getElementById('mob').classList.remove('open')">Contact</a>
+  <a href="mailto:kmvtechug@gmail.com">kmvtechug@gmail.com</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-watermark">KMVTECHUG</div>
+  <div class="hero-tag">Est. 2020 · Kampala, Uganda · Technology · Media · Education</div>
+  <h1>Powering Digital Solutions.<br/><em>Enabling Growth.</em></h1>
+  <p class="hero-sub">KMVTECHUG is Uganda's growing digital ecosystem uniting technology services, creative media, and accessible education under one powerful vision since August 2020.</p>
+  <div class="btns">
+    <a href="#brands" class="btn-p">Explore Our Brands</a>
+    <a href="#contact" class="btn-o">Get in Touch</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><h3>2020</h3><p>Founded</p></div>
+    <div class="stat"><h3>3</h3><p>Active Brands</p></div>
+    <div class="stat"><h3>1.3K+</h3><p>Media Subscribers</p></div>
+    <div class="stat"><h3>UG</h3><p>Based in Uganda</p></div>
+  </div>
+  <div class="reg-badge">🔐 URSB Registration In Progress</div>
+</section>
+
+<!-- BRANDS -->
+<section class="sec" id="brands">
+  <div class="sec-header">
+    <span class="sec-tag">Our Portfolio</span>
+    <h2 class="sec-title">Four Brands, One Powerful Vision</h2>
+    <p class="sec-sub">Each brand serves a specific mission — together they form a complete digital and creative ecosystem for Uganda and Africa.</p>
+  </div>
+  <div class="brands-grid">
+
+    <a href="king-musah-media/index.html" class="brand-card">
+      <div class="brand-logo-wrap">
+        <img src="../assets/logo-kmm.png" alt="King Musah Media" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="brand-logo-text" style="display:none;color:#E63B1F">King Musah Media</span>
+      </div>
+      <h3>King Musah Media</h3>
+      <p>Digital media platform delivering news, current affairs, and entertainment to a growing online audience across Uganda and Africa. 1,340+ YouTube subscribers · 152.9K+ views.</p>
+      <div class="tags"><span class="tag">Media</span><span class="tag">News</span><span class="tag">YouTube</span><span class="tag">Entertainment</span></div>
+      <div class="brand-arrow">Visit Brand</div>
+    </a>
+
+    <a href="kmvtech/index.html" class="brand-card">
+      <div class="brand-logo-wrap">
+        <img src="../assets/logo-kmvtech.png" alt="KMVTECH" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="brand-logo-text" style="display:none;color:#2B4EBF">KMVTECH</span>
+      </div>
+      <h3>KMVTECH</h3>
+      <p>Digital solutions company providing IT services, web design, software installation, graphic design, branding, and tech support for individuals, students, and businesses.</p>
+      <div class="tags"><span class="tag">Tech</span><span class="tag">Web Design</span><span class="tag">IT Support</span><span class="tag">Branding</span></div>
+      <div class="brand-arrow">Visit Brand</div>
+    </a>
+
+    <a href="kmvtech-education/index.html" class="brand-card">
+      <div class="brand-logo-wrap">
+        <img src="../assets/logo-kmvedu.png" alt="KMVTECH Education" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="brand-logo-text" style="display:none;color:#5B2ECC">KMVTECH Education</span>
+      </div>
+      <h3>KMVTECH Education</h3>
+      <p>Emerging e-learning platform delivering practical, simplified digital and professional skills. 71 YouTube subscribers and growing. Certification system in development.</p>
+      <div class="tags"><span class="tag">Education</span><span class="tag">E-Learning</span><span class="tag">Courses</span><span class="tag">Certification</span></div>
+      <div class="brand-arrow">Visit Brand</div>
+    </a>
+
+    <a href="musanya-musa/index.html" class="brand-card">
+      <div class="brand-logo-wrap">
+        <img src="../assets/logo-musanya.png" alt="Musanya Musa" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="brand-logo-text" style="display:none;color:#E63B1F">Musanya Musa</span>
+      </div>
+      <h3>Musanya Musa</h3>
+      <p>Personal brand of the founder — entrepreneur, law student, educator, and digital innovator. Advocate for inclusive technology and community development in Uganda.</p>
+      <div class="tags"><span class="tag">Portfolio</span><span class="tag">Founder</span><span class="tag">Advocate</span><span class="tag">Personal</span></div>
+      <div class="brand-arrow">Visit Profile</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- MISSION & VALUES -->
+<section class="sec" style="background:var(--white)" id="mission">
+  <div class="sec-header">
+    <span class="sec-tag">Who We Are</span>
+    <h2 class="sec-title">Mission, Vision & Values</h2>
+    <p class="sec-sub">Built on a foundation of accessibility, innovation, and real-world impact.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem;align-items:start" class="mv-grid">
+    <div>
+      <h4 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.1rem;margin-bottom:.6rem">🎯 Our Mission</h4>
+      <p style="color:var(--gray);line-height:1.8;font-size:.95rem">To simplify technology, education, and digital access for individuals and businesses through practical and inclusive solutions.</p>
+    </div>
+    <div>
+      <h4 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.1rem;margin-bottom:.6rem">🌍 Our Vision</h4>
+      <p style="color:var(--gray);line-height:1.8;font-size:.95rem">To become a leading African digital ecosystem empowering communities through technology, media, and education.</p>
+    </div>
+  </div>
+  <div class="mission-grid">
+    <div class="value-card"><div class="value-icon">🔓</div><h4>Accessibility</h4><p>Digital services and education for everyone regardless of background or skill level.</p></div>
+    <div class="value-card"><div class="value-icon">💡</div><h4>Innovation</h4><p>Fresh thinking and modern approaches to solving real community problems.</p></div>
+    <div class="value-card"><div class="value-icon">🤝</div><h4>Reliability</h4><p>Consistent, professional delivery that clients and learners can always count on.</p></div>
+    <div class="value-card"><div class="value-icon">♿</div><h4>Inclusivity</h4><p>Championing equal digital access especially for underserved and marginalized communities.</p></div>
+    <div class="value-card"><div class="value-icon">📈</div><h4>Impact-Driven</h4><p>Every service we deliver is designed to create measurable, lasting change.</p></div>
+  </div>
+  <style>.mv-grid{grid-template-columns:1fr 1fr}@media(max-width:640px){.mv-grid{grid-template-columns:1fr}}</style>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="sec-header">
+    <span class="sec-tag">What We Offer</span>
+    <h2 class="sec-title">Services That Drive Results</h2>
+    <p class="sec-sub">From IT support to digital courses — we build, teach, and create for individuals and businesses across Uganda.</p>
+  </div>
+  <div class="services-grid">
+    <div class="srv"><div class="srv-num">01</div><h4>Web Design & Development</h4><p>Professional websites built on Wix, WordPress, or custom code. For businesses, individuals, and organizations.</p><p class="price">From UGX 150,000 – 500,000</p></div>
+    <div class="srv"><div class="srv-num">02</div><h4>Software & Windows Installation</h4><p>Software setup, Windows installation, system troubleshooting, and device repair for laptops and desktops.</p><p class="price">From UGX 5,000 – 40,000</p></div>
+    <div class="srv"><div class="srv-num">03</div><h4>Graphic Design & Branding</h4><p>Logos, posters, brand identity, social media graphics, and full branding packages.</p><p class="price">From UGX 50,000 – 200,000</p></div>
+    <div class="srv"><div class="srv-num">04</div><h4>Media & Content Creation</h4><p>News reporting, digital storytelling, video content, and social media production through King Musah Media.</p><p class="price">Contact for quote</p></div>
+    <div class="srv"><div class="srv-num">05</div><h4>Digital Skills Training</h4><p>Computer basics, digital literacy, cybersecurity, content creation, and professional skills — online and in-person.</p><p class="price">From UGX 10,000/session</p></div>
+    <div class="srv"><div class="srv-num">06</div><h4>Online Application Assistance</h4><p>UNEB, URSB, Passports, NIRA, URA, and other government & private online application support.</p><p class="price">Contact for quote</p></div>
+    <div class="srv"><div class="srv-num">07</div><h4>CV & Document Services</h4><p>CV creation, formatting, document editing, and email account setup.</p><p class="price">From UGX 5,000 – 15,000</p></div>
+    <div class="srv"><div class="srv-num">08</div><h4>IT Consultation</h4><p>Technology advice and implementation for startups, SMEs, schools, and organizations.</p><p class="price">UGX 10,000/session</p></div>
+  </div>
+</section>
+
+<!-- ABOUT FOUNDER -->
+<section class="about-wrap" id="about">
+  <div class="about-img-wrap">
+    <img src="../assets/founder.png" alt="Musanya Musa — Founder & Director, KMVTECHUG" onerror="this.style.background='rgba(255,255,255,0.05)';this.style.minHeight='400px'"/>
+    <div class="about-img-badge">Founder & Director<br/>Since 2020</div>
+  </div>
+  <div class="about-text">
+    <span class="sec-tag">The Founder</span>
+    <h2 class="sec-title" style="color:var(--white)">Musanya Musa</h2>
+    <p>A Ugandan entrepreneur, law student at Cavendish University Uganda, and digital innovator with 5+ years of experience in IT training, graphic design, and content creation.</p>
+    <p>Founder and CEO of KMVTECHUG and King Musah Media. Enrolled in AI & Digital Transformation at the University of Oxford. Elected advocate for persons with special needs at local government level. UNESCO Youth Hackathon team leader. UN Online Volunteer with 4 certificates.</p>
+    <p>Published author in law, digital rights, and technology — with submissions to the Uganda Law Students Association Journal and Harvard Art Law Review.</p>
+    <a href="musanya-musa/index.html" class="btn-p">View Full Profile</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" style="background:var(--white)" id="testimonials">
+  <div class="sec-header">
+    <span class="sec-tag">What Clients Say</span>
+    <h2 class="sec-title">Trusted by Real People</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi"><p>"Fast, reliable, and affordable. My laptop was fixed in less than a day."</p><div class="testi-source">IT Client</div></div>
+    <div class="testi"><p>"Very professional service and clear communication. Highly recommend."</p><div class="testi-source">General Client</div></div>
+    <div class="testi"><p>"You guys are so legit, I always appreciate your guidance on different topics. Keep shining."</p><div class="testi-source">KMVTECH Education Viewer</div></div>
+    <div class="testi"><p>"Thank you for the support and dedication throughout my campaign. Your work made a real difference."</p><div class="testi-source">Campaign Client</div></div>
+    <div class="testi"><p>"You proved to be reliable and committed from the beginning. I truly appreciate the effort."</p><div class="testi-source">Media Client</div></div>
+    <div class="testi"><p>"I am grateful for the support and coordination provided. It contributed greatly to the success."</p><div class="testi-source">Event Client</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-wrap" id="contact">
+  <span class="sec-tag">Reach Us</span>
+  <h2 class="sec-title">Get in Touch</h2>
+  <p class="sec-sub">We're based in Kampala, Uganda. Reach us by phone, email, or WhatsApp — we respond fast.</p>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div><h5>Email</h5><a href="mailto:kmvtechug@gmail.com">kmvtechug@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div><h5>Phone / WhatsApp</h5>
+          <a href="tel:+256759405181">+256 759 405 181</a><br/>
+          <a href="tel:+256760108150">+256 760 108 150</a><br/>
+          <a href="tel:+256727610611">+256 727 610 611</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><h5>Physical Address</h5><p>144 Sir Apollo Kaggwa Rd,<br/>Kampala Kikoni Makerere, Uganda</p></div>
+      </div>
+      <a href="https://wa.me/256759405181" target="_blank" class="whatsapp-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.7-1.4-3.8-3.2-.3-.5.3-.4.8-1.5.1-.2 0-.4-.1-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5-.2 0-.4 0-.6 0-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.1-.2-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.2L2 22l4.9-1.5C8.3 21.5 10.1 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+    <div>
+      <h4 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:1rem;font-size:1.1rem">Follow KMVTECHUG</h4>
+      <div class="social-list">
+        <a href="https://x.com/KMVTechUg" target="_blank" class="soc-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2h3.5L14 10.5 23 22h-6.3l-5.4-7-6.2 7H1.6l8.3-9.5L1 2h6.5l4.9 6.5zm-1.2 18h1.9L7.1 4H5.1z"/></svg>
+          @KMVTechUg on X / Twitter
+        </a>
+        <a href="https://www.instagram.com/kmvtechug" target="_blank" class="soc-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.2c1.2-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7C24 15.7 24 15.3 24 12s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg>
+          @kmvtechug on Instagram
+        </a>
+        <a href="https://www.facebook.com/share/18RRvmnfdA/" target="_blank" class="soc-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1C0 18.1 4.4 23 10.1 24v-8.4H7.1v-3.5h3V9.7c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3H15.8c-1.5 0-2 .9-2 1.9v2.3h3.3l-.5 3.5H13.8V24C19.6 23 24 18.1 24 12.1z"/></svg>
+          KMVTECHUG on Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="#"><span style="color:var(--gold)">KMV</span>TECHUG</a>
+      <p>Uganda's growing digital ecosystem — technology, media, and education since August 2020. Based in Kampala, Uganda.</p>
+      <p style="margin-top:.6rem;font-size:.77rem">📍 144 Sir Apollo Kaggwa Rd, Kikoni Makerere</p>
+    </div>
+    <div class="footer-col">
+      <h5>Our Brands</h5>
+      <a href="king-musah-media/index.html">King Musah Media</a>
+      <a href="kmvtech/index.html">KMVTECH</a>
+      <a href="kmvtech-education/index.html">KMVTECH Education</a>
+      <a href="musanya-musa/index.html">Musanya Musa</a>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <a href="#services">Web Design</a>
+      <a href="#services">IT Support</a>
+      <a href="#services">Graphic Design</a>
+      <a href="#services">Online Courses</a>
+      <a href="#services">Consultation</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="mailto:kmvtechug@gmail.com">kmvtechug@gmail.com</a>
+      <a href="tel:+256759405181">+256 759 405 181</a>
+      <a href="tel:+256760108150">+256 760 108 150</a>
+      <a href="https://wa.me/256759405181" target="_blank">WhatsApp Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 KMVTECHUG. All rights reserved. | URSB Registration In Progress</span>
+    <span>Built with ❤️ in Uganda — <a href="musanya-musa/index.html">by Musanya Musa</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

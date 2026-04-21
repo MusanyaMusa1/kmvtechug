@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KMVTECH — Scripting a New World</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--blue:#2B4EBF;--blue-light:#4A6FE3;--blue-dark:#1A3180;--white:#fff;--cream:#F8F9FF;--light:#EEF1FF;--dark:#111827;--gray:#6B7280}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+
+    nav{position:fixed;top:0;left:0;right:0;height:66px;background:rgba(248,249,255,0.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(43,78,191,.12);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw}
+    .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+    .nav-logo img{height:34px;object-fit:contain}
+    .nav-logo-text{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--blue);letter-spacing:.02em}
+    .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+    .nav-links a{text-decoration:none;color:var(--dark);font-size:.87rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--blue)}
+    .nav-cta{background:var(--blue)!important;color:var(--white)!important;padding:.4rem 1.1rem;border-radius:4px;font-weight:600!important}
+    .nav-cta:hover{background:var(--blue-dark)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--blue)}
+    .mobile-menu{display:none;position:fixed;top:66px;left:0;right:0;background:var(--cream);border-bottom:1px solid rgba(43,78,191,.12);padding:1.5rem 5vw;z-index:199}
+    .mobile-menu.open{display:block}
+    .mobile-menu a{display:block;padding:.7rem 0;color:var(--dark);text-decoration:none;font-weight:500;border-bottom:1px solid var(--light)}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 5vw 60px;position:relative;overflow:hidden;background:var(--cream)}
+    .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(43,78,191,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(43,78,191,.04) 1px,transparent 1px);background-size:50px 50px;pointer-events:none}
+    .hero-circle{position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(43,78,191,.08) 0%,transparent 70%);pointer-events:none}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--light);border:1px solid rgba(43,78,191,.2);color:var(--blue);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:20px;margin-bottom:1.4rem;animation:fadeUp .5s ease both}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5.5vw,5.2rem);font-weight:800;line-height:1.05;color:var(--dark);max-width:750px;margin-bottom:1.4rem;animation:fadeUp .6s .1s ease both}
+    .hero h1 span{color:var(--blue)}
+    .hero p{font-size:1.05rem;color:var(--gray);max-width:500px;line-height:1.8;margin-bottom:2.4rem;font-weight:300;animation:fadeUp .6s .2s ease both}
+    .btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+    .btn-b{background:var(--blue);color:var(--white);padding:.82rem 1.9rem;border-radius:5px;text-decoration:none;font-weight:600;font-size:.92rem;transition:all .2s;display:inline-block}
+    .btn-b:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(43,78,191,.3)}
+    .btn-o{background:transparent;color:var(--blue);padding:.82rem 1.9rem;border-radius:5px;text-decoration:none;font-weight:600;font-size:.92rem;border:2px solid var(--blue);transition:all .2s;display:inline-block}
+    .btn-o:hover{background:var(--blue);color:var(--white)}
+    .tech-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:3rem;animation:fadeUp .6s .4s ease both}
+    .pill{background:var(--light);color:var(--blue);font-size:.75rem;font-weight:600;padding:.3rem .7rem;border-radius:20px;border:1px solid rgba(43,78,191,.15)}
+
+    .sec{padding:90px 5vw}
+    .sec-tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:.7rem}
+    .sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1.1}
+    .sec-sub{font-size:.95rem;color:var(--gray);margin-top:.7rem;max-width:480px;line-height:1.75}
+    .sec-header{margin-bottom:3rem}
+
+    /* SERVICES */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.3rem}
+    .srv{background:var(--white);border-radius:10px;padding:1.8rem;border:1px solid rgba(43,78,191,.08);transition:all .25s;position:relative;overflow:hidden}
+    .srv::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+    .srv:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(43,78,191,.1);border-color:rgba(43,78,191,.2)}
+    .srv:hover::after{transform:scaleX(1)}
+    .srv-icon{font-size:1.8rem;margin-bottom:1rem}
+    .srv h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.5rem;color:var(--dark)}
+    .srv p{font-size:.85rem;color:var(--gray);line-height:1.62;margin-bottom:.8rem}
+    .srv .price{font-size:.8rem;font-weight:700;color:var(--blue);background:var(--light);display:inline-block;padding:.2rem .6rem;border-radius:3px}
+
+    /* PROCESS */
+    .process-wrap{background:var(--blue);padding:80px 5vw}
+    .process-wrap .sec-tag{color:rgba(255,255,255,.6)}
+    .process-wrap .sec-title{color:var(--white)}
+    .process-wrap .sec-sub{color:rgba(255,255,255,.6)}
+    .process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:3rem;position:relative}
+    .step{text-align:center;padding:1.5rem 1rem}
+    .step-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:rgba(255,255,255,.1);line-height:1;margin-bottom:.5rem}
+    .step h4{font-family:'Syne',sans-serif;font-size:1rem;color:var(--white);margin-bottom:.4rem}
+    .step p{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6}
+
+    /* PRICING */
+    .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.3rem;margin-top:2.5rem}
+    .price-card{background:var(--white);border:1px solid rgba(43,78,191,.1);border-radius:10px;padding:1.8rem}
+    .price-card.featured{background:var(--blue);color:var(--white);border-color:var(--blue)}
+    .price-card h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem}
+    .price-card.featured h4{color:var(--white)}
+    .price-range{font-size:1.3rem;font-weight:700;color:var(--blue);margin:.6rem 0}
+    .price-card.featured .price-range{color:#A8C4FF}
+    .price-card ul{list-style:none;margin-top:.8rem}
+    .price-card ul li{font-size:.84rem;color:var(--gray);padding:.25rem 0;display:flex;gap:.5rem;align-items:flex-start}
+    .price-card.featured ul li{color:rgba(255,255,255,.75)}
+    .price-card ul li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0}
+    .price-card.featured ul li::before{color:#A8C4FF}
+
+    /* CONTACT */
+    .contact-sec{background:var(--light);padding:80px 5vw}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2.5rem}
+    .contact-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.3rem}
+    .c-icon{width:42px;height:42px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;color:white}
+    .contact-item h5{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin-bottom:.25rem}
+    .contact-item a,.contact-item p{font-size:.9rem;color:var(--dark);text-decoration:none;font-weight:500;line-height:1.5}
+    .contact-item a:hover{color:var(--blue)}
+    .whatsapp-btn{display:inline-flex;align-items:center;gap:.6rem;background:#25D366;color:var(--white);padding:.8rem 1.6rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:.88rem;margin-top:1rem;transition:opacity .2s}
+    .whatsapp-btn:hover{opacity:.88}
+
+    .back-bar{background:var(--dark);padding:1rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+    .back-link{color:rgba(255,255,255,.45);text-decoration:none;font-size:.83rem;display:flex;align-items:center;gap:.4rem;transition:color .2s}
+    .back-link:hover{color:var(--blue-light)}
+    .hub-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+    .hub-links a{color:rgba(255,255,255,.35);text-decoration:none;font-size:.8rem;transition:color .2s}
+    .hub-links a:hover{color:var(--blue-light)}
+
+    footer{background:var(--dark);color:rgba(255,255,255,.35);padding:30px 5vw;border-top:1px solid rgba(255,255,255,.06)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.78rem}
+    .footer-bottom a{color:#A8C4FF;text-decoration:none}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:640px){.nav-links{display:none}.hamburger{display:flex}.contact-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="../../assets/logo-kmvtech.png" alt="KMVTECH" onerror="this.style.display='none'"/>
+    <span class="nav-logo-text">KMVTECH</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="../index.html">← KMVTECHUG</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Us</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="#services" onclick="document.getElementById('mob').classList.remove('open')">Services</a>
+  <a href="#pricing" onclick="document.getElementById('mob').classList.remove('open')">Pricing</a>
+  <a href="#contact" onclick="document.getElementById('mob').classList.remove('open')">Contact</a>
+  <a href="../index.html">← Back to KMVTECHUG</a>
+</div>
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-badge">💻 IT Solutions · Kampala, Uganda</div>
+  <h1>Scripting<br/>a <span>New World</span><br/>With Tech</h1>
+  <p>KMVTECH provides affordable, practical digital solutions with web design, IT support, graphic design, and computer training for students, businesses, and professionals in Uganda.</p>
+  <div class="btns">
+    <a href="#services" class="btn-b">Our Services</a>
+    <a href="#contact" class="btn-o">Get a Quote</a>
+  </div>
+  <div class="tech-pills">
+    <span class="pill">Web Design</span>
+    <span class="pill">IT Support</span>
+    <span class="pill">Graphic Design</span>
+    <span class="pill">Branding</span>
+    <span class="pill">Software Install</span>
+    <span class="pill">Computer Training</span>
+    <span class="pill">CV Writing</span>
+    <span class="pill">IT Consultation</span>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="sec-header">
+    <span class="sec-tag">What We Do</span>
+    <h2 class="sec-title">Practical Tech Services<br/>That Actually Work</h2>
+    <p class="sec-sub">Affordable, fast, and reliable IT services tailored to real needs in Uganda.</p>
+  </div>
+  <div class="services-grid">
+    <div class="srv"><div class="srv-icon">🌐</div><h3>Website Design</h3><p>Professional websites on Wix, WordPress, or custom code. Business sites, portfolios, and landing pages.</p><span class="price">UGX 150,000 – 500,000</span></div>
+    <div class="srv"><div class="srv-icon">🪟</div><h3>Windows & Software Install</h3><p>Windows installation, software setup, driver installation, and system optimization on any device.</p><span class="price">UGX 5,000 – 40,000</span></div>
+    <div class="srv"><div class="srv-icon">🔧</div><h3>System Troubleshooting</h3><p>Diagnose and fix laptop/computer problems, slow performance, viruses, crashes, and hardware issues.</p><span class="price">From UGX 10,000</span></div>
+    <div class="srv"><div class="srv-icon">🎨</div><h3>Graphic Design</h3><p>Logos, posters, flyers, social media graphics, letterheads, and complete brand identity packages.</p><span class="price">UGX 50,000 – 200,000</span></div>
+    <div class="srv"><div class="srv-icon">📧</div><h3>Email & Account Setup</h3><p>Professional email setup, Gmail, Microsoft 365, and all digital account configuration.</p><span class="price">From UGX 5,000</span></div>
+    <div class="srv"><div class="srv-icon">📄</div><h3>CV & Document Services</h3><p>CV creation, formatting, cover letters, document editing, and professional templates.</p><span class="price">UGX 5,000 – 15,000</span></div>
+    <div class="srv"><div class="srv-icon">🏢</div><h3>Branding Services</h3><p>Full branding packages logo, colors, fonts, stationery, and digital brand identity.</p><span class="price">UGX 50,000 – 200,000</span></div>
+    <div class="srv"><div class="srv-icon">🖥️</div><h3>Computer Training</h3><p>Basic computer skills, digital literacy, Microsoft Office, and practical workplace tech skills.</p><span class="price">UGX 10,000/session</span></div>
+    <div class="srv"><div class="srv-icon">🏛️</div><h3>Online Application Help</h3><p>UNEB, URSB, NIRA, URA, passports, and all government & private online application support.</p><span class="price">Contact for quote</span></div>
+    <div class="srv"><div class="srv-icon">💡</div><h3>IT Consultation</h3><p>Technology advice, digital strategy, and implementation guidance for businesses and organizations.</p><span class="price">UGX 10,000/session</span></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="process-wrap" id="process">
+  <span class="sec-tag">How It Works</span>
+  <h2 class="sec-title" style="color:white">Simple Process,<br/>Fast Results</h2>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">01</div><h4>Contact Us</h4><p>Reach us via WhatsApp, call, or email. Describe your problem or what you need.</p></div>
+    <div class="step"><div class="step-num">02</div><h4>Get a Quote</h4><p>We assess your needs and provide a clear, affordable price no hidden charges.</p></div>
+    <div class="step"><div class="step-num">03</div><h4>We Get to Work</h4><p>Fast, professional service delivery online or at our Makerere office.</p></div>
+    <div class="step"><div class="step-num">04</div><h4>Pay & Collect</h4><p>Pay via Mobile Money or cash. Receive your completed work with full support.</p></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec" id="pricing" style="background:var(--white)">
+  <div class="sec-header">
+    <span class="sec-tag">Pricing</span>
+    <h2 class="sec-title">Affordable for Everyone</h2>
+    <p class="sec-sub">Clear pricing, no surprises. Payment before delivery via Mobile Money or cash.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h4>Quick Fix</h4>
+      <div class="price-range">UGX 5,000 – 25,000</div>
+      <ul>
+        <li>Software installation</li>
+        <li>Email setup</li>
+        <li>CV formatting</li>
+        <li>Document editing</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <h4>Standard Services</h4>
+      <div class="price-range">UGX 25,000 – 100,000</div>
+      <ul>
+        <li>Windows installation</li>
+        <li>System troubleshooting</li>
+        <li>Basic graphic design</li>
+        <li>Computer training sessions</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <h4>Premium Projects</h4>
+      <div class="price-range">UGX 100,000 – 500,000</div>
+      <ul>
+        <li>Full website design</li>
+        <li>Complete branding package</li>
+        <li>Organizational IT setup</li>
+        <li>Long-term consultation</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;font-size:.83rem;color:var(--gray)">💡 Payment Methods: MTN Mobile Money · Airtel Money · Cash at office</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <span class="sec-tag">Reach Us</span>
+  <h2 class="sec-title">Get a Quote Today</h2>
+  <p class="sec-sub">Fast response guaranteed. Message us on WhatsApp for the quickest reply.</p>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-item">
+        <div class="c-icon">📧</div>
+        <div><h5>Email</h5><a href="mailto:kmvtechug@gmail.com">kmvtechug@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📱</div>
+        <div><h5>Phone / WhatsApp</h5>
+          <a href="tel:+256759405181">+256 759 405 181</a><br/>
+          <a href="tel:+256760108150">+256 760 108 150</a><br/>
+          <a href="tel:+256727610611">+256 727 610 611</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📍</div>
+        <div><h5>Office</h5><p>144 Sir Apollo Kaggwa Rd,<br/>Kikoni Makerere, Kampala</p></div>
+      </div>
+      <a href="https://wa.me/256759405181" target="_blank" class="whatsapp-btn">💬 Chat on WhatsApp</a>
+    </div>
+    <div>
+      <div class="contact-item">
+        <div class="c-icon">𝕏</div>
+        <div><h5>Twitter / X</h5><a href="https://x.com/KMVTechUg" target="_blank">@KMVTechUg</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📷</div>
+        <div><h5>Instagram</h5><a href="https://www.instagram.com/kmvtechug" target="_blank">@kmvtechug</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">f</div>
+        <div><h5>Facebook</h5><a href="https://www.facebook.com/share/18RRvmnfdA/" target="_blank">KMVTECHUG</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="back-bar">
+  <a href="../index.html" class="back-link">← Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="../king-musah-media/index.html">King Musah Media</a>
+    <a href="../kmvtech-education/index.html">KMVTECH Education</a>
+    <a href="../musanya-musa/index.html">Musanya Musa</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 KMVTECH. A brand under <a href="../index.html">KMVTECHUG</a>. | 📍 Kampala, Uganda</span>
+    <span><a href="mailto:kmvtechug@gmail.com">kmvtechug@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
