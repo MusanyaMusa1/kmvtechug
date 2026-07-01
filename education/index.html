@@ -496,13 +496,15 @@ nav {
 .course-row:hover { border-color: var(--navy); background: var(--white); box-shadow: 0 4px 18px rgba(13,27,42,0.06); }
 
 .course-row.open { border-left: 4px solid var(--green); }
-.course-row.production { border-left: 4px solid var(--gold); }
+.course-row.launching { border-left: 4px solid var(--blue); }
+.course-row.production { border-left: 4px solid #D1D5DB; }
 
 .cr-status {
   width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
 }
 .course-row.open .cr-status { background: #16A34A; }
-.course-row.production .cr-status { background: var(--amber); }
+.course-row.launching .cr-status { background: var(--blue); }
+.course-row.production .cr-status { background: #D1D5DB; }
 
 .cr-body { flex: 1; min-width: 0; }
 
@@ -515,7 +517,8 @@ nav {
   padding: 2px 9px; border-radius: 20px; flex-shrink: 0;
 }
 .cr-badge.ready { background: #DCFCE7; color: #166534; }
-.cr-badge.production { background: #FEF3C7; color: #92400E; }
+.cr-badge.launching { background: #DBEAFE; color: #1E40AF; }
+.cr-badge.production { background: #F3F4F6; color: #6B7280; }
 
 .cr-meta { font-size: 12px; color: var(--gray); }
 
@@ -831,7 +834,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
           <div class="deck-tag">Health Sciences</div>
           <div class="deck-title">Family Medicine &amp; Primary Care</div>
           <div class="deck-bar"><div class="deck-bar-fill" style="width:38%;background:var(--gold);"></div></div>
-          <div class="deck-meta">In Production</div>
+          <div class="deck-meta">COMING SOON</div>
         </div>
         <div class="deck-card front">
           <div class="deck-tag" style="color:var(--blue);">Law</div>
@@ -853,8 +856,8 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="hstat-label">Courses Planned</div>
       </div>
       <div role="listitem">
-        <div class="hstat-num">2</div>
-        <div class="hstat-label">Fully Ready Now</div>
+        <div class="hstat-num">12</div>
+        <div class="hstat-label">Ready for Aug 8</div>
       </div>
       <div role="listitem">
         <div class="hstat-num">UGX<span> 5K</span></div>
@@ -977,13 +980,13 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
     </div>
 
     <div class="faculty-tabs reveal" role="tablist" aria-label="Faculty filter">
-      <button class="f-tab active" data-faculty="law" role="tab" aria-selected="true">Law <span class="f-count">8</span></button>
-      <button class="f-tab" data-faculty="health" role="tab" aria-selected="false">Health Sciences <span class="f-count">4</span></button>
-      <button class="f-tab" data-faculty="psychology" role="tab" aria-selected="false">Psychology <span class="f-count">2</span></button>
-      <button class="f-tab" data-faculty="media" role="tab" aria-selected="false">Media &amp; Communication <span class="f-count">3</span></button>
+      <button class="f-tab active" data-faculty="law" role="tab" aria-selected="true">Law <span class="f-count">13</span></button>
+      <button class="f-tab" data-faculty="health" role="tab" aria-selected="false">Health Sciences <span class="f-count">5</span></button>
+      <button class="f-tab" data-faculty="psychology" role="tab" aria-selected="false">Psychology <span class="f-count">6</span></button>
+      <button class="f-tab" data-faculty="media" role="tab" aria-selected="false">Media &amp; Communication <span class="f-count">4</span></button>
       <button class="f-tab" data-faculty="business" role="tab" aria-selected="false">Business <span class="f-count">1</span></button>
-      <button class="f-tab" data-faculty="it" role="tab" aria-selected="false">IT &amp; Digital Skills <span class="f-count">2</span></button>
-      <button class="f-tab" data-faculty="research" role="tab" aria-selected="false">Research Methods <span class="f-count">1</span></button>
+      <button class="f-tab" data-faculty="it" role="tab" aria-selected="false">IT &amp; Digital Skills <span class="f-count">5</span></button>
+      <button class="f-tab" data-faculty="research" role="tab" aria-selected="false">Research Methods <span class="f-count">2</span></button>
     </div>
 
     <!-- LAW PANEL -->
@@ -992,50 +995,111 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row open">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row">
-              <span class="cr-title">Evidence Law 1: Introduction to Evidence &amp; Proof</span>
-              <span class="cr-badge ready">Open Now</span>
-            </div>
+            <div class="cr-title-row"><span class="cr-title">Evidence Law 1: Introduction to Evidence &amp; Proof</span><span class="cr-badge ready">● Open Now</span></div>
             <div class="cr-meta">8 modules · 16 lessons · 80 pages · UGX 5,000 per course</div>
           </div>
           <div class="cr-action"><a href="/courses/evidence-law-1" class="btn-row-action go">Start</a></div>
         </div>
-        <div class="course-row production">
+        <div class="course-row launching">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Evidence Law 2: Application, Documents &amp; Witnesses</span><span class="cr-badge production">In Production</span></div>
-            <div class="cr-meta">8 modules · Near completion</div>
+            <div class="cr-title-row"><span class="cr-title">Evidence Law 2: Application, Documents &amp; Witnesses</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">8 modules · Continues Evidence Law 1</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Evidence Law 2')">Notify Me</button></div>
         </div>
-        <div class="course-row production">
+        <div class="course-row launching">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Tort Law</span><span class="cr-badge production">In Production</span></div>
-            <div class="cr-meta">Dedicated team member assigned</div>
+            <div class="cr-title-row"><span class="cr-title">Land Law 1</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">UGX 5,000 per course</div>
           </div>
-          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Tort Law')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Land Law 1')">Notify Me</button></div>
+        </div>
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Land Law 2</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">Continues Land Law 1</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Land Law 2')">Notify Me</button></div>
+        </div>
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Family Law 1</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">UGX 5,000 per course</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Family Law 1')">Notify Me</button></div>
+        </div>
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Family Law 2</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">Continues Family Law 1</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Family Law 2')">Notify Me</button></div>
+        </div>
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Environmental Law</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">Distinct from Environmental Psychology</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Environmental Law')">Notify Me</button></div>
         </div>
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Jurisprudence</span><span class="cr-badge production">In Production</span></div>
-            <div class="cr-meta">Dedicated team member assigned</div>
+            <div class="cr-title-row"><span class="cr-title">Tort Law 1</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Expected ready within the week</div>
           </div>
-          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Jurisprudence')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Tort Law 1')">Notify Me</button></div>
         </div>
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Family Law</span><span class="cr-badge production">In Production</span></div>
-            <div class="cr-meta">Dedicated team member assigned</div>
+            <div class="cr-title-row"><span class="cr-title">Tort Law 2</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Continues Tort Law 1</div>
           </div>
-          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Family Law')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Tort Law 2')">Notify Me</button></div>
         </div>
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Administrative Law</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Jurisprudence 1</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Expected ready within the week</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Jurisprudence 1')">Notify Me</button></div>
+        </div>
+        <div class="course-row production">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Jurisprudence 2</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Continues Jurisprudence 1</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Jurisprudence 2')">Notify Me</button></div>
+        </div>
+        <div class="course-row production">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Contract Law 1</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Expected ready start of next week</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Contract Law 1')">Notify Me</button></div>
+        </div>
+        <div class="course-row production">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Contract Law 2</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Continues Contract Law 1</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Contract Law 2')">Notify Me</button></div>
+        </div>
+        <div class="course-row production">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Administrative Law</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Administrative Law')">Notify Me</button></div>
@@ -1043,7 +1107,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Human Rights Law</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Human Rights Law</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Human Rights Law')">Notify Me</button></div>
@@ -1051,7 +1115,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Criminal Procedure</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Criminal Procedure</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Criminal Procedure')">Notify Me</button></div>
@@ -1062,10 +1126,18 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
     <!-- HEALTH SCIENCES PANEL -->
     <div class="faculty-panel" data-panel="health">
       <div class="course-row-grid">
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Mental Health Interventions at a Workplace</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">Also listed under Psychology · UGX 5,000 per course</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Mental Health Interventions at a Workplace')">Notify Me</button></div>
+        </div>
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Family Medicine &amp; Primary Care</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Family Medicine &amp; Primary Care</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Family Medicine & Primary Care')">Notify Me</button></div>
@@ -1073,7 +1145,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Reproductive &amp; Urinary Disorders</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Reproductive &amp; Urinary Disorders</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Reproductive & Urinary Disorders')">Notify Me</button></div>
@@ -1081,7 +1153,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Foundations of Health Professionals Education</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Foundations of Health Professionals Education</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Foundations of Health Professionals Education')">Notify Me</button></div>
@@ -1089,10 +1161,10 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Mental Health Interventions at a Workplace</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Communication and Life Skills</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
-          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Mental Health Interventions at a Workplace')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Communication and Life Skills')">Notify Me</button></div>
         </div>
       </div>
     </div>
@@ -1103,18 +1175,42 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row open">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Environmental Psychology</span><span class="cr-badge ready">Open Now</span></div>
+            <div class="cr-title-row"><span class="cr-title">Environmental Psychology</span><span class="cr-badge ready">● Open Now</span></div>
             <div class="cr-meta">Fully ready · UGX 5,000 per course</div>
           </div>
           <div class="cr-action"><a href="/courses/environmental-psychology" class="btn-row-action go">Start</a></div>
         </div>
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Cognitive Psychology</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">UGX 5,000 per course</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Cognitive Psychology')">Notify Me</button></div>
+        </div>
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Mental Health Interventions at a Workplace</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">Also listed under Health Sciences · UGX 5,000 per course</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Mental Health Interventions at a Workplace')">Notify Me</button></div>
+        </div>
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Introduction to Social Psychology</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">UGX 5,000 per course</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Introduction to Social Psychology')">Notify Me</button></div>
+        </div>
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Cognitive Psychology</span><span class="cr-badge production">In Production</span></div>
-            <div class="cr-meta">Dedicated team member assigned</div>
+            <div class="cr-title-row"><span class="cr-title">Introduction to Community Psychology</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Expected ready within the week</div>
           </div>
-          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Cognitive Psychology')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Introduction to Community Psychology')">Notify Me</button></div>
         </div>
       </div>
     </div>
@@ -1125,7 +1221,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Media and Communication Law</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Media and Communication Law</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Media and Communication Law')">Notify Me</button></div>
@@ -1133,7 +1229,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Gender Media and Communication</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Gender Media and Communication</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Gender Media and Communication')">Notify Me</button></div>
@@ -1141,10 +1237,18 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">News Reporting and Writing</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">News Reporting and Writing</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('News Reporting and Writing')">Notify Me</button></div>
+        </div>
+        <div class="course-row production">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Communication and Life Skills</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Dedicated team member assigned</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Communication and Life Skills')">Notify Me</button></div>
         </div>
       </div>
     </div>
@@ -1155,7 +1259,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Business Administration</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Business Administration</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
           <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Business Administration')">Notify Me</button></div>
@@ -1169,18 +1273,42 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Basics in IT</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Introduction to Artificial Intelligence</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
-          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Basics in IT')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Introduction to Artificial Intelligence')">Notify Me</button></div>
         </div>
         <div class="course-row production">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Human Computer Interaction</span><span class="cr-badge production">In Production</span></div>
+            <div class="cr-title-row"><span class="cr-title">Digital Skills</span><span class="cr-badge production">COMING SOON</span></div>
             <div class="cr-meta">Dedicated team member assigned</div>
           </div>
-          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Human Computer Interaction')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Digital Skills')">Notify Me</button></div>
+        </div>
+        <div class="course-row production">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">AI Prompting</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Dedicated team member assigned</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('AI Prompting')">Notify Me</button></div>
+        </div>
+        <div class="course-row production">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Introduction to Cybersecurity</span><span class="cr-badge production">COMING SOON</span></div>
+            <div class="cr-meta">Dedicated team member assigned</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Introduction to Cybersecurity')">Notify Me</button></div>
+        </div>
+        <div class="course-row production">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Introduction to Ethical Hacking</span><span class="cr-badge production">Coming soon</span></div>
+            <div class="cr-meta">Dedicated team member assigned</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Introduction to Ethical Hacking')">Notify Me</button></div>
         </div>
       </div>
     </div>
@@ -1188,13 +1316,21 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
     <!-- RESEARCH PANEL -->
     <div class="faculty-panel" data-panel="research">
       <div class="course-row-grid">
-        <div class="course-row production">
+        <div class="course-row launching">
           <div class="cr-status"></div>
           <div class="cr-body">
-            <div class="cr-title-row"><span class="cr-title">Basics in Social Research</span><span class="cr-badge production">In Production</span></div>
-            <div class="cr-meta">Dedicated team member assigned</div>
+            <div class="cr-title-row"><span class="cr-title">Research Methods</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">Recommended before Basic Statistics (not mandatory) · UGX 5,000 per course</div>
           </div>
-          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Basics in Social Research')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Research Methods')">Notify Me</button></div>
+        </div>
+        <div class="course-row launching">
+          <div class="cr-status"></div>
+          <div class="cr-body">
+            <div class="cr-title-row"><span class="cr-title">Basic Statistics</span><span class="cr-badge launching">Launching Aug 8</span></div>
+            <div class="cr-meta">Recommended after Research Methods (not mandatory) · UGX 5,000 per course</div>
+          </div>
+          <div class="cr-action"><button class="btn-row-action notify" onclick="openModal('Basic Statistics')">Notify Me</button></div>
         </div>
       </div>
     </div>
@@ -1275,7 +1411,7 @@ footer { background: var(--navy); padding: 56px 0 32px; border-top: 3px solid va
           </div>
           <h2>Certificate of Completion</h2>
           <p style="font-size:11.5px;color:var(--gray);margin-bottom:14px;">This certifies that</p>
-          <h3>Nakato Sarah</h3>
+          <h3>Musanya Musa</h3>
           <div class="cert-divider"></div>
           <div class="cert-course-name">Evidence Law 1: Introduction to Evidence &amp; Proof</div>
           <div class="cert-score">Overall Score: 87% &nbsp;·&nbsp; Completed: June 2026 &nbsp;·&nbsp; CPD Hours: 7</div>
