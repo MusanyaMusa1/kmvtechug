@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Log In — KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+/* ============================================================
+   KMVTECH EDUCATION — LOGIN PAGE
+   Same design language as Register / homepage V2
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #2B3FBF;
+  --purple: #6B2ECC;
+  --navy: #0D1B2A;
+  --gold: #C9922A;
+  --green: #15803D;
+  --red: #DC2626;
+  --cream: #FAF9F6;
+  --dark: #1C1C1C;
+  --gray: #6B7280;
+  --white: #ffffff;
+  --line: #E8E6E0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+/* ---- NAV ---- */
+nav { background: var(--cream); border-bottom: 1px solid var(--line); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; padding: 0 22px; max-width: 1140px; margin: 0 auto;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark {
+  width: 32px; height: 32px; background: var(--navy); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-weight: 800; font-size: 13px; color: var(--gold);
+}
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.nav-logo-text span:first-child { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 15px; color: var(--navy); }
+.nav-logo-text span:last-child { font-size: 9.5px; color: var(--gray); font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; }
+.nav-register-link {
+  background: var(--navy); color: var(--cream); text-decoration: none;
+  font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 7px;
+}
+
+/* ---- PAGE LAYOUT ---- */
+.page-wrap {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 38px 32px;
+  box-shadow: 0 12px 40px rgba(13,27,42,0.07);
+}
+
+.card-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 10px;
+}
+
+.card-heading {
+  font-family: 'Playfair Display', serif; font-weight: 800;
+  font-size: 1.7rem; color: var(--navy); line-height: 1.2; margin-bottom: 8px;
+}
+
+.card-sub {
+  font-size: 0.88rem; color: var(--gray); line-height: 1.6; margin-bottom: 28px;
+}
+
+/* ---- FORM ---- */
+.form-group { margin-bottom: 18px; }
+
+.form-label {
+  display: block; font-size: 12.5px; font-weight: 600; color: var(--navy);
+  margin-bottom: 7px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14.5px;
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s;
+  background: var(--cream);
+}
+
+.form-input:focus { border-color: var(--blue); background: var(--white); }
+.form-input::placeholder { color: #B0B5BD; }
+.form-input.error { border-color: var(--red); }
+
+.field-error { font-size: 11.5px; color: var(--red); margin-top: 5px; display: none; }
+.field-error.visible { display: block; }
+
+.password-row-label {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 7px;
+}
+.forgot-link { font-size: 12px; color: var(--blue); text-decoration: none; font-weight: 600; }
+.forgot-link:hover { text-decoration: underline; }
+
+/* Remember me */
+.remember-row {
+  display: flex; align-items: center; gap: 9px;
+  margin: 18px 0 24px;
+}
+.remember-checkbox { width: 17px; height: 17px; accent-color: var(--blue); cursor: pointer; }
+.remember-label { font-size: 13px; color: var(--gray); cursor: pointer; }
+
+/* Submit */
+.btn-submit {
+  width: 100%;
+  background: var(--navy);
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-submit:hover:not(:disabled) { background: var(--blue); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+.spinner.visible { display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.register-link-row {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--gray);
+}
+.register-link-row a { color: var(--blue); font-weight: 600; text-decoration: none; }
+.register-link-row a:hover { text-decoration: underline; }
+
+.alert {
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  display: none;
+  line-height: 1.5;
+}
+.alert.visible { display: block; }
+.alert-error { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
+.alert-info { background: #EEF0FF; border: 1px solid #C7D2FE; color: var(--blue); }
+
+/* Divider */
+.divider-row {
+  display: flex; align-items: center; gap: 12px;
+  margin: 26px 0;
+}
+.divider-line { flex: 1; height: 1px; background: var(--line); }
+.divider-text { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; }
+
+</style>
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">KE</div>
+      <div class="nav-logo-text">
+        <span>KMVTECH Education</span>
+        <span>Part of KMVTECHUG</span>
+      </div>
+    </a>
+    <a href="/register" class="nav-register-link">Register Free</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="login-card">
+
+    <div class="card-eyebrow">Welcome Back</div>
+    <h1 class="card-heading">Log In to Your Account</h1>
+    <p class="card-sub">Continue your studies, check your progress, or manage your plan.</p>
+
+    <div class="alert alert-error" id="error-alert"></div>
+    <div class="alert alert-info" id="info-alert"></div>
+
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email" required/>
+        <div class="field-error" id="err-email">Please enter your email address.</div>
+      </div>
+
+      <div class="form-group">
+        <div class="password-row-label">
+          <label class="form-label" for="password" style="margin-bottom:0;">Password</label>
+          <a href="#" class="forgot-link" id="forgot-link">Forgot password?</a>
+        </div>
+        <input type="password" id="password" class="form-input" placeholder="Your password" autocomplete="current-password" required/>
+        <div class="field-error" id="err-password">Please enter your password.</div>
+      </div>
+
+      <div class="remember-row">
+        <input type="checkbox" id="remember_me" class="remember-checkbox"/>
+        <label for="remember_me" class="remember-label">Keep me logged in on this device</label>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submit-btn">
+        <span class="spinner" id="submit-spinner"></span>
+        <span id="submit-text">Log In</span>
+      </button>
+    </form>
+
+    <div class="register-link-row">
+      Don't have an account yet? <a href="/register">Register free</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   SUPABASE CONNECTION — same project as Register page
+   ============================================================ */
+const SUPABASE_URL = 'https://nzjojrebyvxuawnkitth.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa';
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* ============================================================
+   IF ALREADY LOGGED IN, SKIP STRAIGHT TO DASHBOARD
+   ============================================================ */
+(async function checkExistingSession() {
+  const { data } = await supabaseClient.auth.getSession();
+  if (data.session) {
+    window.location.href = '/dashboard';
+  }
+})();
+
+/* ============================================================
+   FORM LOGIC
+   ============================================================ */
+const form = document.getElementById('login-form');
+const submitBtn = document.getElementById('submit-btn');
+const submitSpinner = document.getElementById('submit-spinner');
+const submitText = document.getElementById('submit-text');
+const errorAlert = document.getElementById('error-alert');
+const infoAlert = document.getElementById('info-alert');
+
+function clearFieldErrors() {
+  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('visible'));
+  document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
+}
+
+function showFieldError(fieldId) {
+  document.getElementById(fieldId).classList.add('error');
+  document.getElementById('err-' + fieldId).classList.add('visible');
+}
+
+function showAlert(message) {
+  infoAlert.classList.remove('visible');
+  errorAlert.textContent = message;
+  errorAlert.classList.add('visible');
+}
+
+function hideAlerts() {
+  errorAlert.classList.remove('visible');
+  infoAlert.classList.remove('visible');
+}
+
+function setLoading(isLoading) {
+  submitBtn.disabled = isLoading;
+  submitSpinner.classList.toggle('visible', isLoading);
+  submitText.textContent = isLoading ? 'Logging In...' : 'Log In';
+}
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  hideAlerts();
+  clearFieldErrors();
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  let isValid = true;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showFieldError('email');
+    isValid = false;
+  }
+  if (password.length < 1) {
+    showFieldError('password');
+    isValid = false;
+  }
+  if (!isValid) return;
+
+  setLoading(true);
+
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    // Successful login — go to dashboard
+    window.location.href = '/dashboard';
+
+  } catch (err) {
+    setLoading(false);
+
+    let message = 'Could not log in. Please try again.';
+    if (err.message && err.message.includes('Invalid login credentials')) {
+      message = 'Incorrect email or password. Please try again.';
+    } else if (err.message && err.message.includes('Email not confirmed')) {
+      message = 'Please confirm your email address before logging in. Check your inbox for the confirmation link.';
+    } else if (err.message) {
+      message = err.message;
+    }
+
+    showAlert(message);
+  }
+});
+
+/* ---- Forgot password ---- */
+document.getElementById('forgot-link').addEventListener('click', async function(e) {
+  e.preventDefault();
+  hideAlerts();
+
+  const email = document.getElementById('email').value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    showAlert('Please enter your email address above first, then click "Forgot password?" again.');
+    document.getElementById('email').focus();
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + '/reset-password'
+    });
+
+    if (error) throw error;
+
+    infoAlert.textContent = 'Password reset link sent to ' + email + '. Check your inbox.';
+    infoAlert.classList.add('visible');
+
+  } catch (err) {
+    showAlert('Could not send reset email. Please try again.');
+  }
+});
+
+/* Clear field errors as student types */
+document.querySelectorAll('.form-input').forEach(input => {
+  input.addEventListener('input', function() {
+    this.classList.remove('error');
+    const errEl = document.getElementById('err-' + this.id);
+    if (errEl) errEl.classList.remove('visible');
+  });
+});
+</script>
+
+</body>
+</html>
