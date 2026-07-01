@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Register — KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- Supabase client library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+/* ============================================================
+   KMVTECH EDUCATION — REGISTER PAGE
+   Same design language as homepage V2
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #2B3FBF;
+  --purple: #6B2ECC;
+  --navy: #0D1B2A;
+  --gold: #C9922A;
+  --green: #15803D;
+  --red: #DC2626;
+  --cream: #FAF9F6;
+  --dark: #1C1C1C;
+  --gray: #6B7280;
+  --white: #ffffff;
+  --line: #E8E6E0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+/* ---- NAV ---- */
+nav {
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; padding: 0 22px; max-width: 1140px; margin: 0 auto;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark {
+  width: 32px; height: 32px; background: var(--navy); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-weight: 800; font-size: 13px; color: var(--gold);
+}
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.nav-logo-text span:first-child { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 15px; color: var(--navy); }
+.nav-logo-text span:last-child { font-size: 9.5px; color: var(--gray); font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; }
+.nav-login-link { color: var(--navy); text-decoration: none; font-size: 13px; font-weight: 600; }
+
+/* ---- PAGE LAYOUT ---- */
+.page-wrap {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 60px;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 38px 30px;
+  box-shadow: 0 12px 40px rgba(13,27,42,0.07);
+}
+
+.card-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 10px;
+}
+
+.card-heading {
+  font-family: 'Playfair Display', serif; font-weight: 800;
+  font-size: 1.7rem; color: var(--navy); line-height: 1.2; margin-bottom: 8px;
+}
+
+.card-sub {
+  font-size: 0.88rem; color: var(--gray); line-height: 1.6; margin-bottom: 28px;
+}
+
+/* ---- FORM ---- */
+.form-group { margin-bottom: 18px; }
+
+.form-label {
+  display: block; font-size: 12.5px; font-weight: 600; color: var(--navy);
+  margin-bottom: 7px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14.5px;
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s;
+  background: var(--cream);
+}
+
+.form-input:focus { border-color: var(--blue); background: var(--white); }
+.form-input::placeholder { color: #B0B5BD; }
+
+.form-input.error { border-color: var(--red); }
+
+.field-error {
+  font-size: 11.5px;
+  color: var(--red);
+  margin-top: 5px;
+  display: none;
+}
+.field-error.visible { display: block; }
+
+.password-hint {
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 5px;
+}
+
+/* Phone input with country code selector */
+.phone-row { display: flex; gap: 8px; }
+.phone-code-select {
+  width: 118px;
+  flex-shrink: 0;
+  padding: 13px 8px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--cream);
+  font-size: 13.5px;
+  color: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.phone-code-select:focus { border-color: var(--blue); background: var(--white); }
+
+/* Terms checkbox */
+.terms-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 22px 0;
+}
+.terms-checkbox {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+.terms-text {
+  font-size: 12.5px;
+  color: var(--gray);
+  line-height: 1.6;
+}
+.terms-text a { color: var(--blue); text-decoration: none; font-weight: 600; }
+
+/* Submit button */
+.btn-submit {
+  width: 100%;
+  background: var(--navy);
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-submit:hover:not(:disabled) { background: var(--blue); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+.spinner.visible { display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Bottom link */
+.login-link-row {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--gray);
+}
+.login-link-row a { color: var(--blue); font-weight: 600; text-decoration: none; }
+.login-link-row a:hover { text-decoration: underline; }
+
+/* Alert banner (errors / success) */
+.alert {
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  display: none;
+  line-height: 1.5;
+}
+.alert.visible { display: block; }
+.alert-error { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
+.alert-success { background: #F0FDF4; border: 1px solid #BBF7D0; color: #166534; }
+
+/* Success state — replaces the whole card */
+.success-state { text-align: center; padding: 10px 0; display: none; }
+.success-state.visible { display: block; }
+.success-icon {
+  width: 56px; height: 56px;
+  background: #DCFCE7;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 26px;
+}
+.success-state h2 {
+  font-family: 'Playfair Display', serif; font-weight: 800;
+  font-size: 1.4rem; color: var(--navy); margin-bottom: 10px;
+}
+.success-state p { font-size: 0.88rem; color: var(--gray); line-height: 1.65; margin-bottom: 8px; }
+.success-state .student-no {
+  display: inline-block;
+  background: var(--cream);
+  border: 1px dashed var(--blue);
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-family: monospace;
+  font-size: 13px;
+  color: var(--blue);
+  margin: 14px 0 24px;
+}
+.btn-go-dashboard {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--navy); color: white; text-decoration: none;
+  font-weight: 700; font-size: 14px; padding: 13px 26px; border-radius: 10px;
+}
+
+/* Access reminder note */
+.access-note {
+  margin-top: 24px;
+  padding: 14px 16px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.6;
+  display: flex;
+  gap: 10px;
+}
+.access-note svg { flex-shrink: 0; margin-top: 1px; color: var(--gold); }
+
+</style>
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">KE</div>
+      <div class="nav-logo-text">
+        <span>KMVTECH Education</span>
+        <span>Part of KMVTECHUG</span>
+      </div>
+    </a>
+    <a href="/login" class="nav-login-link">Already have an account? Log In</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="register-card">
+
+    <!-- FORM STATE -->
+    <div id="form-state">
+      <div class="card-eyebrow">Free Registration</div>
+      <h1 class="card-heading">Create Your Student Account</h1>
+      <p class="card-sub">Browsing the catalogue is free for everyone. Register to get your dashboard — you'll choose a study plan to unlock lesson content.</p>
+
+      <div class="alert alert-error" id="error-alert"></div>
+
+      <form id="register-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="full_name">Full Name</label>
+          <input type="text" id="full_name" class="form-input" placeholder="e.g. Musanya Musa" autocomplete="name" required/>
+          <div class="field-error" id="err-full_name">Please enter your full name.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email" required/>
+          <div class="field-error" id="err-email">Please enter a valid email address.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Contact Number</label>
+          <div class="phone-row">
+            <select id="phone_code" class="phone-code-select" aria-label="Country code">
+              <option value="+256" selected>🇺🇬 +256</option>
+              <option value="+254">🇰🇪 +254</option>
+              <option value="+255">🇹🇿 +255</option>
+              <option value="+250">🇷🇼 +250</option>
+              <option value="+257">🇧🇮 +257</option>
+              <option value="+211">🇸🇸 +211</option>
+              <option value="+243">🇨🇩 +243</option>
+              <option value="+27">🇿🇦 +27</option>
+              <option value="+234">🇳🇬 +234</option>
+              <option value="+233">🇬🇭 +233</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+1">🇺🇸/🇨🇦 +1</option>
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="other">🌍 Other</option>
+            </select>
+            <input type="tel" id="phone" class="form-input" placeholder="e.g. 7XX XXX XXX" autocomplete="tel" required style="flex:1;"/>
+          </div>
+          <div class="field-error" id="err-phone">Please enter a valid phone number.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" id="password" class="form-input" placeholder="At least 8 characters" autocomplete="new-password" required/>
+          <div class="password-hint">Minimum 8 characters. You'll use this to log in.</div>
+          <div class="field-error" id="err-password">Password must be at least 8 characters.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="confirm_password">Confirm Password</label>
+          <input type="password" id="confirm_password" class="form-input" placeholder="Re-enter your password" autocomplete="new-password" required/>
+          <div class="field-error" id="err-confirm_password">Passwords do not match.</div>
+        </div>
+
+        <div class="terms-row">
+          <input type="checkbox" id="agree_terms" class="terms-checkbox" required/>
+          <label for="agree_terms" class="terms-text">
+            I agree to the <a href="/terms" target="_blank">Terms of Service</a> and confirm the information above is accurate. I understand my full name, email, and student number can only be changed by an administrator.
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span class="spinner" id="submit-spinner"></span>
+          <span id="submit-text">Create My Account</span>
+        </button>
+      </form>
+
+      <div class="login-link-row">
+        Already registered? <a href="/login">Log in here</a>
+      </div>
+
+      <div class="access-note">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span>Registration is free and instant. To start studying, you'll choose a plan (per-course, monthly, or semester) from your dashboard after signing up.</span>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div id="success-state" class="success-state">
+      <div class="success-icon">🎉</div>
+      <h2>Welcome to KMVTECH Education</h2>
+      <p>Your account has been created successfully.</p>
+      <div class="student-no" id="student-number-display">KMVED-2026-00000</div>
+      <p>Check your email to confirm your address, then head to your dashboard to choose a study plan and start learning.</p>
+      <a href="/dashboard" class="btn-go-dashboard">
+        Go to My Dashboard
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   SUPABASE CONNECTION
+   ============================================================ */
+const SUPABASE_URL = 'https://nzjojrebyvxuawnkitth.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa';
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* ============================================================
+   FORM VALIDATION + SUBMISSION
+   ============================================================ */
+const form = document.getElementById('register-form');
+const submitBtn = document.getElementById('submit-btn');
+const submitSpinner = document.getElementById('submit-spinner');
+const submitText = document.getElementById('submit-text');
+const errorAlert = document.getElementById('error-alert');
+
+function clearFieldErrors() {
+  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('visible'));
+  document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
+}
+
+function showFieldError(fieldId) {
+  document.getElementById(fieldId).classList.add('error');
+  document.getElementById('err-' + fieldId).classList.add('visible');
+}
+
+function showAlert(message) {
+  errorAlert.textContent = message;
+  errorAlert.classList.add('visible');
+}
+
+function hideAlert() {
+  errorAlert.classList.remove('visible');
+}
+
+function validateForm() {
+  clearFieldErrors();
+  let isValid = true;
+
+  const fullName = document.getElementById('full_name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm_password').value;
+  const agreeTerms = document.getElementById('agree_terms').checked;
+
+  if (fullName.length < 2) {
+    showFieldError('full_name');
+    isValid = false;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showFieldError('email');
+    isValid = false;
+  }
+
+  const phoneRegex = /^[0-9]{6,12}$/;
+  if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+    showFieldError('phone');
+    isValid = false;
+  }
+
+  if (password.length < 8) {
+    showFieldError('password');
+    isValid = false;
+  }
+
+  if (password !== confirmPassword) {
+    showFieldError('confirm_password');
+    isValid = false;
+  }
+
+  if (!agreeTerms) {
+    showAlert('Please agree to the Terms of Service to continue.');
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+function setLoading(isLoading) {
+  submitBtn.disabled = isLoading;
+  submitSpinner.classList.toggle('visible', isLoading);
+  submitText.textContent = isLoading ? 'Creating Account...' : 'Create My Account';
+}
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  hideAlert();
+
+  if (!validateForm()) return;
+
+  setLoading(true);
+
+  const fullName = document.getElementById('full_name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phoneCode = document.getElementById('phone_code').value;
+  const phone = (phoneCode === 'other' ? '' : phoneCode) + document.getElementById('phone').value.trim().replace(/\s/g, '');
+  const password = document.getElementById('password').value;
+
+  try {
+    /* 
+     * This calls Supabase Auth to create the account.
+     * full_name is passed as metadata so our database trigger
+     * (handle_new_user, from 02_triggers.sql) can read it and
+     * auto-create the matching row in public.profiles, including
+     * generating the KMVED student number.
+     */
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: fullName,
+          contact_number: phone
+        }
+      }
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    /* 
+     * Fetch the auto-created profile to show the real student number.
+     * Small delay to let the database trigger finish running.
+     */
+    if (data.user) {
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      const { data: profileData } = await supabaseClient
+        .from('profiles')
+        .select('student_number')
+        .eq('id', data.user.id)
+        .single();
+
+      if (profileData && profileData.student_number) {
+        document.getElementById('student-number-display').textContent = profileData.student_number;
+      }
+    }
+
+    // Show success state
+    document.getElementById('form-state').style.display = 'none';
+    document.getElementById('success-state').classList.add('visible');
+
+  } catch (err) {
+    setLoading(false);
+
+    // Friendly error messages for common Supabase auth errors
+    let message = 'Something went wrong creating your account. Please try again.';
+
+    if (err.message && err.message.includes('already registered')) {
+      message = 'An account with this email already exists. Try logging in instead.';
+    } else if (err.message && err.message.includes('Password')) {
+      message = 'Password does not meet requirements. Use at least 8 characters.';
+    } else if (err.message) {
+      message = err.message;
+    }
+
+    showAlert(message);
+  }
+});
+
+/* Clear individual field errors as the student types */
+document.querySelectorAll('.form-input').forEach(input => {
+  input.addEventListener('input', function() {
+    this.classList.remove('error');
+    const errEl = document.getElementById('err-' + this.id);
+    if (errEl) errEl.classList.remove('visible');
+  });
+});
+
+/* When "Other" is picked, let the student type their full international number with code */
+const phoneCodeSelect = document.getElementById('phone_code');
+const phoneInput = document.getElementById('phone');
+phoneCodeSelect.addEventListener('change', function() {
+  if (this.value === 'other') {
+    phoneInput.placeholder = 'e.g. +880 1XXX XXXXXX (include country code)';
+  } else {
+    phoneInput.placeholder = 'e.g. 7XX XXX XXX';
+  }
+});
+</script>
+
+</body>
+</html>
