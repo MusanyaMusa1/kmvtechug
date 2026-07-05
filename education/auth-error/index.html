@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Account Confirmation — KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #2B3FBF; --purple: #6B2ECC; --navy: #0D1B2A;
+  --gold: #C9922A; --green: #15803D; --red: #DC2626;
+  --cream: #FAF9F6; --dark: #1C1C1C; --gray: #6B7280;
+  --white: #ffffff; --line: #E8E6E0;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+/* NAV */
+nav { background: var(--cream); border-bottom: 1px solid var(--line); }
+.nav-inner { display: flex; align-items: center; height: 64px; padding: 0 22px; max-width: 1140px; margin: 0 auto; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark { width: 32px; height: 32px; background: var(--navy); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 800; font-size: 13px; color: var(--gold); }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.nav-logo-text span:first-child { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 15px; color: var(--navy); }
+.nav-logo-text span:last-child { font-size: 9.5px; color: var(--gray); font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; }
+
+/* PAGE */
+.page-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 60px;
+}
+
+.card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(13,27,42,0.07);
+}
+
+.card-top-bar { height: 5px; }
+.card-top-bar.error { background: linear-gradient(90deg, var(--red), #F87171); }
+.card-top-bar.success { background: linear-gradient(90deg, var(--green), #4ADE80); }
+.card-top-bar.loading { background: linear-gradient(90deg, var(--blue), var(--purple)); }
+
+.card-body { padding: 40px 32px; text-align: center; }
+
+.card-icon { font-size: 48px; margin-bottom: 20px; line-height: 1; }
+
+.card-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
+.card-eyebrow.error { color: var(--red); }
+.card-eyebrow.success { color: var(--green); }
+.card-eyebrow.loading { color: var(--blue); }
+
+.card-heading { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 1.55rem; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
+
+.card-text { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 28px; max-width: 340px; margin-left: auto; margin-right: auto; }
+
+/* Resend email form */
+.resend-form { text-align: left; margin-bottom: 20px; }
+.resend-label { display: block; font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.05em; }
+.resend-input { width: 100%; padding: 13px 16px; border: 1.5px solid var(--line); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--dark); background: var(--cream); outline: none; transition: border-color 0.2s; margin-bottom: 12px; }
+.resend-input:focus { border-color: var(--blue); background: var(--white); }
+
+/* Buttons */
+.btn-primary { width: 100%; background: var(--navy); color: var(--white); font-weight: 700; font-size: 14.5px; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+.btn-primary:hover { background: var(--blue); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-secondary { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-size: 13px; font-weight: 600; text-decoration: none; margin-top: 16px; }
+.btn-secondary:hover { text-decoration: underline; }
+
+.spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+.spinner.visible { display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Success state resend */
+.resend-success { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #166534; line-height: 1.6; margin-bottom: 16px; display: none; }
+.resend-success.visible { display: block; }
+
+.resend-error { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #991B1B; line-height: 1.6; margin-bottom: 12px; display: none; }
+.resend-error.visible { display: block; }
+
+/* Loading spinner */
+.loading-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px 0; }
+.loading-spinner { width: 40px; height: 40px; border: 3px solid var(--line); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
+
+/* FOOTER */
+footer { background: var(--navy); padding: 24px 22px; text-align: center; border-top: 3px solid var(--gold); }
+footer p { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.7; }
+footer strong { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../" class="nav-logo" aria-label="KMVTECH Education home">
+      <div class="nav-logo-mark">KE</div>
+      <div class="nav-logo-text">
+        <span>KMVTECH Education</span>
+        <span>Part of KMVTECHUG</span>
+      </div>
+    </a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="card" role="main">
+
+    <!-- LOADING STATE -->
+    <div id="state-loading">
+      <div class="card-top-bar loading"></div>
+      <div class="card-body">
+        <div class="loading-wrap">
+          <div class="loading-spinner" role="status" aria-label="Processing your request"></div>
+          <p style="font-size:0.9rem;color:var(--gray);">Verifying your account...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div id="state-success" style="display:none;">
+      <div class="card-top-bar success"></div>
+      <div class="card-body">
+        <div class="card-icon" aria-hidden="true">✅</div>
+        <div class="card-eyebrow success">Account Confirmed</div>
+        <h1 class="card-heading">Your email has been verified</h1>
+        <p class="card-text">Your KMVTECH Education account is now fully active. You can log in and access your student dashboard.</p>
+        <a href="../login/" class="btn-primary">
+          Proceed to Log In
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <br/>
+        <a href="../" class="btn-secondary">Return to Homepage</a>
+      </div>
+    </div>
+
+    <!-- EXPIRED LINK STATE -->
+    <div id="state-expired" style="display:none;">
+      <div class="card-top-bar error"></div>
+      <div class="card-body">
+        <div class="card-icon" aria-hidden="true">⏰</div>
+        <div class="card-eyebrow error">Link Expired</div>
+        <h1 class="card-heading">Your confirmation link has expired</h1>
+        <p class="card-text">Email confirmation links are valid for 24 hours. This one is no longer active. Enter your email address below and we will send you a fresh confirmation link.</p>
+
+        <div class="resend-error" id="resend-error" role="alert"></div>
+        <div class="resend-success" id="resend-success" role="status"></div>
+
+        <form class="resend-form" id="resend-form" novalidate>
+          <label class="resend-label" for="resend-email">Your Email Address</label>
+          <input type="email" id="resend-email" class="resend-input" placeholder="you@example.com" autocomplete="email" required aria-required="true"/>
+          <button type="submit" class="btn-primary" id="resend-btn">
+            <span class="spinner" id="resend-spinner"></span>
+            <span id="resend-btn-text">Send New Confirmation Link</span>
+          </button>
+        </form>
+
+        <a href="../login/" class="btn-secondary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          Back to Log In
+        </a>
+      </div>
+    </div>
+
+    <!-- INVALID LINK STATE -->
+    <div id="state-invalid" style="display:none;">
+      <div class="card-top-bar error"></div>
+      <div class="card-body">
+        <div class="card-icon" aria-hidden="true">❌</div>
+        <div class="card-eyebrow error">Invalid Link</div>
+        <h1 class="card-heading">This confirmation link is not valid</h1>
+        <p class="card-text">This link may have already been used, or it was not copied correctly. If you need to confirm your email, please register again or contact us.</p>
+        <a href="../register/" class="btn-primary">Register Again</a>
+        <br/>
+        <a href="mailto:kmvtechug@gmail.com" class="btn-secondary">Contact Support</a>
+      </div>
+    </div>
+
+    <!-- ALREADY CONFIRMED STATE -->
+    <div id="state-confirmed" style="display:none;">
+      <div class="card-top-bar success"></div>
+      <div class="card-body">
+        <div class="card-icon" aria-hidden="true">🎓</div>
+        <div class="card-eyebrow success">Already Active</div>
+        <h1 class="card-heading">Your account is already confirmed</h1>
+        <p class="card-text">Your email address has already been verified. You can log in to your student dashboard directly.</p>
+        <a href="../login/" class="btn-primary">Log In to Dashboard</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>
+    <strong>KMVTECH Education</strong> · Part of KMVTECHUG · Kampala, Uganda<br/>
+    Need help? <a href="mailto:kmvtechug@gmail.com" style="color:var(--gold);text-decoration:none;">kmvtechug@gmail.com</a>
+     · +256 759 405 181
+  </p>
+</footer>
+
+<script>
+/* ============================================================
+   SUPABASE
+   ============================================================ */
+const SUPABASE_URL = 'https://nzjojrebyvxuawnkitth.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* ============================================================
+   READ THE URL HASH AND DECIDE WHICH STATE TO SHOW
+   Supabase appends error/success info to the URL hash like:
+   #error=access_denied&error_code=otp_expired
+   or
+   #access_token=xxx&type=signup
+   ============================================================ */
+function parseHash() {
+  const hash = window.location.hash.substring(1);
+  const params = {};
+  hash.split('&').forEach(part => {
+    const [key, value] = part.split('=');
+    if (key) params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+  });
+  return params;
+}
+
+function hideAll() {
+  ['loading', 'success', 'expired', 'invalid', 'confirmed'].forEach(s => {
+    const el = document.getElementById('state-' + s);
+    if (el) el.style.display = 'none';
+  });
+}
+
+function show(state) {
+  hideAll();
+  const el = document.getElementById('state-' + state);
+  if (el) el.style.display = 'block';
+}
+
+async function init() {
+  const params = parseHash();
+
+  // Error in URL — figure out which kind
+  if (params.error) {
+    const code = params.error_code || '';
+
+    if (code === 'otp_expired') {
+      show('expired');
+      return;
+    }
+
+    if (params.error === 'access_denied') {
+      show('invalid');
+      return;
+    }
+
+    show('invalid');
+    return;
+  }
+
+  // Success token in URL — this is a valid confirmation click
+  if (params.access_token || params.type === 'signup') {
+    // Let Supabase process the session from the URL
+    const { data, error } = await sb.auth.getSession();
+
+    if (error) {
+      show('invalid');
+      return;
+    }
+
+    if (data.session) {
+      show('success');
+      return;
+    }
+
+    // Try to exchange the token
+    const { error: exchangeError } = await sb.auth.setSession({
+      access_token: params.access_token,
+      refresh_token: params.refresh_token
+    });
+
+    if (exchangeError) {
+      show('invalid');
+    } else {
+      show('success');
+    }
+    return;
+  }
+
+  // No hash params at all — user landed here directly
+  // Check if they're already logged in
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    show('confirmed');
+  } else {
+    // Redirect to login — nothing to show here
+    window.location.href = '../login/';
+  }
+}
+
+/* ============================================================
+   RESEND CONFIRMATION EMAIL
+   ============================================================ */
+document.getElementById('resend-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById('resend-email').value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const errorEl = document.getElementById('resend-error');
+  const successEl = document.getElementById('resend-success');
+  errorEl.classList.remove('visible');
+  successEl.classList.remove('visible');
+
+  if (!emailRegex.test(email)) {
+    errorEl.textContent = 'Please enter a valid email address.';
+    errorEl.classList.add('visible');
+    return;
+  }
+
+  const btn = document.getElementById('resend-btn');
+  const spinner = document.getElementById('resend-spinner');
+  const btnText = document.getElementById('resend-btn-text');
+
+  btn.disabled = true;
+  spinner.classList.add('visible');
+  btnText.textContent = 'Sending...';
+
+  try {
+    const { error } = await sb.auth.resend({
+      type: 'signup',
+      email: email
+    });
+
+    btn.disabled = false;
+    spinner.classList.remove('visible');
+    btnText.textContent = 'Send New Confirmation Link';
+
+    if (error) {
+      // Don't reveal if email exists or not — security best practice
+      // Show success regardless to prevent email enumeration
+    }
+
+    successEl.innerHTML = `
+      A new confirmation link has been sent to <strong>${email}</strong> if an account with that address exists.
+      Please check your inbox and spam folder. The link is valid for <strong>24 hours</strong>.
+    `;
+    successEl.classList.add('visible');
+    document.getElementById('resend-form').reset();
+
+  } catch (err) {
+    btn.disabled = false;
+    spinner.classList.remove('visible');
+    btnText.textContent = 'Send New Confirmation Link';
+    errorEl.textContent = 'Something went wrong. Please try again or contact kmvtechug@gmail.com.';
+    errorEl.classList.add('visible');
+  }
+});
+
+/* ============================================================
+   START
+   ============================================================ */
+init();
+</script>
+
+</body>
+</html>
