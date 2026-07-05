@@ -1246,8 +1246,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
                 <div class="sstat-label">Certificates</div>
               </div>
               <div class="sstat" role="listitem">
-                <div class="sstat-num" id="stat-progress">0%</div>
-                <div class="sstat-label">Avg Progress</div>
+                <div class="sstat-num" id="stat-since">—</div>
+                <div class="sstat-label">Member Since</div>
               </div>
             </div>
           </div>
@@ -1468,8 +1468,37 @@ async function init() {
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
   document.getElementById('overview-heading').textContent = greeting;
 
-  // Check if user is logged in
-  const { data: { session } } = await sb.auth.getSession();
+  // Handle session from URL hash — this happens when Supabase redirects
+  // back to the dashboard after email confirmation or password reset.
+  // We must call getSession() AFTER Supabase has had a chance to parse
+  // the hash tokens, so we listen for the auth state change first.
+  let session = null;
+
+  // Check for error in URL hash first — redirect to auth error page
+  const hash = window.location.hash;
+  if (hash.includes('error=')) {
+    window.location.href = '../auth-error/' + window.location.hash;
+    return;
+  }
+
+  // Get or establish session
+  const { data: sessionData } = await sb.auth.getSession();
+  session = sessionData.session;
+
+  // If no session yet, wait briefly for auth state to settle
+  // (handles the redirect-from-email-verification case)
+  if (!session) {
+    await new Promise(resolve => {
+      const timeout = setTimeout(resolve, 2000);
+      sb.auth.onAuthStateChange((_event, newSession) => {
+        if (newSession) {
+          session = newSession;
+          clearTimeout(timeout);
+          resolve();
+        }
+      });
+    });
+  }
 
   if (!session) {
     document.getElementById('loading-state').style.display = 'none';
@@ -1479,6 +1508,11 @@ async function init() {
 
   currentUser = session.user;
 
+  // Clear hash from URL without triggering a reload
+  if (window.location.hash) {
+    history.replaceState(null, '', window.location.pathname);
+  }
+
   // Load profile from database
   try {
     const { data: profile, error } = await sb
@@ -1487,11 +1521,15 @@ async function init() {
       .eq('id', currentUser.id)
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Profile fetch error:', error);
+      throw error;
+    }
+
     currentProfile = profile;
 
-    // Load enrollments
-    const { data: enrollData } = await sb
+    // Load enrollments with course details
+    const { data: enrollData, error: enrollError } = await sb
       .from('enrollments')
       .select(`
         *,
@@ -1501,6 +1539,7 @@ async function init() {
       `)
       .eq('student_id', currentUser.id);
 
+    if (enrollError) console.error('Enrollments fetch error:', enrollError);
     enrollments = enrollData || [];
 
     // Render everything
@@ -1508,7 +1547,23 @@ async function init() {
 
   } catch (err) {
     console.error('Dashboard load error:', err);
-    showToast('Could not load your profile. Please refresh.', 'error');
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('auth-content').style.display = 'block';
+
+    // Show a helpful retry message instead of a dead state
+    document.querySelector('.page-content').innerHTML = `
+      <div style="background:white;border:1px solid var(--line);border-radius:16px;padding:40px 28px;text-align:center;max-width:420px;margin:0 auto;">
+        <div style="font-size:40px;margin-bottom:16px;">⚠️</div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:var(--navy);margin-bottom:8px;">Could not load your dashboard</h2>
+        <p style="font-size:0.87rem;color:var(--gray);line-height:1.65;margin-bottom:20px;">
+          There was a problem connecting to our servers. This is usually temporary.
+          Please try refreshing the page. If the problem continues, contact us at
+          <a href="mailto:kmvtechug@gmail.com" style="color:var(--blue);">kmvtechug@gmail.com</a>.
+        </p>
+        <button onclick="window.location.reload()" style="background:var(--navy);color:white;border:none;border-radius:9px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">
+          Refresh Page
+        </button>
+      </div>`;
   }
 }
 
@@ -1536,8 +1591,12 @@ function renderDashboard() {
   document.getElementById('stat-courses').textContent = enrollments.length;
   document.getElementById('stat-certs').textContent = '0'; // Phase 2: count from certificates table
 
-  // Average progress — placeholder until lesson progress table exists
-  document.getElementById('stat-progress').textContent = enrollments.length > 0 ? '0%' : '—';
+  // Member since — show month and year of registration
+  if (profile.created_at) {
+    const joined = new Date(profile.created_at);
+    const monthYear = joined.toLocaleDateString('en-UG', { month: 'short', year: 'numeric' });
+    document.getElementById('stat-since').textContent = monthYear;
+  }
 
   // Profile photo if exists
   if (profile.photo_url) {
