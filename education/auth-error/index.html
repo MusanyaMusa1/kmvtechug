@@ -195,6 +195,31 @@ footer strong { color: var(--gold); }
       </div>
     </div>
 
+    <!-- RESET PASSWORD STATE -->
+    <div id="state-reset" style="display:none;">
+      <div class="card-top-bar loading"></div>
+      <div class="card-body">
+        <div class="card-icon" aria-hidden="true">🔐</div>
+        <div class="card-eyebrow loading">Reset Password</div>
+        <h1 class="card-heading">Set Your New Password</h1>
+        <p class="card-text">Enter and confirm your new password below. You will be logged in automatically after saving.</p>
+
+        <div class="resend-error" id="reset-pw-error" role="alert"></div>
+        <div class="resend-success" id="reset-pw-success" role="status"></div>
+
+        <form class="resend-form" id="reset-pw-form" novalidate>
+          <label class="resend-label" for="new-pw">New Password</label>
+          <input type="password" id="new-pw" class="resend-input" placeholder="At least 8 characters" autocomplete="new-password" required/>
+          <label class="resend-label" for="confirm-pw">Confirm New Password</label>
+          <input type="password" id="confirm-pw" class="resend-input" placeholder="Re-enter new password" autocomplete="new-password" required/>
+          <button type="submit" class="btn-primary" id="reset-pw-btn">
+            <span class="spinner" id="reset-pw-spinner"></span>
+            <span id="reset-pw-btn-text">Save New Password</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- ALREADY CONFIRMED STATE -->
     <div id="state-confirmed" style="display:none;">
       <div class="card-top-bar success"></div>
@@ -244,7 +269,7 @@ function parseHash() {
 }
 
 function hideAll() {
-  ['loading', 'success', 'expired', 'invalid', 'confirmed'].forEach(s => {
+  ['loading', 'success', 'expired', 'invalid', 'confirmed', 'reset'].forEach(s => {
     const el = document.getElementById('state-' + s);
     if (el) el.style.display = 'none';
   });
@@ -259,62 +284,49 @@ function show(state) {
 async function init() {
   const params = parseHash();
 
-  // Error in URL — figure out which kind
+  // Error in URL
   if (params.error) {
     const code = params.error_code || '';
-
-    if (code === 'otp_expired') {
-      show('expired');
-      return;
-    }
-
-    if (params.error === 'access_denied') {
-      show('invalid');
-      return;
-    }
-
+    if (code === 'otp_expired') { show('expired'); return; }
     show('invalid');
     return;
   }
 
-  // Success token in URL — this is a valid confirmation click
-  if (params.access_token || params.type === 'signup') {
-    // Let Supabase process the session from the URL
-    const { data, error } = await sb.auth.getSession();
-
-    if (error) {
-      show('invalid');
-      return;
-    }
-
-    if (data.session) {
-      show('success');
-      return;
-    }
-
-    // Try to exchange the token
-    const { error: exchangeError } = await sb.auth.setSession({
+  // Password recovery flow — student clicked reset link from email
+  if (params.type === 'recovery' && params.access_token) {
+    // Establish the session from the recovery token
+    const { error } = await sb.auth.setSession({
       access_token: params.access_token,
-      refresh_token: params.refresh_token
+      refresh_token: params.refresh_token || ''
     });
-
-    if (exchangeError) {
-      show('invalid');
-    } else {
-      show('success');
-    }
+    if (error) { show('invalid'); return; }
+    show('reset');
     return;
   }
 
-  // No hash params at all — user landed here directly
-  // Check if they're already logged in
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    show('confirmed');
-  } else {
-    // Redirect to login — nothing to show here
-    window.location.href = '../login/';
+  // Email confirmation success
+  if (params.access_token && params.type === 'signup') {
+    const { error } = await sb.auth.setSession({
+      access_token: params.access_token,
+      refresh_token: params.refresh_token || ''
+    });
+    if (error) { show('invalid'); return; }
+    show('success');
+    return;
   }
+
+  // Generic access token — try to establish session
+  if (params.access_token) {
+    const { data, error } = await sb.auth.getSession();
+    if (!error && data.session) { show('success'); return; }
+    show('invalid');
+    return;
+  }
+
+  // No hash — check if already logged in
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) { show('confirmed'); return; }
+  window.location.href = '../login/';
 }
 
 /* ============================================================
@@ -374,6 +386,60 @@ document.getElementById('resend-form').addEventListener('submit', async function
     errorEl.textContent = 'Something went wrong. Please try again or contact kmvtechug@gmail.com.';
     errorEl.classList.add('visible');
   }
+});
+
+/* ============================================================
+   RESET PASSWORD FORM
+   ============================================================ */
+document.getElementById('reset-pw-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const newPw = document.getElementById('new-pw').value;
+  const confirmPw = document.getElementById('confirm-pw').value;
+  const errorEl = document.getElementById('reset-pw-error');
+  const successEl = document.getElementById('reset-pw-success');
+  const btn = document.getElementById('reset-pw-btn');
+  const spinner = document.getElementById('reset-pw-spinner');
+  const btnText = document.getElementById('reset-pw-btn-text');
+
+  errorEl.classList.remove('visible');
+  successEl.classList.remove('visible');
+
+  if (newPw.length < 8) {
+    errorEl.textContent = 'Password must be at least 8 characters.';
+    errorEl.classList.add('visible');
+    return;
+  }
+
+  if (newPw !== confirmPw) {
+    errorEl.textContent = 'Passwords do not match. Please try again.';
+    errorEl.classList.add('visible');
+    return;
+  }
+
+  btn.disabled = true;
+  spinner.classList.add('visible');
+  btnText.textContent = 'Saving...';
+
+  const { error } = await sb.auth.updateUser({ password: newPw });
+
+  btn.disabled = false;
+  spinner.classList.remove('visible');
+  btnText.textContent = 'Save New Password';
+
+  if (error) {
+    errorEl.textContent = 'Could not update password. Please request a new reset link.';
+    errorEl.classList.add('visible');
+    return;
+  }
+
+  successEl.innerHTML = 'Your password has been updated successfully. Redirecting you to the dashboard...';
+  successEl.classList.add('visible');
+
+  // Redirect to dashboard after 2 seconds
+  setTimeout(() => {
+    window.location.href = '../dashboard/';
+  }, 2000);
 });
 
 /* ============================================================
