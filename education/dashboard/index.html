@@ -1595,22 +1595,34 @@ function renderDashboard() {
   document.getElementById('auth-content').style.display = 'block';
 
   // Identity card
-  document.getElementById('identity-name').textContent = name;
-  document.getElementById('identity-student-number').textContent = profile.student_number;
-  document.getElementById('identity-initials').textContent = initials;
+  // Identity card
+  const elName = document.getElementById('identity-name');
+  const elStudentNo = document.getElementById('identity-student-number');
+  const elInitials = document.getElementById('identity-initials');
+  const elAvatarInitials = document.getElementById('topbar-avatar-initials');
+  const elStatCourses = document.getElementById('stat-courses');
+  const elStatCerts = document.getElementById('stat-certs');
+  const elStatSince = document.getElementById('stat-since');
+  const elOverviewSub = document.getElementById('overview-sub');
+  const elProfileName = document.getElementById('profile-name');
+  const elProfileStudentNo = document.getElementById('profile-student-no');
+  const elProfileEmail = document.getElementById('profile-email');
+  const elProfileContact = document.getElementById('profile-contact');
+  const elProfileBio = document.getElementById('profile-bio');
+  const elProfileLinkedin = document.getElementById('profile-linkedin');
+  const elProfileInitialsLarge = document.getElementById('profile-initials-large');
 
-  // Topbar avatar
-  document.getElementById('topbar-avatar-initials').textContent = initials;
+  if (elName) elName.textContent = name;
+  if (elStudentNo) elStudentNo.textContent = profile.student_number;
+  if (elInitials) elInitials.textContent = initials;
+  if (elAvatarInitials) elAvatarInitials.textContent = initials;
+  if (elStatCourses) elStatCourses.textContent = enrollments.length;
+  if (elStatCerts) elStatCerts.textContent = '0';
 
-  // Stats
-  document.getElementById('stat-courses').textContent = enrollments.length;
-  document.getElementById('stat-certs').textContent = '0'; // Phase 2: count from certificates table
-
-  // Member since — show month and year of registration
-  if (profile.created_at) {
+  // Member since
+  if (elStatSince && profile.created_at) {
     const joined = new Date(profile.created_at);
-    const monthYear = joined.toLocaleDateString('en-UG', { month: 'short', year: 'numeric' });
-    document.getElementById('stat-since').textContent = monthYear;
+    elStatSince.textContent = joined.toLocaleDateString('en-UG', { month: 'short', year: 'numeric' });
   }
 
   // Profile photo if exists
@@ -1622,21 +1634,21 @@ function renderDashboard() {
   const overviewSub = enrollments.length > 0
     ? `You are enrolled in ${enrollments.length} course${enrollments.length > 1 ? 's' : ''}. Keep going!`
     : `You haven't enrolled in any courses yet. Choose a plan below to start studying.`;
-  document.getElementById('overview-sub').textContent = overviewSub;
+  if (elOverviewSub) elOverviewSub.textContent = overviewSub;
 
   // Populate profile form
-  document.getElementById('profile-name').value = name;
-  document.getElementById('profile-student-no').value = profile.student_number;
-  document.getElementById('profile-email').value = profile.email;
-  document.getElementById('profile-contact').value = profile.contact_number || '';
-  document.getElementById('profile-bio').value = profile.bio || '';
-  document.getElementById('profile-linkedin').value = profile.linkedin_url || '';
+  if (elProfileName) elProfileName.value = name;
+  if (elProfileStudentNo) elProfileStudentNo.value = profile.student_number;
+  if (elProfileEmail) elProfileEmail.value = profile.email;
+  if (elProfileContact) elProfileContact.value = profile.contact_number || '';
+  if (elProfileBio) elProfileBio.value = profile.bio || '';
+  if (elProfileLinkedin) elProfileLinkedin.value = profile.linkedin_url || '';
 
   // Profile photo large
-  document.getElementById('profile-initials-large').textContent = initials;
+  if (elProfileInitialsLarge) elProfileInitialsLarge.textContent = initials;
   if (profile.photo_url) {
     const large = document.getElementById('profile-photo-large');
-    large.innerHTML = `<img src="${profile.photo_url}" alt="Your profile photo"/>`;
+    if (large) large.innerHTML = `<img src="${profile.photo_url}" alt="Your profile photo"/>`;
   }
 
   // Render overview and courses content
@@ -1888,17 +1900,14 @@ document.getElementById('photo-input').addEventListener('change', async function
 });
 
 function setPhoto(url) {
-  // Identity card
   const identityPhoto = document.getElementById('identity-photo');
-  identityPhoto.innerHTML = `<img src="${url}" alt="Your profile photo"/>`;
+  if (identityPhoto) identityPhoto.innerHTML = `<img src="${url}" alt="Your profile photo"/>`;
 
-  // Topbar avatar
   const topbarAvatar = document.getElementById('topbar-avatar');
-  topbarAvatar.innerHTML = `<img src="${url}" alt="Your profile photo"/>`;
+  if (topbarAvatar) topbarAvatar.innerHTML = `<img src="${url}" alt="Your profile photo"/>`;
 
-  // Profile large
   const profileLarge = document.getElementById('profile-photo-large');
-  profileLarge.innerHTML = `<img src="${url}" alt="Your profile photo"/>`;
+  if (profileLarge) profileLarge.innerHTML = `<img src="${url}" alt="Your profile photo"/>`;
 }
 
 /* ============================================================
