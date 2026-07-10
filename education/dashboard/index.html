@@ -1519,11 +1519,15 @@ async function init() {
       .from('profiles')
       .select('*')
       .eq('id', currentUser.id)
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error('Profile fetch error:', error);
       throw error;
+    }
+
+    if (!profile) {
+      throw new Error('NO_PROFILE: No profile row found for user ' + currentUser.id + ' (' + currentUser.email + '). The trigger may not have created a profile on signup.');
     }
 
     currentProfile = profile;
@@ -1550,19 +1554,30 @@ async function init() {
     document.getElementById('loading-state').style.display = 'none';
     document.getElementById('auth-content').style.display = 'block';
 
-    // Show a helpful retry message instead of a dead state
+    const errorMsg = err?.message || err?.toString() || 'Unknown error';
+    const errorCode = err?.code || '';
+    const errorHint = err?.hint || '';
+
     document.querySelector('.page-content').innerHTML = `
-      <div style="background:white;border:1px solid var(--line);border-radius:16px;padding:40px 28px;text-align:center;max-width:420px;margin:0 auto;">
+      <div style="background:white;border:1px solid #E8E6E0;border-radius:16px;padding:40px 28px;text-align:center;max-width:500px;margin:0 auto;">
         <div style="font-size:40px;margin-bottom:16px;">⚠️</div>
-        <h2 style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:var(--navy);margin-bottom:8px;">Could not load your dashboard</h2>
-        <p style="font-size:0.87rem;color:var(--gray);line-height:1.65;margin-bottom:20px;">
-          There was a problem connecting to our servers. This is usually temporary.
-          Please try refreshing the page. If the problem continues, contact us at
-          <a href="mailto:kmvtechug@gmail.com" style="color:var(--blue);">kmvtechug@gmail.com</a>.
-        </p>
-        <button onclick="window.location.reload()" style="background:var(--navy);color:white;border:none;border-radius:9px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">
-          Refresh Page
+        <h2 style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:#0D1B2A;margin-bottom:16px;">Dashboard Load Error</h2>
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;padding:14px 16px;margin-bottom:16px;text-align:left;">
+          <p style="font-size:11px;font-weight:700;color:#991B1B;margin-bottom:6px;">EXACT ERROR — please screenshot this:</p>
+          <p style="font-size:11px;color:#991B1B;font-family:monospace;line-height:1.8;word-break:break-all;">
+            ${errorCode ? 'Code: ' + errorCode + '<br/>' : ''}
+            Message: ${errorMsg}<br/>
+            ${errorHint ? 'Hint: ' + errorHint + '<br/>' : ''}
+            User: ${currentUser?.email || 'not set'}<br/>
+            User ID: ${currentUser?.id || 'not set'}
+          </p>
+        </div>
+        <button onclick="window.location.reload()" style="background:#0D1B2A;color:white;border:none;border-radius:9px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-right:10px;">
+          Refresh
         </button>
+        <a href="../login/" style="background:none;border:1.5px solid #0D1B2A;color:#0D1B2A;border-radius:9px;padding:11px 24px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block;">
+          Log Out &amp; Try Again
+        </a>
       </div>`;
   }
 }
