@@ -6,8 +6,8 @@
     "language": "en",
     "author": "King Musah Media News Desk",
     "date": "2026-06-28",
-    "breaking": true,
-    "featured": true,
+    "breaking": false,
+    "featured": false,
     "excerpt": "Gen. Muhoozi Kainerugaba ordered the shutdown of Daily Monitor, NTV Uganda and Spark TV, triggering condemnation from press freedom advocates at home and abroad.",
     "image_alt": "Nation Media Group building in Kampala",
     "content": [
@@ -15,7 +15,63 @@
       "Security personnel surrounded the media group's premises in Kampala on the night of June 28, cutting off access and electricity. The army chief publicly stated he does not believe in a free press and that the outlets would only reopen with his personal approval. The government later indicated President Museveni had ordered a security inquiry into the matter.",
       "The move has raised serious concerns about media independence. Nation Media Group described the incident as a \"military siege.\" As of mid-July, discussions on reopening continue amid global scrutiny from press freedom organisations."
     ],
-    "tags": ["Media Freedom", "Politics", "Current Affairs"]
+    "tags": [
+      "Media Freedom",
+      "Politics",
+      "Current Affairs"
+    ]
+  },
+  {
+    "slug": "kapchorwa-bus-crash-king-david-junior-school",
+    "title": "Educational Trip Ends in Tragedy: 20 Pupils and School Director Killed in Kapchorwa Bus Crash",
+    "category": "news",
+    "language": "en",
+    "author": "King Musah Media News Desk",
+    "date": "2026-07-17",
+    "breaking": true,
+    "featured": true,
+    "excerpt": "A school bus returning from an educational tour to Sipi Falls overturned in Kapchorwa District, killing at least 20 pupils and the school's founder and director.",
+    "image_alt": "Emergency responders at the scene of a road accident in Kapchorwa",
+    "content": [
+      "A school bus ferrying pupils from King David Junior School Ndejje overturned in a tragic accident in Kapchorwa District on Thursday evening, leaving at least 20 pupils and one adult dead.",
+      "The bus, registration number UA 108BQ, was returning from an educational tour to the popular Sipi Falls when the accident occurred around 8:00 p.m. at Chekwatit village, Kimawa Parish, Kawowo Sub-county. According to officials, the vehicle developed mechanical problems before the crash.",
+      "Kapchorwa Resident District Commissioner Bayole Stanley initially confirmed 19 deaths (18 pupils and one adult). However, updated reports from police and other sources indicate 20 pupils and the school's founder and director, Mr. Tadeo Ssekade, perished in the incident, bringing the confirmed death toll to 21. Several other pupils and crew members sustained injuries and were rushed to Kapchorwa General Hospital for treatment.",
+      "<strong>Warnings ignored?</strong> Area leaders and witnesses allege that locals had warned the driver about the bus's faulty condition earlier in the journey, but the trip continued. Twalla Fadil, General Secretary of the Patriotic League of Uganda (PLU) and area MP, expressed deep sorrow, stating the accident \"could have been avoided\" if the warnings had been heeded. Uganda Police Force spokesperson Michael Kananura confirmed the fatal crash and noted that rescue operations were conducted at the scene, with investigations into the exact cause, including the reported mechanical failure and possible driver decisions, ongoing.",
+      "<strong>Heartbreak for families and the nation.</strong> The tragedy has sent shockwaves across the country, with parents and guardians rushing to Kapchorwa to identify their children. Videos circulating on social media show distraught teachers and responders at the scene, highlighting the immense grief felt by the school community. King David Junior School Ndejje, located in Makindye Ssabagabo Municipality, Wakiso District, had organised the trip as part of its educational programme, and many Ugandans are now questioning the safety protocols for long-distance school tours, especially for young primary pupils.",
+      "This incident comes shortly after other school-related road accidents, raising fresh concerns about vehicle maintenance, driver fatigue, and oversight of educational excursions. Authorities have urged calm as identification and support for affected families continue, with the Uganda Police and relevant ministries expected to release further details, including the full list of victims, once next of kin are notified.",
+      "King Musah Media extends its deepest condolences to the families of the deceased, the staff and pupils of King David Junior School Ndejje, and the entire nation. May the souls of the departed rest in eternal peace.",
+      "<em>This story is developing. King Musah Media will provide updates as more information becomes available from official sources.</em>"
+    ],
+    "tags": [
+      "Kapchorwa",
+      "Road Safety",
+      "Tragedy"
+    ]
+  },
+  {
+    "slug": "namisindwa-school-closure-sanitation-fund-mismanagement",
+    "title": "Minister Orders Closure of Namisindwa Secondary School Over Poor Sanitation and Alleged Fund Mismanagement",
+    "category": "news",
+    "language": "en",
+    "author": "Musanya Musa",
+    "date": "2026-07-16",
+    "breaking": false,
+    "featured": false,
+    "excerpt": "Local Government Minister Balaam Barugahara orders the temporary closure of Namisindwa Secondary School after a surprise inspection exposed dire sanitation conditions and alleged financial mismanagement.",
+    "image_alt": "Dilapidated school toilet block made of rusted iron sheets",
+    "content": [
+      "Local Government Minister Balaam Barugahara has directed the immediate temporary closure of Namisindwa Secondary School following a surprise inspection that revealed shocking lapses in sanitation and student welfare.",
+      "During the on-site visit, the minister expressed dismay at the inadequate toilet facilities serving more than 550 students. Eyewitness footage shows the minister pointing out dilapidated structures pieced together from rusted corrugated iron and wooden panels, describing the conditions as unacceptable for a learning environment.",
+      "In addition to the sanitation crisis, Barugahara ordered a full investigation into allegations of mismanagement, including the possible misuse of government funds and inflated pupil enrollment figures. Reports from the inspection also indicate that the headteacher has been ordered arrested pending further inquiries.",
+      "\"Schools must prioritize the health and safety of our children,\" the minister emphasized in video circulating on social media. The move comes amid growing public concern over standards in rural public institutions.",
+      "Local residents and education stakeholders have welcomed the decisive action, though some are calling for similar inspections across the district and beyond. The school will remain closed until minimum standards are met, with education authorities tasked to facilitate the transfer or alternative arrangements for affected students.",
+      "The incident highlights persistent challenges in Uganda's education sector, where infrastructure deficits and accountability issues continue to affect learning outcomes, particularly in under-resourced districts. The Ministry of Local Government has promised a comprehensive report on the findings in the coming days."
+    ],
+    "tags": [
+      "Education",
+      "Local Government",
+      "Namisindwa"
+    ]
   },
   {
     "slug": "ai-africa-creative-infrastructure-uganda",
@@ -33,7 +89,12 @@
       "As part of broader technology adoption efforts, Ugandan entrepreneurs and institutions are integrating AI to boost efficiency and competitiveness, aligning with national goals for digital economy growth under the current budget framework. Challenges such as skills gaps and infrastructure remain, prompting calls for increased investment in education and training.",
       "With initiatives like enhanced ICT policies from the Ministry of ICT and National Guidance, the country aims to harness technology for job creation and sustainable development in the coming years."
     ],
-    "tags": ["Technology", "AI", "Innovation", "Business"]
+    "tags": [
+      "Technology",
+      "AI",
+      "Innovation",
+      "Business"
+    ]
   },
   {
     "slug": "besigye-treason-saga-two-years",
@@ -48,12 +109,16 @@
     "image_alt": "Exterior of the High Court of Uganda in Kampala",
     "content": [
       "Approaching two years in detention since his dramatic abduction from Kenya in November 2024, veteran opposition figure Dr. Kizza Besigye's treason trial has become a litmus test for justice, judicial independence, and political tolerance in Uganda. Besigye, a four-time presidential candidate, physician, and former bush war ally of President Museveni, was seized in Nairobi and resurfaced days later in a Ugandan military court, charged alongside Hajj Obeid Lutale with treason and related offences.",
-      "What began as a military proceeding \u2014 later challenged and partly shifted to the High Court following Supreme Court rulings on civilian trials \u2014 has been marked by repeated procedural battles, health concerns for the accused, and claims of state interference. The obstacles facing Besigye's defence team have been striking: lawyer Erias Lukwago was arrested in mid-June 2026 and detained before facing his own treason-related charges, while Kenyan senior counsel Martha Karua was detained at Entebbe airport and deported without clear justification while attempting to support the team.",
+      "What began as a military proceeding — later challenged and partly shifted to the High Court following Supreme Court rulings on civilian trials — has been marked by repeated procedural battles, health concerns for the accused, and claims of state interference. The obstacles facing Besigye's defence team have been striking: lawyer Erias Lukwago was arrested in mid-June 2026 and detained before facing his own treason-related charges, while Kenyan senior counsel Martha Karua was detained at Entebbe airport and deported without clear justification while attempting to support the team.",
       "Compounding the legal team's difficulties are public statements attributed to Chief of Defence Forces Gen. Muhoozi Kainerugaba. Besigye and Lutale have filed suit against the general over social media posts they say include threats and prejudicial comments presuming guilt; Muhoozi has sought dismissal of the application, describing the claims as hearsay.",
       "President Museveni has also weighed in during national addresses, criticising Besigye for what he described as deliberate delays in facing trial, while the Uganda Law Society has pushed back, arguing such remarks risk constituting executive interference and undermining the presumption of innocence.",
       "With prolonged pre-trial detention now nearing two years and continuing disputes over defence representation, the Besigye matter remains far from resolution. However it concludes, its handling will shape perceptions of Uganda's democratic credentials for years to come."
     ],
-    "tags": ["Besigye", "Judiciary", "Politics"]
+    "tags": [
+      "Besigye",
+      "Judiciary",
+      "Politics"
+    ]
   },
   {
     "slug": "lukwago-committed-high-court-treason",
@@ -62,18 +127,22 @@
     "language": "en",
     "author": "Musanya Musa",
     "date": "2026-07-16",
-    "breaking": true,
+    "breaking": false,
     "featured": false,
     "excerpt": "DPP formally indicts former Kampala Lord Mayor Erias Lukwago on misprision of treason charges, a month after his contested arrest at his Wakaliga home.",
     "image_alt": "Gavel and scales of justice on a courtroom desk",
     "content": [
       "In a significant escalation of one of Uganda's most high-profile political-legal battles, the Director of Public Prosecutions has formally indicted former Kampala Lord Mayor and People's Front for Freedom president Erias Lukwago on charges of misprision of treason. A magistrate has committed him to the High Court for trial, marking another chapter in a saga that began with a contested operation at his Wakaliga home.",
-      "The development comes roughly one month after Lukwago's June 15 arrest, when armed operatives entered his residence and took him into custody \u2014 an incident family members and colleagues described as an enforced disappearance, given initial denials from some security agencies about his whereabouts. The government has framed the operation as a lawful arrest.",
+      "The development comes roughly one month after Lukwago's June 15 arrest, when armed operatives entered his residence and took him into custody — an incident family members and colleagues described as an enforced disappearance, given initial denials from some security agencies about his whereabouts. The government has framed the operation as a lawful arrest.",
       "At the time, Lukwago was acting as lead counsel for jailed opposition figure Dr. Kizza Besigye and was preparing to serve court documents related to a human rights suit. Chief of Defence Forces Gen. Muhoozi Kainerugaba confirmed the detention on social media in posts that drew widespread condemnation, amplifying accusations of military overreach into civilian and judicial matters.",
       "Lukwago was later charged at Makindye Chief Magistrate's Court under Section 25 of the Penal Code Act. Prosecutors allege that between 2021 and November 2024, in Nairobi and Kampala, Lukwago knew of treasonous intentions involving Besigye and co-accused individuals but failed to report them to authorities. He has consistently denied the charges.",
       "The case has raised questions about the separation of powers and judicial independence. Legal bodies including the Uganda Law Society and the Commonwealth Lawyers Association have expressed concern over the initial detention, and Lukwago's health reportedly deteriorated during remand at Luzira Prison, prompting bail applications that were deferred amid crowded court proceedings. The trial now moves to the High Court, where procedural fairness and evidentiary standards will face closer scrutiny."
     ],
-    "tags": ["Lukwago", "Judiciary", "Politics"]
+    "tags": [
+      "Lukwago",
+      "Judiciary",
+      "Politics"
+    ]
   },
   {
     "slug": "lukwago-lawyers-india-medical-transfer",
@@ -92,7 +161,11 @@
       "Lukwago, who has appeared in court both physically and via video link, has described severe pain that basic prison medication fails to manage. His lawyers argue continued detention without advanced treatment poses a serious risk to his life, and the request for a guarded transfer reflects a compromise between security concerns and medical necessity.",
       "The case continues to spotlight tensions between state security imperatives and the rights of accused persons, particularly high-profile political figures. With the misprision of treason charge carrying potential life imprisonment, courts have so far prioritised the gravity of the alleged offence when denying bail, but medical pleas introduce a factor that could influence future rulings as the matter moves to the High Court."
     ],
-    "tags": ["Lukwago", "Health", "Judiciary"]
+    "tags": [
+      "Lukwago",
+      "Health",
+      "Judiciary"
+    ]
   },
   {
     "slug": "besigye-treason-trial-resumes-lawyer-intimidation",
@@ -110,7 +183,11 @@
       "Justice Emmanuel Baguma has ordered state-funded lawyers after several defence counsel faced reported intimidation, abduction, or denial of entry into the country. Besigye has told the court he appeared under duress, while prosecutors continue presenting evidence in a case that has drawn significant public attention.",
       "Court sessions have been marked by procedural disputes, including demands for full evidence disclosure. The trial is seen as a major test for Uganda's justice system and political landscape."
     ],
-    "tags": ["Besigye", "Judiciary", "Politics"]
+    "tags": [
+      "Besigye",
+      "Judiciary",
+      "Politics"
+    ]
   },
   {
     "slug": "matembe-charged-sectarianism-remanded",
@@ -119,7 +196,7 @@
     "language": "en",
     "author": "King Musah Media News Desk",
     "date": "2026-07-01",
-    "breaking": true,
+    "breaking": false,
     "featured": false,
     "excerpt": "Former minister Miria Matembe has been charged with sectarianism and remanded to Luzira Prison, sparking debate on political expression and unity.",
     "image_alt": "Luzira Prison gate in Kampala",
@@ -128,7 +205,11 @@
       "Court proceedings are ongoing following her arrest, amid heightened political sensitivities in the country. Supporters and critics alike are closely watching how the justice system handles the matter.",
       "Legal experts note that such cases often test the balance between maintaining national cohesion and protecting individual rights."
     ],
-    "tags": ["Politics", "Current Affairs", "Judiciary"]
+    "tags": [
+      "Politics",
+      "Current Affairs",
+      "Judiciary"
+    ]
   },
   {
     "slug": "uganda-china-defence-economic-ties",
@@ -146,7 +227,11 @@
       "The growing alliance comes as Uganda implements its ambitious national budget aimed at industrialisation and infrastructure expansion. Analysts view the partnership as crucial for technology transfer and capacity building, though it has also sparked discussion on balancing foreign relations with national sovereignty and debt sustainability.",
       "Government officials emphasise that such collaboration will help accelerate projects like road networks and energy initiatives while opening new markets for Ugandan products, reflecting Uganda's active foreign policy approach in an increasingly multipolar world."
     ],
-    "tags": ["International Relations", "Politics", "Business"]
+    "tags": [
+      "International Relations",
+      "Politics",
+      "Business"
+    ]
   },
   {
     "slug": "no-namboole-no-afcon-nabanja-warning",
@@ -155,17 +240,21 @@
     "language": "en",
     "author": "Musanya Musa",
     "date": "2026-07-01",
-    "breaking": true,
+    "breaking": false,
     "featured": false,
     "excerpt": "Prime Minister Robinah Nabanja issues a stern warning over stadium renovation delays, saying Uganda's 2027 AFCON co-hosting rights hinge on Namboole being ready.",
     "image_alt": "Mandela National Stadium Namboole exterior",
     "content": [
       "Prime Minister Robinah Nabanja has drawn a firm line in the sand: without the timely renovation of Mandela National Stadium Namboole, there will be no AFCON for Uganda. Addressing senior government officials and technical teams in a high-level meeting, the Prime Minister demanded immediate answers and accelerated action on the long-delayed upgrades to the country's iconic venue, as Uganda prepares to co-host the 2027 Africa Cup of Nations alongside Kenya and Tanzania.",
-      "Namboole is more than a stadium \u2014 it is the heartbeat of Ugandan football, the stage where Cranes legends have been born. The UPDF Engineering Brigade, tasked with the second phase of renovations estimated at around $60 million, has been under pressure to deliver by December 2026, but CAF inspectors have previously flagged timelines, and the scale of the upgrade \u2014 expanded seating, modern facilities, a new hotel component, and continental-standard compliance \u2014 remains a heavy lift.",
+      "Namboole is more than a stadium — it is the heartbeat of Ugandan football, the stage where Cranes legends have been born. The UPDF Engineering Brigade, tasked with the second phase of renovations estimated at around $60 million, has been under pressure to deliver by December 2026, but CAF inspectors have previously flagged timelines, and the scale of the upgrade — expanded seating, modern facilities, a new hotel component, and continental-standard compliance — remains a heavy lift.",
       "Prime Minister Nabanja's intervention comes at a pivotal time, with AFCON 2027 just months from the final preparatory window; any further slippage could force difficult conversations with CAF and potentially compromise Uganda's hosting rights. Sports Minister Peter Ogwang and other stakeholders have repeatedly expressed confidence in the Engineering Brigade's ability to deliver, but what's needed now, officials say, is execution: clear milestones, transparent progress reporting, and accountability at every level.",
-      "For Ugandan football fans, the stakes are personal. Hosting AFCON would be the ultimate reward \u2014 an opportunity to showcase talent, boost tourism, create jobs, and inspire the next generation. The renovations at Namboole, and supporting infrastructure at venues like Hoima, will need to be fast-tracked without compromise if Uganda is to be ready when the continent arrives in 2027."
+      "For Ugandan football fans, the stakes are personal. Hosting AFCON would be the ultimate reward — an opportunity to showcase talent, boost tourism, create jobs, and inspire the next generation. The renovations at Namboole, and supporting infrastructure at venues like Hoima, will need to be fast-tracked without compromise if Uganda is to be ready when the continent arrives in 2027."
     ],
-    "tags": ["AFCON 2027", "Namboole", "Football"]
+    "tags": [
+      "AFCON 2027",
+      "Namboole",
+      "Football"
+    ]
   },
   {
     "slug": "cheptegei-wins-absa-run-your-city",
@@ -183,7 +272,10 @@
       "Cheptegei's consistent performances continue to inspire young athletes across Uganda and highlight the country's potential in sports development. Sports authorities are using such successes to advocate for better facilities, funding, and grassroots programmes to nurture talent.",
       "The achievement comes as Uganda promotes health and wellness alongside sports tourism, with major events on the horizon serving as motivation for the entire sporting fraternity. Analysts believe sustained investment in sports will yield both health and economic dividends."
     ],
-    "tags": ["Sports", "Athletics"]
+    "tags": [
+      "Sports",
+      "Athletics"
+    ]
   },
   {
     "slug": "uganda-fy2026-27-budget-implementation",
@@ -201,7 +293,11 @@
       "The budget, presented in June by the Ministry of Finance, aims to grow the economy and create jobs, with key priorities including infrastructure projects, value addition in agriculture, and expanding services. As implementation begins, ministries are aligning activities with approved appropriations.",
       "Business stakeholders are closely monitoring cash flow releases and tax measures for their impact on private sector growth in the months ahead."
     ],
-    "tags": ["Budget", "Economy", "Business"]
+    "tags": [
+      "Budget",
+      "Economy",
+      "Business"
+    ]
   },
   {
     "slug": "hot-drier-july-weather-uganda",
@@ -219,7 +315,10 @@
       "Northern and parts of Eastern Uganda may see occasional light showers, while Central, Southwestern, and the Lake Victoria basin are expected to remain largely dry. The Ministry of National Guidance and related offices are expected to continue public updates as the weather pattern develops.",
       "Farmers and water users are advised to take precautionary measures as the dry spell affects agriculture and daily life."
     ],
-    "tags": ["Weather", "Environment"]
+    "tags": [
+      "Weather",
+      "Environment"
+    ]
   },
   {
     "slug": "karuma-bridge-construction-october-2026",
@@ -237,7 +336,11 @@
       "The project forms part of ongoing efforts to improve road networks and support economic activity under the new national budget. Officials say the bridge will enhance connectivity, reduce travel times, and stimulate trade between regions.",
       "The development aligns with broader infrastructure priorities aimed at supporting Uganda's growth and monetisation agenda, with preparatory works reportedly advancing smoothly."
     ],
-    "tags": ["Infrastructure", "Business", "Development"]
+    "tags": [
+      "Infrastructure",
+      "Business",
+      "Development"
+    ]
   },
   {
     "slug": "uganda-entertainment-scene-new-music",
@@ -253,9 +356,13 @@
     "content": [
       "Uganda's vibrant entertainment industry continues to thrive as local artists release fresh tracks and stage memorable live performances, captivating audiences both at home and across the region. Singers like Guvnor Ace have dropped new Afrobeat bangers, signalling a strong comeback and renewed creative energy in the music scene.",
       "The debut concert by Ashaba Music at a Kampala venue drew large crowds, showcasing the growing appeal of live events as the economy opens up. Beauty pageants such as the crowning of Janet Nabukeera as Miss Tourism Bunyoro 2026/2027 have added glamour and promoted cultural tourism.",
-      "Industry players attribute the surge to improved digital platforms and increasing youth engagement, and with the new financial year budget emphasising service sector growth, stakeholders hope for more government support to position Ugandan talent on the global stage \u2014 an industry that provides employment while serving as a tool for cultural diplomacy and national branding."
+      "Industry players attribute the surge to improved digital platforms and increasing youth engagement, and with the new financial year budget emphasising service sector growth, stakeholders hope for more government support to position Ugandan talent on the global stage — an industry that provides employment while serving as a tool for cultural diplomacy and national branding."
     ],
-    "tags": ["Music", "Entertainment", "Culture"]
+    "tags": [
+      "Music",
+      "Entertainment",
+      "Culture"
+    ]
   },
   {
     "slug": "uganda-praised-ebola-response",
@@ -270,10 +377,13 @@
     "image_alt": "Health workers in protective equipment at a clinic",
     "content": [
       "The World Health Organization has commended Uganda for its prompt and effective handling of a recent Ebola outbreak, even as the country manages cross-border risks with the Democratic Republic of Congo.",
-      "WHO Director-General Dr. Tedros Adhanom Ghebreyesus highlighted Uganda's capable response, including rapid containment measures and calls to reopen borders once safe. Health authorities have launched vaccine trials, recruiting volunteers aged 18\u201355 for the Bundibugyo strain.",
+      "WHO Director-General Dr. Tedros Adhanom Ghebreyesus highlighted Uganda's capable response, including rapid containment measures and calls to reopen borders once safe. Health authorities have launched vaccine trials, recruiting volunteers aged 18–55 for the Bundibugyo strain.",
       "Officials continue to monitor the situation closely while reassuring the public that robust systems are in place to prevent wider spread, amid broader regional health efforts."
     ],
-    "tags": ["Health", "Ebola"]
+    "tags": [
+      "Health",
+      "Ebola"
+    ]
   },
   {
     "slug": "school-ordered-pay-corporal-punishment",
@@ -291,7 +401,11 @@
       "The ruling underscores growing judicial emphasis on child protection and the prohibition of excessive physical discipline in educational institutions. Education stakeholders say the case is a reminder for schools to adopt alternative, positive disciplinary methods.",
       "The Ministry of Education is expected to use such outcomes to strengthen guidelines and monitoring in the sector as the new academic term progresses."
     ],
-    "tags": ["Education", "Judiciary", "Child Rights"]
+    "tags": [
+      "Education",
+      "Judiciary",
+      "Child Rights"
+    ]
   },
   {
     "slug": "nec-meat-beans-plant-museveni",
@@ -309,7 +423,10 @@
       "The plant is expected to boost farmers' incomes, create jobs, and support Uganda's push towards commercial agriculture under the current budget's economic monetisation theme, reflecting broader government efforts to strengthen the agro-industrial sector and reduce reliance on raw exports.",
       "Commissioning is anticipated to take place soon, with local communities hopeful for positive economic impact."
     ],
-    "tags": ["Agriculture", "Business"]
+    "tags": [
+      "Agriculture",
+      "Business"
+    ]
   },
   {
     "slug": "nssf-assets-grow-32-8-trillion",
@@ -327,7 +444,11 @@
       "Officials highlighted the fund's role in providing stable financing for infrastructure and other priority sectors under the new budget, as Uganda advances its economic targets for the coming years.",
       "The growth is expected to boost confidence among savers and investors amid the government's ongoing monetisation efforts."
     ],
-    "tags": ["NSSF", "Finance", "Business"]
+    "tags": [
+      "NSSF",
+      "Finance",
+      "Business"
+    ]
   },
   {
     "slug": "ankole-leaders-anti-corruption-crackdown",
@@ -341,13 +462,17 @@
     "excerpt": "Ministers Balaam Barugahara and Justine Nameere's anti-corruption tour puts Ankole local leaders on the defensive as a viral video exposes friction over graft.",
     "image_alt": "Government officials addressing a crowd outdoors",
     "content": [
-      "Local leaders in Uganda's Ankole region found themselves under the spotlight \u2014 and seemingly on the defensive \u2014 as Ministers Balaam Barugahara and Justine Nameere pressed ahead with their sweeping crackdown on graft in local governments. The pair, appointed earlier this year with a mandate to shake up underperforming and allegedly corrupt local structures, have intensified nationwide inspections of government projects, exposing shoddy work, misappropriated funds, and systemic failures long complained about by residents.",
+      "Local leaders in Uganda's Ankole region found themselves under the spotlight — and seemingly on the defensive — as Ministers Balaam Barugahara and Justine Nameere pressed ahead with their sweeping crackdown on graft in local governments. The pair, appointed earlier this year with a mandate to shake up underperforming and allegedly corrupt local structures, have intensified nationwide inspections of government projects, exposing shoddy work, misappropriated funds, and systemic failures long complained about by residents.",
       "Footage circulating on social media shows a group of Ankole officials gathered outdoors, facing microphones and cameras, with one prominent figure gesturing emphatically while others stand by with forced smiles. The clip, captioned \"Come Slowly, Ankole Region Leaders,\" has drawn sharp commentary online, with one widely shared post labelling the gathering \"faces of corruption fighting the fight against corruption.\"",
       "The ministers' campaign extends beyond the Parish Development Model to road projects, health worker recruitment, infrastructure maintenance, and general service delivery across districts. In recent weeks their teams have triggered arrests, including a district engineer in Bulambuli over a poorly maintained road that received substantial funding, and have called for the removal of village chairpersons accused of mismanaging funds and colluding in land grabs.",
-      "Local reactions range from cautious support to visible discomfort. Some officials are reportedly scrambling to avoid or delay visits, while the Uganda Local Government Association has urged dialogue before further arrests \u2014 a pushback that critics say only highlights the depth of the problem the ministers were brought in to solve. President Museveni reportedly chose the pair for their \"cantankerous\" style, a deliberate move to disrupt the status quo in local governments long criticised as hotspots for waste and patronage.",
+      "Local reactions range from cautious support to visible discomfort. Some officials are reportedly scrambling to avoid or delay visits, while the Uganda Local Government Association has urged dialogue before further arrests — a pushback that critics say only highlights the depth of the problem the ministers were brought in to solve. President Museveni reportedly chose the pair for their \"cantankerous\" style, a deliberate move to disrupt the status quo in local governments long criticised as hotspots for waste and patronage.",
       "As the tour continues, many Ugandans are watching closely to see whether the high-profile drive will deliver tangible improvements in service delivery, or whether entrenched interests will find ways to weather the storm."
     ],
-    "tags": ["Politics", "Corruption", "Local Government"]
+    "tags": [
+      "Politics",
+      "Corruption",
+      "Local Government"
+    ]
   },
   {
     "slug": "beer-mosquitoes-malaria-uganda-alcohol",
@@ -361,15 +486,19 @@
     "excerpt": "Health Minister's malaria briefing exposes a bigger story about Uganda's heavy drinking culture and its human and economic costs.",
     "image_alt": "Bottles of beer on a bar counter",
     "content": [
-      "In Parliament this week, Health Minister Dr. Chris Baryomunsi delivered a blunt public health warning while presenting on the malaria situation: pregnant women and beer drinkers attract more mosquitoes. The remark, made during the 12th Parliament's proceedings, was meant to underscore layered risks in Uganda's fight against a disease that still claims thousands of lives yearly \u2014 but it also pulled back the curtain on a far broader challenge that runs deep through Ugandan society, culture, and public health.",
-      "Uganda ranks among Africa's heaviest drinking nations. According to World Health Organization data, per capita alcohol consumption stands at approximately 12.2 litres of pure alcohol per person annually, well above the African regional average of 6.3 litres. Men consume around 19\u201320 litres on average, compared to under 5 litres for women, with alcohol use disorder affecting roughly 7\u201310% of the population.",
+      "In Parliament this week, Health Minister Dr. Chris Baryomunsi delivered a blunt public health warning while presenting on the malaria situation: pregnant women and beer drinkers attract more mosquitoes. The remark, made during the 12th Parliament's proceedings, was meant to underscore layered risks in Uganda's fight against a disease that still claims thousands of lives yearly — but it also pulled back the curtain on a far broader challenge that runs deep through Ugandan society, culture, and public health.",
+      "Uganda ranks among Africa's heaviest drinking nations. According to World Health Organization data, per capita alcohol consumption stands at approximately 12.2 litres of pure alcohol per person annually, well above the African regional average of 6.3 litres. Men consume around 19–20 litres on average, compared to under 5 litres for women, with alcohol use disorder affecting roughly 7–10% of the population.",
       "These figures translate into real human and economic costs. Alcohol is linked to more than 200 diseases and injuries, including liver cirrhosis, various cancers, and cardiovascular complications. In a malaria-endemic country, the Minister's point carries scientific weight: peer-reviewed studies show alcohol consumption alters body odour through metabolites, making people more attractive to mosquitoes, with pregnant women already facing elevated risk due to higher carbon dioxide exhalation and body temperature.",
       "<strong>A deeply embedded culture.</strong> Alcohol is woven into Uganda's social fabric, featuring at weddings, funerals, cultural ceremonies, and everyday relaxation, and small-scale brewing provides vital rural income. But illicit and homemade spirits, sometimes containing dangerous levels of methanol, account for an estimated 50% of consumption, and studies have documented alcohol use among adolescents fuelled by aggressive advertising and weak enforcement of age restrictions.",
       "<strong>The economic trade-off.</strong> The alcohol industry generates tax revenue and employment, but alcohol-related healthcare burdens, lost productivity, and traffic fatalities drain public resources, with illicit trade alone costing government hundreds of millions of dollars in lost revenue annually.",
       "<strong>Policy efforts and challenges.</strong> In 2019, Uganda banned the sale of alcohol in sachets, though compliance was uneven and the industry adapted with smaller bottles. A proposed Alcohol Control Bill has sparked debate over restricting bar hours, limiting advertising, and regulating sales, with industry stakeholders warning of job losses while public health advocates call for stronger pricing and enforcement.",
       "Some positive trends exist: national household surveys show current drinkers declining from around 17% to 12% in recent years, and rehabilitation efforts at facilities like Butabika are expanding, though treatment access remains limited relative to need. As Uganda confronts malaria, non-communicable diseases, and road safety simultaneously, the Minister's briefing is a reminder that alcohol policy is a core public health imperative, not just a matter of morality or revenue."
     ],
-    "tags": ["Health", "Malaria", "Alcohol"]
+    "tags": [
+      "Health",
+      "Malaria",
+      "Alcohol"
+    ]
   },
   {
     "slug": "charcoal-demand-threatens-indigenous-trees",
@@ -387,6 +516,10 @@
       "The Ministry of Environment and related agencies are promoting modern cooking technologies and biomass alternatives to reduce environmental degradation, a challenge that coincides with the current hot and dry weather forecast, which could further stress ecosystems and agriculture.",
       "Conservationists warn that without urgent intervention, biodiversity loss and climate impacts will intensify, though community tree-planting programmes and waste-to-value projects offer hope as Uganda balances development needs with environmental protection."
     ],
-    "tags": ["Environment", "Climate", "Sustainability"]
+    "tags": [
+      "Environment",
+      "Climate",
+      "Sustainability"
+    ]
   }
 ]

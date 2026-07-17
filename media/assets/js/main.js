@@ -1,6 +1,20 @@
 // King Musah Media — shared site behaviour
 // Theme toggle (light/dark, remembered in localStorage) + mobile menu
 
+// Tries jpg -> jpeg -> png -> webp for a story photo; if none exist, hides the
+// <img> so the placeholder icon underneath shows instead. No editing needed —
+// just name your photo file to match the story slug and drop it in assets/images/.
+window.handleImgError = function (img) {
+  var exts = ['jpg', 'jpeg', 'png', 'webp'];
+  var idx = parseInt(img.getAttribute('data-ext-idx') || '0', 10) + 1;
+  if (idx < exts.length) {
+    img.setAttribute('data-ext-idx', idx);
+    img.src = img.getAttribute('data-base') + '.' + exts[idx];
+  } else {
+    img.style.display = 'none';
+  }
+};
+
 (function () {
   var root = document.documentElement;
   var stored = localStorage.getItem('kmm-theme');

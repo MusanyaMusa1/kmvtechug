@@ -35,6 +35,11 @@ CATEGORIES = {
 
 LANG_LABEL = {"en": "English", "lg": "Luganda"}
 
+# Cache-busting: changes every time the site is rebuilt, so browsers and
+# GitHub Pages' CDN pick up the new CSS/JS immediately instead of serving a
+# stale cached copy for hours.
+ASSET_VERSION = datetime.now().strftime("%Y%m%d%H%M%S")
+
 
 def load_articles():
     with open(DATA_FILE, "r", encoding="utf-8") as f:
@@ -138,13 +143,25 @@ def footer_block(depth=""):
     <a href="mailto:info@kingmusahmedia.com">Contact us</a>
   </div>
 </footer>
-<script src="{depth}assets/js/main.js"></script>'''
+<script src="{depth}assets/js/main.js?v={ASSET_VERSION}"></script>'''
+
+
+def image_tag(a, depth="", css_class=""):
+    """Fallback-chained <img>: tries jpg/jpeg/png/webp named after the slug,
+    in assets/images/. If none exist, main.js hides it and the placeholder
+    icon behind it shows instead. Uploading a photo is just: name it
+    <slug>.jpg (or .png etc.) and drop it in assets/images/ — no code edits."""
+    base = f"{depth}assets/images/{a['slug']}"
+    alt = a.get("image_alt", a["title"])
+    cls = f' class="{css_class}"' if css_class else ""
+    return f'<img{cls} src="{base}.jpg" data-base="{base}" data-ext-idx="0" alt="{alt}" loading="lazy" onerror="handleImgError(this)"/>'
 
 
 def story_card(a, depth=""):
     breaking_flag = ' <span class="breaking-flag">&bull; Breaking</span>' if a.get("breaking") else ""
     return f'''<a class="story-card" href="{depth}stories/{a["slug"]}.html">
   <div class="story-media" aria-hidden="true">
+    {image_tag(a, depth)}
     <span class="story-cat-tag">{CATEGORIES.get(a["category"], a["category"])}</span>
     <span class="story-lang-tag">{LANG_LABEL.get(a["language"], a["language"])}</span>
     &#128240;
@@ -181,7 +198,7 @@ def build_index(articles):
   <meta property="og:url" content="{BASE_URL}/index.html"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/css/style.css"/>
+  <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
   <script type="application/ld+json">
   {{"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": "{SITE_NAME}", "url": "{BASE_URL}/index.html"}}
   </script>
@@ -193,7 +210,7 @@ def build_index(articles):
 <section class="sec" id="top-story" aria-label="Top story" style="padding-top:{top_pad}">
   <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">Top Story</span><h2 class="sec-title">{CATEGORIES.get(hero["category"], hero["category"])} Spotlight</h2></div></div>
   <a class="hero-story" href="stories/{hero["slug"]}.html">
-    <div class="hero-story-media" aria-hidden="true">&#128240;</div>
+    <div class="hero-story-media" aria-hidden="true">{image_tag(hero)}&#128240;</div>
     <div class="hero-story-body">
       <span class="story-cat-tag" style="position:static;display:inline-block">{CATEGORIES.get(hero["category"], hero["category"])}</span>
       <h2>{hero["title"]}</h2>
@@ -315,7 +332,7 @@ def build_article(a, articles):
   <meta property="article:section" content="{CATEGORIES.get(a["category"], a["category"])}"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
   <script type="application/ld+json">
   {json_ld}
   </script>
@@ -335,7 +352,7 @@ def build_article(a, articles):
     </div>
   </div>
   {lang_note}
-  <div class="article-media" aria-hidden="true">&#128247; {a.get("image_alt", "")}</div>
+  <div class="article-media" aria-hidden="true">{image_tag(a, depth="../")}&#128247; {a.get("image_alt", "")}</div>
   <div class="article-body">
 {body_html}
   </div>
@@ -377,7 +394,7 @@ def build_category(cat_key, cat_label, articles):
   <meta name="description" content="{cat_label} news and stories from {SITE_NAME}, covering Uganda and beyond."/>
   <link rel="canonical" href="{BASE_URL}/category/{cat_key}.html"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
 </head>
 <body>
 {header_block(depth="../", active=cat_key)}
@@ -412,7 +429,7 @@ def build_archive(articles):
   <meta name="description" content="Browse every story published by {SITE_NAME}, from breaking news to archived reporting."/>
   <link rel="canonical" href="{BASE_URL}/stories/index.html"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
 </head>
 <body>
 {header_block(depth="../", active="stories")}
