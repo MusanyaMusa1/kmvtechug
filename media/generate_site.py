@@ -40,6 +40,11 @@ LANG_LABEL = {"en": "English", "lg": "Luganda"}
 # stale cached copy for hours.
 ASSET_VERSION = datetime.now().strftime("%Y%m%d%H%M%S")
 
+# ---- Google Analytics: paste your Measurement ID (looks like "G-XXXXXXXXXX")
+# here once you've created a property at analytics.google.com. Leave as None
+# to skip analytics entirely.
+GA_MEASUREMENT_ID = "G-GEN75BG21K"
+
 
 def load_articles():
     with open(DATA_FILE, "r", encoding="utf-8") as f:
@@ -91,6 +96,18 @@ def mobile_nav_html(depth=""):
         f'<a href="{depth}{href}" onclick="document.getElementById(\'mob\').classList.remove(\'open\')">{label}</a>'
         for href, label in items
     ) + f'<a href="{depth}support.html" style="color:var(--red);font-weight:700" onclick="document.getElementById(\'mob\').classList.remove(\'open\')">Support Us</a>'
+
+
+def ga_snippet():
+    if not GA_MEASUREMENT_ID:
+        return ""
+    return f'''<script async src="https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', '{GA_MEASUREMENT_ID}');
+  </script>'''
 
 
 def header_block(depth="", active=""):
@@ -201,6 +218,7 @@ def build_index(articles):
   <meta name="twitter:card" content="summary_large_image"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
   <script type="application/ld+json">
   {{"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": "{SITE_NAME}", "url": "{BASE_URL}/index.html"}}
   </script>
@@ -335,6 +353,7 @@ def build_article(a, articles):
   <meta name="twitter:card" content="summary_large_image"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
   <script type="application/ld+json">
   {json_ld}
   </script>
@@ -397,6 +416,7 @@ def build_category(cat_key, cat_label, articles):
   <link rel="canonical" href="{BASE_URL}/category/{cat_key}.html"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
 </head>
 <body>
 {header_block(depth="../", active=cat_key)}
@@ -432,6 +452,7 @@ def build_archive(articles):
   <link rel="canonical" href="{BASE_URL}/stories/index.html"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
 </head>
 <body>
 {header_block(depth="../", active="stories")}
@@ -485,6 +506,7 @@ def build_support():
   <link rel="canonical" href="{BASE_URL}/support.html"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
 </head>
 <body>
 {header_block(active="support")}

@@ -7,6 +7,6 @@ Filename must exactly match the story's slug (the part of the URL after
   besigye-treason-saga-two-years.jpg
   no-namboole-no-afcon-nabanja-warning.jpg
 
-.jpg, .jpeg, .png, and .webp all work. No code editing needed — the page
+.jpg, .jpeg, .jfif, .png, and .webp all work. No code editing needed — the page
 automatically looks for a file with that name and shows it. If no photo is
 found for a story, the placeholder icon shows instead, so nothing breaks.
