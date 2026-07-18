@@ -59,6 +59,8 @@ nav{position:fixed;top:0;left:0;right:0;height:66px;background:var(--nav-bg);bac
 .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
 .nav-links a{text-decoration:none;color:var(--text-soft);font-size:.87rem;font-weight:500;transition:color .2s}
 .nav-links a:hover,.nav-links a.active{color:var(--red)}
+.nav-cta{background:var(--red)!important;color:#fff!important;padding:.4rem 1.1rem;border-radius:20px;font-weight:600!important}
+.nav-cta:hover{background:#c92f18!important;color:#fff!important}
 .theme-toggle{display:flex;align-items:center;gap:.6rem}
 .theme-btn{background:var(--bg-elev);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:border-color .2s}
 .theme-btn:hover{border-color:var(--red)}
@@ -175,5 +177,19 @@ footer{background:var(--bg);color:var(--text-faint);padding:40px 5vw 24px;border
 .footer-bottom a{color:var(--red);text-decoration:none}
 
 .empty-state{padding:3rem 0;text-align:center}
+
+/* ---------- SUPPORT / DONATE PAGE ---------- */
+.support-hero{padding:150px 5vw 40px;text-align:center;max-width:700px;margin:0 auto}
+.support-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5vw,4rem);letter-spacing:.03em;line-height:1.05;margin-bottom:1rem}
+.support-hero p{color:var(--text-soft);font-size:1.05rem;line-height:1.75}
+.pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem;max-width:1000px;margin:0 auto;padding:0 5vw 80px}
+.pay-card{background:var(--bg-elev);border:1px solid var(--border);border-radius:12px;padding:2rem 1.7rem;text-align:center}
+.pay-icon{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1.2rem;color:#fff}
+.pay-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em;margin-bottom:.5rem}
+.pay-number{font-size:1.3rem;font-weight:700;color:var(--red);letter-spacing:.02em;margin:.6rem 0}
+.pay-note{font-size:.82rem;color:var(--text-faint);line-height:1.6}
+.pay-card.soon{opacity:.7}
+.pay-badge{display:inline-block;background:var(--bg-elev-2);color:var(--text-faint);font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .7rem;border-radius:20px;margin-bottom:.8rem}
+.support-note{max-width:700px;margin:0 auto 60px;padding:0 5vw;text-align:center;color:var(--text-faint);font-size:.85rem;line-height:1.7}
 
 @media(max-width:640px){.nav-links{display:none}.hamburger{display:flex}}
