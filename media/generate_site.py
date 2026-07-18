@@ -73,6 +73,7 @@ def nav_html(depth="", active=""):
         link("category/sports.html", "Sports", "sports"),
         link("category/business.html", "Business", "business"),
     ]
+    links.append(f'<li><a href="{depth}support.html" class="nav-cta">Support Us</a></li>')
     return "".join(links)
 
 
@@ -89,15 +90,16 @@ def mobile_nav_html(depth=""):
     return "".join(
         f'<a href="{depth}{href}" onclick="document.getElementById(\'mob\').classList.remove(\'open\')">{label}</a>'
         for href, label in items
-    )
+    ) + f'<a href="{depth}support.html" style="color:var(--red);font-weight:700" onclick="document.getElementById(\'mob\').classList.remove(\'open\')">Support Us</a>'
 
 
 def header_block(depth="", active=""):
     theme_icon = "&#9728;"
+    logo_base = f"{depth}assets/logo-kmm"
     return f'''<a href="#main" class="skip-link">Skip to main content</a>
 <nav>
   <a class="nav-logo" href="{depth}index.html">
-    <img src="{depth}assets/logo-kmm.png" alt="King Musah Media" onerror="this.style.display='none'"/>
+    <img src="{logo_base}.jpg" data-base="{logo_base}" data-ext-idx="0" alt="King Musah Media" onerror="handleImgError(this)"/>
     <span class="nav-logo-text">King Musah Media</span>
   </a>
   <ul class="nav-links">
@@ -472,6 +474,59 @@ def write(path, content):
     print("wrote", os.path.relpath(path, ROOT))
 
 
+def build_support():
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Support Independent Media — {SITE_NAME}</title>
+  <meta name="description" content="Support King Musah Media's independent journalism in Uganda. Every contribution helps us keep reporting the stories that matter."/>
+  <link rel="canonical" href="{BASE_URL}/support.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
+</head>
+<body>
+{header_block(active="support")}
+
+<main id="main">
+<section class="support-hero">
+  <span class="sec-tag">Independent Media Needs You</span>
+  <h1>Support King Musah Media</h1>
+  <p>We report Uganda's news as it happens &mdash; without fear or favour. Independent journalism takes real resources: reporters on the ground, fact-checking, and the time it takes to get a story right. If our coverage has informed or moved you, consider supporting the newsroom directly. Every contribution, big or small, helps.</p>
+</section>
+
+<div class="pay-grid">
+  <div class="pay-card">
+    <div class="pay-icon" style="background:#ED1C24">&#128241;</div>
+    <h3>Airtel Money</h3>
+    <div class="pay-number">+256 759 405 181</div>
+    <p class="pay-note">Send directly via Airtel Money to this number. Please add "KMM Support" as the reason for reference.</p>
+  </div>
+  <div class="pay-card">
+    <div class="pay-icon" style="background:#FFCB05;color:#000">&#128241;</div>
+    <h3>MTN Mobile Money</h3>
+    <div class="pay-number">+256 760 108 150</div>
+    <p class="pay-note">Send directly via MTN MoMo to this number. Please add "KMM Support" as the reason for reference.</p>
+  </div>
+  <div class="pay-card soon">
+    <span class="pay-badge">Coming Soon</span>
+    <div class="pay-icon" style="background:#EB001B">&#128179;</div>
+    <h3>Card Payment</h3>
+    <div class="pay-number">Mastercard &bull;&bull;&bull;&bull; 4487</div>
+    <p class="pay-note">Secure online card payments are being set up and will be available here shortly.</p>
+  </div>
+</div>
+
+<p class="support-note">King Musah Media is an independent Ugandan media outlet. Contributions support reporting costs and are not tax-deductible. For partnership or advertising enquiries instead, visit our <a href="index.html#contact" style="color:var(--red)">contact section</a>.</p>
+</main>
+
+{footer_block()}
+</body>
+</html>'''
+    write(os.path.join(ROOT, "support.html"), html)
+
+
 def main():
     articles = load_articles()
     build_index(articles)
@@ -480,9 +535,23 @@ def main():
         build_category(cat_key, cat_label, articles)
     for a in articles:
         build_article(a, articles)
+    build_support()
     build_sitemap(articles)
     build_robots()
     print(f"\nDone. {len(articles)} articles built.")
+
+    # Warn about story pages that exist on disk but are no longer in
+    # articles.json — these are orphans left over from a removed/renamed
+    # story and won't be linked from anywhere, but stay live if uploaded.
+    current_slugs = {a["slug"] for a in articles}
+    stories_dir = os.path.join(ROOT, "stories")
+    if os.path.isdir(stories_dir):
+        on_disk = {f[:-5] for f in os.listdir(stories_dir) if f.endswith(".html") and f != "index.html"}
+        orphans = on_disk - current_slugs
+        if orphans:
+            print("\n\u26a0\ufe0f  ORPHANED STORY FILES (delete these from GitHub too):")
+            for o in sorted(orphans):
+                print(f"   stories/{o}.html")
 
 
 if __name__ == "__main__":
