@@ -209,7 +209,7 @@ nav { background: var(--cream); border-bottom: 1px solid var(--line); }
         <span>Part of KMVTECHUG</span>
       </div>
     </a>
-    <a href="../register/" class="nav-register-link">Register Free</a>
+    <a href="/education/register/" class="nav-register-link">Register Free</a>
   </div>
 </nav>
 
@@ -251,7 +251,7 @@ nav { background: var(--cream); border-bottom: 1px solid var(--line); }
     </form>
 
     <div class="register-link-row">
-      Don't have an account yet? <a href="../register/">Register free</a>
+      Don't have an account yet? <a href="/education/register/">Register free</a>
     </div>
 
   </div>
@@ -272,7 +272,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 (async function checkExistingSession() {
   const { data } = await supabaseClient.auth.getSession();
   if (data.session) {
-    window.location.href = '/kmvtechug/education/dashboard/';
+    window.location.href = '/education/dashboard/';
   }
 })();
 
@@ -344,7 +344,7 @@ form.addEventListener('submit', async function(e) {
     if (error) throw error;
 
     // Successful login — go to dashboard
-    window.location.href = '/kmvtechug/education/dashboard/';
+    window.location.href = '/education/dashboard/';
 
   } catch (err) {
     setLoading(false);
@@ -378,7 +378,7 @@ document.getElementById('forgot-link').addEventListener('click', async function(
 
   try {
     const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://musanyamusa1.github.io/kmvtechug/education/auth-error/'
+      redirectTo: '/education/auth-error/'
     });
 
     if (error) throw error;
