@@ -45,6 +45,10 @@ ASSET_VERSION = datetime.now().strftime("%Y%m%d%H%M%S")
 # to skip analytics entirely.
 GA_MEASUREMENT_ID = "G-GEN75BG21K"
 
+# ---- Google AdSense: paste your Publisher ID here once approved (looks like
+# "ca-pub-1234567890123456"). Leave as None until then — ads won't render.
+ADSENSE_PUBLISHER_ID = None
+
 
 def load_articles():
     with open(DATA_FILE, "r", encoding="utf-8") as f:
@@ -96,6 +100,12 @@ def mobile_nav_html(depth=""):
         f'<a href="{depth}{href}" onclick="document.getElementById(\'mob\').classList.remove(\'open\')">{label}</a>'
         for href, label in items
     ) + f'<a href="{depth}support.html" style="color:var(--red);font-weight:700" onclick="document.getElementById(\'mob\').classList.remove(\'open\')">Support Us</a>'
+
+
+def adsense_snippet():
+    if not ADSENSE_PUBLISHER_ID:
+        return ""
+    return f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_PUBLISHER_ID}" crossorigin="anonymous"></script>'
 
 
 def ga_snippet():
@@ -159,21 +169,25 @@ def footer_block(depth=""):
 <footer>
   <div class="footer-bottom">
     <span>&copy; {datetime.now().year} King Musah Media. All rights reserved.</span>
-    <a href="mailto:info@kingmusahmedia.com">Contact us</a>
+    <div class="hub-links">
+      <a href="{depth}privacy.html">Privacy Policy</a>
+      <a href="{depth}terms.html">Terms of Service</a>
+      <a href="mailto:info@kingmusahmedia.com">Contact us</a>
+    </div>
   </div>
 </footer>
 <script src="{depth}assets/js/main.js?v={ASSET_VERSION}"></script>'''
 
 
 def image_tag(a, depth="", css_class=""):
-    """Fallback-chained <img>: tries jpg/jpeg/png/webp named after the slug,
+    """Fallback-chained <img>: tries jfif/jpg/jpeg/png/webp named after the slug,
     in assets/images/. If none exist, main.js hides it and the placeholder
     icon behind it shows instead. Uploading a photo is just: name it
-    <slug>.jpg (or .png etc.) and drop it in assets/images/ — no code edits."""
+    <slug>.jfif (or .jpg etc.) and drop it in assets/images/ — no code edits."""
     base = f"{depth}assets/images/{a['slug']}"
     alt = a.get("image_alt", a["title"])
     cls = f' class="{css_class}"' if css_class else ""
-    return f'<img{cls} src="{base}.jpg" data-base="{base}" data-ext-idx="0" alt="{alt}" loading="lazy" onerror="handleImgError(this)"/>'
+    return f'<img{cls} src="{base}.jfif" data-base="{base}" data-ext-idx="0" alt="{alt}" loading="lazy" onerror="handleImgError(this)"/>'
 
 
 def story_card(a, depth=""):
@@ -219,6 +233,7 @@ def build_index(articles):
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
+  {adsense_snippet()}
   <script type="application/ld+json">
   {{"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": "{SITE_NAME}", "url": "{BASE_URL}/index.html"}}
   </script>
@@ -354,6 +369,7 @@ def build_article(a, articles):
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
+  {adsense_snippet()}
   <script type="application/ld+json">
   {json_ld}
   </script>
@@ -417,6 +433,7 @@ def build_category(cat_key, cat_label, articles):
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
+  {adsense_snippet()}
 </head>
 <body>
 {header_block(depth="../", active=cat_key)}
@@ -453,6 +470,7 @@ def build_archive(articles):
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
+  {adsense_snippet()}
 </head>
 <body>
 {header_block(depth="../", active="stories")}
@@ -495,6 +513,114 @@ def write(path, content):
     print("wrote", os.path.relpath(path, ROOT))
 
 
+def build_privacy_policy():
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — {SITE_NAME}</title>
+  <meta name="description" content="How King Musah Media collects, uses, and protects information from visitors to this website."/>
+  <link rel="canonical" href="{BASE_URL}/privacy.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
+  {adsense_snippet()}
+</head>
+<body>
+{header_block()}
+
+<main id="main">
+<article class="article-wrap" style="max-width:820px">
+  <span class="article-cat">Legal</span>
+  <h1 class="article-title">Privacy Policy</h1>
+  <div class="article-byline"><div>Last updated: {datetime.now().strftime("%d %B %Y")}</div></div>
+  <div class="article-body">
+    <p>King Musah Media ("we", "us", "our") operates this website to publish news and current affairs coverage in Uganda. This policy explains what information we collect from visitors and how it is used.</p>
+
+    <p><strong>Information we collect.</strong> We do not require you to create an account or provide personal information to read our content. If you choose to contact us by email, WhatsApp, or phone, we receive whatever information you share with us directly. If you send a donation via Mobile Money, we may see your name and phone number as provided by the mobile money network, but we do not store payment card details ourselves.</p>
+
+    <p><strong>Analytics.</strong> We use Google Analytics to understand how visitors use this site &mdash; for example, which stories are most read and which countries our audience comes from. Google Analytics uses cookies and collects information such as your approximate location, device type, and browsing behaviour on this site. This data is aggregated and does not identify you personally. You can opt out of Google Analytics tracking using browser extensions such as Google's own Analytics Opt-out Browser Add-on.</p>
+
+    <p><strong>Advertising.</strong> This site may display advertisements served by Google AdSense. Google and its partners may use cookies to serve ads based on your prior visits to this or other websites. You can learn more about how Google uses this information and manage your ad preferences at <a href="https://policies.google.com/technologies/ads" style="color:var(--red)">policies.google.com/technologies/ads</a>. You may opt out of personalised advertising by visiting <a href="https://adssettings.google.com" style="color:var(--red)">Google Ads Settings</a>.</p>
+
+    <p><strong>Cookies.</strong> Cookies are small text files stored on your device. Aside from the analytics and advertising cookies described above, this site uses your browser's local storage only to remember your light/dark theme preference &mdash; this is not shared with anyone and stays on your own device.</p>
+
+    <p><strong>Third-party links.</strong> Our stories and pages may link to external websites, including government sources, social media, and other news outlets. We are not responsible for the privacy practices of those external sites.</p>
+
+    <p><strong>Children's privacy.</strong> This site is a general news publication not directed at children, and we do not knowingly collect personal information from children.</p>
+
+    <p><strong>Changes to this policy.</strong> We may update this policy from time to time as our services evolve. Continued use of the site after changes are posted constitutes acceptance of the revised policy.</p>
+
+    <p><strong>Contact us.</strong> If you have questions about this policy, reach us at <a href="mailto:info@kingmusahmedia.com" style="color:var(--red)">info@kingmusahmedia.com</a>.</p>
+  </div>
+</article>
+</main>
+
+{footer_block()}
+</body>
+</html>'''
+    write(os.path.join(ROOT, "privacy.html"), html)
+
+
+def build_terms_of_service():
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms of Service — {SITE_NAME}</title>
+  <meta name="description" content="The terms governing use of the King Musah Media website and its content."/>
+  <link rel="canonical" href="{BASE_URL}/terms.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
+  {adsense_snippet()}
+</head>
+<body>
+{header_block()}
+
+<main id="main">
+<article class="article-wrap" style="max-width:820px">
+  <span class="article-cat">Legal</span>
+  <h1 class="article-title">Terms of Service</h1>
+  <div class="article-byline"><div>Last updated: {datetime.now().strftime("%d %B %Y")}</div></div>
+  <div class="article-body">
+    <p>By accessing or using the King Musah Media website ("the Site"), you agree to these Terms of Service. If you do not agree, please do not use the Site.</p>
+
+    <p><strong>Our content.</strong> Articles, images, and other material published on this Site are provided for general informational purposes. While we make reasonable efforts to verify facts before publishing, news is often developing and details may be revised or corrected as more information becomes available. We are an independent Ugandan media outlet and our reporting reflects our own editorial judgment.</p>
+
+    <p><strong>No professional advice.</strong> Nothing on this Site constitutes legal, financial, medical, or other professional advice. Readers should consult qualified professionals for advice specific to their circumstances.</p>
+
+    <p><strong>Intellectual property.</strong> Unless otherwise stated, content on this Site is the property of King Musah Media. You may share links to our articles and quote brief excerpts with attribution, but you may not republish, redistribute, or reproduce substantial portions of our content without our prior written permission.</p>
+
+    <p><strong>User conduct.</strong> If we introduce comments, forums, or submission features in the future, you agree not to post content that is defamatory, hateful, obscene, or unlawful, or that infringes on the rights of others.</p>
+
+    <p><strong>External links.</strong> This Site may link to third-party websites for reference or source material. We do not control and are not responsible for the content or practices of those sites.</p>
+
+    <p><strong>Donations.</strong> Contributions made through the Mobile Money numbers or payment methods listed on our Support page are voluntary and go toward supporting our journalism and operations. Donations are not refundable except where required by law or at our discretion in cases of clear error.</p>
+
+    <p><strong>Advertising.</strong> This Site may display third-party advertisements, including through Google AdSense. We are not responsible for the content of advertisements or the products/services they promote.</p>
+
+    <p><strong>Disclaimer of warranties.</strong> The Site is provided "as is" without warranties of any kind, express or implied. We do not guarantee the Site will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
+
+    <p><strong>Limitation of liability.</strong> To the fullest extent permitted by law, King Musah Media shall not be liable for any indirect, incidental, or consequential damages arising from your use of the Site.</p>
+
+    <p><strong>Governing law.</strong> These Terms are governed by the laws of the Republic of Uganda.</p>
+
+    <p><strong>Changes to these terms.</strong> We may update these Terms from time to time. Continued use of the Site after changes are posted constitutes acceptance of the revised Terms.</p>
+
+    <p><strong>Contact us.</strong> Questions about these Terms can be sent to <a href="mailto:info@kingmusahmedia.com" style="color:var(--red)">info@kingmusahmedia.com</a>.</p>
+  </div>
+</article>
+</main>
+
+{footer_block()}
+</body>
+</html>'''
+    write(os.path.join(ROOT, "terms.html"), html)
+
+
 def build_support():
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -507,6 +633,7 @@ def build_support():
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
+  {adsense_snippet()}
 </head>
 <body>
 {header_block(active="support")}
@@ -558,6 +685,8 @@ def main():
     for a in articles:
         build_article(a, articles)
     build_support()
+    build_privacy_policy()
+    build_terms_of_service()
     build_sitemap(articles)
     build_robots()
     print(f"\nDone. {len(articles)} articles built.")

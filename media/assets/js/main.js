@@ -5,7 +5,7 @@
 // <img> so the placeholder icon underneath shows instead. No editing needed —
 // just name your photo file to match the story slug and drop it in assets/images/.
 window.handleImgError = function (img) {
-  var exts = ['jpg', 'jpeg', 'jfif', 'png', 'webp'];
+  var exts = ['jfif', 'jpg', 'jpeg', 'png', 'webp'];
   var idx = parseInt(img.getAttribute('data-ext-idx') || '0', 10) + 1;
   if (idx < exts.length) {
     img.setAttribute('data-ext-idx', idx);
