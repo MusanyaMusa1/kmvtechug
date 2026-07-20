@@ -24,6 +24,7 @@ DATA_FILE = os.path.join(ROOT, "data", "articles.json")
 # ---- CONFIG: update BASE_URL to your real published URL before going live ----
 BASE_URL = "https://kmvtechug.app/media"
 SITE_NAME = "King Musah Media"
+CONTACT_EMAIL = "kingmusahmedia@gmail.com"
 
 CATEGORIES = {
     "news": "News",
@@ -47,7 +48,7 @@ GA_MEASUREMENT_ID = "G-GEN75BG21K"
 
 # ---- Google AdSense: paste your Publisher ID here once approved (looks like
 # "ca-pub-1234567890123456"). Leave as None until then — ads won't render.
-ADSENSE_PUBLISHER_ID = None
+ADSENSE_PUBLISHER_ID = "ca-pub-2106771751457148"
 
 
 def load_articles():
@@ -172,7 +173,7 @@ def footer_block(depth=""):
     <div class="hub-links">
       <a href="{depth}privacy.html">Privacy Policy</a>
       <a href="{depth}terms.html">Terms of Service</a>
-      <a href="mailto:info@kingmusahmedia.com">Contact us</a>
+      <a href="mailto:{CONTACT_EMAIL}">Contact us</a>
     </div>
   </div>
 </footer>
@@ -313,7 +314,7 @@ def build_index(articles):
   <h2>Let's Work Together</h2>
   <p>For media partnerships, news tips, advertising, or collaborations &mdash; reach out directly. We're always open to good stories and great partners.</p>
   <div class="contact-links">
-    <a href="mailto:info@kingmusahmedia.com" class="contact-link">&#128231; Email us</a>
+    <a href="mailto:{CONTACT_EMAIL}" class="contact-link">&#128231; Email us</a>
     <a href="tel:+256759405181" class="contact-link">&#128241; +256 759 405 181</a>
     <a href="https://wa.me/256759405181" target="_blank" rel="noopener" class="contact-link">&#128172; WhatsApp</a>
   </div>
@@ -501,6 +502,14 @@ def build_sitemap(articles):
     write(os.path.join(ROOT, "sitemap.xml"), xml)
 
 
+def build_ads_txt():
+    if not ADSENSE_PUBLISHER_ID:
+        return
+    pub_id = ADSENSE_PUBLISHER_ID.replace("ca-", "")
+    txt = f"google.com, {pub_id}, DIRECT, f08c47fec0942fa0\n"
+    write(os.path.join(ROOT, "ads.txt"), txt)
+
+
 def build_robots():
     txt = f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n"
     write(os.path.join(ROOT, "robots.txt"), txt)
@@ -552,7 +561,7 @@ def build_privacy_policy():
 
     <p><strong>Changes to this policy.</strong> We may update this policy from time to time as our services evolve. Continued use of the site after changes are posted constitutes acceptance of the revised policy.</p>
 
-    <p><strong>Contact us.</strong> If you have questions about this policy, reach us at <a href="mailto:info@kingmusahmedia.com" style="color:var(--red)">info@kingmusahmedia.com</a>.</p>
+    <p><strong>Contact us.</strong> If you have questions about this policy, reach us at <a href="mailto:{CONTACT_EMAIL}" style="color:var(--red)">{CONTACT_EMAIL}</a>.</p>
   </div>
 </article>
 </main>
@@ -610,7 +619,7 @@ def build_terms_of_service():
 
     <p><strong>Changes to these terms.</strong> We may update these Terms from time to time. Continued use of the Site after changes are posted constitutes acceptance of the revised Terms.</p>
 
-    <p><strong>Contact us.</strong> Questions about these Terms can be sent to <a href="mailto:info@kingmusahmedia.com" style="color:var(--red)">info@kingmusahmedia.com</a>.</p>
+    <p><strong>Contact us.</strong> Questions about these Terms can be sent to <a href="mailto:{CONTACT_EMAIL}" style="color:var(--red)">{CONTACT_EMAIL}</a>.</p>
   </div>
 </article>
 </main>
@@ -688,6 +697,7 @@ def main():
     build_privacy_policy()
     build_terms_of_service()
     build_sitemap(articles)
+    build_ads_txt()
     build_robots()
     print(f"\nDone. {len(articles)} articles built.")
 
