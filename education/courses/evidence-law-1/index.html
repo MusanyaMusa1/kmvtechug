@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Evidence Law 1: Introduction to Evidence & Proof — KMVTECH Education</title>
+<meta name="description" content="Study Evidence Law 1 at KMVTECH Education. 8 modules covering the full foundation of Ugandan evidence law — mapped to the Evidence Act Cap. 8 and university exam standards."/>
+<meta property="og:title" content="Evidence Law 1 — KMVTECH Education"/>
+<meta property="og:description" content="8 modules, 16 lessons, 80 pages. Master evidence law mapped to the Evidence Act Cap. 8, Laws of Uganda."/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* ============================================================
+   EVIDENCE LAW 1 — COURSE PREVIEW PAGE
+   Same design system as homepage v5
+   ============================================================ */
+
+:root {
+  --blue:#2B3FBF; --purple:#6B2ECC; --navy:#0D1B2A; --gold:#C9922A;
+  --green:#15803D; --amber:#D97706; --red:#DC2626;
+  --bg:#FAF9F6; --surface:#FFFFFF; --surface-2:#F4F3EF;
+  --border:#E8E6E0; --text-1:#1C1C1C; --text-2:#6B7280; --text-3:#9CA3AF;
+  --card-shadow:0 2px 12px rgba(13,27,42,0.06);
+}
+
+[data-theme="dark"] {
+  --bg:#0F1117; --surface:#1A1D27; --surface-2:#22263A;
+  --border:#2E3248; --text-1:#F0EEE9; --text-2:#9CA3AF; --text-3:#6B7280;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;}}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
+.skip-link{position:absolute;top:-100%;left:16px;background:var(--blue);color:#fff;padding:10px 20px;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;z-index:9999;}
+.skip-link:focus{top:0;}
+.container{width:100%;max-width:1140px;margin:0 auto;padding:0 20px;}
+
+/* NAV */
+.site-nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;transition:background 0.3s;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 20px;max-width:1140px;margin:0 auto;gap:16px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.nav-logo-mark{width:32px;height:32px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:var(--gold);}
+.nav-logo-text{line-height:1.15;}
+.nav-logo-text .brand{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;color:var(--text-1);display:block;}
+.nav-logo-text .sub{font-size:9.5px;color:var(--text-2);font-weight:500;letter-spacing:0.07em;text-transform:uppercase;display:block;}
+.nav-actions{display:flex;gap:10px;align-items:center;}
+.theme-btn{width:38px;height:22px;background:var(--border);border-radius:11px;border:none;cursor:pointer;position:relative;transition:background 0.25s;}
+.theme-btn[aria-checked="true"]{background:var(--blue);}
+.theme-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.theme-btn[aria-checked="true"] .theme-thumb{transform:translateX(16px);}
+.btn-login{color:var(--text-1);text-decoration:none;font-size:13px;font-weight:600;padding:8px 4px;}
+.btn-register{background:var(--navy);color:#fff;text-decoration:none;font-size:13px;font-weight:600;padding:9px 18px;border-radius:8px;transition:background 0.2s;}
+.btn-register:hover{background:var(--blue);}
+
+/* BREADCRUMB */
+.breadcrumb{padding:16px 0;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-3);}
+.breadcrumb a{color:var(--text-2);text-decoration:none;}
+.breadcrumb a:hover{color:var(--blue);}
+.breadcrumb span{color:var(--text-3);}
+
+/* COURSE HERO */
+.course-hero{background:var(--navy);padding:52px 0 0;position:relative;overflow:hidden;}
+.course-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 85% 20%,rgba(43,63,191,0.35) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 5% 80%,rgba(107,46,204,0.25) 0%,transparent 55%);pointer-events:none;}
+.course-hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;}
+
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:32px;}
+
+.hero-faculty-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(43,63,191,0.2);border:1px solid rgba(43,63,191,0.4);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#7BA7FF;margin-bottom:18px;}
+
+.course-title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.8rem,5vw,2.8rem);color:#fff;line-height:1.15;letter-spacing:-0.01em;margin-bottom:14px;}
+
+.course-tagline{font-size:1.02rem;color:rgba(255,255,255,0.65);max-width:520px;line-height:1.75;margin-bottom:24px;}
+
+/* Course stat chips */
+.course-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;}
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:6px 13px;font-size:12px;color:rgba(255,255,255,0.75);font-weight:500;}
+.chip svg{width:13px;height:13px;opacity:0.7;flex-shrink:0;}
+
+/* Status */
+.status-open{display:inline-flex;align-items:center;gap:6px;background:rgba(21,128,61,0.2);border:1px solid rgba(21,128,61,0.35);border-radius:20px;padding:5px 13px;font-size:11.5px;font-weight:700;color:#4ADE80;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:20px;}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* Enroll card — sticky on desktop */
+.hero-layout{display:grid;grid-template-columns:1fr;gap:0;align-items:start;}
+
+.enroll-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;margin-top:-1px;}
+.enroll-card-price{margin-bottom:18px;}
+.price-label{font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-2);margin-bottom:6px;}
+.price-row{display:flex;align-items:baseline;gap:8px;}
+.price-amount{font-family:'Playfair Display',serif;font-weight:800;font-size:1.9rem;color:var(--text-1);}
+.price-period{font-size:12.5px;color:var(--text-2);}
+.price-or{font-size:12px;color:var(--text-3);margin:10px 0;}
+.plan-links{display:flex;flex-direction:column;gap:6px;}
+.plan-link{font-size:12.5px;color:var(--blue);text-decoration:none;display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border:1px solid var(--border);border-radius:8px;transition:all 0.2s;}
+.plan-link:hover{border-color:var(--blue);background:rgba(43,63,191,0.04);}
+
+.btn-enroll{display:block;width:100%;text-align:center;background:var(--navy);color:#fff;font-weight:700;font-size:15px;padding:14px;border-radius:10px;text-decoration:none;transition:background 0.2s;margin-bottom:10px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-enroll:hover{background:var(--blue);}
+.btn-enroll.gold{background:var(--gold);color:var(--navy);}
+.btn-enroll.gold:hover{opacity:0.9;}
+
+.enroll-note{font-size:11.5px;color:var(--text-3);text-align:center;line-height:1.5;}
+
+.enroll-includes{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);}
+.includes-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:10px;}
+.includes-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.includes-list li{font-size:12.5px;color:var(--text-2);display:flex;align-items:center;gap:7px;}
+.includes-list li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+
+/* Bottom tab under hero */
+.hero-tabs{position:relative;z-index:1;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;margin-top:32px;border-top:1px solid rgba(255,255,255,0.08);}
+.hero-tabs::-webkit-scrollbar{display:none;}
+.hero-tab{flex-shrink:0;padding:14px 22px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);background:none;border:none;cursor:pointer;position:relative;white-space:nowrap;transition:color 0.15s;font-family:'DM Sans',sans-serif;}
+.hero-tab.active{color:#fff;}
+.hero-tab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);}
+
+/* MAIN CONTENT AREA */
+.course-body{padding:48px 0 80px;}
+.course-layout{display:grid;grid-template-columns:1fr;gap:32px;align-items:start;}
+
+/* Section */
+.content-section{margin-bottom:36px;}
+.section-heading{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+
+/* What you will learn */
+.learn-grid{display:grid;grid-template-columns:1fr;gap:8px;}
+.learn-item{display:flex;gap:10px;align-items:flex-start;font-size:0.88rem;color:var(--text-2);line-height:1.55;}
+.learn-item::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+/* Module accordion */
+.module-list{display:flex;flex-direction:column;gap:10px;}
+
+.module-item{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}
+
+.module-header{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;user-select:none;transition:background 0.15s;}
+.module-header:hover{background:var(--surface-2);}
+
+.module-number{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
+
+.module-info{flex:1;min-width:0;}
+.module-name{font-family:'Playfair Display',serif;font-weight:700;font-size:0.98rem;color:var(--text-1);margin-bottom:3px;}
+.module-meta{font-size:11.5px;color:var(--text-3);}
+
+.module-toggle{width:22px;height:22px;flex-shrink:0;color:var(--text-3);transition:transform 0.25s;}
+.module-item.open .module-toggle{transform:rotate(180deg);}
+
+.module-lessons{display:none;border-top:1px solid var(--border);padding:0;}
+.module-item.open .module-lessons{display:block;}
+
+.lesson-row{display:flex;align-items:center;gap:10px;padding:11px 18px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-2);transition:background 0.15s;}
+.lesson-row:last-child{border-bottom:none;}
+.lesson-row:hover{background:var(--surface-2);color:var(--text-1);}
+
+.lesson-num{font-size:11px;color:var(--text-3);font-weight:600;width:38px;flex-shrink:0;font-family:monospace;}
+.lesson-title{flex:1;}
+.lesson-type{font-size:10.5px;background:var(--surface-2);color:var(--text-3);padding:2px 8px;border-radius:10px;white-space:nowrap;border:1px solid var(--border);}
+.lesson-lock{color:var(--text-3);flex-shrink:0;}
+
+/* For the module summary and quiz rows */
+.lesson-row.quiz-row{background:rgba(43,63,191,0.03);}
+.lesson-row.quiz-row .lesson-type{background:rgba(43,63,191,0.08);color:var(--blue);border-color:rgba(43,63,191,0.2);}
+.lesson-row.summary-row{background:rgba(201,146,42,0.03);}
+.lesson-row.summary-row .lesson-type{background:rgba(201,146,42,0.08);color:var(--gold);border-color:rgba(201,146,42,0.2);}
+.lesson-row.final-quiz-row{background:rgba(107,46,204,0.04);}
+.lesson-row.final-quiz-row .lesson-type{background:rgba(107,46,204,0.1);color:var(--purple);border-color:rgba(107,46,204,0.25);}
+
+/* Requirements */
+.req-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.req-list li{font-size:0.88rem;color:var(--text-2);display:flex;gap:8px;line-height:1.55;}
+.req-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;}
+
+/* Certificate banner */
+.cert-banner{background:var(--navy);border-radius:14px;padding:24px;display:flex;gap:16px;align-items:flex-start;margin-top:28px;position:relative;overflow:hidden;}
+.cert-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 50%,rgba(107,46,204,0.25) 0%,transparent 60%);}
+.cert-banner-inner{position:relative;z-index:1;}
+.cert-banner h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;margin-bottom:6px;}
+.cert-banner p{font-size:12.5px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.cert-icon{font-size:28px;flex-shrink:0;position:relative;z-index:1;}
+
+/* Sticky enroll sidebar — desktop */
+.enroll-sidebar{display:none;}
+
+/* Tab panels */
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* Review section */
+.review-note{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;}
+.review-note p{font-size:0.87rem;color:var(--text-2);line-height:1.65;}
+
+/* Mobile enroll bar — fixed bottom */
+.mobile-enroll-bar{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:12px 20px;z-index:100;display:flex;gap:12px;align-items:center;}
+.mobile-price{flex:1;}
+.mobile-price-amount{font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:var(--text-1);}
+.mobile-price-label{font-size:10.5px;color:var(--text-3);}
+.mobile-enroll-btn{background:var(--navy);color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;text-decoration:none;display:inline-block;}
+
+/* Loading state */
+.enroll-loading{text-align:center;padding:8px;font-size:13px;color:var(--text-3);}
+
+/* BREAKPOINTS */
+@media(min-width:640px){
+  .learn-grid{grid-template-columns:1fr 1fr;}
+}
+
+@media(min-width:768px){
+  .hero-layout{grid-template-columns:1fr 340px;gap:32px;}
+  .hero-layout .hero-text{min-width:0;}
+  .enroll-card{position:sticky;top:80px;}
+  .course-layout{grid-template-columns:1fr 300px;gap:40px;}
+  .enroll-sidebar{display:block;position:sticky;top:80px;}
+  .mobile-enroll-bar{display:none;}
+}
+
+@media(min-width:1024px){
+  .hero-layout{grid-template-columns:1fr 360px;}
+  .course-layout{grid-template-columns:1fr 320px;}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="/education/" class="nav-logo" aria-label="KMVTECH Education home">
+      <div class="nav-logo-mark" aria-hidden="true">KE</div>
+      <div class="nav-logo-text">
+        <span class="brand">KMVTECH Education</span>
+        <span class="sub">Part of KMVTECHUG</span>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="toggleTheme()">
+        <div class="theme-thumb" aria-hidden="true">☀️</div>
+      </button>
+      <a href="/education/login/" class="btn-login" id="nav-login-link">Log In</a>
+      <a href="/education/register/" class="btn-register" id="nav-register-link">Register</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="container">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/education/">Home</a>
+    <span aria-hidden="true">›</span>
+    <a href="/education/#catalogue">Courses</a>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">Evidence Law 1</span>
+  </nav>
+</div>
+
+<!-- COURSE HERO -->
+<section class="course-hero" aria-labelledby="course-title" id="main-content" tabindex="-1">
+  <div class="container">
+    <div class="hero-layout">
+      <div class="hero-text">
+        <div class="hero-faculty-badge" aria-label="Faculty: Law">⚖️ Law · Year 2–3</div>
+        <div class="status-open" aria-label="Course status: Open now">
+          <span class="status-dot" aria-hidden="true"></span>
+          Open Now — Enrol Today
+        </div>
+        <h1 class="course-title" id="course-title">Evidence Law 1:<br/>Introduction to Evidence &amp; Proof</h1>
+        <p class="course-tagline">Master the foundations of evidence law — from the nature of proof to estoppel, corroboration, and presumptions. Mapped directly to the Evidence Act Cap. 8, Laws of Uganda, and real university exam standards.</p>
+        <div class="course-chips" role="list" aria-label="Course details">
+          <div class="chip" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            8 Modules
+          </div>
+          <div class="chip" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            16 Lessons · 80 Pages
+          </div>
+          <div class="chip" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            6–8 Hours Study Time
+          </div>
+          <div class="chip" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+            Certificate Included
+          </div>
+          <div class="chip" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+            PDF Notes — Downloadable
+          </div>
+          <div class="chip" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Videos + Text + Quizzes
+          </div>
+        </div>
+
+        <!-- Enroll card — shows on mobile inline, sidebar on desktop -->
+        <div class="enroll-card" id="mobile-enroll-card" aria-label="Enrolment options">
+          <div id="enroll-card-content">
+            <div class="enroll-loading">Checking your account...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero nav tabs -->
+    <div class="hero-tabs" role="tablist" aria-label="Course sections">
+      <button class="hero-tab active" data-tab="overview" role="tab" aria-selected="true" onclick="switchTab('overview', this)">Overview</button>
+      <button class="hero-tab" data-tab="curriculum" role="tab" aria-selected="false" onclick="switchTab('curriculum', this)">Curriculum</button>
+      <button class="hero-tab" data-tab="requirements" role="tab" aria-selected="false" onclick="switchTab('requirements', this)">Requirements</button>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE BODY -->
+<section class="course-body" aria-label="Course content">
+  <div class="container">
+    <div class="course-layout">
+      <!-- MAIN COLUMN -->
+      <main id="main-tabs">
+
+        <!-- OVERVIEW TAB -->
+        <div class="tab-panel active" id="tab-overview" role="tabpanel">
+
+          <div class="content-section">
+            <h2 class="section-heading">What You Will Learn</h2>
+            <div class="learn-grid" role="list">
+              <div class="learn-item" role="listitem">The meaning and nature of evidence in Ugandan law</div>
+              <div class="learn-item" role="listitem">The full scope and purpose of the Evidence Act Cap. 8</div>
+              <div class="learn-item" role="listitem">How evidence law differs from substantive law</div>
+              <div class="learn-item" role="listitem">The rules of relevancy and admissibility</div>
+              <div class="learn-item" role="listitem">Judicial notice — mandatory and discretionary</div>
+              <div class="learn-item" role="listitem">All types of estoppel with Ugandan case law</div>
+              <div class="learn-item" role="listitem">Burden of proof — legal and evidential</div>
+              <div class="learn-item" role="listitem">Standards of proof — beyond reasonable doubt and balance of probabilities</div>
+              <div class="learn-item" role="listitem">Presumptions — rebuttable and irrebuttable</div>
+              <div class="learn-item" role="listitem">Corroboration in criminal cases, sexual offences, and children's evidence</div>
+              <div class="learn-item" role="listitem">How to apply evidence rules in scenario-based exam questions</div>
+              <div class="learn-item" role="listitem">Key Ugandan cases across all eight modules</div>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2 class="section-heading">About This Course</h2>
+            <p style="font-size:0.92rem;color:var(--text-2);line-height:1.8;margin-bottom:14px;">Evidence Law 1 covers the complete foundational framework of evidence law as applied in Ugandan courts. Every module is mapped directly to the Evidence Act Cap. 8, Laws of Uganda, and draws on real decisions from the High Court and Supreme Court of Uganda.</p>
+            <p style="font-size:0.92rem;color:var(--text-2);line-height:1.8;margin-bottom:14px;">The course is designed for university students studying law at Year 2 or Year 3 level who need to understand not just the rules but why they exist and how they apply in real court situations. Content is simplified without sacrificing accuracy — you will be able to use what you learn in actual exam and moot settings.</p>
+            <p style="font-size:0.92rem;color:var(--text-2);line-height:1.8;">Each lesson combines video explanation, text notes, downloadable PDF materials, and practice quizzes. Every module ends with a graded quiz that counts toward your certificate. The certificate requires an 80% average across all module quizzes.</p>
+          </div>
+
+          <div class="cert-banner" role="complementary" aria-label="Certificate information">
+            <div class="cert-icon" aria-hidden="true">🏆</div>
+            <div class="cert-banner-inner">
+              <h3>Certificate of Completion Included</h3>
+              <p>Achieve 80% average across all 8 module quizzes and your certificate generates automatically — branded, verifiable, and permanent. Includes a full academic transcript showing module scores, study hours, and completion dates. Verification code for employers available at kmvtechug.app/education/verify/</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CURRICULUM TAB -->
+        <div class="tab-panel" id="tab-curriculum" role="tabpanel">
+          <div class="content-section">
+            <h2 class="section-heading">Full Course Curriculum — 8 Modules · 16 Lessons · 80 Pages</h2>
+
+            <div class="module-list" role="list">
+
+              <!-- MODULE 1 -->
+              <div class="module-item open" role="listitem">
+                <div class="module-header" onclick="toggleModule(this)" aria-expanded="true" role="button" tabindex="0">
+                  <div class="module-number" aria-hidden="true">1</div>
+                  <div class="module-info">
+                    <div class="module-name">Introduction to Evidence Law</div>
+                    <div class="module-meta">3 lessons · 5 pages · Practice quiz · Graded quiz (25 questions)</div>
+                  </div>
+                  <svg class="module-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="module-lessons">
+                  <div class="lesson-row"><span class="lesson-num">1.1</span><span class="lesson-title">Lesson 1: Nature, Meaning and Philosophy of Evidence Law</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">1.1.1</span><span class="lesson-title">What is Evidence?</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">1.1.2</span><span class="lesson-title">What is Evidence Law?</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">1.1.3</span><span class="lesson-title">Nature of Evidence Law</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">1.1.4</span><span class="lesson-title">Philosophy and Objectives of Evidence Law</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">1.1.5</span><span class="lesson-title">Importance of Evidence Law</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row quiz-row" style="padding-left:44px;"><span class="lesson-num">Quiz</span><span class="lesson-title">Lesson 1 Practice Quiz — 7 Questions</span><span class="lesson-type">Practice</span></div>
+                  <div class="lesson-row"><span class="lesson-num">1.2</span><span class="lesson-title">Lesson 2: Legal Classification of Law</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">1.2.1</span><span class="lesson-title">Substantive Law vs Adjectival Law</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">1.2.2</span><span class="lesson-title">Why Evidence Law is Procedural Law</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">1.2.3</span><span class="lesson-title">Importance of Classification in Practice</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row quiz-row" style="padding-left:44px;"><span class="lesson-num">Quiz</span><span class="lesson-title">Lesson 2 Practice Quiz — 5 Questions</span><span class="lesson-type">Practice</span></div>
+                  <div class="lesson-row"><span class="lesson-num">1.3</span><span class="lesson-title">Lesson 3: Historical Development of Evidence Law</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">1.3.1</span><span class="lesson-title">Origins of Evidence Law in England</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">1.3.2</span><span class="lesson-title">The Indian Evidence Act 1872 and its Journey to Uganda</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">1.3.3</span><span class="lesson-title">Evidence Law in East Africa and Uganda Today</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row quiz-row" style="padding-left:44px;"><span class="lesson-num">Quiz</span><span class="lesson-title">Lesson 3 Practice Quiz — 5 Questions</span><span class="lesson-type">Practice</span></div>
+                  <div class="lesson-row summary-row"><span class="lesson-num">★</span><span class="lesson-title">Module 1 Summary — Key Points from All Three Lessons</span><span class="lesson-type">Summary</span></div>
+                  <div class="lesson-row final-quiz-row"><span class="lesson-num">📝</span><span class="lesson-title">Module 1 Graded Quiz — 25 Questions (Certificate Requirement)</span><span class="lesson-type">Graded</span></div>
+                </div>
+              </div>
+
+              <!-- MODULE 2 -->
+              <div class="module-item" role="listitem">
+                <div class="module-header" onclick="toggleModule(this)" aria-expanded="false" role="button" tabindex="0">
+                  <div class="module-number" aria-hidden="true">2</div>
+                  <div class="module-info">
+                    <div class="module-name">Relevancy and Admissibility</div>
+                    <div class="module-meta">2 lessons · 4 pages · Practice quizzes · Graded quiz (20 questions)</div>
+                  </div>
+                  <svg class="module-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="module-lessons">
+                  <div class="lesson-row"><span class="lesson-num">2.1</span><span class="lesson-title">Lesson 1: Relevancy</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">2.1.1</span><span class="lesson-title">What is Relevancy?</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">2.1.2</span><span class="lesson-title">Facts in Issue vs Relevant Facts</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">2.1.3</span><span class="lesson-title">Relevancy Under the Evidence Act Cap. 8</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row quiz-row" style="padding-left:44px;"><span class="lesson-num">Quiz</span><span class="lesson-title">Lesson 1 Practice Quiz — 6 Questions</span><span class="lesson-type">Practice</span></div>
+                  <div class="lesson-row"><span class="lesson-num">2.2</span><span class="lesson-title">Lesson 2: Admissibility</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">2.2.1</span><span class="lesson-title">What is Admissibility?</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">2.2.2</span><span class="lesson-title">Relevancy vs Admissibility — The Key Distinction</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">2.2.3</span><span class="lesson-title">Consequences of Inadmissible Evidence</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">2.2.4</span><span class="lesson-title">Discretion of the Court</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row quiz-row" style="padding-left:44px;"><span class="lesson-num">Quiz</span><span class="lesson-title">Lesson 2 Practice Quiz — 6 Questions</span><span class="lesson-type">Practice</span></div>
+                  <div class="lesson-row summary-row"><span class="lesson-num">★</span><span class="lesson-title">Module 2 Summary</span><span class="lesson-type">Summary</span></div>
+                  <div class="lesson-row final-quiz-row"><span class="lesson-num">📝</span><span class="lesson-title">Module 2 Graded Quiz — 20 Questions</span><span class="lesson-type">Graded</span></div>
+                </div>
+              </div>
+
+              <!-- MODULES 3-8 collapsed -->
+              <div class="module-item" role="listitem">
+                <div class="module-header" onclick="toggleModule(this)" aria-expanded="false" role="button" tabindex="0">
+                  <div class="module-number" aria-hidden="true">3</div>
+                  <div class="module-info"><div class="module-name">Judicial Notice</div><div class="module-meta">1 lesson · 4 pages · Graded quiz (15 questions)</div></div>
+                  <svg class="module-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="module-lessons">
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">3.1.1</span><span class="lesson-title">What is Judicial Notice?</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">3.1.2</span><span class="lesson-title">Mandatory Judicial Notice</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">3.1.3</span><span class="lesson-title">Discretionary Judicial Notice</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">3.1.4</span><span class="lesson-title">Judicial Notice in Ugandan Courts</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row quiz-row" style="padding-left:44px;"><span class="lesson-num">Quiz</span><span class="lesson-title">Practice Quiz — 5 Questions</span><span class="lesson-type">Practice</span></div>
+                  <div class="lesson-row summary-row"><span class="lesson-num">★</span><span class="lesson-title">Module 3 Summary</span><span class="lesson-type">Summary</span></div>
+                  <div class="lesson-row final-quiz-row"><span class="lesson-num">📝</span><span class="lesson-title">Module 3 Graded Quiz — 15 Questions</span><span class="lesson-type">Graded</span></div>
+                </div>
+              </div>
+
+              <div class="module-item" role="listitem">
+                <div class="module-header" onclick="toggleModule(this)" aria-expanded="false" role="button" tabindex="0">
+                  <div class="module-number" aria-hidden="true">4</div>
+                  <div class="module-info"><div class="module-name">Estoppel</div><div class="module-meta">2 lessons · Graded quiz (20 questions)</div></div>
+                  <svg class="module-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="module-lessons">
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">4.1.1</span><span class="lesson-title">What is Estoppel?</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">4.1.2</span><span class="lesson-title">Estoppel by Record</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">4.1.3</span><span class="lesson-title">Estoppel by Deed</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">4.2.1</span><span class="lesson-title">Estoppel by Conduct</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">4.2.2</span><span class="lesson-title">Promissory Estoppel</span><span class="lesson-type">Video</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">4.2.3</span><span class="lesson-title">Estoppel in Ugandan Courts</span><span class="lesson-type">Text</span></div>
+                  <div class="lesson-row summary-row"><span class="lesson-num">★</span><span class="lesson-title">Module 4 Summary</span><span class="lesson-type">Summary</span></div>
+                  <div class="lesson-row final-quiz-row"><span class="lesson-num">📝</span><span class="lesson-title">Module 4 Graded Quiz — 20 Questions</span><span class="lesson-type">Graded</span></div>
+                </div>
+              </div>
+
+              <div class="module-item" role="listitem">
+                <div class="module-header" onclick="toggleModule(this)" aria-expanded="false" role="button" tabindex="0">
+                  <div class="module-number" aria-hidden="true">5</div>
+                  <div class="module-info"><div class="module-name">Burden of Proof</div><div class="module-meta">2 lessons · Graded quiz (20 questions)</div></div>
+                  <svg class="module-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="module-lessons">
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">5.1.1–5.1.4</span><span class="lesson-title">The Burden of Proof (4 pages)</span><span class="lesson-type">Video + Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">5.2.1–5.2.3</span><span class="lesson-title">Shifting the Burden (3 pages)</span><span class="lesson-type">Video + Text</span></div>
+                  <div class="lesson-row summary-row"><span class="lesson-num">★</span><span class="lesson-title">Module 5 Summary</span><span class="lesson-type">Summary</span></div>
+                  <div class="lesson-row final-quiz-row"><span class="lesson-num">📝</span><span class="lesson-title">Module 5 Graded Quiz — 20 Questions</span><span class="lesson-type">Graded</span></div>
+                </div>
+              </div>
+
+              <div class="module-item" role="listitem">
+                <div class="module-header" onclick="toggleModule(this)" aria-expanded="false" role="button" tabindex="0">
+                  <div class="module-number" aria-hidden="true">6</div>
+                  <div class="module-info"><div class="module-name">Standard of Proof</div><div class="module-meta">1 lesson · Graded quiz (15 questions)</div></div>
+                  <svg class="module-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="module-lessons">
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">6.1.1–6.1.4</span><span class="lesson-title">Standard of Proof (4 pages — Video + Text)</span><span class="lesson-type">Video + Text</span></div>
+                  <div class="lesson-row summary-row"><span class="lesson-num">★</span><span class="lesson-title">Module 6 Summary</span><span class="lesson-type">Summary</span></div>
+                  <div class="lesson-row final-quiz-row"><span class="lesson-num">📝</span><span class="lesson-title">Module 6 Graded Quiz — 15 Questions</span><span class="lesson-type">Graded</span></div>
+                </div>
+              </div>
+
+              <div class="module-item" role="listitem">
+                <div class="module-header" onclick="toggleModule(this)" aria-expanded="false" role="button" tabindex="0">
+                  <div class="module-number" aria-hidden="true">7</div>
+                  <div class="module-info"><div class="module-name">Presumptions</div><div class="module-meta">2 lessons · Graded quiz (20 questions)</div></div>
+                  <svg class="module-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="module-lessons">
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">7.1.1–7.1.3</span><span class="lesson-title">Types of Presumptions (3 pages)</span><span class="lesson-type">Video + Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">7.2.1–7.2.3</span><span class="lesson-title">Presumptions in Practice (3 pages)</span><span class="lesson-type">Video + Text</span></div>
+                  <div class="lesson-row summary-row"><span class="lesson-num">★</span><span class="lesson-title">Module 7 Summary</span><span class="lesson-type">Summary</span></div>
+                  <div class="lesson-row final-quiz-row"><span class="lesson-num">📝</span><span class="lesson-title">Module 7 Graded Quiz — 20 Questions</span><span class="lesson-type">Graded</span></div>
+                </div>
+              </div>
+
+              <div class="module-item" role="listitem">
+                <div class="module-header" onclick="toggleModule(this)" aria-expanded="false" role="button" tabindex="0">
+                  <div class="module-number" aria-hidden="true">8</div>
+                  <div class="module-info"><div class="module-name">Corroboration</div><div class="module-meta">3 lessons · Graded quiz (25 questions)</div></div>
+                  <svg class="module-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="module-lessons">
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">8.1.1–8.1.3</span><span class="lesson-title">Nature of Corroboration</span><span class="lesson-type">Video + Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);"><span class="lesson-num" style="color:var(--blue);">8.2.1–8.2.3</span><span class="lesson-title">Corroboration in Criminal Cases</span><span class="lesson-type">Video + Text</span></div>
+                  <div class="lesson-row" style="padding-left:44px;background:var(--surface-2);border-bottom:1px solid var(--border);"><span class="lesson-num" style="color:var(--blue);">8.3.1–8.3.3</span><span class="lesson-title">Corroboration in Sexual Offences and Children's Evidence</span><span class="lesson-type">Video + Text</span></div>
+                  <div class="lesson-row summary-row"><span class="lesson-num">★</span><span class="lesson-title">Module 8 Summary</span><span class="lesson-type">Summary</span></div>
+                  <div class="lesson-row final-quiz-row"><span class="lesson-num">📝</span><span class="lesson-title">Module 8 Graded Quiz — 25 Questions</span><span class="lesson-type">Graded</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- REQUIREMENTS TAB -->
+        <div class="tab-panel" id="tab-requirements" role="tabpanel">
+          <div class="content-section">
+            <h2 class="section-heading">Course Requirements</h2>
+            <ul class="req-list">
+              <li>No prior knowledge of law required — this course starts from the very beginning</li>
+              <li>A copy of the Evidence Act Cap. 8, Laws of Uganda is helpful but not required — the relevant sections are discussed within each lesson</li>
+              <li>To earn the certificate, you must achieve an 80% average across all 8 module graded quizzes</li>
+              <li>Each module quiz allows a maximum of 3 attempts — a 24-hour cooldown applies after 3 failed attempts</li>
+              <li>An active study plan is required to access lesson content, take quizzes, and download PDF notes</li>
+              <li>Registration is free — you can view this course preview page without an account</li>
+            </ul>
+          </div>
+          <div class="content-section">
+            <h2 class="section-heading">Who This Course Is For</h2>
+            <ul class="req-list">
+              <li>Law students at Ugandan universities studying Evidence Law at Year 2 or 3 level</li>
+              <li>Practising advocates who need to refresh or consolidate their knowledge of the Evidence Act Cap. 8</li>
+              <li>Paralegals and legal assistants working in Ugandan courts</li>
+              <li>Anyone preparing for bar examinations or the Law Development Centre diploma</li>
+            </ul>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- DESKTOP SIDEBAR -->
+      <aside class="enroll-sidebar" aria-label="Enrolment options">
+        <div class="enroll-card" id="desktop-enroll-card">
+          <div id="desktop-enroll-content">
+            <div class="enroll-loading">Checking your account...</div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE ENROLL BAR -->
+<div class="mobile-enroll-bar" role="complementary" aria-label="Quick enrol">
+  <div class="mobile-price">
+    <div class="mobile-price-amount">UGX 5,000</div>
+    <div class="mobile-price-label">per course · lifetime access</div>
+  </div>
+  <a href="/education/register/?plan=per-course&course=EVL1" class="mobile-enroll-btn" id="mobile-bar-btn">Enrol Now</a>
+</div>
+
+<script>
+/* ============================================================
+   SUPABASE
+   ============================================================ */
+const SUPABASE_URL = 'https://nzjojrebyvxuawnkitth.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const COURSE_CODE = 'EVL1';
+
+/* ============================================================
+   RENDER ENROLL CARD based on auth state
+   ============================================================ */
+async function renderEnrollCard() {
+  const { data: { session } } = await sb.auth.getSession();
+
+  // Check if enrolled
+  let isEnrolled = false;
+  if (session) {
+    const { data: enrollment } = await sb
+      .from('enrollments')
+      .select('id')
+      .eq('student_id', session.user.id)
+      .eq('course_id', await getCourseId())
+      .maybeSingle();
+    isEnrolled = !!enrollment;
+  }
+
+  const cardHTML = buildEnrollCardHTML(session, isEnrolled);
+  const mobileHTML = buildEnrollCardHTML(session, isEnrolled);
+
+  const mobileEl = document.getElementById('enroll-card-content');
+  const desktopEl = document.getElementById('desktop-enroll-content');
+  if (mobileEl) mobileEl.innerHTML = cardHTML;
+  if (desktopEl) desktopEl.innerHTML = mobileHTML;
+
+  // Update nav
+  if (session) {
+    const loginLink = document.getElementById('nav-login-link');
+    const registerLink = document.getElementById('nav-register-link');
+    if (loginLink) { loginLink.textContent = 'Dashboard'; loginLink.href = '/education/dashboard/'; }
+    if (registerLink) { registerLink.textContent = 'My Account'; registerLink.href = '/education/dashboard/'; }
+  }
+
+  // Update mobile bar
+  const mobileBarBtn = document.getElementById('mobile-bar-btn');
+  if (mobileBarBtn) {
+    if (isEnrolled) {
+      mobileBarBtn.textContent = 'Continue Studying';
+      mobileBarBtn.href = '/education/courses/evidence-law-1/learn/';
+    } else if (session) {
+      mobileBarBtn.textContent = 'Choose a Plan';
+      mobileBarBtn.href = '/education/#pricing';
+    } else {
+      mobileBarBtn.textContent = 'Register to Enrol';
+      mobileBarBtn.href = '/education/register/';
+    }
+  }
+}
+
+async function getCourseId() {
+  const { data } = await sb.from('courses').select('id').eq('course_code', COURSE_CODE).maybeSingle();
+  return data?.id || null;
+}
+
+function buildEnrollCardHTML(session, isEnrolled) {
+  if (isEnrolled) {
+    return `
+      <div class="price-label" style="color:var(--green);font-size:12px;margin-bottom:12px;">✓ You are enrolled in this course</div>
+      <a href="/education/courses/evidence-law-1/learn/" class="btn-enroll gold">Continue Studying →</a>
+      <p class="enroll-note" style="margin-top:10px;">Pick up from where you left off in your dashboard.</p>`;
+  }
+
+  if (session) {
+    return `
+      <div class="enroll-card-price">
+        <div class="price-label">Choose Access</div>
+        <div class="price-row"><span class="price-amount">UGX 5,000</span></div>
+        <div class="price-period">Per course · lifetime access</div>
+        <div class="price-or">— or —</div>
+        <div class="plan-links">
+          <a href="/education/#pricing" class="plan-link">Monthly Unlimited — UGX 20,000 <span>→</span></a>
+          <a href="/education/#pricing" class="plan-link">Semester Unlimited — UGX 50,000 <span style="color:var(--gold);">★ Best Value</span></a>
+        </div>
+      </div>
+      <a href="/education/#pricing" class="btn-enroll">Choose a Plan to Start</a>
+      <p class="enroll-note">You are signed in. Choose a plan to unlock this course.</p>
+      <div class="enroll-includes">
+        <div class="includes-title">Every plan includes</div>
+        <ul class="includes-list">
+          <li>All videos, text lessons and PDF notes</li>
+          <li>Practice quizzes — unlimited attempts</li>
+          <li>Graded module quizzes</li>
+          <li>Certificate and academic transcript</li>
+          <li>Permanent access once completed</li>
+        </ul>
+      </div>`;
+  }
+
+  return `
+    <div class="enroll-card-price">
+      <div class="price-label">Per Course</div>
+      <div class="price-row"><span class="price-amount">UGX 5,000</span></div>
+      <div class="price-period">One-time · lifetime access</div>
+      <div class="price-or">— or study unlimited courses from —</div>
+      <div class="plan-links">
+        <a href="/education/#pricing" class="plan-link">Monthly — UGX 20,000 <span>→</span></a>
+        <a href="/education/#pricing" class="plan-link">Semester — UGX 50,000 <span style="color:var(--gold);">★</span></a>
+      </div>
+    </div>
+    <a href="/education/register/" class="btn-enroll">Register Free to Enrol</a>
+    <p class="enroll-note">Registration is free. Choose a plan after signing up.</p>
+    <div class="enroll-includes">
+      <div class="includes-title">This course includes</div>
+      <ul class="includes-list">
+        <li>25 video lesson pages</li>
+        <li>28 text reading pages</li>
+        <li>Downloadable PDF notes for every lesson</li>
+        <li>16 practice quizzes + 8 graded quizzes</li>
+        <li>Certificate of completion</li>
+      </ul>
+    </div>`;
+}
+
+/* ============================================================
+   TAB SWITCHING
+   ============================================================ */
+function switchTab(tabName, clickedEl) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.hero-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+  document.getElementById('tab-' + tabName).classList.add('active');
+  clickedEl.classList.add('active');
+  clickedEl.setAttribute('aria-selected', 'true');
+}
+
+/* ============================================================
+   MODULE ACCORDION
+   ============================================================ */
+function toggleModule(header) {
+  const item = header.closest('.module-item');
+  const isOpen = item.classList.contains('open');
+  item.classList.toggle('open', !isOpen);
+  header.setAttribute('aria-expanded', !isOpen);
+}
+
+document.querySelectorAll('.module-header').forEach(h => {
+  h.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleModule(h); }
+  });
+});
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+function toggleTheme() {
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const thumb = toggle.querySelector('.theme-thumb');
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  toggle.setAttribute('aria-checked', isDark ? 'false' : 'true');
+  thumb.textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('kmv-theme', isDark ? 'light' : 'dark');
+}
+
+(function() {
+  const saved = localStorage.getItem('kmv-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if ((saved || (prefersDark ? 'dark' : 'light')) === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const toggle = document.getElementById('themeToggle');
+    if (toggle) { toggle.setAttribute('aria-checked', 'true'); toggle.querySelector('.theme-thumb').textContent = '🌙'; }
+  }
+})();
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderEnrollCard();
+</script>
+</body>
+</html>
