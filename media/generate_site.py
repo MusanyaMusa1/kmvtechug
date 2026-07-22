@@ -49,6 +49,18 @@ GA_MEASUREMENT_ID = "G-GEN75BG21K"
 # ---- Google AdSense: paste your Publisher ID here once approved (looks like
 # "ca-pub-1234567890123456"). Leave as None until then — ads won't render.
 ADSENSE_PUBLISHER_ID = "ca-pub-2106771751457148"
+ADSENSE_AD_SLOT = "5530530408"
+
+
+def ad_unit():
+    """A single manual ad placement, baked into the templates so it appears
+    on every generated page automatically — no per-page copy-pasting needed."""
+    if not ADSENSE_PUBLISHER_ID or not ADSENSE_AD_SLOT:
+        return ""
+    return f'''<div style="margin:2rem 0">
+<ins class="adsbygoogle" style="display:block" data-ad-client="{ADSENSE_PUBLISHER_ID}" data-ad-slot="{ADSENSE_AD_SLOT}" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script>
+</div>'''
 
 
 def load_articles():
@@ -277,6 +289,8 @@ def build_index(articles):
   </div>
 </section>
 
+<section class="sec" style="padding-top:0;padding-bottom:0">{ad_unit()}</section>
+
 <section class="sec" id="content">
   <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">What We Cover</span><h2 class="sec-title">Content That Matters</h2><p class="sec-sub">Relevant, accessible, and engaging digital content built for today's online audience.</p></div></div>
   <div class="content-grid">
@@ -395,6 +409,7 @@ def build_article(a, articles):
 {body_html}
   </div>
   <div class="article-tags">{tags_html}</div>
+  {ad_unit()}
   <div class="share-row">
     <span>Share this story</span>
     <a class="share-btn" target="_blank" rel="noopener" aria-label="Share on WhatsApp" href="https://wa.me/?text={a["title"].replace(' ', '%20')}%20{share_url}">&#128172;</a>
