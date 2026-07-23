@@ -1,13 +1,63 @@
 [
   {
+    "slug": "moses-ali-laid-to-rest-adjumani",
+    "title": "Gen. Moses Ali Laid to Rest in Adjumani: A Nation Bids Farewell to a Veteran Statesman",
+    "category": "politics",
+    "language": "en",
+    "author": "King Musah Media News Desk",
+    "date": "2026-07-23",
+    "breaking": true,
+    "featured": true,
+    "excerpt": "Gen. Moses Ali has been laid to rest at his ancestral home in Adjumani, closing days of national mourning that included a lying-in-state at Parliament and tributes from President Museveni.",
+    "image_alt": "Mourners gathered at a burial ceremony in Adjumani",
+    "content": [
+      "The late Gen. (Rtd) Hon. Moses Ali, former Second Deputy Prime Minister and one of Uganda's longest-serving public servants, has been laid to rest at his ancestral home in Adjumani District after an emotional farewell that drew leaders, military officials, family, and thousands of mourners from across the country.",
+      "The burial on Wednesday, July 23, 2026, marked the end of several days of national mourning that included Janaza prayers in Kampala, a lying-in-state at Parliament, and a special gathering at Paridi Stadium in Adjumani.",
+      "<strong>Final journey and ceremony.</strong> Mourners gathered at Paridi Stadium in the morning for a special ceremony involving representatives from the 15 districts of West Nile. This was followed by Janaza prayers at Abirichaku before the burial at 4:00 PM. The solemn event brought together dignitaries, military personnel, and local communities to honour a man widely respected for his humility, service, and dedication to his people.",
+      "<strong>Presidential condolence message.</strong> In a special message, President Yoweri Museveni praised the late Gen. Ali as a passionate advocate who deeply cared for his people and contributed immensely to the nation's development, especially in the West Nile region. Earlier tributes in Parliament highlighted Ali's sense of humour, humility, and commitment to public service, with Leader of Opposition Joel Ssenyonyi, Hon. Betty Nambooze, Minister Balaam Barugahara, and others remembering him fondly as a true patriot and \"man of the people.\"",
+      "<strong>A remarkable legacy.</strong> Born in 1939, Gen. Moses Ali rose through the ranks as a military officer, lawyer, and politician. He served in multiple high-level roles, including as Second Deputy Prime Minister and MP for Adjumani West until his passing on July 18, 2026, at Nakasero Hospital at the age of 87. His death has prompted an outpouring of respect from across the political spectrum, underscoring his role as a unifying figure who served Uganda with distinction for over five decades.",
+      "As the body of the veteran leader now rests in his ancestral soil, King Musah Media joins the nation in mourning this great loss. May the soul of Gen. Hon. Moses Ali rest in eternal peace. Farewell to a true son of Uganda."
+    ],
+    "tags": [
+      "Moses Ali",
+      "Adjumani",
+      "State Funeral"
+    ]
+  },
+  {
+    "slug": "court-orders-3-days-account-muwanga-kivumbi",
+    "title": "Court Gives Security Agencies 3 Days to Account for Missing Muwanga Kivumbi Amid Mounting Pressure and Rumours",
+    "category": "politics",
+    "language": "en",
+    "author": "Musanya Musa",
+    "date": "2026-07-23",
+    "breaking": true,
+    "featured": false,
+    "excerpt": "High Court Justice Collins Acellam orders the CDF and IGP to report within three days on Muwanga Kivumbi's whereabouts, as unconfirmed rumours of torture continue to swirl.",
+    "image_alt": "The exterior of the High Court of Uganda",
+    "content": [
+      "In a significant judicial intervention, High Court Justice Collins Acellam has ordered the Chief of Defence Forces and the Inspector General of Police to report within three days on the whereabouts and circumstances surrounding the continued detention of Hon. Muhammad Muwanga Kivumbi. The directive comes as speculation intensifies over the NUP leader's fate more than ten days after his abduction.",
+      "This development marks a critical escalation in efforts to pierce the veil of silence that has enveloped Kivumbi since July 10, underscoring growing institutional pushback against opaque security operations while highlighting the limits of executive impunity in the face of judicial scrutiny.",
+      "<strong>Judicial demand for answers.</strong> Justice Acellam's order requires security chiefs to clarify Kivumbi's location, the agency holding him, and the legal basis for his detention. The move responds to persistent concerns raised in habeas corpus applications and parliamentary queries. Kivumbi's lawyers have long argued that his incommunicado status violates constitutional protections, including the right to be produced in court within 48 hours.",
+      "The ruling arrives against a backdrop of unconfirmed but persistent rumours — amplified on social media and in opposition circles — alleging torture, severe injury, or even death. While no credible evidence has substantiated the most extreme claims, the absence of official information has understandably fuelled public anxiety and distrust.",
+      "<strong>The abduction and its aftermath.</strong> Kivumbi was granted bail by the International Crimes Division on July 9 after 169 days on remand over terrorism charges linked to Butambala post-election violence. Hours later, on July 10, armed operatives — including men in uniform — intercepted him at a Mpigi roadblock in a coordinated operation involving police and plainclothes personnel. He was bundled into an unmarked vehicle and has not been publicly seen or heard from since. Family-organised prayers in Butambala drew senior opposition figures, and NUP leader Bobi Wine has publicly cited reports of torture at a military facility and demanded accountability.",
+      "<strong>The imperative of transparency.</strong> Investigations into serious allegations like terrorism require diligence. However, when court bail is swiftly followed by extra-judicial action and prolonged secrecy, it invites accusations of lawfare and abuse of power. The three-day clock is ticking, and Ugandans deserve closure on whether Kivumbi is alive and well, facing legitimate charges through due process, or has once again seen the state prioritise control over constitutional norms. Justice Acellam's order is a welcome assertion of judicial authority; the nation awaits the response."
+    ],
+    "tags": [
+      "Muwanga Kivumbi",
+      "Judiciary",
+      "Human Rights"
+    ]
+  },
+  {
     "slug": "moses-ali-parliament-tributes-adjumani",
     "title": "Body of Gen. Moses Ali Flown to Adjumani as Parliament Pays Glowing Tributes",
     "category": "politics",
     "language": "en",
     "author": "King Musah Media News Desk",
     "date": "2026-07-21",
-    "breaking": true,
-    "featured": true,
+    "breaking": false,
+    "featured": false,
     "excerpt": "President Museveni and Parliament pay emotional tribute to Gen. Moses Ali as his body is airlifted to Adjumani, ahead of burial tomorrow, Wednesday July 23.",
     "image_alt": "Parliament in session with dignitaries paying tribute",
     "content": [
@@ -32,7 +82,7 @@
     "language": "en",
     "author": "Musanya Musa",
     "date": "2026-07-20",
-    "breaking": true,
+    "breaking": false,
     "featured": false,
     "excerpt": "More than ten days after his re-arrest hours following a court-granted bail, Muwanga Kivumbi's whereabouts remain unknown, fuelling unverified rumours of torture and death.",
     "image_alt": "A group gathered for prayers in solidarity",
