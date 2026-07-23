@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>KMVTECH Education — University Courses for Ugandan Students</title>
+<title>KMVTECH Education   University Courses for Ugandan Students</title>
 <meta name="description" content="Study Law, Health Sciences, Social Sciences, Business and IT at your own pace. Practical, simplified university courses built for Ugandan students. Register free, pay only to study."/>
 <meta name="keywords" content="Uganda university courses, evidence law Uganda, online learning Uganda, KMVTECH Education, Kampala e-learning"/>
-<meta property="og:title" content="KMVTECH Education — University Courses for Ugandan Students"/>
+<meta property="og:title" content="KMVTECH Education   University Courses for Ugandan Students"/>
 <meta property="og:description" content="Study Law, Health Sciences, Social Sciences, Business and IT at your own pace."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://musanyamusa1.github.io/kmvtechug/education/"/>
@@ -15,7 +15,7 @@
 
 <style>
 /* ============================================================
-   KMVTECH EDUCATION — HOMEPAGE v5
+   KMVTECH EDUCATION   HOMEPAGE v5
    PRD v2.0 · 5 equal faculties · 49 courses · Dark mode
    Full accessibility · Real-time search · Mobile-first
    Blue #2B3FBF · Purple #6B2ECC · Navy #0D1B2A · Gold #C9922A
@@ -23,7 +23,7 @@
 
 /* ---- DESIGN TOKENS ---- */
 :root {
-  /* Brand — never change */
+  /* Brand   never change */
   --blue:   #2B3FBF;
   --purple: #6B2ECC;
   --navy:   #0D1B2A;
@@ -87,14 +87,14 @@ body {
   }
 }
 
-/* Focus — keyboard navigation */
+/* Focus   keyboard navigation */
 :focus-visible {
   outline: 3px solid var(--blue);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* Skip to main content — screen readers and keyboard users */
+/* Skip to main content   screen readers and keyboard users */
 .skip-link {
   position: absolute;
   top: -100%;
@@ -162,7 +162,7 @@ body {
 .nav-logo-text .brand { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 15px; color: var(--text-1); display: block; }
 .nav-logo-text .sub { font-size: 9.5px; color: var(--text-2); font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; display: block; }
 
-/* Nav search — inline in nav on desktop */
+/* Nav search   inline in nav on desktop */
 .nav-search {
   flex: 1;
   max-width: 320px;
@@ -268,7 +268,7 @@ body {
 [data-theme="dark"] .btn-register { background: var(--blue); }
 
 /* ============================================================
-   HERO — editorial, subject-neutral
+   HERO   editorial, subject-neutral
    ============================================================ */
 .hero {
   background: var(--navy);
@@ -352,7 +352,7 @@ body {
 
 .hero-dek strong { color: rgba(255,255,255,0.9); font-weight: 500; }
 
-/* Hero search — the signature element */
+/* Hero search   the signature element */
 .hero-search-wrap {
   margin-bottom: 32px;
 }
@@ -678,7 +678,7 @@ body {
 }
 
 /* ============================================================
-   COURSE CATALOGUE — signature element
+   COURSE CATALOGUE   signature element
    ============================================================ */
 .catalogue-section {
   padding: 80px 0;
@@ -1128,6 +1128,23 @@ footer {
 }
 .btn-modal:hover { background: var(--blue); }
 
+
+/* AUTH STATE CHECK */
+const _sb = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+(async function(){
+  const {data:{session}} = await _sb.auth.getSession();
+  if(session){
+    document.getElementById('nav-auth-guest').style.display='none';
+    document.getElementById('nav-auth-user').style.display='flex';
+    const {data:p} = await _sb.from('profiles').select('full_name').eq('id',session.user.id).maybeSingle();
+    if(p){
+      const el=document.getElementById('nav-greeting');
+      el.textContent='Hi, '+p.full_name.split(' ')[0];
+      el.style.display='inline';
+    }
+  }
+})();
+
 /* ============================================================
    SCROLL REVEAL
    ============================================================ */
@@ -1193,7 +1210,7 @@ footer {
       </div>
     </a>
 
-    <!-- Inline search — desktop only -->
+    <!-- Inline search   desktop only -->
     <div class="nav-search" role="search">
       <svg class="nav-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="search" id="nav-search-input" placeholder="Search courses..." aria-label="Search courses" autocomplete="off"/>
@@ -1207,19 +1224,17 @@ footer {
     </ul>
 
     <div class="nav-actions">
-      <!-- Dark mode toggle -->
-      <button
-        class="theme-btn"
-        id="themeToggle"
-        role="switch"
-        aria-checked="false"
-        aria-label="Toggle dark mode"
-        onclick="toggleTheme()"
-      >
+      <button class="theme-btn" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="toggleTheme()">
         <div class="theme-thumb" aria-hidden="true">☀️</div>
       </button>
-      <a href="./login/" class="btn-login">Log In</a>
-      <a href="./register/" class="btn-register">Register</a>
+      <div id="nav-auth-guest" style="display:flex;gap:10px;align-items:center;">
+        <a href="./login/" class="btn-login">Log In</a>
+        <a href="./register/" class="btn-register">Register</a>
+      </div>
+      <div id="nav-auth-user" style="display:none;gap:10px;align-items:center;">
+        <span id="nav-greeting" style="font-size:13px;color:var(--text-2);font-weight:500;display:none;"></span>
+        <a href="./dashboard/" class="btn-register">My Dashboard</a>
+      </div>
     </div>
   </div>
 </nav>
@@ -1241,11 +1256,11 @@ footer {
 
         <p class="hero-dek">
           Law. Health Sciences. Social Sciences. Business. IT &amp; Digital Skills.
-          <strong>One platform</strong> built for Ugandan university students —
+          <strong>One platform</strong> built for Ugandan university students  
           practical content mapped to your actual university syllabus.
         </p>
 
-        <!-- Hero search — the signature element -->
+        <!-- Hero search   the signature element -->
         <div class="hero-search-wrap" role="search">
           <span class="hero-search-label" id="hero-search-label">Search any course or subject</span>
           <div class="hero-search-box">
@@ -1307,20 +1322,20 @@ footer {
     <div class="reveal">
       <div class="section-eyebrow">How It Works</div>
       <h2 class="section-heading" id="access-heading">Browse free. Register to enrol. Pay to study.</h2>
-      <p class="section-dek">Every course description, module list, and learning outcome is visible to anyone — no account needed. To open lesson content you need a registered account and an active plan.</p>
+      <p class="section-dek">Every course description, module list, and learning outcome is visible to anyone   no account needed. To open lesson content you need a registered account and an active plan.</p>
     </div>
 
     <div class="access-steps reveal" style="transition-delay:0.1s">
       <div class="access-step">
         <div class="step-num">Step 1</div>
         <h3>Browse as a Guest</h3>
-        <p>View the full course catalogue, module breakdowns, pricing, and learning outcomes — no sign-up required.</p>
+        <p>View the full course catalogue, module breakdowns, pricing, and learning outcomes   no sign-up required.</p>
         <span class="step-pill free">✓ Open to Everyone</span>
       </div>
       <div class="access-step">
         <div class="step-num">Step 2</div>
         <h3>Register for Free</h3>
-        <p>Create your account instantly. You get a student number, a dashboard, and a profile — but lesson content stays locked until you choose a plan.</p>
+        <p>Create your account instantly. You get a student number, a dashboard, and a profile   but lesson content stays locked until you choose a plan.</p>
         <span class="step-pill locked">🔒 Content Still Locked</span>
       </div>
       <div class="access-step">
@@ -1341,7 +1356,7 @@ footer {
     <div class="reveal">
       <div class="section-eyebrow">Pricing</div>
       <h2 class="section-heading" id="pricing-heading">Choose the Plan That Matches How You Study</h2>
-      <p class="section-dek">Every plan includes your certificate automatically — it is never sold separately. Pay via Mobile Money, no bank account needed.</p>
+      <p class="section-dek">Every plan includes your certificate automatically   it is never sold separately. Pay via Mobile Money, no bank account needed.</p>
     </div>
 
     <div class="pricing-grid" role="list">
@@ -1354,7 +1369,7 @@ footer {
           <li>All videos, text lessons, PDF notes</li>
           <li>Practice quizzes + graded module quizzes</li>
           <li>Certificate and transcript included</li>
-          <li>Lifetime access — never expires</li>
+          <li>Lifetime access   never expires</li>
         </ul>
         <a href="./register/?plan=per-course" class="btn-plan">Choose Per Course</a>
       </div>
@@ -1380,7 +1395,7 @@ footer {
         <div class="price-period">Per month · all 49+ courses, unlimited</div>
         <ul class="price-features" aria-label="Monthly plan features">
           <li>Unlimited access to every course</li>
-          <li>Flexible — change or stop any month</li>
+          <li>Flexible   change or stop any month</li>
           <li>Certificate for every course you complete</li>
           <li>Good for focused short-term study sprints</li>
         </ul>
@@ -1390,7 +1405,7 @@ footer {
 
     <p class="pricing-note reveal">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      All plans paid via MTN Mobile Money, Airtel Money, Visa or Mastercard. Certificate and transcript are automatically included in every plan — never an extra charge. A certificate retake (to improve your score) costs UGX 3,000–5,000.
+      All plans paid via MTN Mobile Money, Airtel Money, Visa or Mastercard. Certificate and transcript are automatically included in every plan   never an extra charge. A certificate retake (to improve your score) costs UGX 3,000–5,000.
     </p>
   </div>
 </section>
@@ -1711,18 +1726,18 @@ footer {
         <div class="course-row status-ready">
           <div class="cr-dot" aria-hidden="true"></div>
           <div class="cr-body">
-            <div class="cr-top"><span class="cr-title">HRM1 — Fundamentals of Human Resource Management</span><span class="cr-badge badge-ready">Ready · Launching Aug 8</span></div>
+            <div class="cr-top"><span class="cr-title">HRM1   Fundamentals of Human Resource Management</span><span class="cr-badge badge-ready">Ready · Launching Aug 8</span></div>
             <div class="cr-meta">Business · Year 2–3 · 4 modules · 8 lessons · UGX 5,000</div>
           </div>
-          <div class="cr-action"><button class="btn-notify" onclick="openModal('HRM1 — Fundamentals of Human Resource Management')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-notify" onclick="openModal('HRM1   Fundamentals of Human Resource Management')">Notify Me</button></div>
         </div>
         <div class="course-row status-ready">
           <div class="cr-dot" aria-hidden="true"></div>
           <div class="cr-body">
-            <div class="cr-top"><span class="cr-title">HRM2 — Strategic and Applied HR Management</span><span class="cr-badge badge-ready">Ready · Launching Aug 8</span></div>
+            <div class="cr-top"><span class="cr-title">HRM2   Strategic and Applied HR Management</span><span class="cr-badge badge-ready">Ready · Launching Aug 8</span></div>
             <div class="cr-meta">Business · Year 3–4 · 5 modules · 10 lessons · UGX 5,000</div>
           </div>
-          <div class="cr-action"><button class="btn-notify" onclick="openModal('HRM2 — Strategic and Applied HR Management')">Notify Me</button></div>
+          <div class="cr-action"><button class="btn-notify" onclick="openModal('HRM2   Strategic and Applied HR Management')">Notify Me</button></div>
         </div>
         <div class="course-row status-production">
           <div class="cr-dot" aria-hidden="true"></div>
@@ -1800,7 +1815,7 @@ footer {
     <div class="reveal">
       <div class="section-eyebrow">Your Credential</div>
       <h2 class="section-heading" id="cert-heading">A Certificate Employers Can Verify</h2>
-      <p class="section-dek">Every certificate carries a unique verification code. Anyone can confirm it is genuine in seconds at our public verification page — no login needed.</p>
+      <p class="section-dek">Every certificate carries a unique verification code. Anyone can confirm it is genuine in seconds at our public verification page   no login needed.</p>
     </div>
 
     <div class="cert-layout">
@@ -1836,11 +1851,11 @@ footer {
       <div class="cert-info reveal">
         <div class="cert-info-item">
           <div class="cert-info-icon">🔒</div>
-          <div><h4>Unique Verification Code</h4><p>Enter the KMVED code at our verification page to confirm any certificate is genuine — available to employers and institutions at any time.</p></div>
+          <div><h4>Unique Verification Code</h4><p>Enter the KMVED code at our verification page to confirm any certificate is genuine   available to employers and institutions at any time.</p></div>
         </div>
         <div class="cert-info-item">
           <div class="cert-info-icon">📋</div>
-          <div><h4>Academic Transcript Included</h4><p>Page 2 of your certificate PDF lists every module score, study hours, and completion dates — a complete academic record.</p></div>
+          <div><h4>Academic Transcript Included</h4><p>Page 2 of your certificate PDF lists every module score, study hours, and completion dates   a complete academic record.</p></div>
         </div>
         <div class="cert-info-item">
           <div class="cert-info-icon">✉️</div>
@@ -1848,7 +1863,7 @@ footer {
         </div>
         <div class="cert-info-item">
           <div class="cert-info-icon">💼</div>
-          <div><h4>Add to LinkedIn and Your CV</h4><p>Verifiable proof of skills that complements your degree — recognisable to employers, universities, and professional bodies.</p></div>
+          <div><h4>Add to LinkedIn and Your CV</h4><p>Verifiable proof of skills that complements your degree   recognisable to employers, universities, and professional bodies.</p></div>
         </div>
       </div>
     </div>
@@ -1867,8 +1882,8 @@ footer {
     </div>
     <div class="features-grid" role="list">
       <div class="feature-card reveal" role="listitem"><div class="feature-icon" aria-hidden="true">📱</div><h3>Mobile-First Design</h3><p>Built for your phone first. Fast loading even on slower Ugandan mobile data connections. No app download needed.</p></div>
-      <div class="feature-card reveal" style="transition-delay:0.05s" role="listitem"><div class="feature-icon" aria-hidden="true">📄</div><h3>Downloadable PDF Notes</h3><p>Every lesson includes branded PDF notes you can download and study offline — no internet needed once downloaded.</p></div>
-      <div class="feature-card reveal" style="transition-delay:0.1s" role="listitem"><div class="feature-icon" aria-hidden="true">🎧</div><h3>Audio Learning</h3><p>AI-generated podcast-style audio summaries for every lesson — study while commuting or doing other tasks.</p></div>
+      <div class="feature-card reveal" style="transition-delay:0.05s" role="listitem"><div class="feature-icon" aria-hidden="true">📄</div><h3>Downloadable PDF Notes</h3><p>Every lesson includes branded PDF notes you can download and study offline   no internet needed once downloaded.</p></div>
+      <div class="feature-card reveal" style="transition-delay:0.1s" role="listitem"><div class="feature-icon" aria-hidden="true">🎧</div><h3>Audio Learning</h3><p>AI-generated podcast-style audio summaries for every lesson   study while commuting or doing other tasks.</p></div>
       <div class="feature-card reveal" style="transition-delay:0.15s" role="listitem"><div class="feature-icon" aria-hidden="true">✅</div><h3>Exam-Style Quizzes</h3><p>Six question types including scenario-based questions that mirror real university exams. Unlimited practice attempts, three graded attempts per module.</p></div>
       <div class="feature-card reveal" style="transition-delay:0.2s" role="listitem"><div class="feature-icon" aria-hidden="true">📊</div><h3>Progress Tracking</h3><p>Module-by-module progress, quiz scores, and study hours tracked automatically on your personal dashboard.</p></div>
       <div class="feature-card reveal" style="transition-delay:0.25s" role="listitem"><div class="feature-icon" aria-hidden="true">💳</div><h3>Mobile Money Payment</h3><p>Pay via MTN Mobile Money or Airtel Money. No bank account required. Payment confirmed and access granted immediately.</p></div>
@@ -1895,7 +1910,7 @@ footer {
           <div role="listitem"><div class="astat-num">2027</div><div class="astat-label">Public Launch</div></div>
         </div>
         <div class="about-text">
-          Founded at <strong>144 Sir Apollo Kaggwa Rd, Kikoni Makerere, Kampala</strong> — in the heart of Uganda's university district. KMVTECH Education sits alongside <strong>King Musah Media</strong>, <strong>KMVTECH IT Services</strong>, and the <strong>Musanya Musa</strong> personal brand within the KMVTECHUG family. URSB registration in progress.
+          Founded at <strong>144 Sir Apollo Kaggwa Rd, Kikoni Makerere, Kampala</strong>   in the heart of Uganda's university district. KMVTECH Education sits alongside <strong>King Musah Media</strong>, <strong>KMVTECH IT Services</strong>, and the <strong>Musanya Musa</strong> personal brand within the KMVTECHUG family. URSB registration in progress.
         </div>
       </div>
     </div>
@@ -1911,7 +1926,7 @@ footer {
       <h2 id="cta-heading">Your Course Is<br/>Waiting for You</h2>
       <p>Pick your faculty, choose a plan, and start studying today. Your certificate is already included in every plan.</p>
       <a href="./register/" class="btn-cta">
-        Register Now — It's Free
+        Register Now   It's Free
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
       <div class="cta-note">Free to register. Plans from UGX 5,000. Certificate always included.</div>
@@ -1927,7 +1942,7 @@ footer {
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>KMVTECH Education</h3>
-        <p>Practical, simplified educational content for Ugandan university students across five equal faculties — Law, Health Sciences, Social Sciences, Business, and IT &amp; Digital Skills.</p>
+        <p>Practical, simplified educational content for Ugandan university students across five equal faculties   Law, Health Sciences, Social Sciences, Business, and IT &amp; Digital Skills.</p>
         <div class="eco-badge">Part of the KMVTECHUG Digital Ecosystem</div>
       </div>
       <div class="footer-col">
@@ -1962,9 +1977,10 @@ footer {
 <!-- ====================================================
      JAVASCRIPT
      ==================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ============================================================
-   ALL COURSE DATA — for real-time search
+   ALL COURSE DATA   for real-time search
    ============================================================ */
 const ALL_COURSES = [
   { title: 'Evidence Law 1: Introduction to Evidence & Proof', faculty: 'Law', level: 'Year 2–3', status: 'open', url: './courses/evidence-law-1/' },
@@ -1999,8 +2015,8 @@ const ALL_COURSES = [
   { title: 'News Reporting and Writing', faculty: 'Social Sciences', level: 'Year 1–2', status: 'production', url: null },
   { title: 'Communication and Life Skills', faculty: 'Social Sciences', level: 'Year 2', status: 'production', url: null },
   { title: 'Introduction to Community Psychology', faculty: 'Social Sciences', level: 'Year 2', status: 'production', url: null },
-  { title: 'HRM1 — Fundamentals of Human Resource Management', faculty: 'Business', level: 'Year 2–3', status: 'ready', url: null },
-  { title: 'HRM2 — Strategic and Applied HR Management', faculty: 'Business', level: 'Year 3–4', status: 'ready', url: null },
+  { title: 'HRM1   Fundamentals of Human Resource Management', faculty: 'Business', level: 'Year 2–3', status: 'ready', url: null },
+  { title: 'HRM2   Strategic and Applied HR Management', faculty: 'Business', level: 'Year 3–4', status: 'ready', url: null },
   { title: 'Business Administration', faculty: 'Business', level: 'Year 1–2', status: 'production', url: null },
   { title: 'Digital Skills', faculty: 'IT & Digital Skills', level: 'Beginner', status: 'production', url: null },
   { title: 'Introduction to Artificial Intelligence', faculty: 'IT & Digital Skills', level: 'Beginner–Intermediate', status: 'production', url: null },
@@ -2031,7 +2047,7 @@ function renderSearchResults(query) {
   const panel = document.getElementById('search-results-panel');
 
   if (!q) {
-    // Clear search — restore faculty tabs
+    // Clear search   restore faculty tabs
     panel.classList.remove('active');
     panel.innerHTML = '';
     document.querySelectorAll('.faculty-panel').forEach(p => {
@@ -2060,7 +2076,7 @@ function renderSearchResults(query) {
   );
 
   if (results.length === 0) {
-    panel.innerHTML = `<div class="no-results"><strong>No courses found for "${query}"</strong>Try a different keyword — faculty name, subject, or year level.</div>`;
+    panel.innerHTML = `<div class="no-results"><strong>No courses found for "${query}"</strong>Try a different keyword   faculty name, subject, or year level.</div>`;
   } else {
     const rows = results.map(c => `
       <div class="course-row status-${c.status}">
@@ -2223,6 +2239,23 @@ function submitNotify() {
       </button>
     </div>`;
 }
+
+
+/* AUTH STATE CHECK */
+const _sb = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+(async function(){
+  const {data:{session}} = await _sb.auth.getSession();
+  if(session){
+    document.getElementById('nav-auth-guest').style.display='none';
+    document.getElementById('nav-auth-user').style.display='flex';
+    const {data:p} = await _sb.from('profiles').select('full_name').eq('id',session.user.id).maybeSingle();
+    if(p){
+      const el=document.getElementById('nav-greeting');
+      el.textContent='Hi, '+p.full_name.split(' ')[0];
+      el.style.display='inline';
+    }
+  }
+})();
 
 /* ============================================================
    SCROLL REVEAL
