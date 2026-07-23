@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>What is Evidence Law? — KMVTECH Education</title>
+<title>What is Evidence Law? - EVL1 - KMVTECH Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--amber:#D97706;--red:#DC2626;--bg:#FAF9F6;--surface:#FFFFFF;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--reading-width:680px;}
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--bg:#FAF9F6;--surface:#FFFFFF;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--reading-width:680px;}
 [data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -16,331 +16,269 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 :focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
 .skip-link{position:absolute;top:-100%;left:16px;background:var(--blue);color:#fff;padding:10px 20px;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;z-index:9999;}
 .skip-link:focus{top:0;}
-.lesson-topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
 .topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
-.topbar-logo-mark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
-.topbar-logo-text{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
-.topbar-breadcrumb{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);overflow:hidden;min-width:0;}
-.topbar-breadcrumb a{color:var(--text-2);text-decoration:none;white-space:nowrap;}
-.topbar-breadcrumb a:hover{color:var(--blue);}
-.topbar-breadcrumb .current{color:var(--text-1);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.topbar-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.progress-bar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width 0.5s ease;}
+.topbar-mark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.topbar-name{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
+.topbar-bc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);overflow:hidden;min-width:0;}
+.topbar-bc a{color:var(--text-2);text-decoration:none;white-space:nowrap;}
+.topbar-bc a:hover{color:var(--blue);}
+.topbar-bc .cur{color:var(--text-1);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.topbar-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .theme-btn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0;}
 .theme-btn[aria-checked="true"]{background:var(--blue);}
 .theme-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
 .theme-btn[aria-checked="true"] .theme-thumb{transform:translateX(16px);}
-.lesson-layout{display:flex;min-height:100vh;flex-direction:column;}
-.lesson-body{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;gap:0;}
-.lesson-sidebar{width:260px;flex-shrink:0;border-right:1px solid var(--border);background:var(--surface);position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
-.sidebar-section-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:18px 18px 8px;border-bottom:1px solid var(--border);}
-.sidebar-module-header{display:flex;align-items:center;gap:8px;padding:10px 18px;font-size:12.5px;font-weight:700;color:var(--text-2);border-bottom:1px solid var(--border);}
-.sidebar-module-num{width:22px;height:22px;border-radius:5px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2);flex-shrink:0;}
-.sidebar-module-num.active{background:var(--blue);color:#fff;}
-.sidebar-page{display:flex;align-items:center;gap:8px;padding:7px 18px 7px 30px;font-size:12px;color:var(--text-2);text-decoration:none;transition:background 0.15s;border-bottom:1px solid var(--border);position:relative;}
-.sidebar-page:hover{background:var(--surface-2);color:var(--text-1);}
-.sidebar-page.active{color:var(--blue);font-weight:600;background:rgba(43,63,191,0.05);}
-.sidebar-page-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;}
-.sidebar-page.active .sidebar-page-dot{background:var(--blue);}
-.sidebar-page.done .sidebar-page-dot{background:var(--green);}
-.lesson-main{flex:1;padding:0 20px 120px;min-width:0;}
-.lesson-header{max-width:var(--reading-width);margin:36px auto 32px;}
-.lesson-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.lesson-eyebrow::before{content:'';width:14px;height:1.5px;background:var(--purple);}
+.prog-bar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width 0.5s ease;}
+.layout{display:flex;min-height:100vh;flex-direction:column;}
+.body-wrap{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;}
+.sidebar{width:256px;flex-shrink:0;border-right:1px solid var(--border);background:var(--surface);position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
+.sb-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:16px 16px 8px;border-bottom:1px solid var(--border);}
+.sb-mod{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:12px;font-weight:700;color:var(--text-2);border-bottom:1px solid var(--border);}
+.sb-num{width:20px;height:20px;border-radius:4px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2);flex-shrink:0;}
+.sb-num.on{background:var(--blue);color:#fff;}
+.sb-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);padding:6px 16px 4px 16px;border-bottom:1px solid var(--border);}
+.sb-page{display:flex;align-items:center;gap:7px;padding:7px 16px 7px 26px;font-size:12px;color:var(--text-2);text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s;}
+.sb-page:hover{background:var(--surface-2);color:var(--text-1);}
+.sb-page.on{color:var(--blue);font-weight:600;background:rgba(43,63,191,0.05);}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;}
+.sb-page.on .sb-dot{background:var(--blue);}
+.main{flex:1;padding:0 20px 100px;min-width:0;}
+.lesson-hdr{max-width:var(--reading-width);margin:32px auto 28px;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.eyebrow::before{content:'';width:14px;height:1.5px;background:var(--purple);}
 .lesson-title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.7rem,4vw,2.4rem);color:var(--text-1);line-height:1.15;letter-spacing:-0.01em;margin-bottom:14px;}
-.lesson-subtitle{font-size:0.92rem;color:var(--text-2);line-height:1.7;padding-bottom:18px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
-.lesson-meta-chip{display:inline-flex;align-items:center;gap:5px;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--text-2);}
-.video-area{max-width:var(--reading-width);margin:28px auto;}
-.video-placeholder{background:var(--navy);border-radius:14px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden;}
+.chips{font-size:0.9rem;color:var(--text-2);padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;}
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;}
+.video-wrap{max-width:var(--reading-width);margin:24px auto 0;}
+.video-frame{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:var(--navy);}
+.video-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;}
+.video-placeholder{background:var(--navy);border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;}
 .video-placeholder::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 30%,rgba(43,63,191,0.35) 0%,transparent 60%);}
-.video-icon{font-size:48px;position:relative;z-index:1;}
-.video-label{font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:1;text-align:center;max-width:260px;line-height:1.5;}
-.video-label strong{color:rgba(255,255,255,0.9);display:block;margin-bottom:4px;font-size:14px;}
-.video-summary{max-width:var(--reading-width);margin:0 auto 28px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
-.video-summary-label{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;}
-.video-summary p{font-size:0.88rem;color:var(--text-2);line-height:1.7;margin:0;}
-.lesson-content{max-width:var(--reading-width);margin:0 auto;}
-.content-section-header{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--text-1);margin:36px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:10px;}
-.section-number{font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--blue);background:rgba(43,63,191,0.08);border:1px solid rgba(43,63,191,0.18);border-radius:5px;padding:2px 8px;flex-shrink:0;}
-.lesson-content p{font-size:1rem;color:var(--text-1);line-height:1.85;margin-bottom:16px;}
-.scenario-block{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 22px;margin:20px 0;}
-.scenario-label{font-size:10.5px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.scenario-block p{font-size:0.93rem;color:var(--text-2);line-height:1.8;margin-bottom:10px;}
-.scenario-block p:last-child{margin-bottom:0;}
-.authority-block{background:rgba(43,63,191,0.04);border:1px solid rgba(43,63,191,0.15);border-radius:10px;padding:16px 18px;margin:20px 0;}
-.authority-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
-.authority-block p{font-size:0.87rem;color:var(--text-2);line-height:1.65;margin-bottom:6px;}
-.authority-block p:last-child{margin-bottom:0;}
-.authority-block strong{color:var(--text-1);}
-.summary-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:28px 0;}
-.summary-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:12px;}
-.summary-list{list-style:none;display:flex;flex-direction:column;gap:9px;}
-.summary-list li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
-.summary-list li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
-.content-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.875rem;}
+.vp-icon{font-size:44px;position:relative;z-index:1;}
+.vp-label{font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:1;text-align:center;max-width:240px;line-height:1.5;}
+.vp-label strong{color:rgba(255,255,255,0.9);display:block;margin-bottom:4px;}
+.vid-meta{font-size:11.5px;color:var(--text-3);text-align:center;margin-top:8px;}
+.vid-summary{max-width:var(--reading-width);margin:16px auto 28px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;}
+.vid-sum-lbl{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:7px;}
+.vid-summary p{font-size:0.88rem;color:var(--text-2);line-height:1.7;margin:0;}
+.content{max-width:var(--reading-width);margin:0 auto;}
+.content h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--text-1);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+.content p{font-size:1rem;color:var(--text-1);line-height:1.85;margin-bottom:14px;}
+.content strong{color:var(--text-1);}
+.scenario{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:18px 20px;margin:18px 0;}
+.scenario-lbl{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.scenario p{font-size:0.92rem;color:var(--text-2);line-height:1.8;margin-bottom:8px;}
+.scenario p:last-child{margin:0;}
+.authority{background:rgba(43,63,191,0.04);border:1px solid rgba(43,63,191,0.15);border-radius:10px;padding:14px 16px;margin:18px 0;}
+.auth-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:7px;}
+.authority p{font-size:0.87rem;color:var(--text-2);line-height:1.65;margin-bottom:5px;}
+.authority p:last-child{margin:0;}
+.summary-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0;}
+.sum-lbl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:10px;}
+.sum-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.sum-list li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.sum-list li::before{content:'checkmark';font-size:0;width:14px;height:14px;background:var(--blue);border-radius:50%;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;}
+.sum-list li::before{content:'✓';font-size:10px;color:var(--blue);background:none;width:auto;height:auto;margin-top:1px;}
+.content-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.875rem;}
 .content-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:11.5px;}
 .content-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-2);line-height:1.5;vertical-align:top;}
 .content-table tr:hover td{background:var(--surface-2);}
-.page-nav{max-width:var(--reading-width);margin:40px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:24px;border-top:1px solid var(--border);}
-.btn-page-nav{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;padding:12px 20px;border-radius:9px;text-decoration:none;transition:all 0.2s;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
-.btn-page-nav:hover{border-color:var(--blue);color:var(--blue);}
-.btn-page-nav.primary{background:var(--navy);color:#fff;border-color:var(--navy);}
-.btn-page-nav.primary:hover{background:var(--blue);border-color:var(--blue);}
-.page-progress-label{font-size:12px;color:var(--text-3);text-align:center;}
-.pdf-download{max-width:var(--reading-width);margin:28px auto;}
-.pdf-download-inner{background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:16px 18px;display:flex;align-items:center;gap:12px;}
-.pdf-download-icon{font-size:24px;flex-shrink:0;}
-.pdf-download-title{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:3px;}
-.pdf-download-sub{font-size:12px;color:var(--text-2);}
-.btn-pdf{flex-shrink:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;display:inline-block;transition:background 0.2s;}
+.page-nav{max-width:var(--reading-width);margin:36px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;border-top:1px solid var(--border);}
+.nav-btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;transition:all 0.2s;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
+.nav-btn:hover{border-color:var(--blue);color:var(--blue);}
+.nav-btn.next{background:var(--navy);color:#fff;border-color:var(--navy);}
+.nav-btn.next:hover{background:var(--blue);border-color:var(--blue);}
+.page-lbl{font-size:12px;color:var(--text-3);text-align:center;}
+.pdf-bar{max-width:var(--reading-width);margin:24px auto 0;background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.pdf-icon{font-size:22px;flex-shrink:0;}
+.pdf-title{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:2px;}
+.pdf-sub{font-size:11.5px;color:var(--text-2);}
+.btn-pdf{flex-shrink:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;transition:background 0.2s;}
 .btn-pdf:hover{background:var(--blue);}
-.locked-overlay{max-width:var(--reading-width);margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
-.locked-icon{font-size:40px;margin-bottom:16px;}
-.locked-overlay h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
-.locked-overlay p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:380px;margin:0 auto 22px;}
-.btn-unlock{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:13px 26px;border-radius:9px;transition:background 0.2s;}
+.locked{max-width:var(--reading-width);margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.locked-icon{font-size:40px;margin-bottom:14px;}
+.locked h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
+.locked p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:360px;margin:0 auto 20px;}
+.btn-unlock{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;transition:background 0.2s;}
 .btn-unlock:hover{background:var(--blue);}
-.lesson-outline{width:220px;flex-shrink:0;border-left:1px solid var(--border);padding:28px 18px;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
-.outline-title{font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;}
-.outline-link{display:block;font-size:12px;color:var(--text-2);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--border);margin-bottom:4px;transition:all 0.15s;line-height:1.4;}
-.outline-link:hover,.outline-link.active{color:var(--blue);border-left-color:var(--blue);font-weight:600;}
-@media(min-width:768px){.lesson-sidebar{display:block;}.topbar-logo-text{display:block;}.lesson-main{padding:0 32px 120px;}}
-@media(min-width:1100px){.lesson-outline{display:block;}}
+.outline{width:210px;flex-shrink:0;border-left:1px solid var(--border);padding:24px 16px;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
+.out-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
+.out-link{display:block;font-size:12px;color:var(--text-2);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--border);margin-bottom:4px;transition:all 0.15s;line-height:1.4;}
+.out-link:hover,.out-link.on{color:var(--blue);border-left-color:var(--blue);font-weight:600;}
+@media(min-width:768px){.sidebar{display:block;}.topbar-name{display:block;}.main{padding:0 32px 100px;}}
+@media(min-width:1100px){.outline{display:block;}}
 </style>
 </head>
 <body>
-<a href="#main-content" class="skip-link">Skip to main content</a>
-<header class="lesson-topbar" role="banner">
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="topbar" role="banner">
   <a href="/education/" class="topbar-logo" aria-label="KMVTECH Education home">
-    <div class="topbar-logo-mark" aria-hidden="true">KE</div>
-    <span class="topbar-logo-text">KMVTECH Education</span>
+    <div class="topbar-mark" aria-hidden="true">KE</div>
+    <span class="topbar-name">KMVTECH Education</span>
   </a>
-  <nav class="topbar-breadcrumb" aria-label="Course navigation">
-    <a href="/education/courses/evidence-law-1/">Evidence Law 1</a><span aria-hidden="true">›</span><span class="current">Module 1</span><span class="current">Lesson 1</span><span class="current">What is Evidence Law?</span>
-  </nav>
-  <div class="topbar-actions">
-    <button class="theme-btn" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="toggleTheme()">
-      <div class="theme-thumb" aria-hidden="true">☀️</div>
-    </button>
+  <nav class="topbar-bc" aria-label="Course navigation"><a href="/education/courses/evl1/">Evidence Law 1</a><span aria-hidden="true">&#8250;</span><span class="cur">Module 1</span><span class="cur">What is Evidence Law?</span></nav>
+  <div class="topbar-right">
+    <button class="theme-btn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="toggleTheme()"><div class="theme-thumb" aria-hidden="true">&#9728;&#65039;</div></button>
     <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
   </div>
 </header>
-<div class="progress-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100" aria-label="Module progress">
-  <div class="progress-fill" style="width:12%;"></div>
+<div class="prog-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100" aria-label="Module progress">
+  <div class="prog-fill" style="width:12%;"></div>
 </div>
-<div class="lesson-layout">
-  <div class="lesson-body">
-    
-    <nav class="lesson-sidebar" aria-label="Course outline">
-      <div class="sidebar-section-title">Evidence Law 1</div>
-      <div class="sidebar-module-header">
-        <div class="sidebar-module-num active">1</div>
-        Introduction to Evidence Law
-      </div>
-      <div style="padding:8px 0 4px 18px;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--border);">Lesson 1</div>
-      <a href="/education/courses/evidence-law-1/1/1/1/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.1.1 What is Evidence?</a>
-      <a href="/education/courses/evidence-law-1/1/1/2/" class="sidebar-page active" ><div class="sidebar-page-dot"></div>1.1.2 What is Evidence Law?</a>
-      <a href="/education/courses/evidence-law-1/1/1/3/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.1.3 Nature of Evidence Law</a>
-      <a href="/education/courses/evidence-law-1/1/1/4/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.1.4 Philosophy &amp; Objectives</a>
-      <a href="/education/courses/evidence-law-1/1/1/5/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.1.5 Importance of Evidence Law</a>
-      <a href="/education/courses/evidence-law-1/1/1/quiz/" class="sidebar-page " style="color:var(--blue);"><div class="sidebar-page-dot"></div>Lesson 1 Practice Quiz</a>
-      <div style="padding:8px 0 4px 18px;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--border);">Lesson 2</div>
-      <a href="/education/courses/evidence-law-1/1/2/1/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.2.1 Substantive vs Adjectival Law</a>
-      <a href="/education/courses/evidence-law-1/1/2/2/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.2.2 Why Evidence Law is Procedural</a>
-      <a href="/education/courses/evidence-law-1/1/2/3/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.2.3 Importance of Classification</a>
-      <a href="/education/courses/evidence-law-1/1/2/quiz/" class="sidebar-page " style="color:var(--blue);"><div class="sidebar-page-dot"></div>Lesson 2 Practice Quiz</a>
-      <div style="padding:8px 0 4px 18px;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--border);">Lesson 3</div>
-      <a href="/education/courses/evidence-law-1/1/3/1/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.3.1 Origins in England</a>
-      <a href="/education/courses/evidence-law-1/1/3/2/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.3.2 Indian Evidence Act to Uganda</a>
-      <a href="/education/courses/evidence-law-1/1/3/3/" class="sidebar-page " ><div class="sidebar-page-dot"></div>1.3.3 Evidence Law in East Africa Today</a>
-      <a href="/education/courses/evidence-law-1/1/3/quiz/" class="sidebar-page " style="color:var(--blue);"><div class="sidebar-page-dot"></div>Lesson 3 Practice Quiz</a>
-      <div style="padding:8px 0 4px 18px;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--border);">End of Module 1</div>
-      <a href="/education/courses/evidence-law-1/1/summary/" class="sidebar-page " ><div class="sidebar-page-dot"></div>★ Module 1 Summary</a>
-      <a href="/education/courses/evidence-law-1/1/quiz/" class="sidebar-page " style="color:var(--blue);"><div class="sidebar-page-dot"></div>📝 Module 1 Graded Quiz</a>
-      <div class="sidebar-module-header" style="opacity:0.5;">
-        <div class="sidebar-module-num">2</div>Relevancy &amp; Admissibility
-      </div>
-      <div class="sidebar-module-header" style="opacity:0.5;">
-        <div class="sidebar-module-num">3</div>Judicial Notice
-      </div>
-    </nav>
-    <main class="lesson-main" id="main-content" tabindex="-1">
-      <div id="locked-state"></div>
-      <div id="lesson-content" style="display:none;">
-        <header class="lesson-header">
-          <div class="lesson-eyebrow">Module 1 · Lesson 1 · Page 2 of 5</div>
+<div class="layout">
+  <div class="body-wrap">
+    <nav class="sidebar" aria-label="Course outline">
+<div class="sb-title">Evidence Law 1</div>
+<div class="sb-mod"><div class="sb-num on">1</div>Introduction to Evidence Law</div>
+<div class="sb-lbl">Lesson 1</div>
+<a href="/education/courses/evl1/1/1/1/" class="sb-page " style=""><div class="sb-dot"></div>1.1.1 What is Evidence?</a>
+<a href="/education/courses/evl1/1/1/2/" class="sb-page on" style=""><div class="sb-dot"></div>1.1.2 What is Evidence Law?</a>
+<a href="/education/courses/evl1/1/1/3/" class="sb-page " style=""><div class="sb-dot"></div>1.1.3 Nature of Evidence Law</a>
+<a href="/education/courses/evl1/1/1/4/" class="sb-page " style=""><div class="sb-dot"></div>1.1.4 Philosophy and Objectives</a>
+<a href="/education/courses/evl1/1/1/5/" class="sb-page " style=""><div class="sb-dot"></div>1.1.5 Importance of Evidence Law</a>
+<a href="/education/courses/evl1/1/1/quiz/" class="sb-page " style="color:var(--blue);"><div class="sb-dot"></div>Lesson 1 Practice Quiz</a>
+<a href="/education/courses/evl1/1/2/1/" class="sb-page " style=""><div class="sb-dot"></div>1.2.1 Substantive vs Adjectival Law</a>
+<a href="/education/courses/evl1/1/2/2/" class="sb-page " style=""><div class="sb-dot"></div>1.2.2 Why Evidence Law is Procedural</a>
+<a href="/education/courses/evl1/1/2/3/" class="sb-page " style=""><div class="sb-dot"></div>1.2.3 Importance of Classification</a>
+<a href="/education/courses/evl1/1/2/quiz/" class="sb-page " style="color:var(--blue);"><div class="sb-dot"></div>Lesson 2 Practice Quiz</a>
+<a href="/education/courses/evl1/1/3/1/" class="sb-page " style=""><div class="sb-dot"></div>1.3.1 Origins in England</a>
+<a href="/education/courses/evl1/1/3/2/" class="sb-page " style=""><div class="sb-dot"></div>1.3.2 Indian Evidence Act to Uganda</a>
+<a href="/education/courses/evl1/1/3/3/" class="sb-page " style=""><div class="sb-dot"></div>1.3.3 Evidence Law in East Africa Today</a>
+<a href="/education/courses/evl1/1/3/quiz/" class="sb-page " style="color:var(--blue);"><div class="sb-dot"></div>Lesson 3 Practice Quiz</a>
+<a href="/education/courses/evl1/1/summary/" class="sb-page " style="color:var(--gold);"><div class="sb-dot"></div>Module 1 Summary</a>
+<a href="/education/courses/evl1/1/quiz/" class="sb-page " style="color:var(--purple);"><div class="sb-dot"></div>Module 1 Graded Quiz</a>
+
+<div class="sb-mod" style="opacity:0.5;"><div class="sb-num">2</div>Relevancy and Admissibility</div>
+<div class="sb-mod" style="opacity:0.5;"><div class="sb-num">3</div>Judicial Notice</div>
+</nav>
+    <main class="main" id="main" tabindex="-1">
+      <div id="locked"></div>
+      <div id="lc" style="display:none;">
+        <header class="lesson-hdr">
+          <div class="eyebrow">Module 1 - Lesson 1 - Page 2 of 5</div>
           <h1 class="lesson-title">What is Evidence Law?</h1>
-          <div class="lesson-subtitle"><span class="lesson-meta-chip">📹 Video + Text</span><span class="lesson-meta-chip">⏱ ~10 min</span><span class="lesson-meta-chip">📄 Evidence Act Cap. 8</span></div>
+          <div class="chips"><span class="chip">Video</span><span class="chip">~10 min</span><span class="chip">Evidence Act Cap. 8</span></div>
         </header>
         
-        <div class="video-area" id="video-section">
-          <div class="video-placeholder" role="img" aria-label="Video: What is Evidence Law? — uploading soon">
-            <div class="video-icon" aria-hidden="true">▶️</div>
-            <div class="video-label"><strong>What is Evidence Law?</strong>Video uploading shortly — read the notes below.</div>
-          </div>
-          <p style="font-size:11.5px;color:var(--text-3);text-align:center;margin-top:8px;">NotebookLM audio discussion · PDF notes downloadable below</p>
-        </div>
-        <div class="video-summary">
-          <div class="video-summary-label">📋 Video Summary</div>
-          <p>This video explains evidence law as the complete body of rules governing how facts are proved or disproved in court. It covers the four fundamental questions evidence law answers in every case, the origin of Uganda's Evidence Act Cap. 8 from the Indian Evidence Act 1872, and the four purposes evidence law serves — finding truth, ensuring fairness, promoting efficiency, and protecting important interests.</p>
-        </div>
-        <article class="lesson-content" aria-label="Lesson content">
+<div class="video-wrap">
+  <div class="video-frame">
+    <iframe src="https://www.youtube.com/embed/iWs6sXtBXGs" title="What is Evidence Law?" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <p class="vid-meta">NotebookLM audio discussion. PDF notes downloadable below.</p>
+</div>
+<div class="vid-summary">
+  <div class="vid-sum-lbl">Video Summary</div>
+  <p>This video explains evidence law as the complete body of rules governing how facts are proved or disproved in court. It covers the four fundamental questions evidence law answers in every case, the origin of Uganda's Evidence Act Cap. 8 from the Indian Evidence Act 1872, and the four purposes it serves: finding truth, ensuring fairness, promoting efficiency, and protecting important interests.</p>
+</div>
+        <article class="content" aria-label="Lesson content">
           
-<div class="content-section-header" id="sec-1"><span class="section-number">Section 1</span>From Evidence to Evidence Law</div>
-<p>In Page 1 we established what evidence is. But here is the next question: if the knife, the witnesses, and the letter all exist — how does the court decide which ones to actually look at? How does it decide who can speak, what documents it accepts, how much weight to give each piece?</p>
+<h2 id="h-1">From Evidence to Evidence Law</h2>
+<p>In Page 1 we established what evidence is. But here is the next question: if the knife, the witnesses, and the letter all exist, how does the court decide which ones to actually look at? How does it decide who can speak, what documents it accepts, how much weight to give each piece?</p>
 <p>These decisions are not made randomly. They are governed by rules. The entire body of those rules is what we call <strong>Evidence Law</strong>.</p>
-<div class="content-section-header" id="sec-2"><span class="section-number">Section 2</span>Definition of Evidence Law</div>
+
+<h2 id="h-2">Definition of Evidence Law</h2>
 <p>Evidence Law is the branch of law that governs the <strong>means and methods by which facts are proved or disproved in legal proceedings</strong> before a court or tribunal. It answers four fundamental questions in every case:</p>
-<p><strong>Question 1 — What can be presented?</strong> Not everything useful is allowed. Evidence law sets out what material a court will receive and what it will reject.</p>
-<p><strong>Question 2 — How must it be presented?</strong> There are specific rules about how witnesses testify, how documents are produced, and how electronic records are authenticated.</p>
-<p><strong>Question 3 — Who can present it?</strong> Evidence law determines who is competent to testify, who can be compelled, and who is protected from compulsion.</p>
-<p><strong>Question 4 — What weight does it carry?</strong> Once admitted, how much significance can the court attach to it, and does it need support before it can be acted upon?</p>
-<div class="content-section-header" id="sec-3"><span class="section-number">Section 3</span>Primary Source — Evidence Act Cap. 8</div>
-<div class="authority-block" role="note"><div class="authority-label">📜 Critical — Know This Cap Number</div>
+<p><strong>What can be presented?</strong> Not everything useful is allowed. Evidence law sets out what material a court will receive and what it will reject.</p>
+<p><strong>How must it be presented?</strong> There are specific rules about how witnesses testify, how documents are produced, and how electronic records are authenticated.</p>
+<p><strong>Who can present it?</strong> Evidence law determines who is competent to testify, who can be compelled, and who is protected from compulsion.</p>
+<p><strong>What weight does it carry?</strong> Once admitted, how much significance can the court attach to it, and does it need support before it can be acted upon?</p>
+
+<h2 id="h-3">Primary Source - Evidence Act Cap. 8</h2>
+<div class="authority"><div class="auth-lbl">Critical - Know This Cap Number</div>
 <p>The primary source of evidence law in Uganda is the <strong>Evidence Act Cap. 8</strong>, Laws of Uganda. Not Cap. 6. Not Cap. 7. <strong>Cap. 8.</strong> This is the 2024 revised citation. Use it in all academic and professional work.</p>
 <p>The Act was derived from the <strong>Indian Evidence Act of 1872</strong>, which codified English common law principles for colonial territories. Uganda inherited this framework through the East African legislative tradition and has developed it through decades of Ugandan court decisions.</p>
 </div>
-<div class="content-section-header" id="sec-4"><span class="section-number">Section 4</span>Purposes of Evidence Law</div>
-<p><strong>Purpose 1 — Finding the truth.</strong> Evidence law channels fact-finding so courts work with reliable, tested material rather than rumour or speculation.</p>
-<p><strong>Purpose 2 — Fairness to both parties.</strong> Both sides can present their case and challenge the other's evidence. This gives effect to Article 28 of the Constitution of Uganda 1995 — the right to a fair hearing.</p>
-<p><strong>Purpose 3 — Efficiency of proceedings.</strong> Rules of relevancy keep proceedings focused on matters that actually matter. Without them, cases would never end.</p>
-<p><strong>Purpose 4 — Protection of important interests.</strong> Some information is protected even if relevant — lawyer-client privilege, certain state documents, identities of police informants. Evidence law balances truth against other important values.</p>
-<div class="content-section-header" id="sec-5"><span class="section-number">Section 5</span>Relationship with Procedure</div>
-<p>Evidence law is closely connected to procedural law. Think of it this way: <strong>procedural law is the road; evidence law governs the vehicles allowed on that road and the rules of the road itself.</strong></p>
-<p>Key procedural statutes alongside the Evidence Act Cap. 8:</p>
-<div class="authority-block"><div class="authority-label">📚 Related Statutes</div>
-<p><strong>Civil Procedure Act Cap. 282</strong> — governs civil proceedings generally</p>
-<p><strong>Trial on Indictments Act Cap. 25</strong> — governs serious criminal trials in the High Court</p>
-<p><strong>Magistrates Courts Act Cap. 19</strong> — governs proceedings before magistrates</p>
-<p><strong>Constitution of Uganda 1995, Article 28</strong> — guarantees the right to a fair hearing</p>
+
+<h2 id="h-4">Purposes of Evidence Law</h2>
+<p><strong>Finding the truth.</strong> Evidence law channels fact-finding so courts work with reliable, tested material rather than rumour or speculation.</p>
+<p><strong>Fairness to both parties.</strong> Both sides can present their case and challenge the other's evidence. This gives effect to Article 28 of the Constitution of Uganda 1995 - the right to a fair hearing.</p>
+<p><strong>Efficiency of proceedings.</strong> Rules of relevancy keep proceedings focused on matters that actually matter. Without them, cases would never end.</p>
+<p><strong>Protection of important interests.</strong> Some information is protected even if relevant - lawyer-client privilege, certain state documents, identities of police informants. Evidence law balances truth against other important values.</p>
+
+<h2 id="h-5">Relationship with Procedure</h2>
+<p>Think of it this way: <strong>procedural law is the road; evidence law governs the vehicles allowed on that road and the rules of the road itself.</strong></p>
+<div class="authority"><div class="auth-lbl">Related Statutes</div>
+<p><strong>Civil Procedure Act Cap. 282</strong> - governs civil proceedings generally</p>
+<p><strong>Trial on Indictments Act Cap. 25</strong> - governs serious criminal trials in the High Court</p>
+<p><strong>Magistrates Courts Act Cap. 19</strong> - governs proceedings before magistrates</p>
+<p><strong>Constitution of Uganda 1995, Article 28</strong> - guarantees the right to a fair hearing</p>
 </div>
-<div class="content-section-header" id="sec-6"><span class="section-number">Summary</span>Key Points</div>
-<div class="summary-block"><div class="summary-label">Key Points — Page 1.1.2</div>
-<ul class="summary-list">
+
+<div class="summary-box"><div class="sum-lbl">Key Points - Page 1.1.2</div>
+<ul class="sum-list">
 <li>Evidence Law is the body of rules governing how facts are proved or disproved in legal proceedings</li>
 <li>It answers four questions: what can be presented, how, by whom, and with what weight</li>
-<li>Primary source in Uganda: <strong>Evidence Act Cap. 8</strong> — derived from the Indian Evidence Act 1872</li>
+<li>Primary source in Uganda: Evidence Act Cap. 8 - derived from the Indian Evidence Act 1872</li>
 <li>Four purposes: finding truth, ensuring fairness, promoting efficiency, protecting important interests</li>
 <li>Evidence law operates alongside the Civil Procedure Act Cap. 282, Trial on Indictments Act Cap. 25, and Magistrates Courts Act Cap. 19</li>
 </ul>
 </div>
         </article>
-        
-        <div class="pdf-download">
-          <div class="pdf-download-inner">
-            <span class="pdf-download-icon" aria-hidden="true">📄</span>
-            <div>
-              <div class="pdf-download-title">PDF Notes — Module 1, Lesson 1</div>
-              <div class="pdf-download-sub">Downloadable notes covering all 5 pages of Lesson 1.</div>
-            </div>
-            <a href="#" onclick="alert('PDF uploading soon.');return false;" class="btn-pdf" aria-label="Download PDF notes">Download PDF</a>
-          </div>
+        <div class="pdf-bar">
+          <span class="pdf-icon" aria-hidden="true">&#128196;</span>
+          <div><div class="pdf-title">PDF Notes - Module 1, Lesson 1</div><div class="pdf-sub">Downloadable notes for offline study.</div></div>
+          <a href="#" onclick="alert('PDF uploading soon.');return false;" class="btn-pdf" aria-label="Download PDF">Download PDF</a>
         </div>
         <nav class="page-nav" aria-label="Page navigation">
-          <a href="/education/courses/evidence-law-1/1/1/1/" class="btn-page-nav" aria-label="Previous: What is Evidence?">← What is Evidence?</a>
-          <div class="page-progress-label">Page 2 of 5 · Lesson 1</div>
-          <a href="/education/courses/evidence-law-1/1/1/3/" class="btn-page-nav primary" aria-label="Next: Nature of Evidence Law">Next: Nature of Evidence Law →</a>
+          <a href="/education/courses/evl1/1/1/1/" class="nav-btn" aria-label="Previous: What is Evidence?">&#8592; What is Evidence?</a>
+          <div class="page-lbl">Page 2 of 5 - Lesson 1</div>
+          <a href="/education/courses/evl1/1/1/3/" class="nav-btn next" aria-label="Next: Nature of Evidence Law">Next: Nature of Evidence Law &#8594;</a>
         </nav>
       </div>
     </main>
-    <aside class="lesson-outline" aria-label="On this page">
-      <div class="outline-title">On This Page</div>
-      <a href="#sec-1" class="outline-link">From Evidence to Evidence Law</a>
-<a href="#sec-2" class="outline-link">Definition</a>
-<a href="#sec-3" class="outline-link">Evidence Act Cap. 8</a>
-<a href="#sec-4" class="outline-link">Purposes</a>
-<a href="#sec-5" class="outline-link">Relationship with Procedure</a>
-<a href="#sec-6" class="outline-link">Summary</a>
+    <aside class="outline" aria-label="On this page">
+      <div class="out-title">On This Page</div>
+      <a href="#h-1" class="out-link">From Evidence to Evidence Law</a><a href="#h-2" class="out-link">Definition</a><a href="#h-3" class="out-link">Evidence Act Cap. 8</a><a href="#h-4" class="out-link">Purposes</a><a href="#h-5" class="out-link">Relationship with Procedure</a>
     </aside>
   </div>
 </div>
 <script>
-const SUPABASE_URL = 'https://nzjojrebyvxuawnkitth.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
 
-async function checkAccess() {
-  const { data: { session } } = await sb.auth.getSession();
-  if (!session) { showLocked('not_logged_in'); return; }
-
-  // Check admin role — admins bypass all payment checks
-  const { data: profile } = await sb.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
-  if (profile && profile.role === 'admin') { showLesson(); return; }
-
-  // Check enrollment
-  const { data: course } = await sb.from('courses').select('id').eq('course_code', 'EVL1').maybeSingle();
-  if (!course) { showLocked('not_enrolled'); return; }
-
-  const { data: enrollment } = await sb.from('enrollments').select('id,expires_at').eq('student_id', session.user.id).eq('course_id', course.id).maybeSingle();
-  if (!enrollment) { showLocked('not_enrolled'); return; }
-
-  if (enrollment.expires_at && new Date(enrollment.expires_at) < new Date()) { showLocked('expired'); return; }
-
-  showLesson();
+async function checkAccess(){
+  const {data:{session}} = await SB.auth.getSession();
+  if(!session){showLocked('guest');return;}
+  const {data:prof} = await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();
+  if(prof&&prof.role==='admin'){show();return;}
+  const {data:course} = await SB.from('courses').select('id').eq('course_code','EVL1').maybeSingle();
+  if(!course){showLocked('no_plan');return;}
+  const {data:enrol} = await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',course.id).maybeSingle();
+  if(!enrol){showLocked('no_plan');return;}
+  if(enrol.expires_at&&new Date(enrol.expires_at)<new Date()){showLocked('expired');return;}
+  show();
 }
 
-function showLocked(reason) {
-  const messages = {
-    not_logged_in: { icon: '🔒', title: 'Log in to access this lesson', msg: 'Create a free account or log in, then choose a study plan to unlock all lessons.', btn: 'Register Free', href: '/education/register/' },
-    not_enrolled: { icon: '📚', title: 'Choose a plan to access this lesson', msg: 'You are registered but do not have an active plan for this course. Plans start from UGX 5,000.', btn: 'View Plans', href: '/education/#pricing' },
-    expired: { icon: '⏰', title: 'Your study plan has expired', msg: 'Renew your plan to continue from where you left off.', btn: 'Renew Access', href: '/education/#pricing' }
+function showLocked(r){
+  const m={
+    guest:{icon:'🔒',h:'Log in to access this lesson',p:'Create a free account or log in, then choose a study plan to unlock all lessons.',btn:'Register Free',href:'/education/register/'},
+    no_plan:{icon:'📚',h:'Choose a plan to access this lesson',p:'You are registered but do not have an active plan for this course. Plans start from UGX 5,000.',btn:'View Plans',href:'/education/#pricing'},
+    expired:{icon:'⏰',h:'Your study plan has expired',p:'Renew your plan to continue from where you left off.',btn:'Renew Access',href:'/education/#pricing'}
   };
-  const m = messages[reason] || messages.not_logged_in;
-  document.getElementById('locked-state').innerHTML = `
-    <div class="locked-overlay">
-      <div class="locked-icon">${m.icon}</div>
-      <h2>${m.title}</h2>
-      <p>${m.msg}</p>
-      <a href="${m.href}" class="btn-unlock">${m.btn} →</a>
-      ${reason === 'not_logged_in' ? '<p style="margin-top:14px;font-size:12px;color:var(--text-3);">Already registered? <a href="/education/login/" style="color:var(--blue);font-weight:600;">Log in here</a></p>' : ''}
-    </div>`;
-  document.getElementById('locked-state').style.display = 'block';
-  const lc = document.getElementById('lesson-content');
-  if (lc) lc.style.display = 'none';
+  const x=m[r]||m.guest;
+  document.getElementById('locked').innerHTML=`<div class="locked"><div class="locked-icon">${x.icon}</div><h2>${x.h}</h2><p>${x.p}</p><a href="${x.href}" class="btn-unlock">${x.btn} &#8594;</a>${r==='guest'?'<p style="margin-top:12px;font-size:12px;color:var(--text-3);">Already registered? <a href="/education/login/" style="color:var(--blue);font-weight:600;">Log in here</a></p>':""}</div>`;
+  document.getElementById('locked').style.display='block';
+  const lc=document.getElementById('lc');if(lc)lc.style.display='none';
 }
 
-function showLesson() {
-  document.getElementById('locked-state').style.display = 'none';
-  const lc = document.getElementById('lesson-content');
-  if (lc) lc.style.display = 'block';
+function show(){
+  document.getElementById('locked').style.display='none';
+  const lc=document.getElementById('lc');if(lc)lc.style.display='block';
 }
 
-function toggleTheme() {
-  const html = document.documentElement;
-  const t = document.getElementById('themeToggle');
-  const thumb = t.querySelector('.theme-thumb');
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  t.setAttribute('aria-checked', isDark ? 'false' : 'true');
-  thumb.textContent = isDark ? '☀️' : '🌙';
-  localStorage.setItem('kmv-theme', isDark ? 'light' : 'dark');
+function toggleTheme(){
+  const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.theme-thumb'),d=h.getAttribute('data-theme')==='dark';
+  h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀️':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');
 }
 
 (function(){
-  const saved = localStorage.getItem('kmv-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if ((saved || (prefersDark ? 'dark' : 'light')) === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    const t = document.getElementById('themeToggle');
-    if (t) { t.setAttribute('aria-checked', 'true'); t.querySelector('.theme-thumb').textContent = '🌙'; }
-  }
+  const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.theme-thumb').textContent='🌙';}}
 })();
 
-const sections = document.querySelectorAll('[id^="sec-"]');
-const outlineLinks = document.querySelectorAll('.outline-link');
-if (sections.length && outlineLinks.length) {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        outlineLinks.forEach(l => l.classList.remove('active'));
-        const a = document.querySelector(`.outline-link[href="#${e.target.id}"]`);
-        if (a) a.classList.add('active');
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  sections.forEach(s => obs.observe(s));
-}
+const secs=document.querySelectorAll('[id^="h-"]'),ols=document.querySelectorAll('.out-link');
+if(secs.length&&ols.length){const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){ols.forEach(l=>l.classList.remove('on'));const a=document.querySelector('.out-link[href="#'+x.target.id+'"]');if(a)a.classList.add('on');}});},{rootMargin:'-20% 0px -70% 0px'});secs.forEach(s=>obs.observe(s));}
 
 checkAccess();
 </script>
