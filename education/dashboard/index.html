@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>My Dashboard — KMVTECH Education</title>
+<title>My Dashboard   KMVTECH Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 /* ============================================================
-   KMVTECH EDUCATION — STUDENT DASHBOARD
+   KMVTECH EDUCATION   STUDENT DASHBOARD
    Mobile-first · Dark mode · Full accessibility
    Signature element: academic identity card header
    ============================================================ */
@@ -29,7 +29,7 @@
   --white:   #ffffff;
   --line:    #E8E6E0;
 
-  /* Semantic tokens — light mode */
+  /* Semantic tokens   light mode */
   --bg:           #F4F3EF;
   --surface:      #FFFFFF;
   --surface-2:    #FAF9F6;
@@ -104,7 +104,7 @@ body {
 .skip-link:focus { top: 0; }
 
 /* ============================================================
-   LAYOUT — Sidebar + Main on desktop, Stack on mobile
+   LAYOUT   Sidebar + Main on desktop, Stack on mobile
    ============================================================ */
 .layout {
   display: flex;
@@ -311,8 +311,8 @@ body {
 }
 
 /* ============================================================
-   IDENTITY CARD — the signature element
-   Echoes the certificate design — where you are → where you're going
+   IDENTITY CARD   the signature element
+   Echoes the certificate design   where you are → where you're going
    ============================================================ */
 .identity-card {
   background: var(--navy);
@@ -1108,7 +1108,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 <div class="layout">
 
   <!-- ====================================================
-       SIDEBAR — desktop only
+       SIDEBAR   desktop only
        ==================================================== -->
   <nav class="sidebar" aria-label="Dashboard navigation">
     <a href="/education/" class="sidebar-logo" aria-label="KMVTECH Education home">
@@ -1216,7 +1216,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <!-- AUTHENTICATED CONTENT -->
       <div id="auth-content" style="display:none;">
 
-        <!-- IDENTITY CARD — shown on all panels -->
+        <!-- IDENTITY CARD   shown on all panels -->
         <div class="identity-card" role="region" aria-label="Student identity">
           <div class="student-photo-wrap">
             <div class="student-photo" id="identity-photo" aria-label="Profile photo">
@@ -1246,7 +1246,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
                 <div class="sstat-label">Certificates</div>
               </div>
               <div class="sstat" role="listitem">
-                <div class="sstat-num" id="stat-since">—</div>
+                <div class="sstat-num" id="stat-since"> </div>
                 <div class="sstat-label">Member Since</div>
               </div>
             </div>
@@ -1455,7 +1455,7 @@ let currentProfile = null;
 let enrollments = [];
 
 /* ============================================================
-   INIT — Check session and load data
+   INIT   Check session and load data
    ============================================================ */
 async function init() {
   // Set today's date in topbar
@@ -1468,13 +1468,13 @@ async function init() {
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
   document.getElementById('overview-heading').textContent = greeting;
 
-  // Handle session from URL hash — this happens when Supabase redirects
+  // Handle session from URL hash   this happens when Supabase redirects
   // back to the dashboard after email confirmation or password reset.
   // We must call getSession() AFTER Supabase has had a chance to parse
   // the hash tokens, so we listen for the auth state change first.
   let session = null;
 
-  // Check for error in URL hash first — redirect to auth error page
+  // Check for error in URL hash first   redirect to auth error page
   const hash = window.location.hash;
   if (hash.includes('error=')) {
     window.location.href = '/education/auth-error/' + window.location.hash;
@@ -1563,7 +1563,7 @@ async function init() {
         <div style="font-size:40px;margin-bottom:16px;">⚠️</div>
         <h2 style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:#0D1B2A;margin-bottom:16px;">Dashboard Load Error</h2>
         <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;padding:14px 16px;margin-bottom:16px;text-align:left;">
-          <p style="font-size:11px;font-weight:700;color:#991B1B;margin-bottom:6px;">EXACT ERROR — please screenshot this:</p>
+          <p style="font-size:11px;font-weight:700;color:#991B1B;margin-bottom:6px;">EXACT ERROR   please screenshot this:</p>
           <p style="font-size:11px;color:#991B1B;font-family:monospace;line-height:1.8;word-break:break-all;">
             ${errorCode ? 'Code: ' + errorCode + '<br/>' : ''}
             Message: ${errorMsg}<br/>
@@ -1661,11 +1661,11 @@ function renderOverview() {
   const container = document.getElementById('overview-content');
 
   if (enrollments.length === 0) {
-    // No enrollments — show plan cards
+    // No enrollments   show plan cards
     container.innerHTML = `
       <div class="empty-state">
         <div class="empty-icon" aria-hidden="true">📚</div>
-        <h3>You're in — now choose a study plan</h3>
+        <h3>You're in   now choose a study plan</h3>
         <p>Your account is active. To start studying any course, choose a plan below. Your certificate is included in every plan.</p>
         <div class="plan-cards" role="list">
           <div class="plan-card" role="listitem">
@@ -1704,7 +1704,7 @@ function renderOverview() {
         </div>
       </div>`;
   } else {
-    // Has enrollments — show continue learning
+    // Has enrollments   show continue learning
     const cards = enrollments.map(e => buildCourseCard(e)).join('');
     container.innerHTML = `
       <div class="course-cards-grid" role="list">${cards}</div>`;
@@ -1870,7 +1870,7 @@ document.getElementById('photo-input').addEventListener('change', async function
 
       // Upload to Supabase Storage
       // NOTE: Storage bucket needs to be set up in Supabase Dashboard first
-      // For now we store as a data URL in the profile — works fine for Phase 2
+      // For now we store as a data URL in the profile   works fine for Phase 2
       const { error } = await sb
         .from('profiles')
         .update({ photo_url: base64 })
@@ -2035,7 +2035,7 @@ function getFacultyIcon(faculty) {
 }
 
 /* ============================================================
-   KEYBOARD NAVIGATION — allow Enter/Space on role=button elements
+   KEYBOARD NAVIGATION   allow Enter/Space on role=button elements
    ============================================================ */
 document.querySelectorAll('[role="button"]').forEach(el => {
   el.addEventListener('keydown', function(e) {
