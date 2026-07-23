@@ -1455,7 +1455,7 @@ const _sb = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb
             <div class="cr-top"><span class="cr-title">Evidence Law 1: Introduction to Evidence &amp; Proof</span><span class="cr-badge badge-open" aria-label="Status: Open now">● Open Now</span></div>
             <div class="cr-meta">Law · Year 2–3 · 8 modules · 16 lessons · 80 pages · UGX 5,000</div>
           </div>
-          <div class="cr-action"><a href="./courses/evidence-law-1/" class="btn-start" aria-label="Start Evidence Law 1">Start</a></div>
+          <div class="cr-action"><a href="./courses/evl1/" class="btn-start" aria-label="Start Evidence Law 1">Start</a></div>
         </div>
         <div class="course-row status-open">
           <div class="cr-dot" aria-hidden="true"></div>
@@ -1463,7 +1463,7 @@ const _sb = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb
             <div class="cr-top"><span class="cr-title">Evidence Law 2: Application, Documents &amp; Witnesses</span><span class="cr-badge badge-open" aria-label="Status: Open now">● Open Now</span></div>
             <div class="cr-meta">Law · Year 2–3 · Continues Evidence Law 1 · UGX 5,000</div>
           </div>
-          <div class="cr-action"><a href="./courses/evidence-law-2/" class="btn-start">Start</a></div>
+          <div class="cr-action"><a href="./courses/evl2/" class="btn-start">Start</a></div>
         </div>
         <div class="course-row status-ready">
           <div class="cr-dot" aria-hidden="true"></div>
@@ -1619,7 +1619,7 @@ const _sb = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb
             <div class="cr-top"><span class="cr-title">Environmental Psychology</span><span class="cr-badge badge-open">● Open Now</span></div>
             <div class="cr-meta">Social Sciences · Year 2–3 · 9 modules · UGX 5,000</div>
           </div>
-          <div class="cr-action"><a href="./courses/environmental-psychology/" class="btn-start">Start</a></div>
+          <div class="cr-action"><a href="./courses/envpsy/" class="btn-start">Start</a></div>
         </div>
         <div class="course-row status-ready">
           <div class="cr-dot" aria-hidden="true"></div>
@@ -1983,8 +1983,8 @@ const _sb = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb
    ALL COURSE DATA   for real-time search
    ============================================================ */
 const ALL_COURSES = [
-  { title: 'Evidence Law 1: Introduction to Evidence & Proof', faculty: 'Law', level: 'Year 2–3', status: 'open', url: './courses/evidence-law-1/' },
-  { title: 'Evidence Law 2: Application, Documents & Witnesses', faculty: 'Law', level: 'Year 2–3', status: 'open', url: './courses/evidence-law-2/' },
+  { title: 'Evidence Law 1: Introduction to Evidence & Proof', faculty: 'Law', level: 'Year 2–3', status: 'open', url: './courses/evl1/' },
+  { title: 'Evidence Law 2: Application, Documents & Witnesses', faculty: 'Law', level: 'Year 2–3', status: 'open', url: './courses/evl2/' },
   { title: 'Family Law 1', faculty: 'Law', level: 'Year 2–3', status: 'ready', url: null },
   { title: 'Family Law 2', faculty: 'Law', level: 'Year 2–3', status: 'ready', url: null },
   { title: 'Land Law 1', faculty: 'Law', level: 'Year 2–3', status: 'ready', url: null },
@@ -2002,7 +2002,7 @@ const ALL_COURSES = [
   { title: 'Family Medicine and Primary Care', faculty: 'Health Sciences', level: 'Professional', status: 'production', url: null },
   { title: 'Reproductive and Urinary Disorders', faculty: 'Health Sciences', level: 'Professional', status: 'production', url: null },
   { title: 'Foundations of Health Professionals Education', faculty: 'Health Sciences', level: 'Professional', status: 'production', url: null },
-  { title: 'Environmental Psychology', faculty: 'Social Sciences', level: 'Year 2–3', status: 'open', url: './courses/environmental-psychology/' },
+  { title: 'Environmental Psychology', faculty: 'Social Sciences', level: 'Year 2–3', status: 'open', url: './courses/envpsy/' },
   { title: 'Cognitive Psychology', faculty: 'Social Sciences', level: 'Year 2', status: 'ready', url: null },
   { title: 'Social Psychology', faculty: 'Social Sciences', level: 'Year 2', status: 'ready', url: null },
   { title: 'Community Psychology', faculty: 'Social Sciences', level: 'Year 3', status: 'ready', url: null },
@@ -2232,7 +2232,7 @@ function submitNotify() {
       <h3 style="font-family:'Playfair Display',serif;font-weight:800;color:var(--text-1);margin-bottom:10px;">You are on the list</h3>
       <p style="color:var(--text-2);font-size:0.88rem;line-height:1.7;max-width:300px;margin:0 auto 22px;">
         We will email <strong>${email}</strong> the moment <strong>${currentCourse}</strong> opens.<br/><br/>
-        In the meantime, <a href="./courses/evidence-law-1/" style="color:var(--blue);font-weight:600;">Evidence Law 1 is open now.</a>
+        In the meantime, <a href="./courses/evl1/" style="color:var(--blue);font-weight:600;">Evidence Law 1 is open now.</a>
       </p>
       <button onclick="closeModal()" style="background:var(--navy);color:white;border:none;border-radius:9px;padding:12px 26px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
         Close

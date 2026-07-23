@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lesson 1 Practice Quiz - EVL1 - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#FFFFFF;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;transition:background 0.3s,color 0.3s;}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.topbar-mark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.topbar-name{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);}
+.topbar-bc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);}
+.topbar-bc a{color:var(--text-2);text-decoration:none;}
+.topbar-bc a:hover{color:var(--blue);}
+.topbar-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.theme-btn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;transition:background 0.25s;}
+.theme-btn[aria-checked="true"]{background:var(--blue);}
+.theme-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.theme-btn[aria-checked="true"] .theme-thumb{transform:translateX(16px);}
+.wrap{max-width:720px;margin:0 auto;padding:32px 20px 80px;}
+.quiz-header{margin-bottom:32px;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.eyebrow::before{content:'';width:14px;height:1.5px;background:var(--purple);}
+.quiz-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.8rem;color:var(--text-1);margin-bottom:10px;}
+.quiz-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+.q-chip{display:inline-flex;align-items:center;gap:5px;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--text-2);}
+.quiz-note{background:rgba(43,63,191,0.06);border:1px solid rgba(43,63,191,0.18);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text-2);line-height:1.65;}
+.question-block{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:16px;transition:all 0.2s;}
+.question-block.correct{border-color:var(--green);background:rgba(21,128,61,0.03);}
+.question-block.wrong{border-color:var(--red);background:rgba(220,38,38,0.03);}
+.q-num{font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;}
+.q-text{font-size:1rem;font-weight:600;color:var(--text-1);line-height:1.55;margin-bottom:16px;}
+.options{display:flex;flex-direction:column;gap:8px;}
+.option{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;cursor:pointer;transition:all 0.15s;font-size:0.92rem;color:var(--text-2);background:var(--bg);}
+.option:hover{border-color:var(--blue);color:var(--text-1);background:rgba(43,63,191,0.03);}
+.option.selected{border-color:var(--blue);color:var(--blue);background:rgba(43,63,191,0.06);}
+.option.correct-answer{border-color:var(--green);color:var(--green);background:rgba(21,128,61,0.06);}
+.option.wrong-answer{border-color:var(--red);color:var(--red);background:rgba(220,38,38,0.06);}
+.opt-letter{width:22px;height:22px;border-radius:50%;background:var(--surface-2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;transition:all 0.15s;}
+.option.selected .opt-letter{background:var(--blue);border-color:var(--blue);color:#fff;}
+.option.correct-answer .opt-letter{background:var(--green);border-color:var(--green);color:#fff;}
+.option.wrong-answer .opt-letter{background:var(--red);border-color:var(--red);color:#fff;}
+.feedback{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:0.88rem;line-height:1.6;}
+.feedback.show{display:block;}
+.feedback.correct{background:rgba(21,128,61,0.08);border:1px solid rgba(21,128,61,0.2);color:#166534;}
+.feedback.wrong{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.2);color:#991B1B;}
+.quiz-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;}
+.btn-submit{background:var(--navy);color:#fff;border:none;font-size:14px;font-weight:700;padding:13px 28px;border-radius:9px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;}
+.btn-submit:hover{background:var(--blue);}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.btn-retry{background:none;border:1.5px solid var(--border);color:var(--text-2);font-size:14px;font-weight:600;padding:12px 24px;border-radius:9px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-retry:hover{border-color:var(--blue);color:var(--blue);}
+.score-banner{background:var(--navy);border-radius:14px;padding:28px;text-align:center;margin-bottom:24px;display:none;}
+.score-banner.show{display:block;}
+.score-num{font-family:'Playfair Display',serif;font-weight:800;font-size:2.8rem;color:#fff;margin-bottom:4px;}
+.score-num span{color:var(--gold);}
+.score-label{font-size:14px;color:rgba(255,255,255,0.6);}
+.score-msg{font-size:13px;color:rgba(255,255,255,0.5);margin-top:8px;}
+.nav-bottom{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border);}
+.nav-btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);transition:all 0.2s;}
+.nav-btn:hover{border-color:var(--blue);color:var(--blue);}
+.nav-btn.next{background:var(--navy);color:#fff;border-color:var(--navy);}
+.nav-btn.next:hover{background:var(--blue);border-color:var(--blue);}
+.locked{max-width:480px;margin:60px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.locked-icon{font-size:40px;margin-bottom:14px;}
+.locked h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:var(--text-1);margin-bottom:8px;}
+.locked p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:340px;margin:0 auto 20px;}
+.btn-unlock{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
+</style>
+</head>
+<body>
+<header class="topbar" role="banner">
+  <a href="/education/" class="topbar-logo" aria-label="KMVTECH Education home">
+    <div class="topbar-mark" aria-hidden="true">KE</div>
+    <span class="topbar-name">KMVTECH Education</span>
+  </a>
+  <nav class="topbar-bc" aria-label="Navigation">
+    <a href="/education/courses/evl1/">Evidence Law 1</a>
+    <span aria-hidden="true">&#8250;</span>
+    <a href="/education/courses/evl1/1/1/5/">Lesson 1</a>
+    <span aria-hidden="true">&#8250;</span>
+    <span style="color:var(--text-1);font-weight:600;">Practice Quiz</span>
+  </nav>
+  <div class="topbar-right">
+    <button class="theme-btn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="toggleTheme()"><div class="theme-thumb" aria-hidden="true">&#9728;&#65039;</div></button>
+    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
+  </div>
+</header>
+
+<div id="locked-state" style="display:none;">
+  <div class="locked">
+    <div class="locked-icon">&#128274;</div>
+    <h2>Log in to take this quiz</h2>
+    <p>Register for free and choose a study plan to access all quizzes and earn your certificate.</p>
+    <a href="/education/register/" class="btn-unlock">Register Free &#8594;</a>
+    <p style="margin-top:12px;font-size:12px;color:var(--text-3);">Already registered? <a href="/education/login/" style="color:var(--blue);font-weight:600;">Log in here</a></p>
+  </div>
+</div>
+
+<div id="quiz-state" style="display:none;">
+<div class="wrap">
+  <div class="quiz-header">
+    <div class="eyebrow">Module 1 - Lesson 1 - Practice Quiz</div>
+    <h1 class="quiz-title">Lesson 1 Practice Quiz</h1>
+    <div class="quiz-meta">
+      <span class="q-chip">7 Questions</span>
+      <span class="q-chip">Unlimited Attempts</span>
+      <span class="q-chip">Not Graded</span>
+      <span class="q-chip">Immediate Feedback</span>
+    </div>
+    <div class="quiz-note">This quiz tests your understanding of Lesson 1. You can attempt it as many times as you like. It is not graded toward your certificate. It exists to help you check your own understanding before moving on to Lesson 2.</div>
+  </div>
+
+  <div class="score-banner" id="score-banner">
+    <div class="score-num" id="score-num">0<span>/7</span></div>
+    <div class="score-label">Your Score</div>
+    <div class="score-msg" id="score-msg"></div>
+  </div>
+
+  <form id="quiz-form" aria-label="Lesson 1 Practice Quiz">
+
+    <!-- Q1 -->
+    <div class="question-block" id="q1" data-correct="C">
+      <div class="q-num">Question 1 of 7</div>
+      <div class="q-text">What does Section 2 of the Evidence Act Cap. 8 define evidence to include?</div>
+      <div class="options" role="group" aria-label="Options for question 1">
+        <div class="option" data-val="A" onclick="select(this,'q1')" role="button" tabindex="0"><div class="opt-letter">A</div>Only oral testimony given by witnesses in court</div>
+        <div class="option" data-val="B" onclick="select(this,'q1')" role="button" tabindex="0"><div class="opt-letter">B</div>Only documents produced before the court</div>
+        <div class="option" data-val="C" onclick="select(this,'q1')" role="button" tabindex="0"><div class="opt-letter">C</div>All statements the court permits or requires from witnesses, and all documents including electronic records produced for inspection</div>
+        <div class="option" data-val="D" onclick="select(this,'q1')" role="button" tabindex="0"><div class="opt-letter">D</div>Only physical objects such as weapons or fingerprints</div>
+      </div>
+      <div class="feedback correct" id="fb1c">Correct. Section 2 of the Evidence Act Cap. 8 defines evidence broadly to include both oral statements permitted or required by the court and documentary evidence, including electronic records.</div>
+      <div class="feedback wrong" id="fb1w">Not quite. Section 2 of the Evidence Act Cap. 8 defines evidence broadly. It is not limited to only one category - it covers both oral testimony and documentary evidence including electronic records. The correct answer is C.</div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block" id="q2" data-correct="B">
+      <div class="q-num">Question 2 of 7</div>
+      <div class="q-text">Is Evidence Law substantive law or procedural law?</div>
+      <div class="options" role="group" aria-label="Options for question 2">
+        <div class="option" data-val="A" onclick="select(this,'q2')" role="button" tabindex="0"><div class="opt-letter">A</div>Substantive law, because it creates legal rights</div>
+        <div class="option" data-val="B" onclick="select(this,'q2')" role="button" tabindex="0"><div class="opt-letter">B</div>Procedural law, because it governs how facts are proved in court</div>
+        <div class="option" data-val="C" onclick="select(this,'q2')" role="button" tabindex="0"><div class="opt-letter">C</div>Neither - it is a separate category of constitutional law</div>
+        <div class="option" data-val="D" onclick="select(this,'q2')" role="button" tabindex="0"><div class="opt-letter">D</div>Both equally, depending on the case</div>
+      </div>
+      <div class="feedback correct" id="fb2c">Correct. Evidence Law is procedural (adjectival) law. It does not create rights or define offences - that is the role of substantive law such as the Penal Code Act Cap. 128. Evidence Law governs the process of proving facts.</div>
+      <div class="feedback wrong" id="fb2w">Not correct. Evidence Law is procedural law, not substantive law. It does not create rights or define offences. It governs how facts are proved in court. The correct answer is B.</div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block" id="q3" data-correct="C">
+      <div class="q-num">Question 3 of 7</div>
+      <div class="q-text">Which of the following is the primary statute governing evidence law in Uganda?</div>
+      <div class="options" role="group" aria-label="Options for question 3">
+        <div class="option" data-val="A" onclick="select(this,'q3')" role="button" tabindex="0"><div class="opt-letter">A</div>The Constitution of Uganda 1995</div>
+        <div class="option" data-val="B" onclick="select(this,'q3')" role="button" tabindex="0"><div class="opt-letter">B</div>The Magistrates Courts Act Cap. 19</div>
+        <div class="option" data-val="C" onclick="select(this,'q3')" role="button" tabindex="0"><div class="opt-letter">C</div>The Evidence Act Cap. 8</div>
+        <div class="option" data-val="D" onclick="select(this,'q3')" role="button" tabindex="0"><div class="opt-letter">D</div>The Trial on Indictments Act Cap. 25</div>
+      </div>
+      <div class="feedback correct" id="fb3c">Correct. The Evidence Act Cap. 8 is the primary statute governing evidence in Uganda. The other statutes govern court procedure generally but are not the primary source of evidence rules.</div>
+      <div class="feedback wrong" id="fb3w">Not correct. The primary statute is the Evidence Act Cap. 8. The Constitution, Magistrates Courts Act, and Trial on Indictments Act are important but they are not the primary source of evidence rules. The correct answer is C.</div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-block" id="q4" data-correct="B">
+      <div class="q-num">Question 4 of 7</div>
+      <div class="q-text">The Evidence Act Cap. 8 was historically derived from which piece of legislation?</div>
+      <div class="options" role="group" aria-label="Options for question 4">
+        <div class="option" data-val="A" onclick="select(this,'q4')" role="button" tabindex="0"><div class="opt-letter">A</div>The English Criminal Justice Act 2003</div>
+        <div class="option" data-val="B" onclick="select(this,'q4')" role="button" tabindex="0"><div class="opt-letter">B</div>The Indian Evidence Act of 1872</div>
+        <div class="option" data-val="C" onclick="select(this,'q4')" role="button" tabindex="0"><div class="opt-letter">C</div>The UK Civil Evidence Act 1995</div>
+        <div class="option" data-val="D" onclick="select(this,'q4')" role="button" tabindex="0"><div class="opt-letter">D</div>The Roman-Dutch law of evidence</div>
+      </div>
+      <div class="feedback correct" id="fb4c">Correct. Uganda's Evidence Act Cap. 8 traces its origins to the Indian Evidence Act of 1872, which was adapted for use across East African colonial territories.</div>
+      <div class="feedback wrong" id="fb4w">Not correct. Uganda's Evidence Act Cap. 8 was derived from the Indian Evidence Act of 1872. The UK statutes and Roman-Dutch law mentioned in the other options do not apply in Uganda. The correct answer is B.</div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-block" id="q5" data-correct="C">
+      <div class="q-num">Question 5 of 7</div>
+      <div class="q-text">Which of the following is NOT one of the five core objectives of evidence law discussed in Lesson 1?</div>
+      <div class="options" role="group" aria-label="Options for question 5">
+        <div class="option" data-val="A" onclick="select(this,'q5')" role="button" tabindex="0"><div class="opt-letter">A</div>Search for truth</div>
+        <div class="option" data-val="B" onclick="select(this,'q5')" role="button" tabindex="0"><div class="opt-letter">B</div>Fair trial principles</div>
+        <div class="option" data-val="C" onclick="select(this,'q5')" role="button" tabindex="0"><div class="opt-letter">C</div>Maximising the number of witnesses called in every case</div>
+        <div class="option" data-val="D" onclick="select(this,'q5')" role="button" tabindex="0"><div class="opt-letter">D</div>Protection against wrongful conviction</div>
+      </div>
+      <div class="feedback correct" id="fb5c">Correct. The five core objectives are: search for truth, fair trial principles, reliability of evidence, protection against wrongful conviction, and balancing justice with efficiency. Maximising witnesses is not an objective - in fact, evidence law often limits irrelevant evidence to keep proceedings efficient.</div>
+      <div class="feedback wrong" id="fb5w">Not correct. Look at the five objectives again: truth, fairness, reliability, protection against wrongful conviction, and efficiency. Maximising the number of witnesses is not one of them - it actually contradicts the efficiency objective. The correct answer is C.</div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-block" id="q6" data-correct="B">
+      <div class="q-num">Question 6 of 7</div>
+      <div class="q-text">What is the relationship between substantive law and evidence law?</div>
+      <div class="options" role="group" aria-label="Options for question 6">
+        <div class="option" data-val="A" onclick="select(this,'q6')" role="button" tabindex="0"><div class="opt-letter">A</div>They are the same thing</div>
+        <div class="option" data-val="B" onclick="select(this,'q6')" role="button" tabindex="0"><div class="opt-letter">B</div>Substantive law defines rights and obligations, while evidence law governs how those rights and obligations are proved in court</div>
+        <div class="option" data-val="C" onclick="select(this,'q6')" role="button" tabindex="0"><div class="opt-letter">C</div>Evidence law replaces substantive law in criminal cases</div>
+        <div class="option" data-val="D" onclick="select(this,'q6')" role="button" tabindex="0"><div class="opt-letter">D</div>Substantive law only applies in civil cases, evidence law only applies in criminal cases</div>
+      </div>
+      <div class="feedback correct" id="fb6c">Correct. Substantive law defines what is legally right or wrong (such as the Penal Code Act Cap. 128 defining theft). Evidence law governs how the facts proving or disproving such matters are established in court. Both apply across civil and criminal proceedings.</div>
+      <div class="feedback wrong" id="fb6w">Not correct. Substantive law and evidence law serve different functions but work together. Substantive law defines rights and offences; evidence law governs how facts related to those rights and offences are proved in court. Both apply in civil and criminal cases. The correct answer is B.</div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-block" id="q7" data-correct="A">
+      <div class="q-num">Question 7 of 7</div>
+      <div class="q-text">Which constitutional provision guarantees the right to a fair hearing, supporting the fairness objective of evidence law?</div>
+      <div class="options" role="group" aria-label="Options for question 7">
+        <div class="option" data-val="A" onclick="select(this,'q7')" role="button" tabindex="0"><div class="opt-letter">A</div>Article 28 of the Constitution of Uganda 1995</div>
+        <div class="option" data-val="B" onclick="select(this,'q7')" role="button" tabindex="0"><div class="opt-letter">B</div>Section 30 of the Evidence Act Cap. 8</div>
+        <div class="option" data-val="C" onclick="select(this,'q7')" role="button" tabindex="0"><div class="opt-letter">C</div>Article 99 of the Constitution of Uganda 1995</div>
+        <div class="option" data-val="D" onclick="select(this,'q7')" role="button" tabindex="0"><div class="opt-letter">D</div>Section 2 of the Evidence Act Cap. 8</div>
+      </div>
+      <div class="feedback correct" id="fb7c">Correct. Article 28 of the Constitution of Uganda 1995 guarantees the right to a fair hearing. This constitutional provision underpins the fairness objective that evidence law gives practical effect to.</div>
+      <div class="feedback wrong" id="fb7w">Not correct. The constitutional provision guaranteeing the right to a fair hearing is Article 28 of the Constitution of Uganda 1995. Section 30 of the Evidence Act Cap. 8 deals with hearsay, and Section 2 defines evidence. The correct answer is A.</div>
+    </div>
+
+  </form>
+
+  <div class="quiz-actions">
+    <button class="btn-submit" id="btn-submit" onclick="submitQuiz()">Submit Quiz</button>
+    <button class="btn-retry" id="btn-retry" style="display:none;" onclick="retryQuiz()">Try Again</button>
+  </div>
+
+  <nav class="nav-bottom" aria-label="Page navigation">
+    <a href="/education/courses/evl1/1/1/5/" class="nav-btn">&#8592; Lesson 1, Page 5</a>
+    <a href="/education/courses/evl1/1/2/1/" class="nav-btn next">Next: Lesson 2 &#8594;</a>
+  </nav>
+</div>
+</div>
+
+<script>
+const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+const answers = {};
+let submitted = false;
+
+async function checkAccess(){
+  const {data:{session}} = await SB.auth.getSession();
+  if(!session){document.getElementById('locked-state').style.display='block';return;}
+  const {data:prof} = await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();
+  if(prof&&prof.role==='admin'){show();return;}
+  const {data:course} = await SB.from('courses').select('id').eq('course_code','EVL1').maybeSingle();
+  if(!course){showLocked();return;}
+  const {data:enrol} = await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',course.id).maybeSingle();
+  if(!enrol){showLocked();return;}
+  if(enrol.expires_at&&new Date(enrol.expires_at)<new Date()){showLockedExpired();return;}
+  show();
+}
+
+function show(){document.getElementById('locked-state').style.display='none';document.getElementById('quiz-state').style.display='block';}
+function showLocked(){document.getElementById('locked-state').innerHTML='<div class="locked"><div class="locked-icon">&#128218;</div><h2>Choose a plan to access this quiz</h2><p>You are registered but do not have an active plan. Plans start from UGX 5,000.</p><a href="/education/#pricing" class="btn-unlock">View Plans &#8594;</a></div>';document.getElementById('locked-state').style.display='block';}
+function showLockedExpired(){document.getElementById('locked-state').innerHTML='<div class="locked"><div class="locked-icon">&#9200;</div><h2>Your study plan has expired</h2><p>Renew your plan to continue from where you left off.</p><a href="/education/#pricing" class="btn-unlock">Renew Access &#8594;</a></div>';document.getElementById('locked-state').style.display='block';}
+
+function select(el, qid){
+  if(submitted) return;
+  document.querySelectorAll('#'+qid+' .option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[qid] = el.dataset.val;
+}
+
+document.querySelectorAll('.option').forEach(opt=>{
+  opt.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();opt.click();}});
+});
+
+function submitQuiz(){
+  const total = 7;
+  const qs = ['q1','q2','q3','q4','q5','q6','q7'];
+  let unanswered = qs.filter(q=>!answers[q]);
+  if(unanswered.length>0){alert('Please answer all questions before submitting.');return;}
+
+  submitted = true;
+  let score = 0;
+
+  qs.forEach(qid=>{
+    const block = document.getElementById(qid);
+    const correct = block.dataset.correct;
+    const chosen = answers[qid];
+    const isCorrect = chosen===correct;
+    if(isCorrect) score++;
+
+    block.querySelectorAll('.option').forEach(o=>{
+      o.style.cursor='default';
+      if(o.dataset.val===correct) o.classList.add('correct-answer');
+      else if(o.dataset.val===chosen&&!isCorrect) o.classList.add('wrong-answer');
+    });
+
+    block.classList.add(isCorrect?'correct':'wrong');
+    document.getElementById('fb'+qid.slice(1)+(isCorrect?'c':'w')).classList.add('show');
+  });
+
+  const pct = Math.round((score/total)*100);
+  const banner = document.getElementById('score-banner');
+  document.getElementById('score-num').innerHTML = score+'<span>/'+total+'</span>';
+  const msgs = [
+    [7,'Excellent! Perfect score. You have a strong grasp of Lesson 1.'],
+    [6,'Great work. Review the questions you missed before moving on.'],
+    [5,'Good effort. Go back over the pages you found difficult.'],
+    [0,'Keep going. Review all of Lesson 1 and try again - unlimited attempts.']
+  ];
+  document.getElementById('score-msg').textContent = msgs.find(m=>score>=m[0])[1];
+  banner.classList.add('show');
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-retry').style.display='inline-flex';
+  banner.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function retryQuiz(){
+  submitted = false;
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  document.querySelectorAll('.option').forEach(o=>{
+    o.classList.remove('selected','correct-answer','wrong-answer');
+    o.style.cursor='pointer';
+  });
+  document.querySelectorAll('.question-block').forEach(b=>b.classList.remove('correct','wrong'));
+  document.querySelectorAll('.feedback').forEach(f=>f.classList.remove('show'));
+  document.getElementById('score-banner').classList.remove('show');
+  document.getElementById('btn-submit').style.display='inline-flex';
+  document.getElementById('btn-retry').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleTheme(){
+  const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.theme-thumb'),d=h.getAttribute('data-theme')==='dark';
+  h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'&#9728;&#65039;':'&#127769;';localStorage.setItem('kmv-theme',d?'light':'dark');
+}
+(function(){
+  const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.theme-thumb').textContent='&#127769;';}}
+})();
+
+checkAccess();
+</script>
+</body>
+</html>
