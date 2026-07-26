@@ -146,25 +146,6 @@
       .about-img-wrap img{max-width:100%}
     }
   </style>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KMVTECHUG | Official Relaunch</title>
-<style>
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(-45deg,#081a35,#103b7a,#0d2347,#16213e);background-size:400% 400%;animation:bg 15s ease infinite;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;overflow:hidden}
-@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-.card{width:min(900px,92%);background:rgba(255,255,255,.08);backdrop-filter:blur(10px);padding:35px;border-radius:18px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.4)}
-img{max-width:420px;width:90%;border-radius:8px}
-h1{font-size:2.5rem;margin:.6rem 0}
-.count{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0}
-.box{background:rgba(255,255,255,.12);padding:20px;border-radius:12px}
-.num{font-size:2rem;font-weight:bold;color:#ffd166}
-.lab{font-size:.9rem;letter-spacing:1px}
-.gear{font-size:60px;display:inline-block;animation:spin 6s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-#status{font-size:1.2rem;color:#9ee7ff;height:30px}
-small{color:#ddd}
-@media(max-width:700px){.count{grid-template-columns:repeat(2,1fr)}h1{font-size:2rem}}
-</style>
 </head>
 <body>
 
@@ -188,16 +169,6 @@ small{color:#ddd}
   <a href="#about" onclick="document.getElementById('mob').classList.remove('open')">About</a>
   <a href="#contact" onclick="document.getElementById('mob').classList.remove('open')">Contact</a>
   <a href="/cdn-cgi/l/email-protection#b6dddbc0c2d3d5dec3d1f6d1dbd7dfda98d5d9db"><span class="__cf_email__" data-cfemail="5e3533282a3b3d362b391e39333f3732703d3133">[email&#160;protected]</span></a>
-<div class="card">
-<img src="kmvtechug brands.png" alt="KMVTECHUG">
-<h1>We're Preparing Something Better</h1>
-<p>All KMVTECHUG digital platforms are temporarily unavailable while we complete upgrades and final preparations for our official launch.</p>
-<p><strong>Platforms affected:</strong><br>KMVTECH • KMVTECH Hub • KMVTECH Education • King Musah Media</p>
-<div class="count">
-<div class="box"><div class="num" id="d">0</div><div class="lab">DAYS</div></div>
-<div class="box"><div class="num" id="h">0</div><div class="lab">HOURS</div></div>
-<div class="box"><div class="num" id="m">0</div><div class="lab">MINUTES</div></div>
-<div class="box"><div class="num" id="s">0</div><div class="lab">SECONDS</div></div>
 </div>
 
 <!-- HERO -->
@@ -242,7 +213,7 @@ small{color:#ddd}
 
     <a href="https://kmvtechug.app/tech/" class="brand-card">
       <div class="brand-logo-wrap">
-        <img src="assets/kmvtech.png" alt="KMVTECH" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <img src="assets/logo-kmvtech.png" alt="KMVTECH" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
         <span class="brand-logo-text" style="display:none;color:#2B4EBF">KMVTECH</span>
       </div>
       <h3>KMVTECH</h3>
@@ -264,7 +235,7 @@ small{color:#ddd}
 
     <a href="https://kmvtechug.app/musa/" class="brand-card">
       <div class="brand-logo-wrap">
-        <img src="assets/musanya.jpeg" alt="Musanya Musa" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <img src="assets/logo-musanya.png" alt="Musanya Musa" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
         <span class="brand-logo-text" style="display:none;color:#E63B1F">Musanya Musa</span>
       </div>
       <h3>Musanya Musa</h3>
@@ -325,7 +296,7 @@ small{color:#ddd}
 <!-- ABOUT FOUNDER -->
 <section class="about-wrap" id="about">
   <div class="about-img-wrap">
-    <img src="assets/musanya.jpeg" alt="Musanya Musa — Founder & Director, KMVTECHUG" onerror="this.style.background='rgba(255,255,255,0.05)';this.style.minHeight='400px'"/>
+    <img src="assets/founder.jpg" alt="Musanya Musa — Founder & Director, KMVTECHUG" onerror="this.style.background='rgba(255,255,255,0.05)';this.style.minHeight='400px'"/>
     <div class="about-img-badge">Founder & Director<br/>Since 2020</div>
   </div>
   <div class="about-text">
@@ -429,28 +400,3 @@ small{color:#ddd}
       <h5>Contact</h5>
       <a href="/cdn-cgi/l/email-protection#bcd7d1cac8d9dfd4c9dbfcdbd1ddd5d092dfd3d1"><span class="__cf_email__" data-cfemail="2942445f5d4c4a415c4e694e44484045074a4644">[email&#160;protected]</span></a>
       <a href="t
-<div class="gear">⚙️</div>
-<div id="status"></div>
-<p><strong>Official Relaunch:</strong> 8 August 2026</p>
-<p>All WhatsApp numbers, contact lines and customer communication channels are temporarily offline during this maintenance period.</p>
-<small>Thank you for your patience. We look forward to welcoming you back on 8 August 2026.</small>
-</div>
-<script>
-const launch=new Date("2026-08-08T00:00:00");
-function tick(){
- let diff=launch-new Date();
- if(diff<0)diff=0;
- let d=Math.floor(diff/86400000);
- let h=Math.floor(diff%86400000/3600000);
- let m=Math.floor(diff%3600000/60000);
- let s=Math.floor(diff%60000/1000);
- dEl.textContent=d;hEl.textContent=h;mEl.textContent=m;sEl.textContent=s;
-}
-const dEl=document.getElementById('d'),hEl=document.getElementById('h'),mEl=document.getElementById('m'),sEl=document.getElementById('s');
-setInterval(tick,1000);tick();
-const msgs=["Optimizing Systems...","Updating Content...","Strengthening Security...","Preparing Digital Platforms...","Finalizing Official Launch..."];
-let i=0;const st=document.getElementById("status");
-function rot(){st.textContent=msgs[i++%msgs.length]}
-rot();setInterval(rot,2500);
-</script>
-</body></html>
