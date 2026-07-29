@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>What is Admissibility? - EVL1 - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
+.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);overflow:hidden;min-width:0;}
+.tbc a{color:var(--text-2);text-decoration:none;white-space:nowrap;}.tbc a:hover{color:var(--blue);}
+.tbc .cur{color:var(--text-1);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tright{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.pbar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
+.pfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));}
+.layout{display:flex;min-height:100vh;}.bwrap{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;}
+.sb{width:256px;flex-shrink:0;border-right:1px solid var(--border);background:var(--surface);position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
+.sb-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:16px 16px 8px;border-bottom:1px solid var(--border);}
+.sb-m{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:12px;font-weight:700;color:var(--text-2);border-bottom:1px solid var(--border);}
+.sb-n{width:20px;height:20px;border-radius:4px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2);flex-shrink:0;}
+.sb-n.on{background:var(--blue);color:#fff;}
+.sb-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);padding:6px 16px 4px;border-bottom:1px solid var(--border);}
+.sb-p{display:flex;align-items:center;gap:7px;padding:7px 16px 7px 26px;font-size:12px;color:var(--text-2);text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s;}
+.sb-p:hover{background:var(--surface-2);color:var(--text-1);}.sb-p.on{color:var(--blue);font-weight:600;background:rgba(43,63,191,0.05);}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;}.sb-p.on .sb-dot{background:var(--blue);}
+.main{flex:1;padding:0 20px 100px;min-width:0;}
+.hdr{max-width:var(--rw);margin:32px auto 28px;}
+.ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.ey::before{content:'';width:14px;height:1.5px;background:var(--purple);}
+.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.7rem,4vw,2.4rem);color:var(--text-1);line-height:1.15;letter-spacing:-0.01em;margin-bottom:14px;}
+.chips{padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;}
+.chip{display:inline-flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--text-2);}
+.vwrap{max-width:var(--rw);margin:24px auto 0;}
+.vph{background:var(--navy);border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;}
+.vph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 30%,rgba(43,63,191,0.35) 0%,transparent 60%);}
+.vpi{font-size:44px;position:relative;z-index:1;}
+.vpl{font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:1;text-align:center;max-width:240px;line-height:1.5;}
+.vpl strong{color:rgba(255,255,255,0.9);display:block;margin-bottom:4px;}
+.vmeta{font-size:11.5px;color:var(--text-3);text-align:center;margin-top:8px;}
+.vsum{max-width:var(--rw);margin:16px auto 28px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;}
+.vsl{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:7px;}
+.vsum p{font-size:0.88rem;color:var(--text-2);line-height:1.7;margin:0;}
+.ct{max-width:var(--rw);margin:0 auto;}
+.ct h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--text-1);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+.ct p{font-size:1rem;color:var(--text-1);line-height:1.85;margin-bottom:14px;}
+.ct strong{color:var(--text-1);}
+.auth{background:rgba(43,63,191,0.04);border:1px solid rgba(43,63,191,0.15);border-radius:10px;padding:14px 16px;margin:18px 0;}
+.al{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:7px;}
+.auth p{font-size:0.87rem;color:var(--text-2);line-height:1.65;margin-bottom:5px;}.auth p:last-child{margin:0;}
+.sbox{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0;}
+.sl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:10px;}
+.slist{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.slist li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.slist li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.ctable{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.875rem;}
+.ctable th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:11.5px;}
+.ctable td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-2);line-height:1.5;vertical-align:top;}
+.ctable tr:hover td{background:var(--surface-2);}
+.pnav{max-width:var(--rw);margin:36px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;border-top:1px solid var(--border);}
+.nbtn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;transition:all 0.2s;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
+.nbtn:hover{border-color:var(--blue);color:var(--blue);}
+.nbtn.nx{background:var(--navy);color:#fff;border-color:var(--navy);}.nbtn.nx:hover{background:var(--blue);border-color:var(--blue);}
+.plbl{font-size:12px;color:var(--text-3);text-align:center;}
+.pdfbar{max-width:var(--rw);margin:24px auto 0;background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.pdfi{font-size:22px;flex-shrink:0;}
+.pdft{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:2px;}
+.pdfs{font-size:11.5px;color:var(--text-2);}
+.btnpdf{flex-shrink:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;transition:background 0.2s;}.btnpdf:hover{background:var(--blue);}
+.lk{max-width:var(--rw);margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.lki{font-size:40px;margin-bottom:14px;}
+.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
+.lk p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:360px;margin:0 auto 20px;}
+.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;transition:background 0.2s;}.btnul:hover{background:var(--blue);}
+.out{width:210px;flex-shrink:0;border-left:1px solid var(--border);padding:24px 16px;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
+.otitle{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
+.olink{display:block;font-size:12px;color:var(--text-2);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--border);margin-bottom:4px;transition:all 0.15s;line-height:1.4;}
+.olink:hover,.olink.on{color:var(--blue);border-left-color:var(--blue);font-weight:600;}
+.nlcard{background:var(--navy);border-radius:12px;padding:20px 22px;margin:28px 0;text-align:center;}
+.nlcard p{color:rgba(255,255,255,0.6);font-size:0.88rem;margin-bottom:12px;}
+.nlcard a{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;text-decoration:none;}
+@media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
+@media(min-width:1100px){.out{display:block;}}</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
+  <nav class="tbc"><a href="/education/courses/evl1/">Evidence Law 1</a><span>&#8250;</span><span class="cur">Module 2</span><span class="cur">What is Admissibility?</span></nav>
+  <div class="tright">
+    <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
+  </div>
+</header>
+<div class="pbar"><div class="pfill" style="width:37%;"></div></div>
+<div class="layout"><div class="bwrap">
+<nav class="sb"><div class="sb-t">Evidence Law 1</div><div class="sb-m" style="opacity:0.45;"><div class="sb-n">1</div>Introduction to Evidence Law</div><div class="sb-m"><div class="sb-n on">2</div>Relevancy and Admissibility</div><div class="sb-lbl">Lesson 1 - Relevancy</div><a href="/education/courses/evl1/2/1/1/" class="sb-p " style=""><div class="sb-dot"></div>2.1.1 What is Relevancy?</a><a href="/education/courses/evl1/2/1/2/" class="sb-p " style=""><div class="sb-dot"></div>2.1.2 Facts in Issue vs Relevant Facts</a><a href="/education/courses/evl1/2/1/3/" class="sb-p " style=""><div class="sb-dot"></div>2.1.3 Relevancy Under Evidence Act Cap. 8</a><a href="/education/courses/evl1/2/1/quiz/" class="sb-p " style="color:var(--blue);"><div class="sb-dot"></div>Lesson 1 Practice Quiz</a><a href="/education/courses/evl1/2/2/1/" class="sb-p on" style=""><div class="sb-dot"></div>2.2.1 What is Admissibility?</a><a href="/education/courses/evl1/2/2/2/" class="sb-p " style=""><div class="sb-dot"></div>2.2.2 Relevancy vs Admissibility</a><a href="/education/courses/evl1/2/2/3/" class="sb-p " style=""><div class="sb-dot"></div>2.2.3 Consequences of Inadmissible Evidence</a><a href="/education/courses/evl1/2/2/4/" class="sb-p " style=""><div class="sb-dot"></div>2.2.4 Discretion of the Court</a><a href="/education/courses/evl1/2/2/quiz/" class="sb-p " style="color:var(--blue);"><div class="sb-dot"></div>Lesson 2 Practice Quiz</a><a href="/education/courses/evl1/2/summary/" class="sb-p " style="color:var(--gold);"><div class="sb-dot"></div>Module 2 Summary</a><a href="/education/courses/evl1/2/quiz/" class="sb-p " style="color:var(--purple);font-weight:700;"><div class="sb-dot"></div>Module 2 Graded Quiz</a><div class="sb-m" style="opacity:0.45;"><div class="sb-n">3</div>Judicial Notice</div></nav>
+<main class="main" id="main" tabindex="-1">
+  <div id="lk"></div>
+  <div id="lc" style="display:none;">
+    <header class="hdr"><div class="ey">Module 2 - Lesson 2 - Page 1 of 4</div><h1 class="ltitle">What is Admissibility?</h1><div class="chips"><span class="chip">Video</span><span class="chip">~11 min</span><span class="chip">Evidence Act Cap. 8 and Constitution of Uganda 1995</span></div></header>
+    <div class="vwrap"><div class="vph"><div class="vpi">&#9654;</div><div class="vpl"><strong>What is Admissibility?</strong>Video uploading shortly. Read the notes below.<br/><small style="opacity:0.5;">To add: replace VIDEO_ID_HERE with YouTube ID</small></div></div><p class="vmeta">PDF notes downloadable below.</p></div><div class="vsum"><div class="vsl">Video Summary</div><p>This video introduces admissibility as the second gate evidence must pass after relevancy. It opens with a Kampala murder suspect who confesses after being beaten at a police station, uses this scenario to show how relevant evidence can still be excluded, defines admissibility, explains the two-gate system, and covers the five common grounds for excluding relevant evidence including torture-obtained confessions, hearsay, privilege, opinion evidence, and character evidence.</p></div>
+    <article class="ct">
+<h2 id="h-1">Opening Scenario</h2>
+<p>A murder suspect in Uganda is arrested. During interrogation at the police station, police officers beat him severely until he confesses to the killing. The confession is written down and signed. When the case reaches the High Court, the prosecution wants to use this confession as evidence.</p>
+<p>Is the confession relevant? Yes - it directly addresses whether the accused committed the murder. It makes it more probable that he did. But should the court admit it? This is where admissibility comes in. Even though the confession is relevant, the law may still exclude it. A confession obtained through torture violates Article 24 of the Constitution of Uganda 1995. The court must decide not only whether the evidence is relevant but whether it is <strong>admissible</strong>.</p>
+
+<h2 id="h-2">Definition of Admissibility</h2>
+<p>Admissibility is the quality of evidence that makes it <strong>legally receivable</strong> by a court. Evidence is admissible if it satisfies all the legal requirements that allow it to be presented to and considered by the court.</p>
+<p>Not all relevant evidence is admissible. Some evidence, though logically relevant, is excluded because it was obtained unlawfully, because it falls within a category that the law excludes on policy grounds, or because it fails to meet specific procedural requirements. The Evidence Act Cap. 8 governs admissibility across several provisions dealing with different types of evidence.</p>
+
+<h2 id="h-3">Admissibility as the Second Gate</h2>
+<p>Think of the process of getting evidence before a court as passing through two gates in sequence.</p>
+<p><strong>The first gate is relevancy.</strong> Evidence that is not relevant is stopped here and goes no further. Nothing that is irrelevant can ever be admitted.</p>
+<p><strong>The second gate is admissibility.</strong> Evidence that passes the relevancy test must then satisfy all legal requirements for admissibility. If it fails at this gate - because it was illegally obtained, because it is hearsay outside the permitted exceptions, because a confession was not properly taken - it is excluded even though it was relevant.</p>
+<p>Only evidence that passes both gates reaches the court and can be used in reaching a decision.</p>
+
+<h2 id="h-4">Common Grounds for Excluding Relevant Evidence</h2>
+<p><strong>Illegally obtained evidence.</strong> Confessions obtained through torture, coercion, or threats are inadmissible. Article 24 of the Constitution of Uganda 1995 prohibits torture absolutely. A confession obtained in violation of this provision will be excluded regardless of how relevant it is.</p>
+<p><strong>Hearsay.</strong> A statement made outside court by a person who is not testifying cannot generally be admitted as evidence of the truth of its contents. The Evidence Act Cap. 8 provides specific exceptions in Section 30, including dying declarations, statements against interest, and statements made in the course of business. Outside these exceptions, hearsay is inadmissible even if relevant.</p>
+<p><strong>Privilege.</strong> Legal professional privilege protects communications between a lawyer and their client. Spousal privilege protects certain communications between married partners. These privileged communications cannot be admitted even if highly relevant.</p>
+<p><strong>Opinion evidence.</strong> Witnesses generally give evidence of facts they personally observed, not their opinions. The exception is expert witnesses with specialised knowledge permitted to give opinion evidence within their expertise. A neighbour's opinion on whether the accused is generally dishonest is generally inadmissible.</p>
+<p><strong>Character evidence.</strong> Evidence of a person's general bad character is generally inadmissible to prove they committed the act in question. There are specific exceptions under the Evidence Act Cap. 8, particularly where the accused puts their own character in issue.</p>
+
+<h2 id="h-5">Key Ugandan Cases</h2>
+<div class="auth"><div class="al">Key Cases on Admissibility</div>
+<p><strong>Stanbic Bank Uganda Ltd v Uganda Crocs Ltd, Civil Appeal No. 4 of 2004</strong> - The Court of Appeal confirmed that documents must be properly authenticated before they can be admitted. Relevancy alone is not sufficient.</p>
+<p><strong>Akbar Hussein Godi v Uganda, Criminal Appeal No. 3 of 2013</strong> - The Supreme Court considered admissibility of identification evidence and the requirements that must be met before such evidence can properly be placed before the court and acted upon.</p>
+</div>
+
+<div class="sbox"><div class="sl">Key Points - Page 2.2.1</div><ul class="slist">
+<li>Admissibility is the quality that makes evidence legally receivable by a court</li>
+<li>Not all relevant evidence is admissible - relevancy is necessary but not sufficient</li>
+<li>Admissibility is the second gate - evidence must pass both relevancy and admissibility to reach the court</li>
+<li>Common grounds for excluding relevant evidence include illegal obtaining, hearsay, privilege, improper opinion, and character evidence</li>
+<li>The Evidence Act Cap. 8 and the Constitution of Uganda 1995 both govern admissibility</li>
+</ul></div></article>
+    <div class="pdfbar"><span class="pdfi">&#128196;</span><div><div class="pdft">PDF Notes - Module 2, Lesson 1</div><div class="pdfs">Download for offline study.</div></div><a href="/education/courses/evl1/notes/lesson-5.pdf"  class="btnpdf">Download PDF</a></div>
+    <nav class="pnav"><a href="/education/courses/evl1/2/1/quiz/" class="nbtn">&#8592; Lesson 1 Quiz</a><div class="plbl">Page 1 of 4 - Lesson 2</div><a href="/education/courses/evl1/2/2/2/" class="nbtn nx">Next: Relevancy vs Admissibility &#8594;</a></nav>
+  </div>
+</main>
+<aside class="out"><div class="otitle">On This Page</div><a href="#h-1" class="olink">Opening Scenario</a><a href="#h-2" class="olink">Definition of Admissibility</a><a href="#h-3" class="olink">Admissibility as the Second Gate</a><a href="#h-4" class="olink">Common Grounds for Exclusion</a><a href="#h-5" class="olink">Key Ugandan Cases</a></aside>
+</div></div>
+<script>const SB=supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+async function chkAccess(){
+  const {data:{session}}=await SB.auth.getSession();
+  if(!session){showLk('guest');return;}
+  const {data:pr}=await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();
+  if(pr&&pr.role==='admin'){show();return;}
+  const {data:co}=await SB.from('courses').select('id').eq('course_code','EVL1').maybeSingle();
+  if(!co){showLk('no_plan');return;}
+  const {data:en}=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',co.id).maybeSingle();
+  if(!en){showLk('no_plan');return;}
+  if(en.expires_at&&new Date(en.expires_at)<new Date()){showLk('expired');return;}
+  show();
+}
+function showLk(r){
+  const m={guest:{i:'🔒',h:'Log in to access this lesson',p:'Register free then choose a study plan.',b:'Register Free',u:'/education/register/'},no_plan:{i:'📚',h:'Choose a plan',p:'Plans start from UGX 5,000.',b:'View Plans',u:'/education/#pricing'},expired:{i:'⏰',h:'Plan expired',p:'Renew to continue.',b:'Renew',u:'/education/#pricing'}};
+  const x=m[r]||m.guest;
+  document.getElementById('lk').innerHTML='<div class="lk"><div class="lki">'+x.i+'</div><h2>'+x.h+'</h2><p>'+x.p+'</p><a href="'+x.u+'" class="btnul">'+x.b+' &#8594;</a>'+(r==='guest'?'<p style="margin-top:12px;font-size:12px;color:var(--text-3);">Already registered? <a href="/education/login/" style="color:var(--blue);font-weight:600;">Log in</a></p>':'')+'</div>';
+  document.getElementById('lk').style.display='block';
+  const lc=document.getElementById('lc');if(lc)lc.style.display='none';
+}
+function show(){document.getElementById('lk').style.display='none';const lc=document.getElementById('lc');if(lc)lc.style.display='block';}
+function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb'),d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
+(function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}})();
+const sc=document.querySelectorAll('[id^="h-"]'),ol=document.querySelectorAll('.olink');
+if(sc.length&&ol.length){const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){ol.forEach(l=>l.classList.remove('on'));const a=document.querySelector('.olink[href="#'+x.target.id+'"]');if(a)a.classList.add('on');}});},{rootMargin:'-20% 0px -70% 0px'});sc.forEach(s=>obs.observe(s));}
+chkAccess();</script>
+</body></html>
