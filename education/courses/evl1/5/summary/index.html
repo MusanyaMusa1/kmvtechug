@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Module 5 Summary - EVL1 - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
+.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);}
+.tbc a{color:var(--text-2);text-decoration:none;}.tbc a:hover{color:var(--blue);}
+.tright{display:flex;align-items:center;gap:10px;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.main{max-width:740px;margin:0 auto;padding:40px 20px 100px;}
+.ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.ey::before{content:'';width:14px;height:1.5px;background:var(--gold);}
+.ptitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.8rem,5vw,2.5rem);color:var(--text-1);margin-bottom:8px;line-height:1.15;}
+.psub{font-size:0.92rem;color:var(--text-2);margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid var(--border);}
+.ls{margin-bottom:24px;}
+.ls-hdr{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.ls-num{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
+.ls-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:var(--text-1);}
+.kp{list-style:none;display:flex;flex-direction:column;gap:8px;padding-left:44px;}
+.kp li{font-size:0.92rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.kp li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:2px;}
+.compare{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:24px 0;}
+.compare table{width:100%;border-collapse:collapse;font-size:0.875rem;}
+.compare th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:11.5px;}
+.compare td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-2);line-height:1.5;vertical-align:top;}
+.compare tr:last-child td{border-bottom:none;}
+.compare tr:nth-child(even) td{background:var(--surface-2);}
+.kt{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:24px 0;}
+.kt-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:14px;}
+.tgrid{display:grid;grid-template-columns:1fr;gap:10px;}
+.ti{display:flex;gap:10px;padding:10px 12px;background:var(--surface-2);border-radius:8px;font-size:0.875rem;}
+.tw{font-weight:700;color:var(--blue);flex-shrink:0;min-width:150px;}
+.td{color:var(--text-2);line-height:1.5;}
+.qcta{background:var(--navy);border-radius:14px;padding:28px;text-align:center;margin:32px 0;position:relative;overflow:hidden;}
+.qcta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(107,46,204,0.3) 0%,transparent 60%);}
+.qcta-in{position:relative;z-index:1;}
+.qcta h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:#fff;margin-bottom:8px;}
+.qcta p{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:20px;line-height:1.6;}
+.qmeta{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
+.qmc{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:5px 13px;font-size:12px;color:rgba(255,255,255,0.7);}
+.btnq{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:15px;padding:14px 28px;border-radius:10px;text-decoration:none;}
+.navbot{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border);}
+.nb{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
+.nb:hover{border-color:var(--blue);color:var(--blue);}
+.nb.nx{background:var(--navy);color:#fff;border-color:var(--navy);}
+.lk{max-width:480px;margin:60px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.lki{font-size:40px;margin-bottom:14px;}
+.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:var(--text-1);margin-bottom:8px;}
+.lk p{font-size:0.88rem;color:var(--text-2);max-width:340px;margin:0 auto 20px;}
+.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
+@media(min-width:768px){.tname{display:block;}.tgrid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
+  <nav class="tbc"><a href="/education/courses/evl1/">Evidence Law 1</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Module 5 Summary</span></nav>
+  <div class="tright">
+    <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
+  </div>
+</header>
+<div id="lk" style="display:none;"></div>
+<div id="qs" style="display:none;">
+<main class="main">
+  <div class="ey">Module 5 - End of Module</div>
+  <h1 class="ptitle">Module 5 Summary</h1>
+  <p class="psub">Review these key points from both lessons before taking the Module 5 Graded Quiz. The quiz covers all content from Lessons 1 and 2.</p>
+
+  <div class="ls">
+    <div class="ls-hdr"><div class="ls-num">1</div><div class="ls-title">Lesson 1: The Burden of Proof</div></div>
+    <ul class="kp">
+      <li>The burden of proof is the obligation on a party to prove the facts necessary to establish their case</li>
+      <li>Section 101 Evidence Act Cap. 8: whoever asserts a fact must prove it</li>
+      <li>Section 102 provides the practical test: the burden lies on the person who would fail if no evidence at all were given on either side</li>
+      <li>Two types: the legal burden (fixed, does not shift, discharged by end of case) and the evidential burden (can shift between parties during proceedings)</li>
+      <li>In criminal cases the legal burden lies on the prosecution throughout - constitutional requirement under Article 28(3)(a) of the Constitution of Uganda 1995</li>
+      <li>Woolmington v DPP [1935] AC 462: the golden thread principle - it is the duty of the prosecution to prove the prisoner's guilt</li>
+      <li>Francis Xavier Kayemba v Uganda [1983] HCB 330: prima facie case is evidence on which a reasonable tribunal could convict if the defence offers no explanation</li>
+      <li>Section 106: facts especially within a person's knowledge - that person bears the burden</li>
+      <li>Defence of insanity under Section 11 of the Trial on Indictments Act Cap. 25 places a legal burden on the accused on the balance of probabilities</li>
+    </ul>
+  </div>
+
+  <div class="ls">
+    <div class="ls-hdr"><div class="ls-num">2</div><div class="ls-title">Lesson 2: Shifting the Burden</div></div>
+    <ul class="kp">
+      <li>When lawyers say the burden shifts in a criminal trial, they mean the evidential burden - not the legal burden</li>
+      <li>The evidential burden works like a spotlight moving between parties as each responds to the other</li>
+      <li>Prosecution bears initial evidential burden - must establish prima facie case before accused is called to answer</li>
+      <li>A no-case submission challenges whether the prosecution has discharged its initial evidential burden</li>
+      <li>When the accused raises a specific defence, the accused bears the evidential burden of raising sufficient evidence</li>
+      <li>The legal burden of disproving any defence never shifts from the prosecution in criminal cases</li>
+      <li>Akbar Hussein Godi v Uganda, Criminal Appeal No. 3 of 2013: suspicion however strong is not proof</li>
+      <li>Civil standard of proof: balance of probabilities - more probable than not</li>
+      <li>Criminal standard of proof: beyond reasonable doubt - the court must be sure</li>
+      <li>In civil cases, burden analysis is done issue by issue - both parties may bear burdens simultaneously on different issues</li>
+    </ul>
+  </div>
+
+  <div class="compare">
+    <table>
+      <thead><tr><th>Feature</th><th>Legal Burden</th><th>Evidential Burden</th></tr></thead>
+      <tbody>
+        <tr><td>Also called</td><td>Persuasive burden</td><td>Tactical burden / burden of adducing evidence</td></tr>
+        <tr><td>Does it shift?</td><td>No - fixed throughout</td><td>Yes - can shift between parties</td></tr>
+        <tr><td>Who bears it in criminal cases?</td><td>Prosecution throughout</td><td>Initially prosecution; shifts when accused raises defences</td></tr>
+        <tr><td>Standard required</td><td>Beyond reasonable doubt (criminal) / Balance of probabilities (civil)</td><td>Sufficient evidence to put the issue before the court</td></tr>
+        <tr><td>What happens if not discharged?</td><td>Party loses on that issue</td><td>Issue not put before the court</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="kt">
+    <div class="kt-t">Key Terms and Authorities - Module 5</div>
+    <div class="tgrid">
+      <div class="ti"><span class="tw">Section 101 Evidence Act Cap. 8</span><span class="td">Whoever asserts a fact must prove it</span></div>
+      <div class="ti"><span class="tw">Section 102 Evidence Act Cap. 8</span><span class="td">Practical test: who would fail if no evidence were given?</span></div>
+      <div class="ti"><span class="tw">Section 106 Evidence Act Cap. 8</span><span class="td">Facts especially within a person's knowledge - that person bears the burden</span></div>
+      <div class="ti"><span class="tw">Article 28(3)(a) Constitution 1995</span><span class="td">Presumption of innocence until proved guilty</span></div>
+      <div class="ti"><span class="tw">Woolmington v DPP [1935] AC 462</span><span class="td">The golden thread principle - prosecution bears burden of proving guilt (persuasive)</span></div>
+      <div class="ti"><span class="tw">Kayemba v Uganda [1983] HCB 330</span><span class="td">Prima facie case standard for evidential burden</span></div>
+      <div class="ti"><span class="tw">Akbar Hussein Godi v Uganda CA 3/2013</span><span class="td">Suspicion is not proof - convictions on suspicion are overturned</span></div>
+      <div class="ti"><span class="tw">Beyond reasonable doubt</span><span class="td">Criminal standard - court must be sure of guilt</span></div>
+      <div class="ti"><span class="tw">Balance of probabilities</span><span class="td">Civil standard - more probable than not</span></div>
+    </div>
+  </div>
+
+  <div class="qcta">
+    <div class="qcta-in">
+      <h2>Ready for the Graded Quiz?</h2>
+      <p>The Module 5 Graded Quiz covers all content from both lessons. You need 70% to pass. Your best score across 3 attempts counts toward your certificate.</p>
+      <div class="qmeta">
+        <span class="qmc">20 Questions</span>
+        <span class="qmc">MCQ, True/False, Matching, Fill in Blank</span>
+        <span class="qmc">Maximum 3 Attempts</span>
+        <span class="qmc">70% Pass Mark</span>
+      </div>
+      <a href="/education/courses/evl1/5/quiz/" class="btnq">Start Module 5 Graded Quiz &#8594;</a>
+    </div>
+  </div>
+
+  <nav class="navbot">
+    <a href="/education/courses/evl1/5/2/quiz/" class="nb">&#8592; Lesson 2 Quiz</a>
+    <a href="/education/courses/evl1/5/quiz/" class="nb nx">Module 5 Graded Quiz &#8594;</a>
+  </nav>
+</main>
+</div>
+<script>
+const SB=supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+async function chkAccess(){const {data:{session}}=await SB.auth.getSession();if(!session){showLk('guest');return;}const {data:pr}=await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();if(pr&&pr.role==='admin'){show();return;}const {data:co}=await SB.from('courses').select('id').eq('course_code','EVL1').maybeSingle();if(!co){showLk('no_plan');return;}const {data:en}=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',co.id).maybeSingle();if(!en){showLk('no_plan');return;}if(en.expires_at&&new Date(en.expires_at)<new Date()){showLk('expired');return;}show();}
+function showLk(r){const m={guest:{i:'🔒',h:'Log in',p:'Register free then choose a plan.',b:'Register Free',u:'/education/register/'},no_plan:{i:'📚',h:'Choose a plan',p:'Plans from UGX 5,000.',b:'View Plans',u:'/education/#pricing'},expired:{i:'⏰',h:'Plan expired',p:'Renew to continue.',b:'Renew',u:'/education/#pricing'}};const x=m[r]||m.guest;document.getElementById('lk').innerHTML='<div class="lk"><div class="lki">'+x.i+'</div><h2>'+x.h+'</h2><p>'+x.p+'</p><a href="'+x.u+'" class="btnul">'+x.b+' &#8594;</a></div>';document.getElementById('lk').style.display='block';}
+function show(){document.getElementById('lk').style.display='none';document.getElementById('qs').style.display='block';}
+function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb'),d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
+(function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}})();
+chkAccess();
+</script>
+</body>
+</html>
