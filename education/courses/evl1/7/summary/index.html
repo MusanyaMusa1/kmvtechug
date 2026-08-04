@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Module 7 Summary - EVL1 - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
+.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);}
+.tbc a{color:var(--text-2);text-decoration:none;}.tbc a:hover{color:var(--blue);}
+.tright{display:flex;align-items:center;gap:10px;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.main{max-width:740px;margin:0 auto;padding:40px 20px 100px;}
+.ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.ey::before{content:'';width:14px;height:1.5px;background:var(--gold);}
+.ptitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.8rem,5vw,2.5rem);color:var(--text-1);margin-bottom:8px;}
+.psub{font-size:0.92rem;color:var(--text-2);margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid var(--border);}
+.ls{margin-bottom:20px;}
+.ls-hdr{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.ls-num{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
+.ls-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:var(--text-1);}
+.kp{list-style:none;display:flex;flex-direction:column;gap:7px;padding-left:44px;margin-bottom:16px;}
+.kp li{font-size:0.91rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.kp li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:2px;}
+.compare{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:20px 0;}
+.compare table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.compare th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:11px;}
+.compare td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text-2);line-height:1.5;vertical-align:top;}
+.compare tr:last-child td{border-bottom:none;}
+.compare tr:nth-child(even) td{background:var(--surface-2);}
+.kt{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:20px 0;}
+.kt-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:12px;}
+.tgrid{display:grid;grid-template-columns:1fr;gap:8px;}
+.ti{display:flex;gap:10px;padding:9px 12px;background:var(--surface-2);border-radius:8px;font-size:0.85rem;}
+.tw{font-weight:700;color:var(--blue);flex-shrink:0;min-width:150px;}
+.td{color:var(--text-2);line-height:1.5;}
+.qcta{background:var(--navy);border-radius:14px;padding:24px;text-align:center;margin:28px 0;position:relative;overflow:hidden;}
+.qcta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(107,46,204,0.3) 0%,transparent 60%);}
+.qcta-in{position:relative;z-index:1;}
+.qcta h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.25rem;color:#fff;margin-bottom:8px;}
+.qcta p{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.6;}
+.qmeta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.qmc{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,0.7);}
+.btnq{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:14px;padding:13px 26px;border-radius:10px;text-decoration:none;}
+.navbot{display:flex;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border);}
+.nb{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
+.nb:hover{border-color:var(--blue);color:var(--blue);}
+.nb.nx{background:var(--navy);color:#fff;border-color:var(--navy);}
+.lk{max-width:480px;margin:60px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.lki{font-size:40px;margin-bottom:14px;}
+.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:var(--text-1);margin-bottom:8px;}
+.lk p{font-size:0.88rem;color:var(--text-2);max-width:340px;margin:0 auto 20px;}
+.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
+@media(min-width:768px){.tname{display:block;}.tgrid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
+  <nav class="tbc"><a href="/education/courses/evl1/">Evidence Law 1</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Module 7 Summary</span></nav>
+  <div class="tright">
+    <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
+  </div>
+</header>
+<div id="lk" style="display:none;"></div>
+<div id="qs" style="display:none;">
+<main class="main">
+  <div class="ey">Module 7 - End of Module</div>
+  <h1 class="ptitle">Module 7 Summary</h1>
+  <p class="psub">Review these key points from both lessons before taking the Module 7 Graded Quiz.</p>
+  <div class="ls">
+    <div class="ls-hdr"><div class="ls-num">1</div><div class="ls-title">Lesson 1: Types of Presumptions</div></div>
+    <ul class="kp">
+      <li>A presumption allows a court to take a fact as established once a primary fact is proved - without direct proof of the presumed fact</li>
+      <li>Two categories: rebuttable (displaced by contrary evidence) and irrebuttable (conclusive - cannot be challenged)</li>
+      <li>Presumptions directly interact with the burden of proof - they shift the evidential burden to the opposing party</li>
+      <li>Key rebuttable presumptions: death (Section 107 Evidence Act Cap. 8), legitimacy, regularity, sanity, continuance</li>
+      <li>Presumption of sanity: every person presumed sane - explains why accused must prove insanity on balance of probabilities</li>
+      <li>Most important irrebuttable presumption: child under twelve conclusively incapable of crime - Penal Code Act Cap. 128</li>
+      <li>Conclusiveness of judgment (res judicata) operates as an irrebuttable presumption</li>
+      <li>Registration of title under Registration of Titles Act Cap. 240 - conclusive presumption of ownership</li>
+    </ul>
+  </div>
+  <div class="ls">
+    <div class="ls-hdr"><div class="ls-num">2</div><div class="ls-title">Lesson 2: Presumptions in Practice</div></div>
+    <ul class="kp">
+      <li>The presumption of innocence is the cornerstone of criminal justice - Article 28(3)(a) Constitution of Uganda 1995</li>
+      <li>Three consequences of the presumption of innocence: prosecution bears the burden; accused gets benefit of the doubt; beyond reasonable doubt standard applies</li>
+      <li>The presumption of innocence is rebuttable - but only by proof beyond reasonable doubt by the prosecution</li>
+      <li>Woolmington v DPP [1935] AC 462: the golden thread running throughout criminal law (persuasive)</li>
+      <li>Akbar Hussein Godi v Uganda CA No. 3 of 2013: treating failure to explain as guilt reverses the presumption (binding)</li>
+      <li>Ntambala v Uganda CA No. 34 of 2015: guilt must be proved not merely made probable (binding)</li>
+      <li>Section 107 Evidence Act Cap. 8: seven years absence without news creates rebuttable presumption of death</li>
+      <li>Section 108: no presumption of order of death where two persons die in a common disaster</li>
+      <li>Other key presumptions: books of account, old documents, legitimacy, regularity, electronic records</li>
+    </ul>
+  </div>
+  <div class="compare">
+    <table>
+      <thead><tr><th>Presumption</th><th>Primary Fact</th><th>Rebuttable/Irrebuttable</th><th>How Rebutted</th></tr></thead>
+      <tbody>
+        <tr><td>Death - Section 107</td><td>7 years absence from those who would naturally hear</td><td>Rebuttable</td><td>Any credible evidence person is alive</td></tr>
+        <tr><td>Innocence - Art 28(3)(a)</td><td>Person charged with criminal offence</td><td>Rebuttable</td><td>Proof beyond reasonable doubt only</td></tr>
+        <tr><td>Legitimacy</td><td>Child born during lawful marriage</td><td>Rebuttable</td><td>Evidence of non-access during conception</td></tr>
+        <tr><td>Sanity</td><td>Person appearing before court</td><td>Rebuttable</td><td>Accused proves insanity on balance of probabilities</td></tr>
+        <tr><td>Incapacity (under 12)</td><td>Child under 12 accused of crime</td><td>Irrebuttable</td><td>Cannot be rebutted - conclusive</td></tr>
+        <tr><td>Regularity</td><td>Official or judicial act done</td><td>Rebuttable</td><td>Evidence of irregularity or excess of authority</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="kt">
+    <div class="kt-t">Key Terms and Authorities - Module 7</div>
+    <div class="tgrid">
+      <div class="ti"><span class="tw">Section 107 Evidence Act Cap. 8</span><span class="td">Presumption of death after 7 years absence</span></div>
+      <div class="ti"><span class="tw">Article 28(3)(a) Const. 1995</span><span class="td">Presumption of innocence - constitutional guarantee</span></div>
+      <div class="ti"><span class="tw">Penal Code Act Cap. 128</span><span class="td">Irrebuttable presumption - child under 12 incapable of crime</span></div>
+      <div class="ti"><span class="tw">Woolmington v DPP [1935]</span><span class="td">Golden thread - prosecution bears burden throughout (persuasive)</span></div>
+      <div class="ti"><span class="tw">Akbar Hussein Godi CA 3/2013</span><span class="td">Failure to explain is not proof - presumption of innocence (binding)</span></div>
+      <div class="ti"><span class="tw">Omnia praesumuntur rite acta</span><span class="td">Presumption of regularity - official acts presumed properly done</span></div>
+      <div class="ti"><span class="tw">Section 108 Evidence Act Cap. 8</span><span class="td">No presumption of order of death in common disasters</span></div>
+    </div>
+  </div>
+  <div class="qcta">
+    <div class="qcta-in">
+      <h2>Ready for the Graded Quiz?</h2>
+      <p>The Module 7 Graded Quiz covers all content from both lessons. You need 70% to pass. Your best score across 3 attempts counts toward your certificate.</p>
+      <div class="qmeta"><span class="qmc">20 Questions</span><span class="qmc">MCQ, True/False, Matching, Fill in Blank</span><span class="qmc">Maximum 3 Attempts</span><span class="qmc">70% Pass Mark</span></div>
+      <a href="/education/courses/evl1/7/quiz/" class="btnq">Start Module 7 Graded Quiz &#8594;</a>
+    </div>
+  </div>
+  <nav class="navbot">
+    <a href="/education/courses/evl1/7/2/quiz/" class="nb">&#8592; Lesson 2 Quiz</a>
+    <a href="/education/courses/evl1/7/quiz/" class="nb nx">Module 7 Graded Quiz &#8594;</a>
+  </nav>
+</main>
+</div>
+<script>
+const SB=supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+async function chkAccess(){const {data:{session}}=await SB.auth.getSession();if(!session){showLk('guest');return;}const {data:pr}=await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();if(pr&&pr.role==='admin'){show();return;}const {data:co}=await SB.from('courses').select('id').eq('course_code','EVL1').maybeSingle();if(!co){showLk('no_plan');return;}const {data:en}=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',co.id).maybeSingle();if(!en){showLk('no_plan');return;}if(en.expires_at&&new Date(en.expires_at)<new Date()){showLk('expired');return;}show();}
+function showLk(r){const m={guest:{i:'🔒',h:'Log in',p:'Register free then choose a plan.',b:'Register Free',u:'/education/register/'},no_plan:{i:'📚',h:'Choose a plan',p:'Plans from UGX 5,000.',b:'View Plans',u:'/education/#pricing'},expired:{i:'⏰',h:'Plan expired',p:'Renew to continue.',b:'Renew',u:'/education/#pricing'}};const x=m[r]||m.guest;document.getElementById('lk').innerHTML='<div class="lk"><div class="lki">'+x.i+'</div><h2>'+x.h+'</h2><p>'+x.p+'</p><a href="'+x.u+'" class="btnul">'+x.b+' &#8594;</a></div>';document.getElementById('lk').style.display='block';}
+function show(){document.getElementById('lk').style.display='none';document.getElementById('qs').style.display='block';}
+function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb'),d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
+(function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}})();
+chkAccess();
+</script>
+</body>
+</html>
