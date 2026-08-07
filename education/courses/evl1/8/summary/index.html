@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Module 8 Summary - EVL1 - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
+.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);}
+.tbc a{color:var(--text-2);text-decoration:none;}.tbc a:hover{color:var(--blue);}
+.tright{display:flex;align-items:center;gap:10px;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.main{max-width:700px;margin:0 auto;padding:48px 20px 100px;}
+.kp{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.kp li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.kp li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:2px;}
+.tgrid{display:grid;grid-template-columns:1fr;gap:10px;}
+.ti{display:flex;gap:10px;padding:10px 12px;background:var(--surface-2);border-radius:8px;font-size:0.875rem;}
+.tw{font-weight:700;color:var(--blue);flex-shrink:0;min-width:150px;}
+.td{color:var(--text-2);line-height:1.5;}
+@media(min-width:768px){.tname{display:block;}.tgrid{grid-template-columns:1fr 1fr;}}
+.compare{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:24px 0;}
+.compare table{width:100%;border-collapse:collapse;font-size:0.84rem;}
+.compare th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:11px;}
+.compare td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text-2);line-height:1.5;vertical-align:top;}
+.compare tr:last-child td{border-bottom:none;}
+.compare tr:nth-child(even) td{background:var(--surface-2);}
+.kt{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:20px 0;}
+.kt-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:12px;}
+.qcta{background:var(--navy);border-radius:14px;padding:28px;text-align:center;margin:28px 0;position:relative;overflow:hidden;}
+.qcta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(107,46,204,0.3) 0%,transparent 60%);}
+.qcta-in{position:relative;z-index:1;}
+.qcta h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:#fff;margin-bottom:8px;}
+.qcta p{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;}
+.qmeta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.qmc{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,0.7);}
+.btnq{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:15px;padding:13px 26px;border-radius:10px;text-decoration:none;}
+.ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.ey::before{content:'';width:14px;height:1.5px;background:var(--gold);}
+.ptitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.8rem,5vw,2.5rem);color:var(--text-1);margin-bottom:8px;}
+.psub{font-size:0.92rem;color:var(--text-2);margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid var(--border);}
+.ls-hdr{display:flex;align-items:center;gap:12px;margin:20px 0 10px;}
+.ls-num{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
+.ls-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:var(--text-1);}
+.navbot{display:flex;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border);}
+.nb{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
+.nb:hover{border-color:var(--blue);color:var(--blue);}
+.nb.nx{background:var(--navy);color:#fff;border-color:var(--navy);}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
+  <nav class="tbc"><a href="/education/courses/evl1/">Evidence Law 1</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Module 8 Summary</span></nav>
+  <div class="tright">
+    <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
+  </div>
+</header>
+<div id="lk" style="display:none;"></div>
+<div id="qs" style="display:none;">
+<main class="main">
+  <div class="ey">Module 8 - Final Module</div>
+  <h1 class="ptitle">Module 8 Summary</h1>
+  <p class="psub">Review these key points from all three lessons before taking the Module 8 Graded Quiz.</p>
+
+  <div class="ls-hdr"><div class="ls-num">1</div><div class="ls-title">Lesson 1: The Nature of Corroboration</div></div>
+  <ul class="kp">
+    <li>Corroboration is independent evidence confirming a witness's testimony on a material particular and connecting the accused to the crime</li>
+    <li>R v Baskerville [1916] 2 KB 658: foundational definition - independent testimony affecting the accused by connecting him with the crime in a material particular (persuasive Commonwealth authority)</li>
+    <li>Three requirements: independent source, implicates the accused, goes to a material particular - ALL THREE must be satisfied</li>
+    <li>Can corroborate: physical evidence, independent testimony, electronic evidence, accused's deliberate lies about material matters</li>
+    <li>Cannot corroborate: complainant's own prior statements, one accomplice corroborating another, evidence only confirming a crime without implicating the accused</li>
+    <li>Modern Ugandan practice: moved from mandatory legal requirement to judicial warning approach in most categories</li>
+  </ul>
+
+  <div class="ls-hdr"><div class="ls-num">2</div><div class="ls-title">Lesson 2: Accomplice Evidence and Corroboration in Practice</div></div>
+  <ul class="kp">
+    <li>Accomplice evidence is dangerous - accomplices may shift blame, lie for reduced sentences, or minimise their own role</li>
+    <li>Court must warn itself genuinely of the dangers before convicting on accomplice evidence</li>
+    <li>After a genuine warning, the court may convict on uncorroborated accomplice evidence if satisfied of reliability</li>
+    <li>One accomplice cannot corroborate another - both are in the same unreliable category</li>
+    <li>Ntambala v Uganda CA No. 34 of 2015: warnings must be genuine, not formulaic - courts must actually engage</li>
+    <li>Uganda v Ntambazi [1996] HCB 29: procedural safeguards for fair police identification parades - failure weakens evidence</li>
+    <li>Uganda v Doyi Wabwire Kyoyo (1976) HCB 212: procedural safeguards for magistrates taking confessions</li>
+  </ul>
+
+  <div class="ls-hdr"><div class="ls-num">3</div><div class="ls-title">Lesson 3: Sexual Offences, Children and Current Position</div></div>
+  <ul class="kp">
+    <li>Historical mandatory corroboration warning in sexual offence cases: based on stereotypes - widely criticised and reformed</li>
+    <li>Modern position: mandatory warning modified - conviction possible on complainant's sole reliable testimony</li>
+    <li>Children's evidence: sworn where child understands oath, unsworn where child understands duty to tell truth</li>
+    <li>Modern position on children's evidence: court may act on reliable unsworn evidence after genuine assessment</li>
+    <li>Mandatory corroboration as absolute legal requirement most clearly survives for certain confession situations</li>
+    <li>Judicial warning approach applies for accomplice evidence, sexual offence complainants, and children's evidence</li>
+    <li>Children Act Cap. 62: protective provisions for child witnesses in Ugandan proceedings</li>
+  </ul>
+
+  <div class="compare">
+    <table>
+      <thead><tr><th>Evidence Category</th><th>Current Ugandan Position</th><th>Key Authority</th></tr></thead>
+      <tbody>
+        <tr><td>Accomplice evidence</td><td>Judicial warning required - conviction possible after genuine warning</td><td>Ntambala v Uganda CA 34/2015</td></tr>
+        <tr><td>Sexual offence complainant</td><td>Modified - conviction on sole testimony if reliable</td><td>Modern Ugandan judicial development</td></tr>
+        <tr><td>Children's unsworn evidence</td><td>Judicial approach - act on reliable evidence after genuine assessment</td><td>Children Act Cap. 62</td></tr>
+        <tr><td>Identification evidence</td><td>Fair parade procedures required - failure weakens evidence</td><td>Uganda v Ntambazi [1996] HCB 29</td></tr>
+        <tr><td>Confessions</td><td>Procedural safeguards must be satisfied</td><td>Uganda v Doyi Wabwire Kyoyo (1976) HCB 212</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="kt">
+    <div class="kt-t">Key Cases - Module 8</div>
+    <div class="tgrid">
+      <div class="ti"><span class="tw">R v Baskerville [1916] 2 KB 658</span><span class="td">Definition of corroboration - independent, implicates accused, material particular (persuasive)</span></div>
+      <div class="ti"><span class="tw">Ntambala v Uganda CA 34/2015</span><span class="td">Corroboration warnings must be genuine not formulaic (binding)</span></div>
+      <div class="ti"><span class="tw">Uganda v Ntambazi [1996] HCB 29</span><span class="td">Fair police identification parade procedural safeguards (binding)</span></div>
+      <div class="ti"><span class="tw">Uganda v Doyi Wabwire Kyoyo (1976)</span><span class="td">Confession-taking procedural safeguards for magistrates (binding)</span></div>
+    </div>
+  </div>
+
+  <div class="qcta">
+    <div class="qcta-in">
+      <h2>Final Graded Quiz - Module 8</h2>
+      <p>This is the final graded quiz of Evidence Law 1. Pass this and you will have completed all 8 modules. You need 70% to pass.</p>
+      <div class="qmeta"><span class="qmc">25 Questions</span><span class="qmc">MCQ, True/False, Matching, Fill in Blank</span><span class="qmc">Maximum 3 Attempts</span><span class="qmc">70% Pass Mark</span></div>
+      <a href="/education/courses/evl1/8/quiz/" class="btnq">Start Module 8 Graded Quiz &#8594;</a>
+    </div>
+  </div>
+
+  <nav class="navbot">
+    <a href="/education/courses/evl1/8/3/quiz/" class="nb">&#8592; Lesson 3 Quiz</a>
+    <a href="/education/courses/evl1/8/quiz/" class="nb nx">Module 8 Graded Quiz &#8594;</a>
+  </nav>
+</main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>const SB=supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+async function chkAccess(){const {data:{session}}=await SB.auth.getSession();if(!session){showLk('guest');return;}const {data:pr}=await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();if(pr&&pr.role==='admin'){show();return;}const {data:co}=await SB.from('courses').select('id').eq('course_code','EVL1').maybeSingle();if(!co){showLk('no_plan');return;}const {data:en}=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',co.id).maybeSingle();if(!en){showLk('no_plan');return;}if(en.expires_at&&new Date(en.expires_at)<new Date()){showLk('expired');return;}show();}
+function showLk(r){const m={guest:{i:'🔒',h:'Log in',p:'Register free then choose a plan.',b:'Register Free',u:'/education/register/'},no_plan:{i:'📚',h:'Choose a plan',p:'Plans from UGX 5,000.',b:'View Plans',u:'/education/#pricing'},expired:{i:'⏰',h:'Plan expired',p:'Renew to continue.',b:'Renew',u:'/education/#pricing'}};const x=m[r]||m.guest;document.getElementById('lk').innerHTML='<div style="max-width:480px;margin:60px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;"><div style="font-size:40px;margin-bottom:14px;">'+x.i+'</div><h2 style="font-family:Playfair Display,serif;font-weight:800;font-size:1.2rem;margin-bottom:8px;">'+x.h+'</h2><p style="font-size:0.88rem;color:var(--text-2);max-width:340px;margin:0 auto 20px;">'+x.p+'</p><a href="'+x.u+'" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;">'+x.b+' &#8594;</a></div>';document.getElementById('lk').style.display='block';const qs=document.getElementById('qs');if(qs)qs.style.display='none';}
+function show(){document.getElementById('lk').style.display='none';const qs=document.getElementById('qs');if(qs)qs.style.display='block';}
+function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb'),d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
+(function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}})();chkAccess();</script>
+</body>
+</html>
