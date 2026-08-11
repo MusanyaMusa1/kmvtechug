@@ -1,38 +1,27 @@
 """
-KMVTECH Education - Add Progress Tracking to All EVL1 Pages v2
-Run from inside your kmvtechug folder:
-  python add-progress-tracking-v2.py
+KMVTECH Education - Add Progress Tracking to All EVL1 Pages v3
+Place this file in: C:\Users\Matrix Computer Accs\Documents\GitHub\kmvtechug
+Then run: python add-progress-tracking-v3.py
 """
 
 import os
 import re
 
-# Try multiple possible paths
-possible_roots = [
-    "education/courses/evl1",
-    "education\\courses\\evl1",
-]
-
+COURSE_ROOT = os.path.join("education", "courses", "evl1")
 COURSE_CODE = "EVL1"
 fixed = 0
 skipped = 0
 errors = []
 
-# Find the correct root
-COURSE_ROOT = None
-for p in possible_roots:
-    if os.path.exists(p):
-        COURSE_ROOT = p
-        break
+print(f"Looking for: {os.path.abspath(COURSE_ROOT)}")
 
-if not COURSE_ROOT:
-    print("ERROR: Could not find education/courses/evl1 folder.")
-    print("Current directory:", os.getcwd())
-    print("Folders here:", os.listdir("."))
+if not os.path.exists(COURSE_ROOT):
+    print(f"ERROR: Folder not found.")
+    print(f"Current directory: {os.getcwd()}")
+    print(f"Contents: {os.listdir('.')}")
     exit()
 
-print(f"Found course folder: {COURSE_ROOT}")
-print(f"Scanning for HTML files...")
+print(f"Found. Scanning HTML files...")
 print()
 
 for root, dirs, files in os.walk(COURSE_ROOT):
@@ -46,12 +35,10 @@ for root, dirs, files in os.walk(COURSE_ROOT):
             with open(fpath, 'r', encoding='utf-8') as f:
                 html = f.read()
 
-            original = html
             changed = False
 
             # 1. Add data-course to <body> tag
             if f'data-course="{COURSE_CODE}"' not in html:
-                # Handle <body> with or without other attributes
                 html = re.sub(
                     r'<body([^>]*)>',
                     f'<body\\1 data-course="{COURSE_CODE}">',
@@ -68,40 +55,44 @@ for root, dirs, files in os.walk(COURSE_ROOT):
                 changed = True
 
             # 3. Add trackProgress() inside show() function
+            # This handles the compact version used in all EVL1 pages
             if 'trackProgress()' not in html:
-                # Compact version used in lesson pages
+                before = html
                 html = html.replace(
                     "if(lc)lc.style.display='block';}",
                     "if(lc)lc.style.display='block';trackProgress();}"
                 )
-                # Spaced version
-                html = html.replace(
-                    "if(lc)lc.style.display='block'; }",
-                    "if(lc)lc.style.display='block';trackProgress();}"
-                )
-                if 'trackProgress()' not in html:
-                    changed = False  # could not inject - skip safely
+                if html != before:
+                    changed = True
+                else:
+                    # Try alternate spacing
+                    html = html.replace(
+                        "if(lc)lc.style.display='block'; }",
+                        "if(lc)lc.style.display='block';trackProgress();}"
+                    )
+                    if html != before:
+                        changed = True
 
             if changed:
                 with open(fpath, 'w', encoding='utf-8') as f:
                     f.write(html)
                 fixed += 1
-                print(f"  OK: {fpath}")
+                print(f"  UPDATED: {fpath}")
             else:
                 skipped += 1
+                print(f"  SKIPPED: {fpath}")
 
         except Exception as e:
             errors.append(f"{fpath}: {e}")
-            print(f"  ERROR: {fpath} - {e}")
+            print(f"  ERROR:   {fpath} - {e}")
 
 print()
+print(f"===========================")
 print(f"DONE.")
 print(f"  Updated:      {fixed} files")
-print(f"  Already done: {skipped} files")
+print(f"  Skipped:      {skipped} files")
 print(f"  Errors:       {len(errors)}")
-if errors:
-    for e in errors:
-        print(f"    {e}")
-print()
+print(f"===========================")
 if fixed > 0:
-    print("Now go to GitHub Desktop, commit all changes, and push.")
+    print()
+    print("Go to GitHub Desktop, commit all changes, and push.")
