@@ -6,6 +6,7 @@
 <title>Nature of Evidence Law - EVL1 - KMVTECH Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
 <style>
 :root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--bg:#FAF9F6;--surface:#FFFFFF;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--reading-width:680px;}
 [data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
@@ -111,7 +112,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 @media(min-width:1100px){.outline{display:block;}}
 </style>
 </head>
-<body>
+<body data-course="EVL1">
 <a href="#main" class="skip-link">Skip to main content</a>
 <header class="topbar" role="banner">
   <a href="/education/" class="topbar-logo" aria-label="KMVTECH Education home">
@@ -249,6 +250,7 @@ function showLocked(r){
 function show(){
   document.getElementById('locked').style.display='none';
   const lc=document.getElementById('lc');if(lc)lc.style.display='block';
+  trackProgress();
 }
 
 function toggleTheme(){

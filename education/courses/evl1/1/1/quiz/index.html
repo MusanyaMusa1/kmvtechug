@@ -6,6 +6,7 @@
 <title>Lesson 1 Practice Quiz - EVL1 - KMVTECH Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
 <style>
 :root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#FFFFFF;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
 [data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
@@ -75,7 +76,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 .btn-unlock{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
 </style>
 </head>
-<body>
+<body data-course="EVL1">
 <header class="topbar" role="banner">
   <a href="/education/" class="topbar-logo" aria-label="KMVTECH Education home">
     <div class="topbar-mark" aria-hidden="true">KE</div>
@@ -256,7 +257,7 @@ async function checkAccess(){
   show();
 }
 
-function show(){document.getElementById('locked-state').style.display='none';document.getElementById('quiz-state').style.display='block';}
+function show(){{document.getElementById('locked-state').style.display='none';document.getElementById('quiz-state').style.display='block';trackProgress();}}
 function showLocked(){document.getElementById('locked-state').innerHTML='<div class="locked"><div class="locked-icon">&#128218;</div><h2>Choose a plan to access this quiz</h2><p>You are registered but do not have an active plan. Plans start from UGX 5,000.</p><a href="/education/#pricing" class="btn-unlock">View Plans &#8594;</a></div>';document.getElementById('locked-state').style.display='block';}
 function showLockedExpired(){document.getElementById('locked-state').innerHTML='<div class="locked"><div class="locked-icon">&#9200;</div><h2>Your study plan has expired</h2><p>Renew your plan to continue from where you left off.</p><a href="/education/#pricing" class="btn-unlock">Renew Access &#8594;</a></div>';document.getElementById('locked-state').style.display='block';}
 

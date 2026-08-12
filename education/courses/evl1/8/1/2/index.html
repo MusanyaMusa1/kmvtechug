@@ -5,6 +5,7 @@
 <title>Why Corroboration is Required - EVL1 - KMVTECH Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
 <style>:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;}
 [data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
@@ -89,7 +90,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 @media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
 @media(min-width:1100px){.out{display:block;}}</style>
 </head>
-<body>
+<body data-course="EVL1">
 <header class="topbar">
   <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
   <nav class="tbc"><a href="/education/courses/evl1/">Evidence Law 1</a><span>&#8250;</span><span class="cur">Module 8 - Final</span><span class="cur">Lesson 1</span><span class="cur">Why Corroboration is Required</span></nav>
@@ -139,7 +140,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 <script>const SB=supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
 async function chkAccess(){const {data:{session}}=await SB.auth.getSession();if(!session){showLk('guest');return;}const {data:pr}=await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();if(pr&&pr.role==='admin'){show();return;}const {data:co}=await SB.from('courses').select('id').eq('course_code','EVL1').maybeSingle();if(!co){showLk('no_plan');return;}const {data:en}=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',co.id).maybeSingle();if(!en){showLk('no_plan');return;}if(en.expires_at&&new Date(en.expires_at)<new Date()){showLk('expired');return;}show();}
 function showLk(r){const m={guest:{i:'🔒',h:'Log in to access this lesson',p:'Register free then choose a study plan.',b:'Register Free',u:'/education/register/'},no_plan:{i:'📚',h:'Choose a plan',p:'Plans start from UGX 5,000.',b:'View Plans',u:'/education/#pricing'},expired:{i:'⏰',h:'Plan expired',p:'Renew to continue.',b:'Renew',u:'/education/#pricing'}};const x=m[r]||m.guest;document.getElementById('lk').innerHTML='<div class="lk"><div class="lki">'+x.i+'</div><h2>'+x.h+'</h2><p>'+x.p+'</p><a href="'+x.u+'" class="btnul">'+x.b+' &#8594;</a>'+(r==='guest'?'<p style="margin-top:12px;font-size:12px;color:var(--text-3);">Already registered? <a href="/education/login/" style="color:var(--blue);font-weight:600;">Log in</a></p>':'')+'</div>';document.getElementById('lk').style.display='block';const lc=document.getElementById('lc');if(lc)lc.style.display='none';}
-function show(){document.getElementById('lk').style.display='none';const lc=document.getElementById('lc');if(lc)lc.style.display='block';}
+function show(){document.getElementById('lk').style.display='none';const lc=document.getElementById('lc');if(lc)lc.style.display='block';trackProgress();}
 function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb'),d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
 (function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}})();
 const sc=document.querySelectorAll('[id^="h-"]'),ol=document.querySelectorAll('.olink');

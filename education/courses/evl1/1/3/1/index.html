@@ -5,6 +5,7 @@
 <title>Origins of Evidence Law in England - EVL1 - KMVTECH Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
 <style>:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#FFFFFF;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;}
 [data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
@@ -92,7 +93,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 @media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
 @media(min-width:1100px){.out{display:block;}}</style>
 </head>
-<body>
+<body data-course="EVL1">
 <header class="topbar" role="banner">
   <a href="/education/" class="tlogo" aria-label="KMVTECH Education home"><div class="tmark" aria-hidden="true">KE</div><span class="tname">KMVTECH Education</span></a>
   <nav class="tbc" aria-label="Course navigation"><a href="/education/courses/evl1/">Evidence Law 1</a><span>&#8250;</span><span class="cur">Module 1</span><span class="cur">Lesson 3</span><span class="cur">Origins in England</span></nav>
@@ -153,6 +154,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 <aside class="out" aria-label="On this page"><div class="otitle">On This Page</div><a href="#h-1" class="olink">Why History Matters</a><a href="#h-2" class="olink">English Common Law</a><a href="#h-3" class="olink">The Problem of Codification</a><a href="#h-4" class="olink">The Move to a Written Code</a></aside>
 </div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
 <script>
 const SB=supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
 async function chkAccess(){
@@ -174,7 +176,7 @@ function showLk(r){
   document.getElementById('lk').style.display='block';
   const lc=document.getElementById('lc');if(lc)lc.style.display='none';
 }
-function show(){document.getElementById('lk').style.display='none';const lc=document.getElementById('lc');if(lc)lc.style.display='block';}
+function show(){document.getElementById('lk').style.display='none';const lc=document.getElementById('lc');if(lc)lc.style.display='block';trackProgress();}
 function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb'),d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
 (function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}} )();
 const sc=document.querySelectorAll('[id^="h-"]'),ol=document.querySelectorAll('.olink');
