@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Grades - Evidence Law 1 - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--amber:#D97706;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
+.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);}
+.tbc a{color:var(--text-2);text-decoration:none;}.tbc a:hover{color:var(--blue);}
+.tright{display:flex;align-items:center;gap:10px;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.main{max-width:860px;margin:0 auto;padding:40px 20px 100px;}
+.page-hdr{margin-bottom:28px;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.eyebrow::before{content:'';width:14px;height:1.5px;background:var(--purple);}
+.page-title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--text-1);margin-bottom:6px;}
+.page-sub{font-size:0.88rem;color:var(--text-2);}
+
+/* SUMMARY CARDS */
+.summary-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:28px;}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.scard-num{font-family:'Playfair Display',serif;font-weight:800;font-size:2rem;color:var(--text-1);line-height:1;margin-bottom:4px;}
+.scard-num.green{color:var(--green);}
+.scard-num.amber{color:var(--amber);}
+.scard-num.blue{color:var(--blue);}
+.scard-lbl{font-size:12px;color:var(--text-2);}
+
+/* CERTIFICATE STATUS */
+.cert-bar{border-radius:12px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;gap:14px;}
+.cert-bar.on-track{background:rgba(21,128,61,0.08);border:1px solid rgba(21,128,61,0.25);}
+.cert-bar.not-yet{background:rgba(43,63,191,0.06);border:1px solid rgba(43,63,191,0.18);}
+.cert-bar.needs-work{background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.25);}
+.cert-icon{font-size:24px;flex-shrink:0;}
+.cert-text h3{font-size:14px;font-weight:700;color:var(--text-1);margin-bottom:2px;}
+.cert-text p{font-size:12.5px;color:var(--text-2);line-height:1.5;}
+
+/* GRADES TABLE */
+.grades-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.grades-head{display:grid;grid-template-columns:1fr 100px 100px 120px;gap:0;background:var(--navy);padding:12px 20px;}
+.gh{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+.gh:not(:first-child){text-align:center;}
+.grade-row{display:grid;grid-template-columns:1fr 100px 100px 120px;gap:0;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.15s;}
+.grade-row:last-child{border-bottom:none;}
+.grade-row:hover{background:var(--surface-2);}
+.gr-name{font-size:13.5px;font-weight:600;color:var(--text-1);}
+.gr-type{font-size:11px;color:var(--text-3);margin-top:2px;}
+.gr-score{text-align:center;font-size:13.5px;font-weight:700;}
+.gr-score.pass{color:var(--green);}
+.gr-score.fail{color:var(--red);}
+.gr-score.pending{color:var(--text-3);font-weight:400;}
+.gr-date{text-align:center;font-size:12px;color:var(--text-2);}
+.gr-date.pending{color:var(--text-3);}
+.gr-status{display:flex;justify-content:center;}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.badge.pass{background:#DCFCE7;color:#166534;}
+.badge.fail{background:#FEE2E2;color:#991B1B;}
+.badge.pending{background:var(--surface-2);color:var(--text-3);border:1px solid var(--border);}
+
+/* TOTALS ROW */
+.totals-row{display:grid;grid-template-columns:1fr 100px 100px 120px;gap:0;padding:16px 20px;background:var(--surface-2);border-top:2px solid var(--border);align-items:center;}
+.tr-lbl{font-size:13px;font-weight:700;color:var(--text-1);}
+.tr-avg{text-align:center;font-size:1.1rem;font-weight:800;font-family:'Playfair Display',serif;}
+.tr-avg.good{color:var(--green);}
+.tr-avg.ok{color:var(--amber);}
+.tr-avg.low{color:var(--red);}
+.tr-avg.none{color:var(--text-3);font-size:13px;font-weight:400;font-family:'DM Sans',sans-serif;}
+
+/* LOADING */
+.loading{text-align:center;padding:48px 20px;color:var(--text-2);font-size:14px;}
+.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 14px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* LOCKED */
+.lk{max-width:480px;margin:60px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.lki{font-size:40px;margin-bottom:14px;}
+.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:var(--text-1);margin-bottom:8px;}
+.lk p{font-size:0.88rem;color:var(--text-2);max-width:340px;margin:0 auto 20px;}
+.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
+
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:10px 18px;border-radius:9px;text-decoration:none;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);margin-top:28px;}
+.back-btn:hover{border-color:var(--blue);color:var(--blue);}
+@media(min-width:768px){.tname{display:block;}.summary-row{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:600px){
+  .grades-head,.grade-row,.totals-row{grid-template-columns:1fr 80px 90px;}
+  .gh:last-child,.gr-date,.tr-avg:last-child{display:none;}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
+  <nav class="tbc">
+    <a href="/education/courses/evl1/">Evidence Law 1</a>
+    <span>&#8250;</span>
+    <span style="color:var(--text-1);font-weight:600;">Grades</span>
+  </nav>
+  <div class="tright">
+    <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
+  </div>
+</header>
+
+<div id="lk-wrap" style="display:none;">
+  <div class="lk">
+    <div class="lki">&#128274;</div>
+    <h2>Log in to view your grades</h2>
+    <p>Register free then choose a study plan to access Evidence Law 1.</p>
+    <a href="/education/register/" class="btnul">Register Free &#8594;</a>
+  </div>
+</div>
+
+<div id="main-wrap" style="display:none;">
+<main class="main">
+  <div class="page-hdr">
+    <div class="eyebrow">Evidence Law 1</div>
+    <h1 class="page-title">Grades for <span id="student-name">...</span></h1>
+    <p class="page-sub">Module graded quiz results. Best score shown for each module. Pass mark: 70% per module. Certificate requires 80% overall average.</p>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="summary-row" id="summary-row">
+    <div class="scard">
+      <div class="scard-num blue" id="s-done">-</div>
+      <div class="scard-lbl">Modules Completed</div>
+    </div>
+    <div class="scard">
+      <div class="scard-num" id="s-remaining">-</div>
+      <div class="scard-lbl">Modules Remaining</div>
+    </div>
+    <div class="scard">
+      <div class="scard-num" id="s-avg">-</div>
+      <div class="scard-lbl">Current Average</div>
+    </div>
+    <div class="scard">
+      <div class="scard-num" id="s-needed">80%</div>
+      <div class="scard-lbl">Needed for Certificate</div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATE STATUS -->
+  <div class="cert-bar not-yet" id="cert-bar">
+    <div class="cert-icon" id="cert-icon">&#127891;</div>
+    <div class="cert-text">
+      <h3 id="cert-title">Certificate Status</h3>
+      <p id="cert-msg">Loading...</p>
+    </div>
+  </div>
+
+  <!-- LOADING STATE -->
+  <div id="loading-state" class="loading">
+    <div class="spinner"></div>
+    Loading your grades...
+  </div>
+
+  <!-- GRADES TABLE -->
+  <div id="grades-table" style="display:none;">
+    <div class="grades-wrap">
+      <div class="grades-head">
+        <div class="gh">Module</div>
+        <div class="gh">Score</div>
+        <div class="gh">Status</div>
+        <div class="gh">Date</div>
+      </div>
+      <div id="grades-body"></div>
+      <div class="totals-row">
+        <div class="tr-lbl">Overall Average</div>
+        <div class="tr-avg" id="overall-avg">-</div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <a href="/education/courses/evl1/" class="back-btn">&#8592; Back to Evidence Law 1</a>
+</main>
+</div>
+
+<script>
+const SB = supabase.createClient(
+  'https://nzjojrebyvxuawnkitth.supabase.co',
+  'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
+);
+
+// EVL1 has 8 modules
+const MODULES = [
+  { num: 1, title: 'Introduction to Evidence Law' },
+  { num: 2, title: 'Relevancy and Admissibility' },
+  { num: 3, title: 'Judicial Notice' },
+  { num: 4, title: 'Estoppel' },
+  { num: 5, title: 'Burden of Proof' },
+  { num: 6, title: 'Standard of Proof' },
+  { num: 7, title: 'Presumptions' },
+  { num: 8, title: 'Corroboration' },
+];
+
+const CERT_THRESHOLD = 80;
+const PASS_MARK = 70;
+
+async function init() {
+  const { data: { session } } = await SB.auth.getSession();
+  if (!session) {
+    document.getElementById('lk-wrap').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('main-wrap').style.display = 'block';
+
+  // Get student name
+  const { data: profile } = await SB.from('profiles')
+    .select('full_name, role')
+    .eq('id', session.user.id)
+    .maybeSingle();
+
+  if (profile) {
+    document.getElementById('student-name').textContent = profile.full_name || 'Student';
+  }
+
+  // Check enrollment (admin bypasses)
+  if (!profile || profile.role !== 'admin') {
+    const { data: course } = await SB.from('courses')
+      .select('id').eq('course_code', 'EVL1').maybeSingle();
+    if (course) {
+      const { data: enrol } = await SB.from('enrollments')
+        .select('id').eq('student_id', session.user.id).eq('course_id', course.id).maybeSingle();
+      if (!enrol) {
+        document.getElementById('loading-state').innerHTML =
+          '<p style="color:var(--text-2);font-size:14px;">You are not enrolled in Evidence Law 1. <a href="/education/#pricing" style="color:var(--blue);font-weight:600;">Choose a plan to enroll.</a></p>';
+        return;
+      }
+    }
+  }
+
+  // Load all quiz attempts for this student and course
+  const { data: attempts } = await SB.from('quiz_attempts')
+    .select('module_number, score, total, percentage, passed, attempted_at')
+    .eq('student_id', session.user.id)
+    .eq('course_code', 'EVL1')
+    .order('attempted_at', { ascending: false });
+
+  // Get best score per module
+  const bestByModule = {};
+  if (attempts) {
+    for (const a of attempts) {
+      const m = a.module_number;
+      if (!bestByModule[m] || a.percentage > bestByModule[m].percentage) {
+        bestByModule[m] = a;
+      }
+    }
+  }
+
+  // Calculate summary stats
+  const attempted = Object.keys(bestByModule).length;
+  const remaining = MODULES.length - attempted;
+  const scores = Object.values(bestByModule).map(a => a.percentage);
+  const avg = scores.length > 0
+    ? Math.round(scores.reduce((s, n) => s + n, 0) / scores.length)
+    : null;
+
+  // Update summary cards
+  document.getElementById('s-done').textContent = attempted + ' / ' + MODULES.length;
+  document.getElementById('s-remaining').textContent = remaining;
+  if (avg !== null) {
+    const avgEl = document.getElementById('s-avg');
+    avgEl.textContent = avg + '%';
+    avgEl.className = 'scard-num ' + (avg >= CERT_THRESHOLD ? 'green' : avg >= PASS_MARK ? 'amber' : 'fail');
+  } else {
+    document.getElementById('s-avg').textContent = 'No quizzes yet';
+    document.getElementById('s-avg').style.fontSize = '14px';
+  }
+
+  // Certificate status bar
+  const certBar = document.getElementById('cert-bar');
+  const certIcon = document.getElementById('cert-icon');
+  const certTitle = document.getElementById('cert-title');
+  const certMsg = document.getElementById('cert-msg');
+
+  if (attempted === 0) {
+    certBar.className = 'cert-bar not-yet';
+    certIcon.textContent = '📚';
+    certTitle.textContent = 'No quizzes completed yet';
+    certMsg.textContent = 'Complete all 8 module graded quizzes with an 80% average to earn your certificate.';
+  } else if (attempted === MODULES.length && avg >= CERT_THRESHOLD) {
+    certBar.className = 'cert-bar on-track';
+    certIcon.textContent = '🎉';
+    certTitle.textContent = 'Certificate Earned!';
+    certMsg.textContent = 'You have completed all modules with a ' + avg + '% average. Your certificate is ready in your dashboard.';
+  } else if (attempted === MODULES.length && avg < CERT_THRESHOLD) {
+    certBar.className = 'cert-bar needs-work';
+    certIcon.textContent = '📝';
+    certTitle.textContent = 'All modules complete - average below 80%';
+    certMsg.textContent = 'Your current average is ' + avg + '%. Retake module quizzes to improve your score and qualify for the certificate.';
+  } else if (avg !== null && avg >= CERT_THRESHOLD) {
+    certBar.className = 'cert-bar on-track';
+    certIcon.textContent = '✅';
+    certTitle.textContent = 'On track for your certificate';
+    certMsg.textContent = 'Current average: ' + avg + '% across ' + attempted + ' of 8 modules. Keep going - complete all 8 to qualify.';
+  } else if (avg !== null) {
+    certBar.className = 'cert-bar needs-work';
+    certIcon.textContent = '⚠️';
+    certTitle.textContent = 'Average below 80%';
+    certMsg.textContent = 'Current average: ' + avg + '% across ' + attempted + ' of 8 modules. You need 80% overall. Work on improving your scores in the remaining modules.';
+  }
+
+  // Build grades table
+  let rowsHTML = '';
+  for (const mod of MODULES) {
+    const best = bestByModule[mod.num];
+    if (best) {
+      const pct = best.percentage;
+      const scoreClass = pct >= PASS_MARK ? 'pass' : 'fail';
+      const badgeClass = pct >= PASS_MARK ? 'pass' : 'fail';
+      const badgeText = pct >= PASS_MARK ? '✓ Passed' : '✗ Below 70%';
+      const date = new Date(best.attempted_at).toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+      });
+      rowsHTML += `
+        <div class="grade-row">
+          <div>
+            <div class="gr-name">Module ${mod.num}: ${mod.title}</div>
+            <div class="gr-type">Graded Quiz &middot; Best score</div>
+          </div>
+          <div class="gr-score ${scoreClass}">${pct}%<br><span style="font-size:11px;font-weight:400;color:var(--text-3)">${best.score}/${best.total}</span></div>
+          <div class="gr-status"><span class="badge ${badgeClass}">${badgeText}</span></div>
+          <div class="gr-date">${date}</div>
+        </div>`;
+    } else {
+      rowsHTML += `
+        <div class="grade-row">
+          <div>
+            <div class="gr-name">Module ${mod.num}: ${mod.title}</div>
+            <div class="gr-type">Graded Quiz</div>
+          </div>
+          <div class="gr-score pending">-</div>
+          <div class="gr-status"><span class="badge pending">Not submitted</span></div>
+          <div class="gr-date pending">-</div>
+        </div>`;
+    }
+  }
+
+  document.getElementById('grades-body').innerHTML = rowsHTML;
+
+  // Overall average in totals row
+  const avgEl = document.getElementById('overall-avg');
+  if (avg !== null) {
+    avgEl.textContent = avg + '%';
+    avgEl.className = 'tr-avg ' + (avg >= CERT_THRESHOLD ? 'good' : avg >= PASS_MARK ? 'ok' : 'low');
+  } else {
+    avgEl.textContent = 'No scores yet';
+    avgEl.className = 'tr-avg none';
+  }
+
+  document.getElementById('loading-state').style.display = 'none';
+  document.getElementById('grades-table').style.display = 'block';
+}
+
+function tTheme() {
+  const h = document.documentElement, t = document.getElementById('tt'), th = t.querySelector('.tthumb');
+  const d = h.getAttribute('data-theme') === 'dark';
+  h.setAttribute('data-theme', d ? 'light' : 'dark');
+  t.setAttribute('aria-checked', d ? 'false' : 'true');
+  th.textContent = d ? '☀' : '🌙';
+  localStorage.setItem('kmv-theme', d ? 'light' : 'dark');
+}
+(function() {
+  const s = localStorage.getItem('kmv-theme'), p = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if ((s || (p ? 'dark' : 'light')) === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const t = document.getElementById('tt');
+    if (t) { t.setAttribute('aria-checked', 'true'); t.querySelector('.tthumb').textContent = '🌙'; }
+  }
+})();
+
+init();
+</script>
+</body>
+</html>
