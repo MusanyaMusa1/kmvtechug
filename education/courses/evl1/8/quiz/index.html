@@ -5,6 +5,7 @@
 <title>Module 8 Graded Quiz - Corroboration - KMVTECH Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/save-quiz-score.js"></script>
 <script src="/education/js/progress-tracking.js"></script>
 <style>:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
 [data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
@@ -159,7 +160,7 @@ function sub(){
     const fbc=document.getElementById('fb'+qid.slice(1)+'c'),fbw=document.getElementById('fb'+qid.slice(1)+'w');
     if(ok&&fbc)fbc.classList.add('show');if(!ok&&fbw)fbw.classList.add('show');
   });
-  const pct=Math.round((score/total)*100);
+  const pct=Math.round((score/total)*100);saveQuizScore('EVL1',8,score,total);
   document.getElementById('sn').innerHTML=score+'<span>/'+total+'</span>';
   document.getElementById('sp').textContent=pct+'%';
   const pm=parseInt(document.getElementById('qf').dataset.pass||'0');
