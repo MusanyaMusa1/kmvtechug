@@ -92,33 +92,6 @@
     .cert-card span{color:var(--gray);display:block}
     .cert-card em{display:block;margin-top:.4rem;font-style:normal;font-size:.76rem;font-weight:600;color:var(--red)}
 
-    /* BIRTHDAY / ANNIVERSARY CELEBRATION */
-    .celebrate-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(230,59,31,.1);border:1px solid rgba(230,59,31,.35);color:var(--red);font-size:.75rem;font-weight:600;padding:.35rem .9rem;border-radius:20px;margin:1rem 0}
-    .balloons{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-    .balloon{position:absolute;bottom:-140px;font-size:2.4rem;animation:floatUp linear infinite;filter:drop-shadow(0 8px 10px rgba(0,0,0,.35))}
-    .balloon:nth-child(1){left:4%;animation-duration:13s;animation-delay:0s;font-size:2rem}
-    .balloon:nth-child(2){left:14%;animation-duration:16s;animation-delay:2.5s;font-size:2.6rem}
-    .balloon:nth-child(3){left:24%;animation-duration:11s;animation-delay:4.5s;font-size:1.9rem}
-    .balloon:nth-child(4){left:60%;animation-duration:15s;animation-delay:1s;font-size:2.4rem}
-    .balloon:nth-child(5){left:72%;animation-duration:12s;animation-delay:3.2s;font-size:2.1rem}
-    .balloon:nth-child(6){left:84%;animation-duration:17s;animation-delay:5.5s;font-size:2.7rem}
-    @keyframes floatUp{
-      0%{transform:translateY(0) translateX(0) rotate(-4deg);opacity:0}
-      8%{opacity:1}
-      50%{transform:translateY(-55vh) translateX(18px) rotate(4deg)}
-      100%{transform:translateY(-115vh) translateX(-14px) rotate(-4deg);opacity:.85}
-    }
-    .confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-    .confetti span{position:absolute;top:-20px;width:8px;height:14px;opacity:.8;animation:confettiFall linear infinite}
-    @keyframes confettiFall{
-      0%{transform:translateY(0) rotate(0deg);opacity:0}
-      10%{opacity:.85}
-      100%{transform:translateY(110vh) rotate(320deg);opacity:.6}
-    }
-    .hero{isolation:isolate}
-    .hero>*:not(.balloons):not(.confetti){position:relative;z-index:1}
-    @media(prefers-reduced-motion:reduce){.balloon,.confetti span{animation:none;display:none}}
-
     /* CONNECT */
     .connect-sec{background:var(--dark);padding:80px 5vw}
     .connect-sec .sec-tag{color:rgba(255,255,255,.45)}
@@ -149,7 +122,7 @@
 
 <nav>
   <a class="nav-logo" href="#">
-    <img src="../../assets/musanya.jpeg" alt="Musanya Musa" onerror="this.style.display='none'"/>
+    <img src="../../assets/logo-musanya.png" alt="Musanya Musa" onerror="this.style.display='none'"/>
     <span class="nav-logo-text">Musanya Musa</span>
   </a>
   <ul class="nav-links">
@@ -173,27 +146,12 @@
 </div>
 
 <section class="hero">
-  <div class="balloons">
-    <span class="balloon">🎈</span><span class="balloon">🎈</span><span class="balloon">🎈</span>
-    <span class="balloon">🎈</span><span class="balloon">🎈</span><span class="balloon">🎈</span>
-  </div>
-  <div class="confetti">
-    <span style="left:8%;background:var(--red);animation-duration:6s;animation-delay:.2s"></span>
-    <span style="left:20%;background:var(--gold);animation-duration:7.5s;animation-delay:1.4s"></span>
-    <span style="left:33%;background:#fff;animation-duration:5.5s;animation-delay:.6s"></span>
-    <span style="left:46%;background:var(--red);animation-duration:8s;animation-delay:2.2s"></span>
-    <span style="left:58%;background:var(--gold);animation-duration:6.5s;animation-delay:1s"></span>
-    <span style="left:71%;background:#fff;animation-duration:7s;animation-delay:2.8s"></span>
-    <span style="left:83%;background:var(--red);animation-duration:5.8s;animation-delay:.9s"></span>
-    <span style="left:92%;background:var(--gold);animation-duration:6.8s;animation-delay:1.8s"></span>
-  </div>
   <div class="hero-bg-text">MUSANYA</div>
   <div class="hero-left">
     <div class="hero-tag">Kampala, Uganda · Est. 2020</div>
-    <div class="hero-role"><span>Founder & CEO</span> · Entrepreneur · Educator · Advocate</div>
+    <div class="hero-role"><span>Founder & CEO</span> · Millennium Fellow '26 · Entrepreneur · Educator · Advocate</div>
     <h1>Musanya<br/><em>Musa</em></h1>
     <p>Technology entrepreneur, university student, digital educator, and human rights advocate. Founder of KMVTECHUG and King Musah Media. Building Africa's digital future one solution at a time.</p>
-    <div class="celebrate-badge">🎂 It's my birthday — and KMVTECHUG just turned 6!</div>
     <div class="btns">
       <a href="#about" class="btn-d">My Story</a>
       <a href="mailto:counselmusanyamusa@gmail.com" class="btn-o">Work With Me</a>
@@ -201,7 +159,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-img-wrap">
-      <img src="../../assets/musanya.jpeg" alt="Musanya Musa" onerror="this.style.minHeight='450px';this.style.background='#f5f5f3'"/>
+      <img src="../../assets/founder.png" alt="Musanya Musa" onerror="this.style.minHeight='450px';this.style.background='#f5f5f3'"/>
       <div class="img-accent"></div>
       <div class="img-badge"><strong>Since 2020</strong>Founder & CEO<br/>KMVTECHUG</div>
     </div>
@@ -218,7 +176,7 @@
     <div class="about-block">
       <h3>Professional Summary</h3>
       <p>Dynamic entrepreneur and educator with 5+ years of experience in IT training, graphics design, and content creation. Founder and CEO of KMVTECHUG — a multi-brand digital ecosystem operating in technology, media, and education.</p>
-      <p>Currently an undergraduate university student (3rd year), while also reading AI, Justice, and the Rule of Law at the University of Oxford.</p>
+      <p>Currently an undergraduate university student (3rd year). Has completed two University of Oxford programmes: AI and Digital Transformation in Government, and AI, Justice, and the Rule of Law.</p>
       <p>Published author, with a legal-advocacy article featured in the Uganda Law Students Association Journal (2025) and two further articles accepted for the 2026 edition. Passionate about making technology accessible, ethical, and impactful for all — especially marginalized communities.</p>
     </div>
     <div class="about-block">
@@ -246,7 +204,7 @@
     <h2 class="sec-title">Academic Background</h2>
   </div>
   <div class="edu-timeline">
-    <div class="edu-item"><div class="edu-year">2026 – Present</div><div><h4>AI, Justice, and the Rule of Law</h4><p>University of Oxford · Enrolled June 2026</p></div></div>
+    <div class="edu-item"><div class="edu-year">2026</div><div><h4>AI, Justice, and the Rule of Law — Completed</h4><p>University of Oxford · August 2026</p></div></div>
     <div class="edu-item"><div class="edu-year">2026 – Present</div><div><h4>Ethical Hacking</h4><p>Cisco Networking Academy · Enrolled June 2026</p></div></div>
     <div class="edu-item"><div class="edu-year">2025</div><div><h4>AI and Digital Transformation in Government — Completed</h4><p>University of Oxford · December 2025</p></div></div>
     <div class="edu-item"><div class="edu-year">2024 – Present</div><div><h4>Undergraduate Studies — 3rd Year</h4><p>&nbsp;</p></div></div>
@@ -297,7 +255,8 @@
     <h2 class="sec-title">Key Milestones</h2>
   </div>
   <div class="ach-grid">
-    <div class="ach"><div class="ach-icon">🏛️</div><h4>Oxford Programme</h4><p>Completed AI & Digital Transformation in Government (Dec 2025); currently reading AI, Justice, and the Rule of Law at the University of Oxford.</p></div>
+    <div class="ach"><div class="ach-icon">🏅</div><h4>Millennium Fellow, Class of 2026</h4><p>Selected as a Millennium Fellow — a global leadership program of the Millennium Campus Network in partnership with the United Nations Academic Impact.</p></div>
+    <div class="ach"><div class="ach-icon">🏛️</div><h4>Oxford Programme</h4><p>Completed both AI & Digital Transformation in Government (Dec 2025) and AI, Justice, and the Rule of Law (Aug 2026) at the University of Oxford.</p></div>
     <div class="ach"><div class="ach-icon">🗳️</div><h4>Presiding Officer, 2026 Elections</h4><p>National appointment with the Uganda Electoral Commission, overseeing all three rounds of polling at Kitende Parish.</p></div>
     <div class="ach"><div class="ach-icon">🌍</div><h4>UNESCO Team Leader</h4><p>Led team at UNESCO Youth Hackathon on Media and Information Literacy 2025.</p></div>
     <div class="ach"><div class="ach-icon">🗳️</div><h4>Elected Advocate</h4><p>Elected Chairman for Persons with Special Needs at LC2 — village and parish levels.</p></div>
