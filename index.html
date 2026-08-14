@@ -17,10 +17,7 @@
     body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
 
     /* NAV */
-    nav{position:fixed;top:32px;left:0;right:0;height:68px;background:rgba(250,248,243,0.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,146,42,0.15);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw}
-    .anniv-bar{position:fixed;top:0;left:0;right:0;height:32px;background:linear-gradient(90deg,var(--navy),var(--gold),var(--navy));color:#fff;text-align:center;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:600;z-index:201}
-    .anniv-bar span{color:#FFD166}
-    @media(max-width:640px){.anniv-bar{font-size:.68rem;padding:0 .5rem}}
+    nav{position:fixed;top:0;left:0;right:0;height:68px;background:rgba(250,248,243,0.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,146,42,0.15);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw}
     .logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--navy);text-decoration:none;letter-spacing:-.02em}
     .logo span{color:var(--gold)}
     .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
@@ -30,7 +27,7 @@
     .nav-cta:hover{background:var(--gold)!important}
     .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
     .hamburger span{display:block;width:24px;height:2px;background:var(--navy);transition:.3s}
-    .mobile-menu{display:none;position:fixed;top:100px;left:0;right:0;background:var(--cream);border-bottom:1px solid rgba(201,146,42,.15);padding:1.5rem 5vw;z-index:199}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:var(--cream);border-bottom:1px solid rgba(201,146,42,.15);padding:1.5rem 5vw;z-index:199}
     .mobile-menu.open{display:block}
     .mobile-menu a{display:block;padding:.7rem 0;color:var(--navy);text-decoration:none;font-weight:500;border-bottom:1px solid var(--light)}
 
@@ -137,32 +134,6 @@
     /* FOOTER */
     footer{background:var(--dark);color:rgba(255,255,255,.45);padding:55px 5vw 28px}
 
-    /* BIRTHDAY / ANNIVERSARY CELEBRATION */
-    .celebrate-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,146,42,.12);border:1px solid rgba(201,146,42,.35);color:var(--gold);font-size:.75rem;font-weight:600;padding:.35rem .9rem;border-radius:20px;margin-top:.8rem}
-    .balloons{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
-    .balloon{position:absolute;bottom:-140px;font-size:2.6rem;animation:floatUp linear infinite;filter:drop-shadow(0 8px 10px rgba(0,0,0,.15))}
-    .balloon:nth-child(1){left:6%;animation-duration:13s;animation-delay:0s;font-size:2.2rem}
-    .balloon:nth-child(2){left:16%;animation-duration:16s;animation-delay:2s;font-size:2.8rem}
-    .balloon:nth-child(3){left:28%;animation-duration:11s;animation-delay:4s;font-size:2rem}
-    .balloon:nth-child(4){left:68%;animation-duration:15s;animation-delay:1s;font-size:2.6rem}
-    .balloon:nth-child(5){left:80%;animation-duration:12s;animation-delay:3s;font-size:2.3rem}
-    .balloon:nth-child(6){left:90%;animation-duration:17s;animation-delay:5s;font-size:2.9rem}
-    @keyframes floatUp{
-      0%{transform:translateY(0) translateX(0) rotate(-4deg);opacity:0}
-      8%{opacity:1}
-      50%{transform:translateY(-55vh) translateX(18px) rotate(4deg)}
-      100%{transform:translateY(-115vh) translateX(-14px) rotate(-4deg);opacity:.9}
-    }
-    .confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
-    .confetti span{position:absolute;top:-20px;width:8px;height:14px;opacity:.85;animation:confettiFall linear infinite}
-    @keyframes confettiFall{
-      0%{transform:translateY(0) rotate(0deg);opacity:0}
-      10%{opacity:.9}
-      100%{transform:translateY(110vh) rotate(320deg);opacity:.7}
-    }
-    .hero{isolation:isolate}
-    .hero>*:not(.balloons):not(.confetti){position:relative;z-index:2}
-    @media(prefers-reduced-motion:reduce){.balloon,.confetti span{animation:none;display:none}}
     .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
     .footer-brand .logo{color:var(--white);font-size:1.4rem;display:block;margin-bottom:.9rem}
     .footer-brand p{font-size:.83rem;line-height:1.7;max-width:240px}
@@ -192,8 +163,6 @@
 </head>
 <body>
 
-<div class="anniv-bar">🎉 Celebrating <span>6 Years</span> of KMVTECHUG — Powering Digital Solutions Since August 2020</div>
-
 <!-- NAV -->
 <nav>
   <a class="logo" href="#"><span>KMV</span>TECHUG</a>
@@ -220,26 +189,11 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="balloons">
-    <span class="balloon">🎈</span><span class="balloon">🎈</span><span class="balloon">🎈</span>
-    <span class="balloon">🎈</span><span class="balloon">🎈</span><span class="balloon">🎈</span>
-  </div>
-  <div class="confetti">
-    <span style="left:10%;background:var(--gold);animation-duration:6s;animation-delay:.2s"></span>
-    <span style="left:22%;background:var(--navy);animation-duration:7.5s;animation-delay:1.4s"></span>
-    <span style="left:35%;background:#E63946;animation-duration:5.5s;animation-delay:.6s"></span>
-    <span style="left:48%;background:var(--gold);animation-duration:8s;animation-delay:2.2s"></span>
-    <span style="left:60%;background:#2A9D8F;animation-duration:6.5s;animation-delay:1s"></span>
-    <span style="left:73%;background:var(--navy);animation-duration:7s;animation-delay:2.8s"></span>
-    <span style="left:85%;background:#E63946;animation-duration:5.8s;animation-delay:.9s"></span>
-    <span style="left:93%;background:var(--gold);animation-duration:6.8s;animation-delay:1.8s"></span>
-  </div>
   <div class="hero-bg"></div>
   <div class="hero-watermark">KMVTECHUG</div>
-  <div class="hero-tag">🎉 6 Years Strong · Est. 2020 · Kampala, Uganda · Technology · Media · Education</div>
+  <div class="hero-tag">Est. 2020 · Kampala, Uganda · Technology · Media · Education</div>
   <h1>Powering Digital Solutions.<br/><em>Enabling Growth.</em></h1>
   <p class="hero-sub">KMVTECHUG is Uganda's growing digital ecosystem — uniting technology services, creative media, and accessible education under one powerful vision since August 2020.</p>
-  <div class="celebrate-badge">🎂 Bonus: today is also our founder's birthday!</div>
   <div class="btns">
     <a href="#brands" class="btn-p">Explore Our Brands</a>
     <a href="#contact" class="btn-o">Get in Touch</a>
