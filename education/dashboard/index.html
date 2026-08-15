@@ -1493,6 +1493,7 @@ async function getAllProgress(studentId, courseCodes) {
 
 let currentUser = null;
 let courseProgress = {};
+let quizAttempts = {};
 let currentProfile = null;
 let enrollments = [];
 
@@ -1592,6 +1593,10 @@ async function init() {
     const courseCodes = enrollments.map(e => e.courses?.course_code).filter(Boolean);
     if (courseCodes.length > 0) {
       courseProgress = await getAllProgress(currentUser.id, courseCodes);
+      try {
+        const { data: att } = await sb.from('quiz_attempts').select('course_code').eq('student_id', currentUser.id);
+        if (att) att.forEach(a => { quizAttempts[a.course_code] = true; });
+      } catch(e) {}
     }
 
     // Render everything
@@ -1808,11 +1813,12 @@ function buildCourseCard(enrollment) {
           ${course.study_hours ? `&middot; ${course.study_hours}` : ''}
         </div>
       </div>
-      <div class="course-card-action">
+      <div class="course-card-action" style="display:flex;flex-direction:column;gap:8px;">
         <a href="${resumeHref}" class="btn-continue" aria-label="${btnLabel} ${course.title}">
           ${btnLabel}
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
+        ${quizAttempts[course.course_code] ? '<a href="/education/courses/' + course.course_code.toLowerCase() + '/grades/" style="display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);">&#128202; Results</a>' : ''}
       </div>
     </article>`;
 }
