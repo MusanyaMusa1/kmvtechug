@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Module 4 Graded Quiz - EVL2 - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
+<script src="/education/js/save-quiz-score.js"></script>
+<style>
+:root{
+  --blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;
+  --green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;
+  --surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;
+  --text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;
+  --psy:#2F6B4F;--psy-light:rgba(47,107,79,0.08);--psy-border:rgba(47,107,79,0.22);
+}
+[data-theme="dark"]{
+  --bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;
+  --border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;
+  --psy-light:rgba(47,107,79,0.15);--psy-border:rgba(47,107,79,0.35);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
+.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);overflow:hidden;min-width:0;}
+.tbc a{color:var(--text-2);text-decoration:none;white-space:nowrap;}.tbc a:hover{color:var(--blue);}
+.tright{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;transition:background 0.25s;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.pbar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
+.pfill{height:100%;background:linear-gradient(90deg,var(--blue),#3d8a65);}
+.layout{display:flex;min-height:100vh;}
+.bwrap{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;}
+.sb{width:256px;flex-shrink:0;border-right:1px solid var(--border);background:var(--surface);position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
+.sb-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:16px 16px 8px;border-bottom:1px solid var(--border);}
+.sb-m{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:12px;font-weight:700;color:var(--text-2);border-bottom:1px solid var(--border);}
+.sb-n{width:20px;height:20px;border-radius:4px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2);flex-shrink:0;}
+.sb-n.on{background:var(--blue);color:#fff;}
+.sb-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);padding:6px 16px 4px;border-bottom:1px solid var(--border);}
+.sb-p{display:flex;align-items:center;gap:7px;padding:7px 16px 7px 26px;font-size:12px;color:var(--text-2);text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s;}
+.sb-p:hover{background:var(--surface-2);color:var(--text-1);}
+.sb-p.on{color:var(--blue);font-weight:600;background:var(--psy-light);}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;}
+.sb-p.on .sb-dot{background:var(--blue);}
+.main{flex:1;padding:0 20px 100px;min-width:0;}
+.hdr{max-width:var(--rw);margin:32px auto 28px;}
+.ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.ey::before{content:'';width:14px;height:1.5px;background:var(--blue);}
+.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.7rem,4vw,2.4rem);color:var(--text-1);line-height:1.15;letter-spacing:-0.01em;margin-bottom:14px;}
+.chips{padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;}
+.chip{display:inline-flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--text-2);}
+.chip.psy{background:var(--psy-light);border-color:var(--psy-border);color:var(--blue);font-weight:600;}
+.imgblock{max-width:var(--rw);margin:0 auto 28px;}
+.imgblock img{width:100%;height:auto;border-radius:12px;display:block;object-fit:cover;max-height:320px;}
+.imgcap{font-size:11.5px;color:var(--text-3);margin-top:8px;text-align:center;line-height:1.5;}
+.imgcap a{color:var(--text-2);text-decoration:underline;}
+.vwrap{max-width:var(--rw);margin:24px auto 0;}
+.vframe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:var(--navy);}
+.vframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;}
+.vmeta{font-size:11.5px;color:var(--text-3);text-align:center;margin-top:8px;}
+.vsum{max-width:var(--rw);margin:16px auto 28px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;}
+.vsl{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:7px;}
+.vsum p{font-size:0.88rem;color:var(--text-2);line-height:1.7;margin:0;}
+.vph{background:var(--navy);border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.ct{max-width:var(--rw);margin:0 auto;}
+.ct h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--text-1);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+.ct p{font-size:1rem;color:var(--text-1);line-height:1.85;margin-bottom:14px;}
+.ct strong{color:var(--text-1);}
+.ct ul,.ct ol{margin:0 0 16px 1.25rem;}
+.ct li{margin-bottom:8px;line-height:1.7;color:var(--text-1);}
+.gcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0;}
+.gcard h3{font-size:0.95rem;font-weight:700;color:var(--text-1);margin-bottom:6px;}
+.gcard p{font-size:0.9rem;color:var(--text-2);margin:0;line-height:1.65;}
+.auth{background:var(--psy-light);border:1px solid var(--psy-border);border-radius:10px;padding:14px 16px;margin:18px 0;}
+.al{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:7px;}
+.auth p{font-size:0.87rem;color:var(--text-2);line-height:1.65;margin-bottom:5px;}
+.auth p:last-child{margin:0;}
+.sbox{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0;}
+.sl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:10px;}
+.slist{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.slist li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.slist li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.pdfbar{max-width:var(--rw);margin:24px auto 0;background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.pdfi{font-size:22px;flex-shrink:0;}
+.pdft{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:2px;}
+.pdfs{font-size:11.5px;color:var(--text-2);}
+.btnpdf{flex-shrink:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;}
+.btnpdf:hover{background:var(--blue);}
+.nlcard{background:var(--navy);border-radius:12px;padding:20px 22px;margin:28px 0;text-align:center;}
+.nlcard p{color:rgba(255,255,255,0.6);font-size:0.88rem;margin-bottom:12px;}
+.nlcard a{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;text-decoration:none;}
+.pnav{max-width:var(--rw);margin:36px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;border-top:1px solid var(--border);}
+.nbtn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;transition:all 0.2s;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
+.nbtn:hover{border-color:var(--blue);color:var(--blue);}
+.nbtn.nx{background:var(--navy);color:#fff;border-color:var(--navy);}
+.nbtn.nx:hover{background:var(--blue);}
+.plbl{font-size:12px;color:var(--text-3);text-align:center;}
+.lk{max-width:var(--rw);margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.lki{font-size:40px;margin-bottom:14px;}
+.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
+.lk p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:360px;margin:0 auto 20px;}
+.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
+.out{width:210px;flex-shrink:0;border-left:1px solid var(--border);padding:24px 16px;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
+.otitle{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
+.olink{display:block;font-size:12px;color:var(--text-2);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--border);margin-bottom:4px;transition:all 0.15s;line-height:1.4;}
+.olink:hover,.olink.on{color:var(--blue);border-left-color:var(--blue);font-weight:600;}
+/* Quiz styles */
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.qnum{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+.qtext{font-size:1rem;font-weight:600;color:var(--text-1);margin-bottom:12px;line-height:1.5;}
+.qopt{display:block;padding:10px 14px;margin:6px 0;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:0.92rem;}
+.qopt:hover{border-color:var(--blue);background:var(--psy-light);}
+.qopt input{margin-right:10px;}
+.qopt.correct{border-color:var(--green);background:rgba(21,128,61,0.08);}
+.qopt.wrong{border-color:var(--red);background:rgba(220,38,38,0.06);}
+.qfb{font-size:0.88rem;margin-top:10px;padding:10px 12px;border-radius:8px;display:none;}
+.qfb.show{display:block;}
+.qfb.ok{background:rgba(21,128,61,0.1);color:var(--green);}
+.qfb.bad{background:rgba(220,38,38,0.08);color:var(--red);}
+.qactions{max-width:var(--rw);margin:24px auto;text-align:center;}
+.qbtn{background:var(--navy);color:#fff;border:none;font-weight:700;font-size:14px;padding:12px 28px;border-radius:9px;cursor:pointer;}
+.qbtn:hover{background:var(--blue);}
+.qscore{font-size:1.1rem;font-weight:700;margin:16px 0;color:var(--text-1);}
+@media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
+@media(min-width:1100px){.out{display:block;}}
+
+.lesson-img{margin:20px 0 8px;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+.lesson-img img{width:100%;height:auto;display:block;max-height:320px;object-fit:cover;}
+.img-cap{font-size:0.78rem;color:var(--text-2);margin:6px 0 18px;font-style:italic;}
+
+</style>
+</head>
+<body data-course="EVL2">
+<header class="topbar">
+  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
+  <nav class="tbc"><a href="/education/courses/evl2/">EVL2</a><span>&#8250;</span><a href="/education/courses/evl2/4/">Module 4</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Module 4 Graded Quiz</span></nav>
+  <div class="tright">
+    <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
+  </div>
+</header>
+<div class="pbar"><div class="pfill" style="width:100%;"></div></div>
+<div class="layout"><div class="bwrap">
+<nav class="sb"><div class="sb-t">Evidence Law 2</div>
+<div class="sb-m" style="opacity:0.55;"><div class="sb-n">1</div>Oral Evidence and Hearsay</div>
+<div class="sb-m" style="opacity:0.55;"><div class="sb-n">2</div>Documentary Evidence</div>
+<div class="sb-m" style="opacity:0.55;"><div class="sb-n">3</div>Proof of Documents</div>
+<div class="sb-m" style="opacity:1;"><div class="sb-n on">4</div>Parol Evidence Rule</div>
+<a href="/education/courses/evl2/4/1/1/" class="sb-p"><div class="sb-dot"></div>4.1.1 The Parol Evidence Rule</a>
+<a href="/education/courses/evl2/4/1/2/" class="sb-p"><div class="sb-dot"></div>4.1.2 When the Rule Applies</a>
+<a href="/education/courses/evl2/4/1/3/" class="sb-p" style="color:var(--blue);"><div class="sb-dot"></div>4.1.3 Ugandan Commercial Practice</a>
+<a href="/education/courses/evl2/4/1/quiz/" class="sb-p" style="color:var(--blue);"><div class="sb-dot"></div>L4.1 Practice Quiz</a>
+<a href="/education/courses/evl2/4/2/1/" class="sb-p"><div class="sb-dot"></div>4.2.1 Exceptions Part 1</a>
+<a href="/education/courses/evl2/4/2/2/" class="sb-p"><div class="sb-dot"></div>4.2.2 Exceptions Part 2</a>
+<a href="/education/courses/evl2/4/2/3/" class="sb-p"><div class="sb-dot"></div>4.2.3 Collateral Contracts</a>
+<a href="/education/courses/evl2/4/2/4/" class="sb-p" style="color:var(--blue);"><div class="sb-dot"></div>4.2.4 Exceptions Practice</a>
+<a href="/education/courses/evl2/4/2/quiz/" class="sb-p" style="color:var(--blue);"><div class="sb-dot"></div>L4.2 Practice Quiz</a>
+<a href="/education/courses/evl2/4/3/1/" class="sb-p"><div class="sb-dot"></div>4.3.1 Contractual Interpretation</a>
+<a href="/education/courses/evl2/4/3/2/" class="sb-p"><div class="sb-dot"></div>4.3.2 Interpretation Rules</a>
+<a href="/education/courses/evl2/4/3/3/" class="sb-p"><div class="sb-dot"></div>4.3.3 Interpretation vs Variation</a>
+<a href="/education/courses/evl2/4/3/quiz/" class="sb-p" style="color:var(--blue);"><div class="sb-dot"></div>L4.3 Practice Quiz</a>
+<a href="/education/courses/evl2/4/summary/" class="sb-p" style="color:var(--gold);"><div class="sb-dot"></div>Module 4 Summary</a>
+<a href="/education/courses/evl2/4/quiz/" class="sb-p on" style="color:var(--purple);font-weight:700;"><div class="sb-dot"></div>Module 4 Graded Quiz</a>
+<div class="sb-m" style="opacity:0.45;"><div class="sb-n">5</div>Witnesses - Core Rules</div>
+<div class="sb-m" style="opacity:0.45;"><div class="sb-n">6</div>Privileges</div>
+<div class="sb-m" style="opacity:0.45;"><div class="sb-n">7</div>Examination of Witnesses</div>
+<div class="sb-m" style="opacity:0.45;"><div class="sb-n">8</div>Special Evidentiary Rules</div>
+</nav>
+<main class="main" id="main" tabindex="-1">
+  <div id="lk"></div>
+  <div id="lc" style="display:none;">
+    <header class="hdr"><div class="ey">Module 4 - Graded Quiz</div><h1 class="ltitle">Module 4 Graded Quiz</h1><div class="chips"><span class="chip">Graded Quiz</span></div></header>
+
+
+    <article class="ct">
+    <p style="margin-bottom:8px;color:var(--text-2);font-size:0.9rem;">Graded · Max 3 attempts · 70% pass · Counts toward certificate</p>
+    <div id="quiz-area"><div class="qcard" data-q="0" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 1</div>
+      <div class="qtext">Parol evidence rule primarily in:</div>
+      <label class="qopt"><input type="radio" name="q0" value="0"> ss 30-31</label>
+<label class="qopt"><input type="radio" name="q0" value="1"> ss 91-92</label>
+<label class="qopt"><input type="radio" name="q0" value="2"> Contracts Act only</label>
+<label class="qopt"><input type="radio" name="q0" value="3"> ss 73-74</label>
+
+      <div class="qfb" id="fb0"></div>
+    </div><div class="qcard" data-q="1" data-type="mcq" data-correct="2">
+      <div class="qnum">Question 2</div>
+      <div class="qtext">Section 91 - written contract proved by:</div>
+      <label class="qopt"><input type="radio" name="q1" value="0"> Oral testimony of both</label>
+<label class="qopt"><input type="radio" name="q1" value="1"> URSB certified copy</label>
+<label class="qopt"><input type="radio" name="q1" value="2"> Document itself or admissible secondary evidence</label>
+<label class="qopt"><input type="radio" name="q1" value="3"> Two signing witnesses</label>
+
+      <div class="qfb" id="fb1"></div>
+    </div><div class="qcard" data-q="2" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 3</div>
+      <div class="qtext">Evidential not substantive means:</div>
+      <label class="qopt"><input type="radio" name="q2" value="0"> Criminal only</label>
+<label class="qopt"><input type="radio" name="q2" value="1"> Blocks proof of extrinsic deals - does not void them in contract law</label>
+<label class="qopt"><input type="radio" name="q2" value="2"> Can always be waived</label>
+<label class="qopt"><input type="radio" name="q2" value="3"> Oral only</label>
+
+      <div class="qfb" id="fb2"></div>
+    </div><div class="qcard" data-q="3" data-type="mcq" data-correct="2">
+      <div class="qnum">Question 4</div>
+      <div class="qtext">Section 92(a) example:</div>
+      <label class="qopt"><input type="radio" name="q3" value="0"> Faster delivery promise</label>
+<label class="qopt"><input type="radio" name="q3" value="1"> Silent payment terms</label>
+<label class="qopt"><input type="radio" name="q3" value="2"> Fraud inducing signature</label>
+<label class="qopt"><input type="radio" name="q3" value="3"> Industry pricing custom</label>
+
+      <div class="qfb" id="fb3"></div>
+    </div><div class="qcard" data-q="4" data-type="mcq" data-correct="3">
+      <div class="qnum">Question 5</div>
+      <div class="qtext">Subsequent oral modification after execution:</div>
+      <label class="qopt"><input type="radio" name="q4" value="0"> 92(a)</label>
+<label class="qopt"><input type="radio" name="q4" value="1"> 92(b)</label>
+<label class="qopt"><input type="radio" name="q4" value="2"> 92(c)</label>
+<label class="qopt"><input type="radio" name="q4" value="3"> 92(d)</label>
+
+      <div class="qfb" id="fb4"></div>
+    </div><div class="qcard" data-q="5" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 6</div>
+      <div class="qtext">Collateral contract requires:</div>
+      <label class="qopt"><input type="radio" name="q5" value="0"> Writing and signatures</label>
+<label class="qopt"><input type="radio" name="q5" value="1"> Genuine separate contract with consideration; no contradiction of main agreement</label>
+<label class="qopt"><input type="radio" name="q5" value="2"> Commissioner certification</label>
+<label class="qopt"><input type="radio" name="q5" value="3"> Simultaneity only</label>
+
+      <div class="qfb" id="fb5"></div>
+    </div><div class="qcard" data-q="6" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 7</div>
+      <div class="qtext">Ambiguous bank standard form clause:</div>
+      <label class="qopt"><input type="radio" name="q6" value="0"> Favour bank</label>
+<label class="qopt"><input type="radio" name="q6" value="1"> Contra proferentem against bank</label>
+<label class="qopt"><input type="radio" name="q6" value="2"> Always favour borrower</label>
+<label class="qopt"><input type="radio" name="q6" value="3"> Subjective intent</label>
+
+      <div class="qfb" id="fb6"></div>
+    </div><div class="qcard" data-q="7" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 8</div>
+      <div class="qtext">Ejusdem generis:</div>
+      <label class="qopt"><input type="radio" name="q7" value="0"> Ambiguity against drafter</label>
+<label class="qopt"><input type="radio" name="q7" value="1"> General words after specific list cover same type only</label>
+<label class="qopt"><input type="radio" name="q7" value="2"> Express mention excludes others</label>
+<label class="qopt"><input type="radio" name="q7" value="3"> Word known by companions</label>
+
+      <div class="qfb" id="fb7"></div>
+    </div><div class="qcard" data-q="8" data-type="mcq" data-correct="2">
+      <div class="qnum">Question 9</div>
+      <div class="qtext">Technical trade term - admissible extrinsic evidence:</div>
+      <label class="qopt"><input type="radio" name="q8" value="0"> None</label>
+<label class="qopt"><input type="radio" name="q8" value="1"> Only subjective belief</label>
+<label class="qopt"><input type="radio" name="q8" value="2"> Trade meaning in the relevant industry</label>
+<label class="qopt"><input type="radio" name="q8" value="3"> Any industry</label>
+
+      <div class="qfb" id="fb8"></div>
+    </div><div class="qcard" data-q="9" data-type="mcq" data-correct="0">
+      <div class="qnum">Question 10</div>
+      <div class="qtext">Section 92 blocks oral evidence used to contradict, vary, add to, or subtract from written terms.</div>
+      <label class="qopt"><input type="radio" name="q9" value="0"> True</label>
+<label class="qopt"><input type="radio" name="q9" value="1"> False</label>
+
+      <div class="qfb" id="fb9"></div>
+    </div><div class="qcard" data-q="10" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 11</div>
+      <div class="qtext">Condition precedent oral agreement is excluded by the parol evidence rule.</div>
+      <label class="qopt"><input type="radio" name="q10" value="0"> True</label>
+<label class="qopt"><input type="radio" name="q10" value="1"> False</label>
+
+      <div class="qfb" id="fb10"></div>
+    </div><div class="qcard" data-q="11" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 12</div>
+      <div class="qtext">Subsequent oral extension after signing cannot be proved.</div>
+      <label class="qopt"><input type="radio" name="q11" value="0"> True</label>
+<label class="qopt"><input type="radio" name="q11" value="1"> False</label>
+
+      <div class="qfb" id="fb11"></div>
+    </div><div class="qcard" data-q="12" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 13</div>
+      <div class="qtext">Using extrinsic evidence to interpret is the same as varying.</div>
+      <label class="qopt"><input type="radio" name="q12" value="0"> True</label>
+<label class="qopt"><input type="radio" name="q12" value="1"> False</label>
+
+      <div class="qfb" id="fb12"></div>
+    </div><div class="qcard" data-q="13" data-type="mcq" data-correct="0">
+      <div class="qnum">Question 14</div>
+      <div class="qtext">Trade custom under 92(e) can supplement unless excluded.</div>
+      <label class="qopt"><input type="radio" name="q13" value="0"> True</label>
+<label class="qopt"><input type="radio" name="q13" value="1"> False</label>
+
+      <div class="qfb" id="fb13"></div>
+    </div><div class="qcard" data-q="14" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 15</div>
+      <div class="qtext">Collateral contract can succeed even if it contradicts the main written agreement.</div>
+      <label class="qopt"><input type="radio" name="q14" value="0"> True</label>
+<label class="qopt"><input type="radio" name="q14" value="1"> False</label>
+
+      <div class="qfb" id="fb14"></div>
+    </div><div class="qcard" data-q="15" data-type="mcq" data-correct="1">
+      <div class="qnum">Question 16</div>
+      <div class="qtext">Objective interpretation looks at private subjective intent.</div>
+      <label class="qopt"><input type="radio" name="q15" value="0"> True</label>
+<label class="qopt"><input type="radio" name="q15" value="1"> False</label>
+
+      <div class="qfb" id="fb15"></div>
+    </div><div class="qcard" data-q="16" data-type="mcq" data-correct="0">
+      <div class="qnum">Question 17</div>
+      <div class="qtext">Section ____ prevents oral evidence from being used to ____, vary, add to, or ____ from written terms.</div>
+      <label class="qopt"><input type="radio" name="q16" value="0"> 92 / contradict / subtract</label>
+<label class="qopt"><input type="radio" name="q16" value="1"> 91 / prove / delete</label>
+<label class="qopt"><input type="radio" name="q16" value="2"> 30 / exclude / replace</label>
+<label class="qopt"><input type="radio" name="q16" value="3"> 74 / certify / amend</label>
+
+      <div class="qfb" id="fb16"></div>
+    </div><div class="qcard" data-q="17" data-type="mcq" data-correct="0">
+      <div class="qnum">Question 18</div>
+      <div class="qtext">____ rule: ambiguity resolved against the party who ____ the contract - important for bank ____ agreements.</div>
+      <label class="qopt"><input type="radio" name="q17" value="0"> contra proferentem / drafted / loan</label>
+<label class="qopt"><input type="radio" name="q17" value="1"> ejusdem generis / signed / lease</label>
+<label class="qopt"><input type="radio" name="q17" value="2"> expressio unius / witnessed / sale</label>
+<label class="qopt"><input type="radio" name="q17" value="3"> noscitur / filed / employment</label>
+
+      <div class="qfb" id="fb17"></div>
+    </div><div class="qcard" data-q="18" data-type="mcq" data-correct="0">
+      <div class="qnum">Question 19</div>
+      <div class="qtext">The parol evidence rule is an ____ rule - it prevents extrinsic agreements from being ____ but does not make them legally ____.</div>
+      <label class="qopt"><input type="radio" name="q18" value="0"> evidential / proved / void</label>
+<label class="qopt"><input type="radio" name="q18" value="1"> substantive / enforced / valid</label>
+<label class="qopt"><input type="radio" name="q18" value="2"> procedural / filed / binding</label>
+<label class="qopt"><input type="radio" name="q18" value="3"> equitable / varied / permanent</label>
+
+      <div class="qfb" id="fb18"></div>
+    </div><div class="qcard" data-q="19" data-type="mcq" data-correct="0">
+      <div class="qnum">Question 20</div>
+      <div class="qtext">Sections 91 and 92 are the core of the Ugandan parol evidence rule.</div>
+      <label class="qopt"><input type="radio" name="q19" value="0"> True</label>
+<label class="qopt"><input type="radio" name="q19" value="1"> False</label>
+
+      <div class="qfb" id="fb19"></div>
+    </div></div>
+    <div class="qactions">
+      <button type="button" class="qbtn" onclick="submitQuiz()">Submit answers</button>
+      <button type="button" class="qbtn" onclick="resetQuiz()" style="background:var(--surface);color:var(--text-1);border:1.5px solid var(--border);">Try again</button>
+      <div class="qscore" id="score" style="display:none;"></div>
+    </div>
+    </article>
+    <script>
+    const QFB = ["", "", "", "", "", "", "", "", "", "", "False - 92(c).", "False - 92(d).", "False.", "", "False.", "False.", "", "", "", ""];
+    function submitQuiz() {
+      let correct = 0;
+      const cards = document.querySelectorAll('.qcard');
+      cards.forEach((card, i) => {
+        const fb = document.getElementById('fb'+i);
+        const sel = card.querySelector('input:checked');
+        if (!sel) { fb.className='qfb show bad'; fb.textContent='Please select an answer.'; return; }
+        const ok = (sel.value === card.dataset.correct);
+        card.querySelectorAll('.qopt').forEach(o => {
+          o.classList.remove('correct','wrong');
+          const inp = o.querySelector('input');
+          if (inp.value === card.dataset.correct) o.classList.add('correct');
+          else if (inp.checked) o.classList.add('wrong');
+        });
+        if (ok) correct++;
+        fb.className = 'qfb show ' + (ok ? 'ok' : 'bad');
+        fb.textContent = (ok ? 'Correct. ' : 'Not quite. ') + (QFB[i] || '');
+      });
+      const pct = Math.round(100 * correct / cards.length);
+      if (typeof saveQuizScore === 'function') saveQuizScore('EVL2', 4, correct, cards.length);
+      const sc = document.getElementById('score');
+      sc.style.display = 'block';
+      sc.textContent = 'Score: ' + correct + ' / ' + cards.length + ' (' + pct + '%)' + (true && pct >= 70 ? ' - Pass' : '');
+      sc.style.color = pct >= 70 ? 'var(--green)' : 'var(--red)';
+    }
+    function resetQuiz() {
+      document.querySelectorAll('.qcard input[type=radio]').forEach(i => i.checked = false);
+      document.querySelectorAll('.qopt').forEach(o => o.classList.remove('correct','wrong'));
+      document.querySelectorAll('.qfb').forEach(f => { f.className='qfb'; f.textContent=''; });
+      document.getElementById('score').style.display = 'none';
+    }
+    </script>
+
+
+    <nav class="pnav"><a href="/education/courses/evl2/4/summary/" class="nbtn">&#8592; Module 4 Summary</a><div class="plbl">Module 4 Graded Quiz</div><a href="/education/courses/evl2/5/1/1/" class="nbtn nx">Next: Module 5 &#8594;</a></nav>
+  </div>
+</main>
+<aside class="out"><div class="otitle">On This Page</div><a href="#quiz-area" class="olink on">Questions</a></aside>
+</div></div>
+<script>
+const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+async function chkAccess() {
+  const { data: { session } } = await SB.auth.getSession();
+  if (!session) { showLk('guest'); return; }
+  const { data: pr } = await SB.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
+  if (pr && pr.role === 'admin') { show(); return; }
+  const { data: co } = await SB.from('courses').select('id').eq('course_code', 'HRM1').maybeSingle();
+  if (!co) { showLk('no_plan'); return; }
+  const { data: en } = await SB.from('enrollments').select('id,expires_at').eq('student_id', session.user.id).eq('course_id', co.id).maybeSingle();
+  if (!en) { showLk('no_plan'); return; }
+  if (en.expires_at && new Date(en.expires_at) < new Date()) { showLk('expired'); return; }
+  show();
+}
+function showLk(r) {
+  const m = {guest:{i:'🔒',h:'Log in to access this lesson',p:'Register free then choose a study plan.',b:'Register Free',u:'/education/register/'},no_plan:{i:'📚',h:'Choose a plan',p:'Plans start from UGX 5,000.',b:'View Plans',u:'/education/#pricing'},expired:{i:'⏰',h:'Plan expired',p:'Renew to continue.',b:'Renew',u:'/education/#pricing'}};
+  const x = m[r]||m.guest;
+  document.getElementById('lk').innerHTML='<div class="lk"><div class="lki">'+x.i+'</div><h2>'+x.h+'</h2><p>'+x.p+'</p><a href="'+x.u+'" class="btnul">'+x.b+' →</a></div>';
+  document.getElementById('lk').style.display='block';
+  const lc=document.getElementById('lc'); if(lc) lc.style.display='none';
+}
+function show(){document.getElementById('lk').style.display='none'; const lc=document.getElementById('lc'); if(lc) lc.style.display='block'; if(typeof trackProgress==='function') trackProgress();}
+function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb');const d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
+(function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}})();
+chkAccess();
+</script>
+</body>
+</html>
