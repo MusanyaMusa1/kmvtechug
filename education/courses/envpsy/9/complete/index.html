@@ -3,16 +3,23 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Lesson 1.1 Practice Quiz - ENVPSY - KMVTECH Education</title>
+<title>Course complete - Environmental Psychology - KMVTECH Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/education/js/progress-tracking.js"></script>
 <style>
+/* ============================================================
+   KMVTECH EDUCATION - ENVPSY Lesson Page
+   Course accent: Sage / Forest Green #2F6B4F
+   Never use em dashes. Use hyphens or rephrase.
+   ============================================================ */
+
 :root{
   --blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;
   --green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;
   --surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;
   --text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;
+  /* Psychology course accent */
   --psy:#2F6B4F;--psy-light:rgba(47,107,79,0.08);--psy-border:rgba(47,107,79,0.22);
 }
 [data-theme="dark"]{
@@ -24,6 +31,8 @@
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
 :focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
+
+/* TOPBAR */
 .topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
 .tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
 .tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
@@ -35,10 +44,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 .tbtn[aria-checked="true"]{background:var(--blue);}
 .tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
 .tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+
+/* PROGRESS BAR - Psychology uses sage gradient */
 .pbar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
 .pfill{height:100%;background:linear-gradient(90deg,var(--psy),#3d8a65);}
+
+/* LAYOUT */
 .layout{display:flex;min-height:100vh;}
 .bwrap{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;}
+
+/* SIDEBAR */
 .sb{width:256px;flex-shrink:0;border-right:1px solid var(--border);background:var(--surface);position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
 .sb-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:16px 16px 8px;border-bottom:1px solid var(--border);}
 .sb-m{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:12px;font-weight:700;color:var(--text-2);border-bottom:1px solid var(--border);}
@@ -50,6 +65,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 .sb-p.on{color:var(--psy);font-weight:600;background:var(--psy-light);}
 .sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;}
 .sb-p.on .sb-dot{background:var(--psy);}
+
+/* MAIN CONTENT */
 .main{flex:1;padding:0 20px 100px;min-width:0;}
 .hdr{max-width:var(--rw);margin:32px auto 28px;}
 .ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
@@ -58,61 +75,76 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 .chips{padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;}
 .chip{display:inline-flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--text-2);}
 .chip.psy{background:var(--psy-light);border-color:var(--psy-border);color:var(--psy);font-weight:600;}
+
+/* IMAGE BLOCK (plain-text pages) */
 .imgblock{max-width:var(--rw);margin:0 auto 28px;}
 .imgblock img{width:100%;height:auto;border-radius:12px;display:block;object-fit:cover;max-height:320px;}
 .imgcap{font-size:11.5px;color:var(--text-3);margin-top:8px;text-align:center;line-height:1.5;}
 .imgcap a{color:var(--text-2);text-decoration:underline;}
-.vwrap{max-width:var(--rw);margin:24px auto 0;}
-.vframe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:var(--navy);}
-.vframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;}
-.vmeta{font-size:11.5px;color:var(--text-3);text-align:center;margin-top:8px;}
-.vsum{max-width:var(--rw);margin:16px auto 28px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;}
-.vsl{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:7px;}
-.vsum p{font-size:0.88rem;color:var(--text-2);line-height:1.7;margin:0;}
-.vph{background:var(--navy);border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+
+/* ARTICLE CONTENT */
 .ct{max-width:var(--rw);margin:0 auto;}
 .ct h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--text-1);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border);}
 .ct p{font-size:1rem;color:var(--text-1);line-height:1.85;margin-bottom:14px;}
 .ct strong{color:var(--text-1);}
-.ct ul,.ct ol{margin:0 0 16px 1.25rem;}
+.ct ol,.ct ul{margin:0 0 16px 1.25rem;}
 .ct li{margin-bottom:8px;line-height:1.7;color:var(--text-1);}
+
+/* GOAL CARDS */
 .gcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0;}
 .gcard h3{font-size:0.95rem;font-weight:700;color:var(--text-1);margin-bottom:6px;}
 .gcard p{font-size:0.9rem;color:var(--text-2);margin:0;line-height:1.65;}
+
+/* AUTHORITY / CALLOUT */
 .auth{background:var(--psy-light);border:1px solid var(--psy-border);border-radius:10px;padding:14px 16px;margin:18px 0;}
 .al{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);margin-bottom:7px;}
 .auth p{font-size:0.87rem;color:var(--text-2);line-height:1.65;margin-bottom:5px;}
 .auth p:last-child{margin:0;}
+
+/* KEY POINTS */
 .sbox{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0;}
 .sl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:10px;}
 .slist{list-style:none;display:flex;flex-direction:column;gap:8px;}
 .slist li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
 .slist li::before{content:'✓';color:var(--psy);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+/* PDF BAR */
 .pdfbar{max-width:var(--rw);margin:24px auto 0;background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
 .pdfi{font-size:22px;flex-shrink:0;}
 .pdft{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:2px;}
 .pdfs{font-size:11.5px;color:var(--text-2);}
 .btnpdf{flex-shrink:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;}
 .btnpdf:hover{background:var(--blue);}
+
+/* NEXT LESSON CARD */
 .nlcard{background:var(--navy);border-radius:12px;padding:20px 22px;margin:28px 0;text-align:center;}
 .nlcard p{color:rgba(255,255,255,0.6);font-size:0.88rem;margin-bottom:12px;}
 .nlcard a{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;text-decoration:none;}
+
+/* PAGE NAV */
 .pnav{max-width:var(--rw);margin:36px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;border-top:1px solid var(--border);}
 .nbtn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;transition:all 0.2s;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
 .nbtn:hover{border-color:var(--psy);color:var(--psy);}
 .nbtn.nx{background:var(--navy);color:#fff;border-color:var(--navy);}
 .nbtn.nx:hover{background:var(--psy);}
 .plbl{font-size:12px;color:var(--text-3);text-align:center;}
+
+/* LOCKED */
 .lk{max-width:var(--rw);margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
 .lki{font-size:40px;margin-bottom:14px;}
 .lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
 .lk p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:360px;margin:0 auto 20px;}
 .btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
+
+/* OUTLINE */
 .out{width:210px;flex-shrink:0;border-left:1px solid var(--border);padding:24px 16px;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
 .otitle{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
 .olink{display:block;font-size:12px;color:var(--text-2);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--border);margin-bottom:4px;transition:all 0.15s;line-height:1.4;}
 .olink:hover,.olink.on{color:var(--psy);border-left-color:var(--psy);font-weight:600;}
-/* Quiz styles */
+
+@media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
+@media(min-width:1100px){.out{display:block;}}
+
 .qcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0;}
 .qnum{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--psy);margin-bottom:8px;}
 .qtext{font-size:1rem;font-weight:600;color:var(--text-1);margin-bottom:12px;line-height:1.5;}
@@ -126,152 +158,93 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 .qfb.ok{background:rgba(21,128,61,0.1);color:var(--green);}
 .qfb.bad{background:rgba(220,38,38,0.08);color:var(--red);}
 .qactions{max-width:var(--rw);margin:24px auto;text-align:center;}
-.qbtn{background:var(--navy);color:#fff;border:none;font-weight:700;font-size:14px;padding:12px 28px;border-radius:9px;cursor:pointer;}
+.qbtn{background:var(--navy);color:#fff;border:none;font-weight:700;font-size:14px;padding:12px 28px;border-radius:9px;cursor:pointer;margin:6px;}
 .qbtn:hover{background:var(--psy);}
 .qscore{font-size:1.1rem;font-weight:700;margin:16px 0;color:var(--text-1);}
-@media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
-@media(min-width:1100px){.out{display:block;}}
+.fillin{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:0.95rem;margin-top:8px;}
+.vph{background:var(--navy);border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.gcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0;}
+.gcard h3{font-size:0.95rem;font-weight:700;color:var(--text-1);margin-bottom:6px;}
+.gcard p{font-size:0.9rem;color:var(--text-2);margin:0;line-height:1.65;}
+
+.hero{max-width:var(--rw);margin:0 auto;padding:36px 20px 28px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:var(--text-1);line-height:1.2;margin:8px 0 12px;}
+.hero .lead{font-size:1.05rem;color:var(--text-2);line-height:1.7;max-width:640px;}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0;}
+.plan{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:8px;}
+.plan.featured{border-color:var(--psy);box-shadow:0 0 0 1px var(--psy);}
+.plan .pname{font-size:0.8rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--psy);}
+.plan .pprice{font-size:1.6rem;font-weight:800;color:var(--text-1);}
+.plan .pprice span{font-size:0.85rem;font-weight:500;color:var(--text-3);}
+.plan .pdesc{font-size:0.9rem;color:var(--text-2);line-height:1.55;flex:1;}
+.plan .pbtn{display:inline-block;text-align:center;background:var(--navy);color:#fff;font-weight:700;font-size:14px;padding:11px 18px;border-radius:9px;text-decoration:none;margin-top:8px;}
+.plan .pbtn:hover{background:var(--psy);}
+.plan.featured .pbtn{background:var(--psy);}
+.modlist{list-style:none;padding:0;margin:12px 0;}
+.modlist li{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;font-size:0.95rem;color:var(--text-1);}
+.modlist li:last-child{border-bottom:none;}
+.modlist .mn{min-width:28px;height:28px;border-radius:8px;background:var(--psy-light);color:var(--psy);font-weight:700;font-size:0.8rem;display:flex;align-items:center;justify-content:center;}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0;}
+.cta-primary{display:inline-block;background:var(--psy);color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:10px;text-decoration:none;}
+.cta-primary:hover{opacity:0.92;}
+.cta-secondary{display:inline-block;background:var(--surface);color:var(--text-1);font-weight:600;font-size:15px;padding:14px 24px;border-radius:10px;text-decoration:none;border:1.5px solid var(--border);}
+.access-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 20px;margin:24px 0;}
+.access-box h2{font-size:1.15rem;margin:0 0 8px;color:var(--text-1);}
+.access-box p{font-size:0.95rem;color:var(--text-2);margin:0 0 14px;line-height:1.6;}
+.rules{background:rgba(47,107,79,0.08);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0;}
+.rules li{margin:6px 0;font-size:0.92rem;color:var(--text-2);}
+.complete-hero{text-align:center;padding:48px 20px 32px;max-width:640px;margin:0 auto;}
+.complete-hero .badge{font-size:48px;margin-bottom:12px;}
+.complete-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;color:var(--text-1);margin:0 0 12px;}
+.complete-hero p{font-size:1.05rem;color:var(--text-2);line-height:1.7;}
 </style>
 </head>
 <body data-course="ENVPSY">
 <header class="topbar">
   <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
-  <nav class="tbc"><a href="/education/courses/envpsy/">Environmental Psychology</a><span>&#8250;</span><a href="/education/courses/envpsy/1/">Module 1</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Lesson 1.1 Practice Quiz</span></nav>
+  <nav class="tbc"><a href="/education/courses/envpsy/">Environmental Psychology</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Complete</span></nav>
   <div class="tright">
     <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
     <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
   </div>
 </header>
-<div class="pbar"><div class="pfill" style="width:36%;"></div></div>
-<div class="layout"><div class="bwrap">
+<div class="pbar"><div class="pfill" style="width:100%;"></div></div>
 
-<main class="main" id="main" tabindex="-1">
+<main>
   <div id="lk"></div>
   <div id="lc" style="display:none;">
-    <header class="hdr">
-      <div class="ey">Module 1 - Lesson 1.1 - Practice Quiz</div>
-      <h1 class="ltitle">Lesson 1.1 Practice Quiz</h1>
-      <div class="chips"><span class="chip psy">Practice Quiz</span><span class="chip">Unlimited attempts</span></div>
-    </header>
+    <div class="complete-hero">
+      <div class="badge">🎉</div>
+      <h1>Congratulations</h1>
+      <p>You have completed all nine modules of <strong>Environmental &amp; Conservation Psychology</strong> (ENVPSY).</p>
+    </div>
 
-    <article class="ct">
-    <p style="margin-bottom:8px;color:var(--text-2);font-size:0.9rem;">Ungraded · Unlimited attempts · Immediate feedback · Does not count toward certificate</p>
-    <div id="quiz-area">
-    
-    <div class="qcard" data-q="0" data-type="mcq" data-correct="1" data-fb="It studies the full two-way relationship between people and environments.">
-      <div class="qnum">Question 1</div>
-      <div class="qtext">Environmental psychology studies:</div>
-      <label class="qopt"><input type="radio" name="q0" value="0"> Only the protection of endangered species</label>
-<label class="qopt"><input type="radio" name="q0" value="1"> The two-way relationship between people and the environments they live in</label>
-<label class="qopt"><input type="radio" name="q0" value="2"> Only the design of buildings</label>
-<label class="qopt"><input type="radio" name="q0" value="3"> Climate science and weather patterns</label>
+    <div style="max-width:560px;margin:0 auto;padding:0 20px 48px;">
+      <div class="access-box">
+        <h2>Your certificate</h2>
+        <p>When your average score across all <strong>9 module graded quizzes</strong> is <strong>80% or higher</strong>, your certificate is generated automatically and sent to your email and your KMVTECH Education dashboard.</p>
+        <p style="margin-bottom:0;">If you have not yet reached 80%, you can retake module graded quizzes (up to 3 attempts each) to improve your average.</p>
+      </div>
 
-      <div class="qfb" id="fb0"></div>
-    </div>
-    <div class="qcard" data-q="1" data-type="tf" data-correct="false" data-fb="It is a two-way relationship. Humans also shape the environment.">
-      <div class="qnum">Question 2</div>
-      <div class="qtext">The relationship between humans and the environment is one-way (the environment affects people, but people do not affect the environment).</div>
-      <label class="qopt"><input type="radio" name="q1" value="true"> True</label>
-<label class="qopt"><input type="radio" name="q1" value="false"> False</label>
+      <div class="rules">
+        <strong style="color:var(--text-1);display:block;margin-bottom:8px;">What you covered</strong>
+        <ul style="margin:0;padding-left:18px;">
+          <li>Foundations through perception, behaviour, communication, and climate psychology</li>
+          <li>Community, disasters, policy, economic-environment links, and careers</li>
+          <li>Uganda-specific policy, NEMA, kaveera, wetlands, oil, charcoal, and SDGs</li>
+        </ul>
+      </div>
 
-      <div class="qfb" id="fb1"></div>
-    </div>
-    <div class="qcard" data-q="2" data-type="mcq" data-correct="1" data-fb="Conservation psychology applies psychological knowledge to protect the natural world.">
-      <div class="qnum">Question 3</div>
-      <div class="qtext">Conservation psychology is best described as:</div>
-      <label class="qopt"><input type="radio" name="q2" value="0"> Identical to environmental psychology</label>
-<label class="qopt"><input type="radio" name="q2" value="1"> An applied sub-field focused on motivating people to protect nature</label>
-<label class="qopt"><input type="radio" name="q2" value="2"> A branch of urban planning</label>
-<label class="qopt"><input type="radio" name="q2" value="3"> The study of animal behaviour only</label>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="/education/dashboard/" class="cta-primary">Go to dashboard</a>
+        <a href="/education/courses/envpsy/" class="cta-secondary">Course overview</a>
+      </div>
 
-      <div class="qfb" id="fb2"></div>
+      <p style="text-align:center;font-size:0.9rem;color:var(--text-3);margin-top:28px;">Thank you for learning with KMVTECH Education. Apply what you learned in your field and community.</p>
     </div>
-    <div class="qcard" data-q="3" data-type="mcq" data-correct="3" data-fb="The five goals include understanding behaviour, reducing destruction, promoting sustainable living, improving space design, and encouraging protection.">
-      <div class="qnum">Question 4</div>
-      <div class="qtext">Which of the following is NOT one of the five main goals of environmental psychology?</div>
-      <label class="qopt"><input type="radio" name="q3" value="0"> Understand human behaviour in different environments</label>
-<label class="qopt"><input type="radio" name="q3" value="1"> Reduce environmental destruction</label>
-<label class="qopt"><input type="radio" name="q3" value="2"> Promote sustainable living</label>
-<label class="qopt"><input type="radio" name="q3" value="3"> Replace all traditional knowledge with laboratory research</label>
-
-      <div class="qfb" id="fb3"></div>
-    </div>
-    <div class="qcard" data-q="4" data-type="mcq" data-correct="1" data-fb="Conservation psychology focuses on behaviour change to protect nature.">
-      <div class="qnum">Question 5</div>
-      <div class="qtext">A conservation psychologist studying wetland encroachment in Kampala would be most interested in:</div>
-      <label class="qopt"><input type="radio" name="q4" value="0"> Measuring the exact depth of the wetland</label>
-<label class="qopt"><input type="radio" name="q4" value="1"> Designing interventions that change the behaviour that leads to encroachment</label>
-<label class="qopt"><input type="radio" name="q4" value="2"> Counting bird species in the wetland</label>
-<label class="qopt"><input type="radio" name="q4" value="3"> Drawing maps of the wetland boundary only</label>
-
-      <div class="qfb" id="fb4"></div>
-    </div>
-    <div class="qcard" data-q="5" data-type="fill" data-correct="stress|mental stress|psychological stress|anxiety" data-fb="Nature reduces stress and restores mental focus (ART and SRT).">
-      <div class="qnum">Question 6</div>
-      <div class="qtext">Access to natural environments such as parks and forests has been shown to reduce _____ and restore mental focus.</div>
-      <input type="text" class="fillin" name="q5" placeholder="Type your answer" data-correct="stress|mental stress|psychological stress|anxiety">
-      <div class="qfb" id="fb5"></div>
-    </div>
-    </div>
-    <div class="qactions">
-      <button type="button" class="qbtn" onclick="submitQuiz()">Submit answers</button>
-      <button type="button" class="qbtn" onclick="resetQuiz()" style="background:var(--surface);color:var(--text-1);border:1.5px solid var(--border);">Try again</button>
-      <div class="qscore" id="score" style="display:none;"></div>
-    </div>
-    </article>
-    <script>
-    const QDATA = [{"type": "mcq", "text": "Environmental psychology studies:", "options": ["Only the protection of endangered species", "The two-way relationship between people and the environments they live in", "Only the design of buildings", "Climate science and weather patterns"], "correct_idx": "1"}, {"type": "tf", "text": "The relationship between humans and the environment is one-way (the environment affects people, but people do not affect the environment).", "correct": "false"}, {"type": "mcq", "text": "Conservation psychology is best described as:", "options": ["Identical to environmental psychology", "An applied sub-field focused on motivating people to protect nature", "A branch of urban planning", "The study of animal behaviour only"], "correct_idx": "1"}, {"type": "mcq", "text": "Which of the following is NOT one of the five main goals of environmental psychology?", "options": ["Understand human behaviour in different environments", "Reduce environmental destruction", "Promote sustainable living", "Replace all traditional knowledge with laboratory research"], "correct_idx": "3"}, {"type": "mcq", "text": "A conservation psychologist studying wetland encroachment in Kampala would be most interested in:", "options": ["Measuring the exact depth of the wetland", "Designing interventions that change the behaviour that leads to encroachment", "Counting bird species in the wetland", "Drawing maps of the wetland boundary only"], "correct_idx": "1"}, {"type": "fill", "text": "Access to natural environments such as parks and forests has been shown to reduce _____ and restore mental focus.", "correct": "stress|mental stress|psychological stress|anxiety"}];
-    const QFB = ["It studies the full two-way relationship between people and environments.", "It is a two-way relationship. Humans also shape the environment.", "Conservation psychology applies psychological knowledge to protect the natural world.", "The five goals include understanding behaviour, reducing destruction, promoting sustainable living, improving space design, and encouraging protection.", "Conservation psychology focuses on behaviour change to protect nature.", "Nature reduces stress and restores mental focus (ART and SRT)."];
-    function submitQuiz() {
-      let correct = 0;
-      const cards = document.querySelectorAll('.qcard');
-      cards.forEach((card, i) => {
-        const type = card.dataset.type;
-        const fb = document.getElementById('fb'+i);
-        let ok = false;
-        if (type === 'mcq' || type === 'tf') {
-          const sel = card.querySelector('input:checked');
-          if (!sel) { fb.className='qfb show bad'; fb.textContent='Please select an answer.'; return; }
-          const ans = sel.value;
-          const expected = card.dataset.correct;
-          ok = (ans === expected || ans === String(expected));
-          card.querySelectorAll('.qopt').forEach(o => {
-            o.classList.remove('correct','wrong');
-            const inp = o.querySelector('input');
-            if (inp.value === expected || inp.value === String(expected)) o.classList.add('correct');
-            else if (inp.checked) o.classList.add('wrong');
-          });
-        } else if (type === 'fill') {
-          const inp = card.querySelector('input.fillin');
-          const val = (inp.value || '').trim().toLowerCase();
-          const accepted = (card.dataset.correct || '').toLowerCase().split('|');
-          ok = accepted.some(a => a.trim() && (val === a.trim() || val.includes(a.trim())));
-          inp.style.borderColor = ok ? 'var(--green)' : 'var(--red)';
-        }
-        if (ok) correct++;
-        fb.className = 'qfb show ' + (ok ? 'ok' : 'bad');
-        fb.textContent = (ok ? 'Correct. ' : 'Not quite. ') + (QFB[i] || '');
-      });
-      const pct = Math.round(100 * correct / cards.length);
-      const sc = document.getElementById('score');
-      sc.style.display = 'block';
-      sc.textContent = 'Score: ' + correct + ' / ' + cards.length + ' (' + pct + '%)';
-      sc.style.color = pct >= 70 ? 'var(--green)' : 'var(--red)';
-    }
-    function resetQuiz() {
-      document.querySelectorAll('.qcard input[type=radio]').forEach(i => i.checked = false);
-      document.querySelectorAll('.fillin').forEach(i => { i.value=''; i.style.borderColor=''; });
-      document.querySelectorAll('.qopt').forEach(o => o.classList.remove('correct','wrong'));
-      document.querySelectorAll('.qfb').forEach(f => { f.className='qfb'; f.textContent=''; });
-      document.getElementById('score').style.display = 'none';
-    }
-    </script>
-
-    <nav class="pnav"><a href="/education/courses/envpsy/1/1/4/" class="nbtn">&#8592; Environmental vs Conservation Psychology</a><div class="plbl">Practice Quiz - Lesson 1.1</div><a href="/education/courses/envpsy/1/2/1/" class="nbtn nx">Next: How the Field Started &#8594;</a></nav>
   </div>
 </main>
-<aside class="out"><div class="otitle">On This Page</div><a href="#quiz-area" class="olink on">Questions</a></aside>
-</div></div>
+
 <script>
 const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
 async function chkAccess() {
@@ -288,16 +261,14 @@ async function chkAccess() {
 }
 function showLk(r) {
   const m = {
-    guest:   { i: '🔒', h: 'Log in to access this lesson', p: 'Register free then choose a study plan.', b: 'Register Free', u: '/education/register/' },
-    no_plan: { i: '📚', h: 'Choose a plan', p: 'Plans start from UGX 5,000.', b: 'View Plans', u: '/education/#pricing' },
-    expired: { i: '⏰', h: 'Plan expired', p: 'Renew to continue.', b: 'Renew', u: '/education/#pricing' }
+    guest:   { i: '🔒', h: 'Log in to view this page', p: 'Register free then enrol to access the course and certificate.', b: 'Register Free', u: '/education/register/' },
+    no_plan: { i: '📚', h: 'Enrol to unlock', p: 'Choose a plan to complete the course and earn your certificate.', b: 'View Plans', u: '/education/courses/envpsy/' },
+    expired: { i: '⏰', h: 'Plan expired', p: 'Renew to continue and claim your certificate.', b: 'Renew', u: '/education/courses/envpsy/' }
   };
   const x = m[r] || m.guest;
   document.getElementById('lk').innerHTML =
     '<div class="lk"><div class="lki">' + x.i + '</div><h2>' + x.h + '</h2><p>' + x.p + '</p>' +
-    '<a href="' + x.u + '" class="btnul">' + x.b + ' &#8594;</a>' +
-    (r === 'guest' ? '<p style="margin-top:12px;font-size:12px;color:var(--text-3);">Already registered? <a href="/education/login/" style="color:var(--blue);font-weight:600;">Log in</a></p>' : '') +
-    '</div>';
+    '<a href="' + x.u + '" class="btnul">' + x.b + ' &#8594;</a></div>';
   document.getElementById('lk').style.display = 'block';
   const lc = document.getElementById('lc');
   if (lc) lc.style.display = 'none';
@@ -324,20 +295,8 @@ function tTheme() {
     if (t) { t.setAttribute('aria-checked', 'true'); t.querySelector('.tthumb').textContent = '🌙'; }
   }
 })();
-const sc = document.querySelectorAll('[id^="h-"]'), ol = document.querySelectorAll('.olink');
-if (sc.length && ol.length) {
-  const obs = new IntersectionObserver(e => {
-    e.forEach(x => {
-      if (x.isIntersecting) {
-        ol.forEach(l => l.classList.remove('on'));
-        const a = document.querySelector('.olink[href="#' + x.target.id + '"]');
-        if (a) a.classList.add('on');
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  sc.forEach(s => obs.observe(s));
-}
 chkAccess();
 </script>
+
 </body>
 </html>

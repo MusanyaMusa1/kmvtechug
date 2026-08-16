@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/education/js/progress-tracking.js"></script>
+<script src="/education/js/save-quiz-score.js"></script>
 <style>
 :root{
   --blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;
@@ -396,8 +397,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
       <div class="qfb" id="fb24"></div>
     </div></div>
     <div class="qactions">
-      <button class="qbtn" onclick="submitQuiz()">Submit answers</button>
-      <button class="qbtn" onclick="resetQuiz()" style="background:var(--surface);color:var(--text-1);border:1.5px solid var(--border);">Try again</button>
+      <button type="button" class="qbtn" onclick="submitQuiz()">Submit answers</button>
+      <button type="button" class="qbtn" onclick="resetQuiz()" style="background:var(--surface);color:var(--text-1);border:1.5px solid var(--border);">Try again</button>
       <div class="qscore" id="score" style="display:none;"></div>
     </div>
     </article>
@@ -429,6 +430,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
       const sc = document.getElementById('score');
       sc.style.display = 'block';
       sc.textContent = 'Score: ' + correct + ' / ' + cards.length + ' (' + pct + '%)' + (pct >= 70 ? ' - Pass' : ' - Below pass mark (70%)');
+      if (typeof saveQuizScore === 'function') saveQuizScore('ENVPSY', 1, correct, cards.length);
       sc.style.color = pct >= 70 ? 'var(--green)' : 'var(--red)';
     }
     function resetQuiz() {

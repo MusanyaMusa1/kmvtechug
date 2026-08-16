@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>How Economic Activity Affects the Environment - ENVPSY - KMVTECH Education</title>
+<title>Environmental &amp; Conservation Psychology (ENVPSY) - KMVTECH Education</title>
+<meta name="description" content="Practical environmental and conservation psychology for Ugandan university students. 9 modules, graded quizzes, certificate at 80% average. From UGX 5,000."/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/education/js/progress-tracking.js"></script>
 <style>
 /* ============================================================
    KMVTECH EDUCATION - ENVPSY Lesson Page
@@ -166,115 +166,192 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 .gcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0;}
 .gcard h3{font-size:0.95rem;font-weight:700;color:var(--text-1);margin-bottom:6px;}
 .gcard p{font-size:0.9rem;color:var(--text-2);margin:0;line-height:1.65;}
+
+.hero{max-width:var(--rw);margin:0 auto;padding:36px 20px 28px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:var(--text-1);line-height:1.2;margin:8px 0 12px;}
+.hero .lead{font-size:1.05rem;color:var(--text-2);line-height:1.7;max-width:640px;}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0;}
+.plan{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:8px;}
+.plan.featured{border-color:var(--psy);box-shadow:0 0 0 1px var(--psy);}
+.plan .pname{font-size:0.8rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--psy);}
+.plan .pprice{font-size:1.6rem;font-weight:800;color:var(--text-1);}
+.plan .pprice span{font-size:0.85rem;font-weight:500;color:var(--text-3);}
+.plan .pdesc{font-size:0.9rem;color:var(--text-2);line-height:1.55;flex:1;}
+.plan .pbtn{display:inline-block;text-align:center;background:var(--navy);color:#fff;font-weight:700;font-size:14px;padding:11px 18px;border-radius:9px;text-decoration:none;margin-top:8px;}
+.plan .pbtn:hover{background:var(--psy);}
+.plan.featured .pbtn{background:var(--psy);}
+.modlist{list-style:none;padding:0;margin:12px 0;}
+.modlist li{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;font-size:0.95rem;color:var(--text-1);}
+.modlist li:last-child{border-bottom:none;}
+.modlist .mn{min-width:28px;height:28px;border-radius:8px;background:var(--psy-light);color:var(--psy);font-weight:700;font-size:0.8rem;display:flex;align-items:center;justify-content:center;}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0;}
+.cta-primary{display:inline-block;background:var(--psy);color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:10px;text-decoration:none;}
+.cta-primary:hover{opacity:0.92;}
+.cta-secondary{display:inline-block;background:var(--surface);color:var(--text-1);font-weight:600;font-size:15px;padding:14px 24px;border-radius:10px;text-decoration:none;border:1.5px solid var(--border);}
+.access-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 20px;margin:24px 0;}
+.access-box h2{font-size:1.15rem;margin:0 0 8px;color:var(--text-1);}
+.access-box p{font-size:0.95rem;color:var(--text-2);margin:0 0 14px;line-height:1.6;}
+.rules{background:rgba(47,107,79,0.08);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0;}
+.rules li{margin:6px 0;font-size:0.92rem;color:var(--text-2);}
+.complete-hero{text-align:center;padding:48px 20px 32px;max-width:640px;margin:0 auto;}
+.complete-hero .badge{font-size:48px;margin-bottom:12px;}
+.complete-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;color:var(--text-1);margin:0 0 12px;}
+.complete-hero p{font-size:1.05rem;color:var(--text-2);line-height:1.7;}
 </style>
 </head>
 <body data-course="ENVPSY">
 <header class="topbar">
   <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
-  <nav class="tbc"><a href="/education/courses/envpsy/">Environmental Psychology</a><span>&#8250;</span><a href="/education/courses/envpsy/8/">Module 8</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">How Economic Activity Affects the Environment</span></nav>
+  <nav class="tbc"><a href="/education/">Courses</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Environmental Psychology</span></nav>
   <div class="tright">
     <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
     <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
   </div>
 </header>
-<div class="pbar"><div class="pfill" style="width:12%;"></div></div>
-<div class="layout"><div class="bwrap">
-<nav class="sb">
-<div class="sb-t">Environmental Psychology</div>
-<div class="sb-m" style="opacity:0.45;"><div class="sb-n">1</div>Foundations of Environmental &amp; Conservation Psychology</div>
-<div class="sb-m" style="opacity:0.45;"><div class="sb-n">2</div>Perceiving &amp; Valuing the Environment</div>
-<div class="sb-m" style="opacity:0.45;"><div class="sb-n">3</div>Pro-Environmental Behaviour</div>
-<div class="sb-m" style="opacity:0.45;"><div class="sb-n">4</div>Environmental Communication &amp; Media</div>
-<div class="sb-m" style="opacity:0.45;"><div class="sb-n">5</div>Climate Change Psychology</div>
-<div class="sb-m" style="opacity:0.45;"><div class="sb-n">6</div>Community, Disasters &amp; Conservation Behaviour</div>
-<div class="sb-m" style="opacity:0.45;"><div class="sb-n">7</div>Environmental Policy &amp; Behaviour Change</div>
-<div class="sb-m"><div class="sb-n on">8</div>Economic Policy &amp; Global Environmental Concerns</div>
-<div class="sb-lbl">Lesson 8.1 - Economic Policy &amp; Global Concerns</div>
-<a href="/education/courses/envpsy/8/1/1/" class="sb-p on"><div class="sb-dot"></div>8.1.1 How Economic Activity Affects the Environment</a>
-<a href="/education/courses/envpsy/8/1/2/" class="sb-p"><div class="sb-dot"></div>8.1.2 Global Environmental Concerns</a>
-<a href="/education/courses/envpsy/8/1/3/" class="sb-p"><div class="sb-dot"></div>8.1.3 Poverty-Environment Nexus &amp; the SDGs</a>
-<a href="/education/courses/envpsy/8/1/4/" class="sb-p"><div class="sb-dot"></div>8.1.4 Uganda Examples &amp; Balancing Economy With Environment</a>
-<a href="/education/courses/envpsy/8/1/quiz/" class="sb-p" style="color:var(--blue);"><div class="sb-dot"></div>Lesson 8.1 Practice Quiz</a>
-<a href="/education/courses/envpsy/8/summary/" class="sb-p" style="color:var(--gold);"><div class="sb-dot"></div>Module 8 Summary</a>
-<a href="/education/courses/envpsy/8/quiz/" class="sb-p" style="color:var(--purple);font-weight:700;"><div class="sb-dot"></div>Module 8 Graded Quiz</a>
-<div class="sb-m" style="opacity:0.45;"><div class="sb-n">9</div>Applying Environmental Psychology - Careers &amp; Practice</div>
-</nav>
-<main class="main" id="main" tabindex="-1">
-  <div id="lk"></div>
-  <div id="lc" style="display:none;">
-    <header class="hdr">
-      <div class="ey">Module 8 - Lesson 8.1 - Page 1 of 4</div>
-      <h1 class="ltitle">How Economic Activity Affects the Environment</h1>
-      <div class="chips"><span class="chip psy">Video</span><span class="chip">~12 min</span><span class="chip">Economy</span></div>
-    </header>
+<div class="pbar"><div class="pfill" style="width:0%;"></div></div>
 
-    <div class="vwrap"><div class="vph"><div style="font-size:44px;color:rgba(255,255,255,0.9);">&#9654;</div>
-    <div style="font-size:13px;color:rgba(255,255,255,0.6);text-align:center;max-width:280px;">
-    <strong style="color:rgba(255,255,255,0.9);display:block;margin-bottom:4px;">Economy &amp; Environment</strong>
-    Video uploading shortly. Read the notes below.</div></div>
-    <p class="vmeta">PDF notes downloadable below.</p></div>
-    <div class="vsum"><div class="vsl">Video Summary</div>
-    <p>Explains how economic activity affects the environment through resource extraction, pollution, land transformation, and climate change - with Uganda examples including oil, charcoal, and wetlands. Introduces the Environmental Kuznets Curve and its limits.</p></div>
-    <article class="ct">
-    <p>Economic activity and environmental health are deeply interconnected. Production and consumption drive growth - and also drive resource extraction, waste, pollution, and landscape change.</p>
-    <h2 id="h-1">Four pathways of impact</h2>
-    <div class="gcard"><h3>Resource extraction</h3><p>Timber, minerals, water, agricultural land, fish, petroleum. When extraction exceeds replenishment, degradation follows. Uganda examples: Albertine Rift oil, charcoal from forests, sand mining.</p></div>
-    <div class="gcard"><h3>Pollution</h3><p>Industrial effluent, agricultural chemicals, vehicle emissions, solid waste. Lake Victoria, Lake Albert, and the Nile face pressure from industry, agriculture, and urban waste.</p></div>
-    <div class="gcard"><h3>Land transformation</h3><p>Conversion of forests, wetlands, and grasslands to agriculture and urban use destroys habitat, reduces biodiversity, and degrades ecosystem services (flood control, water filtration, carbon storage).</p></div>
-    <div class="gcard"><h3>Climate change</h3><p>Fossil fuel combustion and deforestation release greenhouse gases. Uganda contributes minimally to global emissions but suffers disproportionately from climate impacts.</p></div>
-    <h2 id="h-2">Environmental Kuznets Curve</h2>
-    <p>The hypothesis that environmental degradation first rises with income, then falls as societies become richer and invest in protection. The interpretation that poor countries should "grow first, clean later" is contested - some degradation is irreversible, and Uganda cannot wait for high income before protecting the systems that underpin long-term wellbeing.</p>
-    <div class="sbox"><div class="sl">Key Points - Page 8.1.1</div>
-    <ul class="slist">
-    <li>Four pathways: extraction, pollution, land transformation, climate change.</li>
-    <li>Uganda faces all four while contributing little to global emissions.</li>
-    <li>The Kuznets Curve is not a reason to delay environmental protection.</li>
-    </ul></div>
-    </article>
-
-<div class="pdfbar"><span class="pdfi">&#128196;</span><div><div class="pdft">PDF Notes - Module 8, Lesson 8.1</div><div class="pdfs">Download for offline study.</div></div><a href="/education/courses/envpsy/notes/KMVEDU-ENVPSY-M8-L1-EconomicPolicy.pdf" class="btnpdf" download>Download PDF</a></div>
-    <nav class="pnav"><a href="/education/courses/envpsy/7/quiz/" class="nbtn">&#8592; Module 7 Graded Quiz</a><div class="plbl">Page 1 of 4 - Lesson 8.1</div><a href="/education/courses/envpsy/8/1/2/" class="nbtn nx">Next: Global Environmental Concerns &#8594;</a></nav>
+<main style="max-width:780px;margin:0 auto;padding:0 16px 48px;">
+  <div class="hero">
+    <div class="ey" style="color:var(--psy);">Course code: ENVPSY</div>
+    <h1>Environmental &amp; Conservation Psychology</h1>
+    <p class="lead">Practical, simplified psychology of how people relate to the environment - designed for Ugandan university students across law, health, social sciences, business, and IT. Global frameworks, Ugandan examples, certificate on completion.</p>
+    <div class="chips" style="margin-top:14px;">
+      <span class="chip psy">9 modules</span>
+      <span class="chip">Graded + certificate</span>
+      <span class="chip">Mobile-first</span>
+    </div>
   </div>
+
+  <section class="access-box" id="access">
+    <div id="state-loading" style="display:block;font-size:0.9rem;color:var(--text-3);">Checking your access...</div>
+
+    <div id="state-guest" style="display:none;">
+      <h2>Start learning</h2>
+      <p>Anyone can read this overview. To study the lessons and earn a certificate, register free and choose a plan.</p>
+      <div class="cta-row">
+        <a href="/education/register/" class="cta-primary">Register free</a>
+        <a href="/education/login/" class="cta-secondary">Log in</a>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-3);margin-top:8px;">Already have an account? Log in, then enrol below.</p>
+    </div>
+
+    <div id="state-noplan" style="display:none;">
+      <h2>Enrol to unlock lessons</h2>
+      <p>You are logged in. Choose a plan to access all 9 modules, graded quizzes, and the certificate pathway.</p>
+      <div class="plan-grid">
+        <div class="plan featured">
+          <div class="pname">This course only</div>
+          <div class="pprice">UGX 5,000 <span>lifetime</span></div>
+          <div class="pdesc">Full access to Environmental &amp; Conservation Psychology, including certificate when you hit 80% average on module quizzes.</div>
+          <a href="/education/#pricing" class="pbtn">Enrol - ENVPSY</a>
+        </div>
+        <div class="plan">
+          <div class="pname">Monthly unlimited</div>
+          <div class="pprice">UGX 20,000 <span>/ 30 days</span></div>
+          <div class="pdesc">All KMVTECH Education courses for 30 days. Ideal if you are taking more than one subject this month.</div>
+          <a href="/education/#pricing" class="pbtn">Choose monthly</a>
+        </div>
+        <div class="plan">
+          <div class="pname">Semester unlimited</div>
+          <div class="pprice">UGX 50,000 <span>/ 5 months</span></div>
+          <div class="pdesc">All courses for a full semester. Best value for students stacking several modules.</div>
+          <a href="/education/#pricing" class="pbtn">Choose semester</a>
+        </div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-3);">Payment (mobile money / card) is being finalised. If you have already paid, contact support or wait for enrolment to appear on your dashboard.</p>
+    </div>
+
+    <div id="state-enrolled" style="display:none;">
+      <h2>You are enrolled</h2>
+      <p>Lifetime or active plan access to ENVPSY. Progress is saved automatically as you complete pages and quizzes.</p>
+      <div class="cta-row">
+        <a href="/education/courses/envpsy/1/1/1/" class="cta-primary">Start / Continue course</a>
+        <a href="/education/courses/envpsy/grades/" class="cta-secondary">View grades</a>
+        <a href="/education/dashboard/" class="cta-secondary">Dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin:32px 0;">
+    <h2 style="font-size:1.25rem;color:var(--text-1);margin-bottom:8px;">What you will study</h2>
+    <p style="color:var(--text-2);font-size:0.95rem;line-height:1.65;">Nine modules from foundations through policy, economics, and careers - with Uganda-specific examples, practice quizzes, and graded module quizzes.</p>
+    <ul class="modlist">
+      <li><span class="mn">1</span><span>Foundations of Environmental &amp; Conservation Psychology</span></li>
+      <li><span class="mn">2</span><span>Perceiving &amp; Valuing the Environment</span></li>
+      <li><span class="mn">3</span><span>Pro-Environmental Behaviour</span></li>
+      <li><span class="mn">4</span><span>Environmental Communication &amp; Media</span></li>
+      <li><span class="mn">5</span><span>Climate Change Psychology</span></li>
+      <li><span class="mn">6</span><span>Community, Disasters &amp; Conservation Behaviour</span></li>
+      <li><span class="mn">7</span><span>Environmental Policy &amp; Behaviour Change</span></li>
+      <li><span class="mn">8</span><span>Economic Policy &amp; Global Environmental Concerns</span></li>
+      <li><span class="mn">9</span><span>Applying Environmental Psychology - Careers &amp; Practice</span></li>
+    </ul>
+  </section>
+
+  <section class="rules">
+    <strong style="color:var(--text-1);display:block;margin-bottom:8px;">Grading &amp; certificate</strong>
+    <ul style="margin:0;padding-left:18px;">
+      <li>Each module has a <strong>graded quiz</strong> (70% pass, max 3 attempts).</li>
+      <li>Practice quizzes are unlimited and do not count toward the certificate.</li>
+      <li>Certificate is issued automatically when your <strong>average across all 9 module graded quizzes is 80% or higher</strong>.</li>
+      <li>Certificate is delivered to your email and KMVTECH Education dashboard.</li>
+    </ul>
+  </section>
+
+  <section style="margin:28px 0 8px;">
+    <h2 style="font-size:1.15rem;color:var(--text-1);">Who this is for</h2>
+    <p style="color:var(--text-2);font-size:0.95rem;line-height:1.65;">University students in Uganda (and East Africa) in psychology, law, health sciences, social sciences, business, environmental studies, and related fields. No advanced psychology degree required - content is practical and accessible.</p>
+  </section>
 </main>
-<aside class="out"><div class="otitle">On This Page</div><a href="#h-1" class="olink on">Four pathways</a><a href="#h-2" class="olink">Kuznets Curve</a></aside>
-</div></div>
+
+<footer style="border-top:1px solid var(--border);padding:20px;text-align:center;font-size:0.85rem;color:var(--text-3);">
+  KMVTECH Education · Kampala, Uganda · <a href="/education/" style="color:var(--blue);">All courses</a>
+</footer>
 
 <script>
 const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
-async function chkAccess() {
-  const { data: { session } } = await SB.auth.getSession();
-  if (!session) { showLk('guest'); return; }
-  const { data: pr } = await SB.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
-  if (pr && pr.role === 'admin') { show(); return; }
-  const { data: co } = await SB.from('courses').select('id').eq('course_code', 'ENVPSY').maybeSingle();
-  if (!co) { showLk('no_plan'); return; }
-  const { data: en } = await SB.from('enrollments').select('id,expires_at').eq('student_id', session.user.id).eq('course_id', co.id).maybeSingle();
-  if (!en) { showLk('no_plan'); return; }
-  if (en.expires_at && new Date(en.expires_at) < new Date()) { showLk('expired'); return; }
-  show();
+
+async function resolveAccess() {
+  const guest = document.getElementById('state-guest');
+  const noplan = document.getElementById('state-noplan');
+  const enrolled = document.getElementById('state-enrolled');
+  const loading = document.getElementById('state-loading');
+  if (loading) loading.style.display = 'block';
+  [guest, noplan, enrolled].forEach(el => { if (el) el.style.display = 'none'; });
+
+  try {
+    const { data: { session } } = await SB.auth.getSession();
+    if (!session) {
+      if (loading) loading.style.display = 'none';
+      if (guest) guest.style.display = 'block';
+      return;
+    }
+    const { data: pr } = await SB.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
+    if (pr && pr.role === 'admin') {
+      if (loading) loading.style.display = 'none';
+      if (enrolled) enrolled.style.display = 'block';
+      return;
+    }
+    const { data: co } = await SB.from('courses').select('id').eq('course_code', 'ENVPSY').maybeSingle();
+    if (!co) {
+      if (loading) loading.style.display = 'none';
+      if (noplan) noplan.style.display = 'block';
+      return;
+    }
+    const { data: en } = await SB.from('enrollments').select('id,expires_at').eq('student_id', session.user.id).eq('course_id', co.id).maybeSingle();
+    if (!en || (en.expires_at && new Date(en.expires_at) < new Date())) {
+      if (loading) loading.style.display = 'none';
+      if (noplan) noplan.style.display = 'block';
+      return;
+    }
+    if (loading) loading.style.display = 'none';
+    if (enrolled) enrolled.style.display = 'block';
+  } catch (e) {
+    if (loading) loading.style.display = 'none';
+    if (guest) guest.style.display = 'block';
+  }
 }
-function showLk(r) {
-  const m = {
-    guest:   { i: '🔒', h: 'Log in to access this lesson', p: 'Register free then choose a study plan.', b: 'Register Free', u: '/education/register/' },
-    no_plan: { i: '📚', h: 'Choose a plan', p: 'Plans start from UGX 5,000.', b: 'View Plans', u: '/education/#pricing' },
-    expired: { i: '⏰', h: 'Plan expired', p: 'Renew to continue.', b: 'Renew', u: '/education/#pricing' }
-  };
-  const x = m[r] || m.guest;
-  document.getElementById('lk').innerHTML =
-    '<div class="lk"><div class="lki">' + x.i + '</div><h2>' + x.h + '</h2><p>' + x.p + '</p>' +
-    '<a href="' + x.u + '" class="btnul">' + x.b + ' &#8594;</a>' +
-    (r === 'guest' ? '<p style="margin-top:12px;font-size:12px;color:var(--text-3);">Already registered? <a href="/education/login/" style="color:var(--blue);font-weight:600;">Log in</a></p>' : '') +
-    '</div>';
-  document.getElementById('lk').style.display = 'block';
-  const lc = document.getElementById('lc');
-  if (lc) lc.style.display = 'none';
-}
-function show() {
-  document.getElementById('lk').style.display = 'none';
-  const lc = document.getElementById('lc');
-  if (lc) lc.style.display = 'block';
-  if (typeof trackProgress === 'function') trackProgress();
-}
+
 function tTheme() {
   const h = document.documentElement, t = document.getElementById('tt'), th = t.querySelector('.tthumb');
   const d = h.getAttribute('data-theme') === 'dark';
@@ -291,20 +368,7 @@ function tTheme() {
     if (t) { t.setAttribute('aria-checked', 'true'); t.querySelector('.tthumb').textContent = '🌙'; }
   }
 })();
-const sc = document.querySelectorAll('[id^="h-"]'), ol = document.querySelectorAll('.olink');
-if (sc.length && ol.length) {
-  const obs = new IntersectionObserver(e => {
-    e.forEach(x => {
-      if (x.isIntersecting) {
-        ol.forEach(l => l.classList.remove('on'));
-        const a = document.querySelector('.olink[href="#' + x.target.id + '"]');
-        if (a) a.classList.add('on');
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  sc.forEach(s => obs.observe(s));
-}
-chkAccess();
+resolveAccess();
 </script>
 
 </body>

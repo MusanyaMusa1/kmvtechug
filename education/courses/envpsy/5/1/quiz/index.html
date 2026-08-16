@@ -9,7 +9,7 @@
 <script src="/education/js/progress-tracking.js"></script>
 <style>
 /* ============================================================
-   KMVTECH EDUCATION — ENVPSY Lesson Page
+   KMVTECH EDUCATION - ENVPSY Lesson Page
    Course accent: Sage / Forest Green #2F6B4F
    Never use em dashes. Use hyphens or rephrase.
    ============================================================ */
@@ -45,7 +45,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 .tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
 .tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
 
-/* PROGRESS BAR — Psychology uses sage gradient */
+/* PROGRESS BAR - Psychology uses sage gradient */
 .pbar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
 .pfill{height:100%;background:linear-gradient(90deg,var(--psy),#3d8a65);}
 
@@ -253,8 +253,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
       <div class="qfb" id="fb6"></div>
     </div></div>
     <div class="qactions">
-      <button class="qbtn" onclick="submitQuiz()">Submit answers</button>
-      <button class="qbtn" onclick="resetQuiz()" style="background:var(--surface);color:var(--text-1);border:1.5px solid var(--border);">Try again</button>
+      <button type="button" class="qbtn" onclick="submitQuiz()">Submit answers</button>
+      <button type="button" class="qbtn" onclick="resetQuiz()" style="background:var(--surface);color:var(--text-1);border:1.5px solid var(--border);">Try again</button>
       <div class="qscore" id="score" style="display:none;"></div>
     </div>
     </article>
