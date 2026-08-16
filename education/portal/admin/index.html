@@ -413,7 +413,7 @@ async function init() {
   document.getElementById('admin-name').textContent = profile.full_name || 'Admin';
 
   loadDashboard();
-  loadLecturersForSelect();
+  // Only load what is needed - other panels load on demand
 }
 
 // ============================================================
@@ -452,12 +452,12 @@ function closeModal(id) { document.getElementById(id).classList.remove('open'); 
 // ============================================================
 async function loadDashboard() {
   try {
-    const [courses, students, pending] = await Promise.all([
+    const [courses, students, pending, published] = await Promise.all([
       SB.from('courses').select('id', { count: 'exact', head: true }),
       SB.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'student'),
       SB.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'pending_review'),
+      SB.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'published'),
     ]);
-    const published = await SB.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'published');
 
     document.getElementById('stat-courses').textContent = courses.count || 0;
     document.getElementById('stat-students').textContent = students.count || 0;
@@ -465,7 +465,7 @@ async function loadDashboard() {
     document.getElementById('stat-published').textContent = published.count || 0;
     document.getElementById('pending-count').textContent = pending.count || 0;
 
-    const { data: recent } = await SB.from('courses').select('title, status, course_code').order('updated_at', { ascending: false }).limit(8);
+    const { data: recent } = await SB.from('courses').select('*').order('created_at', { ascending: false }).limit(8);
     if (recent) {
       document.getElementById('recent-courses').innerHTML = recent.map(c => `
         <div class="t-row" style="grid-template-columns:1fr 100px 100px;">
@@ -481,7 +481,8 @@ async function loadDashboard() {
 // COURSES
 // ============================================================
 async function loadAllCourses() {
-  const { data } = await SB.from('courses').select('id, title, faculty, status, course_code').order('faculty');
+  const { data, error: cErr } = await SB.from('courses').select('*').order('created_at', { ascending: false });
+  if (cErr) { console.log('Courses error:', cErr); }
   if (!data) return;
   document.getElementById('all-courses-list').innerHTML = data.length === 0
     ? '<div class="empty-state"><div class="ei">📚</div><p>No courses yet. Create the first one.</p></div>'
@@ -512,13 +513,17 @@ async function createCourse() {
     return;
   }
 
-  const { error } = await SB.from('courses').insert({
-    title, course_code: code, faculty, level,
-    lecturer_id: lecturer || null,
-    description: desc,
-    status: 'draft',
-    updated_at: new Date().toISOString()
-  });
+  const insertData = {
+    title,
+    course_code: code,
+    faculty,
+    status: 'draft'
+  };
+  if (level) insertData.level = level;
+  if (lecturer) insertData.lecturer_id = lecturer;
+  if (desc) insertData.description = desc;
+
+  const { error } = await SB.from('courses').insert(insertData);
 
   if (error) { showAlert('new-course-alert', 'error', 'Error: ' + error.message); return; }
   showAlert('new-course-alert', 'success', 'Course created successfully.');
@@ -565,7 +570,8 @@ async function rejectCourse(id) {
 // STUDENTS
 // ============================================================
 async function loadStudents() {
-  const { data } = await SB.from('profiles').select('id, full_name, email, student_number, role').order('full_name');
+  const { data, error: sErr } = await SB.from('profiles').select('*').order('full_name');
+  if (sErr) console.log('Students error:', sErr.message);
   allStudents = data || [];
   renderStudents(allStudents);
 }
@@ -612,7 +618,7 @@ async function loadLecturers() {
 }
 
 async function loadLecturersForSelect() {
-  const { data } = await SB.from('profiles').select('id, full_name').eq('role', 'lecturer');
+  const { data } = await SB.from('profiles').select('id, full_name').eq('role', 'lecturer').order('full_name');
   const sel = document.getElementById('nc-lecturer');
   if (sel && data) {
     sel.innerHTML = '<option value="">Select Lecturer</option>' +
@@ -620,7 +626,10 @@ async function loadLecturersForSelect() {
   }
 }
 
-function openAddLecturerModal() { openModal('lecturer-modal'); }
+function openAddLecturerModal() {
+  document.getElementById('lec-email').value = '';
+  openModal('lecturer-modal');
+}
 
 async function addLecturer() {
   const email = document.getElementById('lec-email').value.trim();
@@ -636,7 +645,8 @@ async function addLecturer() {
 // ROLES
 // ============================================================
 async function loadRoles() {
-  const { data } = await SB.from('profiles').select('id, full_name, email, role').order('full_name').limit(50);
+  const { data, error: rErr } = await SB.from('profiles').select('*').order('full_name').limit(50);
+  if (rErr) console.log('Roles error:', rErr.message);
   document.getElementById('roles-list').innerHTML = !data || data.length === 0
     ? '<div class="loading-row">No users found.</div>'
     : data.map(u => `
@@ -694,11 +704,14 @@ async function postAnnouncement() {
   const title = document.getElementById('ann-title').value.trim();
   const body = document.getElementById('ann-body').value.trim();
   if (!title || !body) { alert('Title and message are required.'); return; }
-  await SB.from('announcements').insert({ author_id: currentAdmin.id, title, body, course_id: null });
+  const { error: annErr } = await SB.from('announcements').insert({
+    author_id: currentAdmin.id, title, body, course_id: null
+  });
+  if (annErr) { alert('Error posting: ' + annErr.message); return; }
   closeModal('announce-modal');
   document.getElementById('ann-title').value = '';
   document.getElementById('ann-body').value = '';
-  loadAnnouncements();
+  showPanel('announcements');
 }
 
 // ============================================================
