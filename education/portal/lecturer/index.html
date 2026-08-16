@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="theme-color" content="#0D1B2A"/>
+<title>Lecturer Portal - KMVTECH Education</title>
+<link rel="manifest" href="/education/portal/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--amber:#D97706;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--sidebar:240px;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;}
+.sidebar{width:var(--sidebar);background:var(--navy);height:100vh;position:fixed;top:0;left:0;z-index:100;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform 0.3s;}
+.sidebar.open{transform:translateX(0);}
+.sb-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.sb-mark{display:flex;align-items:center;gap:10px;}
+.sb-mark-box{width:32px;height:32px;background:rgba(201,146,42,0.15);border:1.5px solid rgba(201,146,42,0.35);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:12px;color:var(--gold);}
+.sb-mark-text{font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:#fff;line-height:1.2;}
+.sb-mark-sub{font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;}
+.sb-role{padding:10px 18px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-nav{flex:1;overflow-y:auto;padding:8px 0;}
+.sb-section{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:14px 18px 6px;}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;color:rgba(255,255,255,0.6);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;width:100%;transition:all 0.15s;text-decoration:none;}
+.sb-link:hover{background:rgba(255,255,255,0.06);color:#fff;}
+.sb-link.active{background:rgba(43,63,191,0.25);color:#fff;border-left:3px solid var(--blue);}
+.sb-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
+.sb-bottom{padding:16px 18px;border-top:1px solid rgba(255,255,255,0.08);}
+.sb-user{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:10px;line-height:1.5;}
+.sb-user strong{color:rgba(255,255,255,0.85);display:block;font-size:13px;}
+.btn-signout{width:100%;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);color:#F87171;border-radius:8px;padding:9px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 20px;position:sticky;top:0;z-index:50;}
+.menu-btn{width:36px;height:36px;border:1.5px solid var(--border);border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.top-title{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;color:var(--text-1);flex:1;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.main{padding:24px 20px 80px;transition:margin-left 0.3s;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;}
+.overlay.show{display:block;}
+.panel{display:none;}.panel.active{display:block;}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;color:var(--text-1);}
+.btn-primary{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;transition:background 0.2s;}
+.btn-primary:hover{background:var(--blue);}
+.btn-secondary{background:none;color:var(--text-2);border:1.5px solid var(--border);border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue);}
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.t-head{display:grid;background:var(--navy);padding:12px 16px;}
+.th{font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+.t-row{display:grid;padding:13px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.15s;}
+.t-row:last-child{border-bottom:none;}
+.t-row:hover{background:var(--surface-2);}
+.td{font-size:13px;color:var(--text-1);}
+.td.muted{color:var(--text-2);}
+.badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.badge.draft{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border);}
+.badge.pending{background:#FEF3C7;color:#92400E;}
+.badge.published{background:#DCFCE7;color:#166534;}
+.modal-overlay{position:fixed;inset:0;background:rgba(13,27,42,0.7);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:520px;transform:translateY(30px);transition:transform 0.3s;max-height:85vh;overflow-y:auto;}
+.modal-overlay.open .modal{transform:translateY(0);}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px;}
+.modal-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;color:var(--text-1);margin-bottom:16px;}
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:5px;}
+.form-input,.form-select,.form-textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-1);background:var(--surface-2);outline:none;transition:border-color 0.2s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);background:var(--surface);}
+.form-textarea{min-height:120px;resize:vertical;}
+.modal-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-2);}
+.empty-state .ei{font-size:36px;margin-bottom:12px;}
+.loading-row{padding:24px;text-align:center;color:var(--text-3);font-size:13px;}
+.alert{border-radius:9px;padding:12px 14px;font-size:13px;margin-bottom:16px;}
+.alert.success{background:rgba(21,128,61,0.08);border:1px solid rgba(21,128,61,0.25);color:#166534;}
+.alert.error{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.2);color:#991B1B;}
+.info-bar{background:rgba(43,63,191,0.06);border:1px solid rgba(43,63,191,0.18);border-radius:10px;padding:13px 16px;font-size:13px;color:var(--blue);margin-bottom:20px;line-height:1.6;}
+.course-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;}
+.course-card-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:var(--text-1);margin-bottom:6px;}
+.course-card-meta{font-size:12px;color:var(--text-2);margin-bottom:14px;}
+.course-card-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.step-tabs{display:flex;gap:0;background:var(--surface-2);border-radius:10px;padding:4px;margin-bottom:20px;overflow-x:auto;}
+.step-tab{flex-shrink:0;padding:8px 14px;border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;background:none;color:var(--text-2);transition:all 0.2s;white-space:nowrap;}
+.step-tab.active{background:var(--surface);color:var(--text-1);box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.quiz-qblock{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+.quiz-qnum{font-size:10.5px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;}
+@media(min-width:768px){
+  .sidebar{transform:translateX(0);}
+  .main{margin-left:var(--sidebar);padding:28px 32px 80px;}
+  .topbar{margin-left:var(--sidebar);}
+  .menu-btn{display:none;}
+  .modal-overlay{align-items:center;}
+  .modal{border-radius:16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-mark">
+      <div class="sb-mark-box">KE</div>
+      <div>
+        <div class="sb-mark-text">KMVTECH Education</div>
+        <div class="sb-mark-sub">Staff Portal</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-role">&#9679; Lecturer Access</div>
+  <nav class="sb-nav">
+    <div class="sb-section">My Work</div>
+    <button class="sb-link active" onclick="showPanel('dashboard')"><span class="sb-icon">&#128200;</span>Dashboard</button>
+    <button class="sb-link" onclick="showPanel('my-courses')"><span class="sb-icon">&#128218;</span>My Courses</button>
+    <button class="sb-link" onclick="showPanel('add-content')"><span class="sb-icon">&#9998;</span>Add Content</button>
+    <div class="sb-section">Students</div>
+    <button class="sb-link" onclick="showPanel('my-students')"><span class="sb-icon">&#128101;</span>My Students</button>
+    <button class="sb-link" onclick="showPanel('scores')"><span class="sb-icon">&#128202;</span>Quiz Scores</button>
+    <div class="sb-section">Communication</div>
+    <button class="sb-link" onclick="showPanel('announcements')"><span class="sb-icon">&#128226;</span>Announcements</button>
+    <div class="sb-section">Platform</div>
+    <button class="sb-link" onclick="window.open('/education/','_blank')"><span class="sb-icon">&#127758;</span>View Live Site</button>
+  </nav>
+  <div class="sb-bottom">
+    <div class="sb-user">Signed in as<strong id="lec-name">Lecturer</strong></div>
+    <button class="btn-signout" onclick="signOut()">Sign Out</button>
+  </div>
+</aside>
+
+<header class="topbar">
+  <button class="menu-btn" onclick="toggleSidebar()">&#9776;</button>
+  <div class="top-title" id="top-title">Dashboard</div>
+  <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+</header>
+
+<main class="main">
+
+  <!-- DASHBOARD -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="info-bar">
+      Welcome to your lecturer portal. Add lessons, quizzes, and PDF notes to your assigned courses. When your content is ready, submit it for Admin review. Admin will publish it to the live platform.
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 16px;">
+        <div style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.8rem;color:var(--blue);" id="d-courses">-</div>
+        <div style="font-size:11.5px;color:var(--text-2);">My Courses</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 16px;">
+        <div style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.8rem;color:var(--green);" id="d-students">-</div>
+        <div style="font-size:11.5px;color:var(--text-2);">My Students</div>
+      </div>
+    </div>
+    <div class="sec-hdr"><div class="sec-title">My Courses</div></div>
+    <div id="dash-courses"><div class="loading-row">Loading...</div></div>
+  </div>
+
+  <!-- MY COURSES -->
+  <div class="panel" id="panel-my-courses">
+    <div class="sec-hdr"><div class="sec-title">My Courses</div></div>
+    <div id="my-courses-list"><div class="loading-row">Loading...</div></div>
+  </div>
+
+  <!-- ADD CONTENT -->
+  <div class="panel" id="panel-add-content">
+    <div class="sec-hdr"><div class="sec-title">Add Content</div></div>
+    <div class="info-bar">Select your course, then add a lesson, quiz, or PDF. Content goes to Draft until you submit for review. Admin publishes to the live site.</div>
+
+    <div class="form-group" style="margin-bottom:20px;">
+      <label class="form-label">Select Course to Edit</label>
+      <select class="form-select" id="content-course-select" onchange="loadCourseModules()">
+        <option value="">Choose a course...</option>
+      </select>
+    </div>
+
+    <div id="content-editor" style="display:none;">
+      <div class="step-tabs">
+        <button class="step-tab active" onclick="showContentTab('lesson')">Add Lesson Page</button>
+        <button class="step-tab" onclick="showContentTab('quiz')">Add Quiz Questions</button>
+        <button class="step-tab" onclick="showContentTab('pdf')">Add PDF Notes</button>
+        <button class="step-tab" onclick="showContentTab('submit')">Submit for Review</button>
+      </div>
+
+      <!-- ADD LESSON PAGE -->
+      <div id="tab-lesson" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;">
+        <div class="form-group">
+          <label class="form-label">Module Number</label>
+          <input class="form-input" id="l-module" type="number" min="1" placeholder="e.g. 2"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lesson Number</label>
+          <input class="form-input" id="l-lesson" type="number" min="1" placeholder="e.g. 1"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Page Number</label>
+          <input class="form-input" id="l-page" type="number" min="1" placeholder="e.g. 1"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Page Title</label>
+          <input class="form-input" id="l-title" placeholder="e.g. What is Evidence Law?"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Page Type</label>
+          <select class="form-select" id="l-type" onchange="toggleVideoField()">
+            <option value="video">Video Lesson</option>
+            <option value="text">Text Only</option>
+            <option value="practice_quiz">Practice Quiz</option>
+            <option value="summary">Module Summary</option>
+            <option value="graded_quiz">Module Graded Quiz</option>
+            <option value="completion">Course Completion Page</option>
+          </select>
+        </div>
+        <div class="form-group" id="video-field">
+          <label class="form-label">YouTube Video ID</label>
+          <input class="form-input" id="l-video" placeholder="e.g. dQw4w9WgXcQ (the code after youtu.be/)"/>
+          <div style="font-size:11.5px;color:var(--text-3);margin-top:5px;">Leave blank to use a placeholder. Add the ID later when video is uploaded.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Content / Notes</label>
+          <textarea class="form-textarea" id="l-content" placeholder="Write the lesson content here. For video pages, write the video summary. For text pages, write the full lesson text."></textarea>
+        </div>
+        <button class="btn-primary" onclick="saveLessonPage()">Save Lesson Page</button>
+        <div id="lesson-alert" style="margin-top:12px;"></div>
+      </div>
+
+      <!-- ADD QUIZ QUESTIONS -->
+      <div id="tab-quiz" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;">
+        <div class="form-group">
+          <label class="form-label">Module Number (for graded quiz)</label>
+          <input class="form-input" id="q-module" type="number" min="1" placeholder="e.g. 2"/>
+        </div>
+        <div id="quiz-questions">
+          <div class="quiz-qblock">
+            <div class="quiz-qnum">Question 1</div>
+            <div class="form-group">
+              <label class="form-label">Question Type</label>
+              <select class="form-select q-type">
+                <option value="mcq">Multiple Choice (MCQ)</option>
+                <option value="tf">True or False</option>
+                <option value="fitb">Fill in the Blank</option>
+                <option value="matching">Matching</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Question Text</label>
+              <textarea class="form-textarea q-text" style="min-height:80px;" placeholder="Write the question here..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Correct Answer</label>
+              <input class="form-input q-answer" placeholder="e.g. A / True / the answer text"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Feedback (shown when correct)</label>
+              <input class="form-input q-fc" placeholder="Explain why this is correct..."/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Feedback (shown when wrong)</label>
+              <input class="form-input q-fw" placeholder="Explain what the correct answer is..."/>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+          <button class="btn-secondary" onclick="addQuestion()">&#43; Add Question</button>
+          <button class="btn-primary" onclick="saveQuizQuestions()">Save Questions</button>
+        </div>
+        <div id="quiz-alert" style="margin-top:12px;"></div>
+      </div>
+
+      <!-- ADD PDF -->
+      <div id="tab-pdf" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;">
+        <div class="info-bar" style="margin-bottom:16px;">PDFs cannot be uploaded directly through the portal yet. Follow the naming convention below and send the PDF file to Musanya via WhatsApp. Musanya will upload it to the correct folder on GitHub.</div>
+        <div class="form-group">
+          <label class="form-label">PDF File Name (use this exact name)</label>
+          <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-family:monospace;font-size:13px;color:var(--blue);margin-bottom:8px;" id="pdf-name-preview">KMVEDU-[CODE]-M[N]-L[N]-[Topic].pdf</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Course Code</label>
+          <input class="form-input" id="pdf-code" placeholder="e.g. FAM1" oninput="updatePdfName()"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Module Number</label>
+          <input class="form-input" id="pdf-module" type="number" placeholder="e.g. 2" oninput="updatePdfName()"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lesson Number</label>
+          <input class="form-input" id="pdf-lesson" type="number" placeholder="e.g. 1" oninput="updatePdfName()"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Topic Name (no spaces)</label>
+          <input class="form-input" id="pdf-topic" placeholder="e.g. IntroductionToFamilyLaw" oninput="updatePdfName()"/>
+        </div>
+        <button class="btn-primary" onclick="copyPdfName()">Copy File Name</button>
+        <div id="pdf-alert" style="margin-top:12px;"></div>
+      </div>
+
+      <!-- SUBMIT FOR REVIEW -->
+      <div id="tab-submit" style="display:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;">
+        <div style="font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:20px;">When you are satisfied that all content for a module is complete and correct, submit it for Admin review. Admin will check the content and publish it to the live platform. You cannot unpublish once Admin approves.</div>
+        <div class="form-group">
+          <label class="form-label">Select Course to Submit</label>
+          <select class="form-select" id="submit-course-select">
+            <option value="">Choose a course...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes for Admin (optional)</label>
+          <textarea class="form-textarea" id="submit-notes" placeholder="Any notes for the admin reviewer - e.g. which modules are ready, anything to check..."></textarea>
+        </div>
+        <button class="btn-primary" onclick="submitForReview()">Submit for Review</button>
+        <div id="submit-alert" style="margin-top:12px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY STUDENTS -->
+  <div class="panel" id="panel-my-students">
+    <div class="sec-hdr"><div class="sec-title">My Students</div></div>
+    <p style="font-size:13.5px;color:var(--text-2);margin-bottom:20px;">Students enrolled in your courses.</p>
+    <div id="my-students-list"><div class="loading-row">Loading...</div></div>
+  </div>
+
+  <!-- QUIZ SCORES -->
+  <div class="panel" id="panel-scores">
+    <div class="sec-hdr"><div class="sec-title">Quiz Scores</div></div>
+    <div class="form-group" style="margin-bottom:16px;">
+      <label class="form-label">Filter by Course</label>
+      <select class="form-select" id="scores-course-filter" onchange="loadScores()" style="max-width:300px;">
+        <option value="">All my courses</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 80px 80px 80px 100px;">
+        <div class="th">Student</div><div class="th">Course</div><div class="th">Module</div><div class="th">Score</div><div class="th">Date</div>
+      </div>
+      <div id="scores-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- ANNOUNCEMENTS -->
+  <div class="panel" id="panel-announcements">
+    <div class="sec-hdr">
+      <div class="sec-title">Announcements</div>
+      <button class="btn-primary" onclick="openModal('ann-modal')">&#43; New</button>
+    </div>
+    <p style="font-size:13px;color:var(--text-2);margin-bottom:16px;">Post announcements to students in your courses. You cannot post platform-wide announcements - contact Admin for that.</p>
+    <div id="lec-announcements"><div class="loading-row">Loading...</div></div>
+  </div>
+
+</main>
+
+<!-- ANNOUNCEMENT MODAL -->
+<div class="modal-overlay" id="ann-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">New Announcement</div>
+    <div class="form-group">
+      <label class="form-label">Course</label>
+      <select class="form-select" id="ann-course">
+        <option value="">Select course...</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input class="form-input" id="ann-title" placeholder="Announcement title"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message</label>
+      <textarea class="form-textarea" id="ann-body" placeholder="Write your message to students..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="postAnnouncement()">Post</button>
+      <button class="btn-secondary" onclick="closeModal('ann-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB = supabase.createClient(
+  'https://nzjojrebyvxuawnkitth.supabase.co',
+  'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
+);
+
+let currentLecturer = null;
+let myCourses = [];
+
+async function init() {
+  const { data: { session } } = await SB.auth.getSession();
+  if (!session) { window.location.href = '/education/portal/'; return; }
+
+  const { data: profile } = await SB.from('profiles').select('full_name, role').eq('id', session.user.id).maybeSingle();
+  if (!profile || profile.role !== 'lecturer') { window.location.href = '/education/portal/'; return; }
+
+  currentLecturer = { id: session.user.id, ...profile };
+  document.getElementById('lec-name').textContent = profile.full_name || 'Lecturer';
+
+  await loadMyCourses();
+  loadDashboard();
+}
+
+async function loadMyCourses() {
+  const { data } = await SB.from('courses')
+    .select('id, title, course_code, faculty, status')
+    .eq('lecturer_id', currentLecturer.id)
+    .order('title');
+  myCourses = data || [];
+
+  // Populate course selects
+  const opts = myCourses.map(c => `<option value="${c.id}" data-code="${c.course_code}">${c.title}</option>`).join('');
+  ['content-course-select','submit-course-select','ann-course','scores-course-filter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = (id === 'scores-course-filter' ? '<option value="">All my courses</option>' : '<option value="">Choose a course...</option>') + opts;
+  });
+}
+
+async function loadDashboard() {
+  document.getElementById('d-courses').textContent = myCourses.length;
+
+  // Count students enrolled in my courses
+  if (myCourses.length > 0) {
+    const ids = myCourses.map(c => c.id);
+    const { count } = await SB.from('enrollments').select('id', { count: 'exact', head: true }).in('course_id', ids);
+    document.getElementById('d-students').textContent = count || 0;
+  }
+
+  const el = document.getElementById('dash-courses');
+  if (myCourses.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="ei">📚</div><p>No courses assigned yet. Contact Admin to be assigned a course.</p></div>';
+    return;
+  }
+  el.innerHTML = myCourses.map(c => `
+    <div class="course-card">
+      <div class="course-card-title">${c.title}</div>
+      <div class="course-card-meta">${c.faculty || ''} &middot; <span class="badge ${c.status || 'draft'}">${c.status || 'draft'}</span></div>
+      <div class="course-card-actions">
+        <button class="btn-primary" onclick="goToAddContent('${c.id}')" style="padding:9px 14px;font-size:12.5px;">Add Content</button>
+        <button class="btn-secondary" onclick="showPanel('my-students')" style="padding:8px 12px;font-size:12.5px;">Students</button>
+      </div>
+    </div>`).join('');
+}
+
+async function loadMyCoursesPanel() {
+  const el = document.getElementById('my-courses-list');
+  if (myCourses.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="ei">📚</div><p>No courses assigned. Contact Admin.</p></div>';
+    return;
+  }
+  el.innerHTML = myCourses.map(c => `
+    <div class="course-card">
+      <div class="course-card-title">${c.title}</div>
+      <div class="course-card-meta">${c.course_code} &middot; ${c.faculty || ''} &middot; <span class="badge ${c.status || 'draft'}">${c.status || 'draft'}</span></div>
+      <div class="course-card-actions">
+        <button class="btn-primary" onclick="goToAddContent('${c.id}')" style="padding:9px 14px;font-size:12.5px;">Edit Content</button>
+      </div>
+    </div>`).join('');
+}
+
+function goToAddContent(courseId) {
+  showPanel('add-content');
+  document.getElementById('content-course-select').value = courseId;
+  loadCourseModules();
+}
+
+function loadCourseModules() {
+  const sel = document.getElementById('content-course-select');
+  document.getElementById('content-editor').style.display = sel.value ? 'block' : 'none';
+}
+
+function showContentTab(name) {
+  ['lesson','quiz','pdf','submit'].forEach(t => {
+    document.getElementById('tab-' + t).style.display = t === name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.step-tab').forEach((t, i) => {
+    t.classList.toggle('active', ['lesson','quiz','pdf','submit'][i] === name);
+  });
+}
+
+function toggleVideoField() {
+  const type = document.getElementById('l-type').value;
+  document.getElementById('video-field').style.display = type === 'video' ? 'block' : 'none';
+}
+
+async function saveLessonPage() {
+  const courseId = document.getElementById('content-course-select').value;
+  const modNum = parseInt(document.getElementById('l-module').value);
+  const lessonNum = parseInt(document.getElementById('l-lesson').value);
+  const pageNum = parseInt(document.getElementById('l-page').value);
+  const title = document.getElementById('l-title').value.trim();
+  const type = document.getElementById('l-type').value;
+  const video = document.getElementById('l-video').value.trim();
+  const content = document.getElementById('l-content').value.trim();
+
+  if (!courseId || !modNum || !lessonNum || !pageNum || !title) {
+    showAlert('lesson-alert', 'error', 'Fill in all required fields.');
+    return;
+  }
+
+  // Upsert module
+  let { data: mod } = await SB.from('modules').upsert({
+    course_id: courseId, module_number: modNum, title: 'Module ' + modNum
+  }, { onConflict: 'course_id,module_number' }).select().maybeSingle();
+
+  if (!mod) {
+    const { data: existMod } = await SB.from('modules').select().eq('course_id', courseId).eq('module_number', modNum).maybeSingle();
+    mod = existMod;
+  }
+  if (!mod) { showAlert('lesson-alert', 'error', 'Could not create module. Try again.'); return; }
+
+  // Upsert lesson
+  let { data: les } = await SB.from('lessons').upsert({
+    module_id: mod.id, lesson_number: lessonNum, title: 'Lesson ' + lessonNum
+  }, { onConflict: 'module_id,lesson_number' }).select().maybeSingle();
+
+  if (!les) {
+    const { data: existLes } = await SB.from('lessons').select().eq('module_id', mod.id).eq('lesson_number', lessonNum).maybeSingle();
+    les = existLes;
+  }
+  if (!les) { showAlert('lesson-alert', 'error', 'Could not create lesson. Try again.'); return; }
+
+  // Insert page
+  const { error } = await SB.from('lesson_pages').upsert({
+    lesson_id: les.id, page_number: pageNum, page_type: type,
+    title, video_id: video || null, content: content || null, status: 'draft'
+  }, { onConflict: 'lesson_id,page_number' });
+
+  if (error) { showAlert('lesson-alert', 'error', 'Error: ' + error.message); return; }
+  showAlert('lesson-alert', 'success', 'Page saved to draft successfully.');
+}
+
+function addQuestion() {
+  const container = document.getElementById('quiz-questions');
+  const num = container.querySelectorAll('.quiz-qblock').length + 1;
+  const block = document.createElement('div');
+  block.className = 'quiz-qblock';
+  block.innerHTML = `
+    <div class="quiz-qnum">Question ${num}</div>
+    <div class="form-group"><label class="form-label">Question Type</label>
+    <select class="form-select q-type"><option value="mcq">Multiple Choice</option><option value="tf">True or False</option><option value="fitb">Fill in the Blank</option><option value="matching">Matching</option></select></div>
+    <div class="form-group"><label class="form-label">Question Text</label><textarea class="form-textarea q-text" style="min-height:80px;" placeholder="Write the question..."></textarea></div>
+    <div class="form-group"><label class="form-label">Correct Answer</label><input class="form-input q-answer" placeholder="e.g. A / True / the answer"/></div>
+    <div class="form-group"><label class="form-label">Feedback (correct)</label><input class="form-input q-fc" placeholder="Why this is correct..."/></div>
+    <div class="form-group"><label class="form-label">Feedback (wrong)</label><input class="form-input q-fw" placeholder="What the correct answer is..."/></div>`;
+  container.appendChild(block);
+}
+
+async function saveQuizQuestions() {
+  const courseId = document.getElementById('content-course-select').value;
+  const modNum = parseInt(document.getElementById('q-module').value);
+  if (!courseId || !modNum) { showAlert('quiz-alert', 'error', 'Select a course and module number.'); return; }
+
+  const blocks = document.querySelectorAll('.quiz-qblock');
+  const questions = [];
+  blocks.forEach((b, i) => {
+    questions.push({
+      question_number: i + 1,
+      question_type: b.querySelector('.q-type').value,
+      question_text: b.querySelector('.q-text').value.trim(),
+      correct_answer: b.querySelector('.q-answer').value.trim(),
+      feedback_correct: b.querySelector('.q-fc').value.trim(),
+      feedback_wrong: b.querySelector('.q-fw').value.trim()
+    });
+  });
+
+  if (questions.some(q => !q.question_text || !q.correct_answer)) {
+    showAlert('quiz-alert', 'error', 'All questions need text and a correct answer.'); return;
+  }
+
+  // Find or create module and a graded quiz page
+  const { data: mod } = await SB.from('modules').select().eq('course_id', courseId).eq('module_number', modNum).maybeSingle();
+  if (!mod) { showAlert('quiz-alert', 'error', 'Module not found. Save at least one lesson page first.'); return; }
+
+  // Find graded quiz page for this module
+  const { data: les } = await SB.from('lessons').select().eq('module_id', mod.id).limit(1).maybeSingle();
+  if (!les) { showAlert('quiz-alert', 'error', 'No lessons found for this module yet.'); return; }
+
+  let { data: page } = await SB.from('lesson_pages').select().eq('lesson_id', les.id).eq('page_type', 'graded_quiz').maybeSingle();
+  if (!page) {
+    const { data: newPage } = await SB.from('lesson_pages').insert({
+      lesson_id: les.id, page_number: 99, page_type: 'graded_quiz',
+      title: 'Module ' + modNum + ' Graded Quiz', status: 'draft'
+    }).select().maybeSingle();
+    page = newPage;
+  }
+  if (!page) { showAlert('quiz-alert', 'error', 'Could not create quiz page.'); return; }
+
+  // Delete existing questions and re-insert
+  await SB.from('quiz_questions').delete().eq('page_id', page.id);
+  const { error } = await SB.from('quiz_questions').insert(
+    questions.map(q => ({ ...q, page_id: page.id }))
+  );
+
+  if (error) { showAlert('quiz-alert', 'error', 'Error saving: ' + error.message); return; }
+  showAlert('quiz-alert', 'success', questions.length + ' questions saved to draft.');
+}
+
+function updatePdfName() {
+  const code = document.getElementById('pdf-code').value.trim().toUpperCase() || '[CODE]';
+  const mod = document.getElementById('pdf-module').value || '[N]';
+  const les = document.getElementById('pdf-lesson').value || '[N]';
+  const topic = document.getElementById('pdf-topic').value.trim() || '[Topic]';
+  document.getElementById('pdf-name-preview').textContent = `KMVEDU-${code}-M${mod}-L${les}-${topic}.pdf`;
+}
+
+function copyPdfName() {
+  const name = document.getElementById('pdf-name-preview').textContent;
+  navigator.clipboard.writeText(name).then(() => {
+    showAlert('pdf-alert', 'success', 'File name copied: ' + name);
+  });
+}
+
+async function submitForReview() {
+  const courseId = document.getElementById('submit-course-select').value;
+  if (!courseId) { showAlert('submit-alert', 'error', 'Select a course to submit.'); return; }
+  if (!confirm('Submit this course for Admin review? Admin will check the content and publish it.')) return;
+  const { error } = await SB.from('courses').update({
+    status: 'pending_review',
+    submitted_at: new Date().toISOString()
+  }).eq('id', courseId);
+  if (error) { showAlert('submit-alert', 'error', 'Error: ' + error.message); return; }
+  showAlert('submit-alert', 'success', 'Submitted for review. Admin will be in touch.');
+  await loadMyCourses();
+}
+
+async function loadMyStudents() {
+  if (myCourses.length === 0) {
+    document.getElementById('my-students-list').innerHTML = '<div class="empty-state"><div class="ei">👥</div><p>No students yet.</p></div>';
+    return;
+  }
+  const ids = myCourses.map(c => c.id);
+  const { data } = await SB.from('enrollments').select('student_id, course_id, profiles(full_name, student_number), courses(title)').in('course_id', ids).limit(50);
+  const el = document.getElementById('my-students-list');
+  if (!data || data.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="ei">👥</div><p>No students enrolled yet.</p></div>';
+    return;
+  }
+  el.innerHTML = '<div class="table-wrap"><div class="t-head" style="grid-template-columns:1fr 120px;"><div class="th">Student</div><div class="th">Course</div></div>' +
+    data.map(e => `<div class="t-row" style="grid-template-columns:1fr 120px;">
+      <div class="td"><div style="font-weight:600;">${e.profiles?.full_name || 'Unknown'}</div><div style="font-size:11.5px;color:var(--text-3);">${e.profiles?.student_number || ''}</div></div>
+      <div class="td muted" style="font-size:12px;">${e.courses?.title || ''}</div>
+    </div>`).join('') + '</div>';
+}
+
+async function loadScores() {
+  const courseFilter = document.getElementById('scores-course-filter').value;
+  const ids = courseFilter ? [courseFilter] : myCourses.map(c => c.id);
+  if (ids.length === 0) return;
+
+  const { data } = await SB.from('quiz_attempts')
+    .select('student_id, course_code, module_number, percentage, attempted_at, profiles(full_name)')
+    .in('course_code', myCourses.map(c => c.course_code))
+    .order('attempted_at', { ascending: false })
+    .limit(40);
+
+  document.getElementById('scores-list').innerHTML = !data || data.length === 0
+    ? '<div class="empty-state"><div class="ei">📊</div><p>No quiz scores yet.</p></div>'
+    : data.map(s => `<div class="t-row" style="grid-template-columns:1fr 80px 80px 80px 100px;">
+        <div class="td" style="font-size:12.5px;">${s.profiles?.full_name || 'Unknown'}</div>
+        <div class="td muted" style="font-size:12px;">${s.course_code}</div>
+        <div class="td muted" style="font-size:12px;">M${s.module_number}</div>
+        <div class="td" style="font-weight:700;color:${s.percentage >= 70 ? 'var(--green)' : 'var(--red)'};">${s.percentage}%</div>
+        <div class="td muted" style="font-size:11.5px;">${new Date(s.attempted_at).toLocaleDateString('en-GB')}</div>
+      </div>`).join('');
+}
+
+async function loadLecturerAnnouncements() {
+  const { data } = await SB.from('announcements').select('id, title, body, created_at').eq('author_id', currentLecturer.id).order('created_at', { ascending: false });
+  const el = document.getElementById('lec-announcements');
+  if (!data || data.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="ei">📢</div><p>No announcements yet.</p></div>';
+    return;
+  }
+  el.innerHTML = data.map(a => `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="font-weight:700;font-size:14px;margin-bottom:5px;">${a.title}</div>
+      <div style="font-size:13px;color:var(--text-2);line-height:1.6;">${a.body}</div>
+      <div style="font-size:11.5px;color:var(--text-3);margin-top:8px;">${new Date(a.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div>
+    </div>`).join('');
+}
+
+async function postAnnouncement() {
+  const courseId = document.getElementById('ann-course').value;
+  const title = document.getElementById('ann-title').value.trim();
+  const body = document.getElementById('ann-body').value.trim();
+  if (!title || !body) { alert('Title and message required.'); return; }
+  await SB.from('announcements').insert({ author_id: currentLecturer.id, course_id: courseId || null, title, body });
+  closeModal('ann-modal');
+  document.getElementById('ann-title').value = '';
+  document.getElementById('ann-body').value = '';
+  loadLecturerAnnouncements();
+}
+
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('top-title').textContent = name.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  closeSidebar();
+  if (name === 'my-courses') loadMyCoursesPanel();
+  if (name === 'my-students') loadMyStudents();
+  if (name === 'scores') loadScores();
+  if (name === 'announcements') loadLecturerAnnouncements();
+}
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function showAlert(id,type,msg){const el=document.getElementById(id);el.innerHTML=`<div class="alert ${type}">${msg}</div>`;setTimeout(()=>{el.innerHTML='';},4000);}
+async function signOut(){await SB.auth.signOut();window.location.href='/education/portal/';}
+function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb'),d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
+(function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}})();
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "KMVTECH Education Portal",
+  "short_name": "KE Portal",
+  "description": "KMVTECH Education Staff Portal for Admins and Lecturers",
+  "start_url": "/education/portal/",
+  "display": "standalone",
+  "background_color": "#0D1B2A",
+  "theme_color": "#0D1B2A",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/assets/logos/kmvtech-education-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/logos/kmvtech-education-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "lang": "en"
+}

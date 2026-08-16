@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="KMVTECH Education Staff Portal"/>
+<meta name="theme-color" content="#0D1B2A"/>
+<title>KMVTECH Education Portal</title>
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/education/portal/manifest.json"/>
+<link rel="apple-touch-icon" href="/assets/logos/kmvtech-education-icon-192.png"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.login-card{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(13,27,42,0.12);}
+.login-header{background:var(--navy);padding:32px 32px 28px;text-align:center;position:relative;overflow:hidden;}
+.login-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 80% 20%,rgba(43,63,191,0.4) 0%,transparent 60%);}
+.login-header-in{position:relative;z-index:1;}
+.login-mark{width:52px;height:52px;background:rgba(201,146,42,0.15);border:2px solid rgba(201,146,42,0.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:16px;color:var(--gold);margin:0 auto 14px;}
+.login-header h1{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:#fff;margin-bottom:4px;}
+.login-header p{font-size:12px;color:rgba(255,255,255,0.5);}
+.login-body{padding:28px 32px 32px;}
+.portal-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;background:var(--surface-2);border-radius:10px;padding:4px;}
+.ptab{padding:10px;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;background:none;color:var(--text-2);transition:all 0.2s;}
+.ptab.active{background:var(--surface);color:var(--text-1);box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:6px;letter-spacing:0.03em;}
+.form-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-1);background:var(--surface-2);outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:var(--blue);background:var(--surface);}
+.btn-login{width:100%;background:var(--navy);color:#fff;border:none;border-radius:10px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.2s;margin-top:8px;}
+.btn-login:hover{background:var(--blue);}
+.btn-login:disabled{opacity:0.6;cursor:not-allowed;}
+.error-msg{background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.25);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red);margin-top:14px;display:none;}
+.error-msg.show{display:block;}
+.login-footer{text-align:center;margin-top:20px;font-size:12px;color:var(--text-3);}
+.login-footer a{color:var(--blue);text-decoration:none;font-weight:600;}
+.loading-screen{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:999;}
+.loading-screen.hidden{display:none;}
+.ls-mark{width:56px;height:56px;background:rgba(201,146,42,0.15);border:2px solid rgba(201,146,42,0.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:18px;color:var(--gold);}
+.ls-text{font-size:13px;color:rgba(255,255,255,0.5);}
+.spinner{width:24px;height:24px;border:2px solid rgba(255,255,255,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<!-- Loading screen -->
+<div class="loading-screen" id="loading">
+  <div class="ls-mark">KE</div>
+  <div class="spinner"></div>
+  <div class="ls-text">Checking session...</div>
+</div>
+
+<!-- Login card -->
+<div class="login-card" id="login-card" style="display:none;">
+  <div class="login-header">
+    <div class="login-header-in">
+      <div class="login-mark">KE</div>
+      <h1>Staff Portal</h1>
+      <p>KMVTECH Education - Internal Access Only</p>
+    </div>
+  </div>
+  <div class="login-body">
+    <div class="portal-tabs">
+      <button class="ptab active" onclick="setRole('admin')">Admin</button>
+      <button class="ptab" onclick="setRole('lecturer')">Lecturer</button>
+    </div>
+    <input type="hidden" id="selected-role" value="admin"/>
+    <div class="form-group">
+      <label class="form-label" for="email">Email Address</label>
+      <input class="form-input" type="email" id="email" placeholder="your@email.com" autocomplete="email"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="password">Password</label>
+      <input class="form-input" type="password" id="password" placeholder="Enter your password" autocomplete="current-password"/>
+    </div>
+    <button class="btn-login" id="login-btn" onclick="doLogin()">Sign In to Portal</button>
+    <div class="error-msg" id="error-msg"></div>
+    <div class="login-footer">
+      <a href="/education/">Back to Platform</a> &nbsp;·&nbsp;
+      <a href="/education/login/">Student Login</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB = supabase.createClient(
+  'https://nzjojrebyvxuawnkitth.supabase.co',
+  'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
+);
+
+let selectedRole = 'admin';
+
+function setRole(role) {
+  selectedRole = role;
+  document.getElementById('selected-role').value = role;
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+async function doLogin() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const btn = document.getElementById('login-btn');
+  const err = document.getElementById('error-msg');
+
+  if (!email || !password) {
+    showError('Please enter your email and password.');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in...';
+  err.classList.remove('show');
+
+  const { data, error } = await SB.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    showError('Incorrect email or password. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Sign In to Portal';
+    return;
+  }
+
+  // Check role
+  const { data: profile } = await SB.from('profiles').select('role').eq('id', data.user.id).maybeSingle();
+
+  if (!profile) {
+    showError('Account not found. Contact Musanya.');
+    await SB.auth.signOut();
+    btn.disabled = false;
+    btn.textContent = 'Sign In to Portal';
+    return;
+  }
+
+  if (profile.role !== 'admin' && profile.role !== 'lecturer') {
+    showError('You do not have staff access. Use the student login instead.');
+    await SB.auth.signOut();
+    btn.disabled = false;
+    btn.textContent = 'Sign In to Portal';
+    return;
+  }
+
+  // Redirect based on actual role
+  if (profile.role === 'admin') {
+    window.location.href = '/education/portal/admin/';
+  } else {
+    window.location.href = '/education/portal/lecturer/';
+  }
+}
+
+function showError(msg) {
+  const err = document.getElementById('error-msg');
+  err.textContent = msg;
+  err.classList.add('show');
+}
+
+// Allow Enter key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// Check existing session
+(async function() {
+  const { data: { session } } = await SB.auth.getSession();
+  if (session) {
+    const { data: profile } = await SB.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
+    if (profile && profile.role === 'admin') {
+      window.location.href = '/education/portal/admin/';
+      return;
+    }
+    if (profile && profile.role === 'lecturer') {
+      window.location.href = '/education/portal/lecturer/';
+      return;
+    }
+  }
+  document.getElementById('loading').classList.add('hidden');
+  document.getElementById('login-card').style.display = 'block';
+})();
+
+// PWA install
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/education/portal/sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>

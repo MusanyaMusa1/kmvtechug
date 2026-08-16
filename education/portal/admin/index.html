@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="theme-color" content="#0D1B2A"/>
+<title>Admin Portal - KMVTECH Education</title>
+<link rel="manifest" href="/education/portal/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--amber:#D97706;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--sidebar:240px;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:var(--navy);height:100vh;position:fixed;top:0;left:0;z-index:100;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform 0.3s;}
+.sidebar.open{transform:translateX(0);}
+.sb-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.sb-mark{display:flex;align-items:center;gap:10px;}
+.sb-mark-box{width:32px;height:32px;background:rgba(201,146,42,0.15);border:1.5px solid rgba(201,146,42,0.35);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:12px;color:var(--gold);}
+.sb-mark-text{font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:#fff;line-height:1.2;}
+.sb-mark-sub{font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;}
+.sb-role{padding:10px 18px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-nav{flex:1;overflow-y:auto;padding:8px 0;}
+.sb-section{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:14px 18px 6px;}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;width:100%;transition:all 0.15s;}
+.sb-link:hover{background:rgba(255,255,255,0.06);color:#fff;}
+.sb-link.active{background:rgba(43,63,191,0.25);color:#fff;border-left:3px solid var(--blue);}
+.sb-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
+.sb-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;}
+.sb-bottom{padding:16px 18px;border-top:1px solid rgba(255,255,255,0.08);}
+.sb-user{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:10px;line-height:1.5;}
+.sb-user strong{color:rgba(255,255,255,0.85);display:block;font-size:13px;}
+.btn-signout{width:100%;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);color:#F87171;border-radius:8px;padding:9px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-signout:hover{background:rgba(220,38,38,0.25);}
+
+/* TOPBAR */
+.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 20px;position:sticky;top:0;z-index:50;}
+.menu-btn{width:36px;height:36px;border:1.5px solid var(--border);border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.top-title{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;color:var(--text-1);flex:1;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+
+/* MAIN */
+.main{padding:24px 20px 80px;transition:margin-left 0.3s;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;}
+.overlay.show{display:block;}
+
+/* PANELS */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:28px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 16px;}
+.stat-num{font-family:'Playfair Display',serif;font-weight:800;font-size:1.8rem;color:var(--text-1);line-height:1;margin-bottom:4px;}
+.stat-num.blue{color:var(--blue);}
+.stat-num.green{color:var(--green);}
+.stat-num.gold{color:var(--gold);}
+.stat-num.purple{color:var(--purple);}
+.stat-lbl{font-size:11.5px;color:var(--text-2);}
+
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;color:var(--text-1);}
+.btn-primary{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;transition:background 0.2s;}
+.btn-primary:hover{background:var(--blue);}
+.btn-secondary{background:none;color:var(--text-2);border:1.5px solid var(--border);border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue);}
+.btn-danger{background:none;color:var(--red);border:1.5px solid rgba(220,38,38,0.3);border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* TABLES */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.t-head{display:grid;background:var(--navy);padding:12px 16px;}
+.th{font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+.t-row{display:grid;padding:13px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.15s;}
+.t-row:last-child{border-bottom:none;}
+.t-row:hover{background:var(--surface-2);}
+.td{font-size:13px;color:var(--text-1);}
+.td.muted{color:var(--text-2);}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.badge.draft{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border);}
+.badge.pending{background:#FEF3C7;color:#92400E;}
+.badge.published{background:#DCFCE7;color:#166534;}
+.badge.admin{background:rgba(107,46,204,0.12);color:var(--purple);}
+.badge.lecturer{background:rgba(43,63,191,0.1);color:var(--blue);}
+.badge.student{background:var(--surface-2);color:var(--text-2);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(13,27,42,0.7);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:520px;transform:translateY(30px);transition:transform 0.3s;}
+.modal-overlay.open .modal{transform:translateY(0);}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px;}
+.modal-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;color:var(--text-1);margin-bottom:16px;}
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:5px;}
+.form-input,.form-select,.form-textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-1);background:var(--surface-2);outline:none;transition:border-color 0.2s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);background:var(--surface);}
+.form-textarea{min-height:100px;resize:vertical;}
+.modal-actions{display:flex;gap:10px;margin-top:18px;}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-2);}
+.empty-state .ei{font-size:36px;margin-bottom:12px;}
+.empty-state p{font-size:13.5px;line-height:1.6;}
+.loading-row{padding:24px;text-align:center;color:var(--text-3);font-size:13px;}
+.alert{border-radius:9px;padding:12px 14px;font-size:13px;margin-bottom:16px;}
+.alert.success{background:rgba(21,128,61,0.08);border:1px solid rgba(21,128,61,0.25);color:#166534;}
+.alert.error{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.2);color:#991B1B;}
+@media(min-width:768px){
+  .sidebar{transform:translateX(0);}
+  .main{margin-left:var(--sidebar);padding:28px 32px 80px;}
+  .topbar{margin-left:var(--sidebar);}
+  .menu-btn{display:none;}
+  .stats-grid{grid-template-columns:repeat(4,1fr);}
+  .modal-overlay{align-items:center;}
+  .modal{border-radius:16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-mark">
+      <div class="sb-mark-box">KE</div>
+      <div>
+        <div class="sb-mark-text">KMVTECH Education</div>
+        <div class="sb-mark-sub">Staff Portal</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-role">&#9679; Admin Access</div>
+  <nav class="sb-nav">
+    <div class="sb-section">Overview</div>
+    <button class="sb-link active" onclick="showPanel('dashboard')"><span class="sb-icon">&#128200;</span>Dashboard</button>
+
+    <div class="sb-section">Content</div>
+    <button class="sb-link" onclick="showPanel('courses')"><span class="sb-icon">&#128218;</span>All Courses</button>
+    <button class="sb-link" onclick="showPanel('pending')"><span class="sb-icon">&#128336;</span>Pending Review<span class="sb-badge" id="pending-count">0</span></button>
+    <button class="sb-link" onclick="showPanel('new-course')"><span class="sb-icon">&#43;</span>New Course</button>
+
+    <div class="sb-section">Students</div>
+    <button class="sb-link" onclick="showPanel('students')"><span class="sb-icon">&#128101;</span>All Students</button>
+    <button class="sb-link" onclick="showPanel('enrollments')"><span class="sb-icon">&#128203;</span>Enrollments</button>
+
+    <div class="sb-section">Staff</div>
+    <button class="sb-link" onclick="showPanel('lecturers')"><span class="sb-icon">&#127979;</span>Lecturers</button>
+    <button class="sb-link" onclick="showPanel('roles')"><span class="sb-icon">&#128273;</span>Manage Roles</button>
+
+    <div class="sb-section">Platform</div>
+    <button class="sb-link" onclick="showPanel('announcements')"><span class="sb-icon">&#128226;</span>Announcements</button>
+    <button class="sb-link" onclick="showPanel('certificates')"><span class="sb-icon">&#127891;</span>Certificates</button>
+    <button class="sb-link" onclick="window.open('/education/','_blank')"><span class="sb-icon">&#127758;</span>View Live Site</button>
+  </nav>
+  <div class="sb-bottom">
+    <div class="sb-user">Signed in as<strong id="admin-name">Admin</strong></div>
+    <button class="btn-signout" onclick="signOut()">Sign Out</button>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">&#9776;</button>
+  <div class="top-title" id="top-title">Dashboard</div>
+  <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- DASHBOARD PANEL -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card"><div class="stat-num blue" id="stat-courses">-</div><div class="stat-lbl">Total Courses</div></div>
+      <div class="stat-card"><div class="stat-num green" id="stat-published">-</div><div class="stat-lbl">Published</div></div>
+      <div class="stat-card"><div class="stat-num gold" id="stat-pending">-</div><div class="stat-lbl">Pending Review</div></div>
+      <div class="stat-card"><div class="stat-num purple" id="stat-students">-</div><div class="stat-lbl">Students</div></div>
+    </div>
+
+    <div class="sec-hdr"><div class="sec-title">Recent Activity</div></div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 100px 100px;">
+        <div class="th">Course</div><div class="th">Status</div><div class="th">Action</div>
+      </div>
+      <div id="recent-courses"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- COURSES PANEL -->
+  <div class="panel" id="panel-courses">
+    <div class="sec-hdr">
+      <div class="sec-title">All Courses</div>
+      <button class="btn-primary" onclick="showPanel('new-course')">&#43; New Course</button>
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 80px 90px 90px;">
+        <div class="th">Course</div><div class="th">Faculty</div><div class="th">Status</div><div class="th">Action</div>
+      </div>
+      <div id="all-courses-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- PENDING REVIEW PANEL -->
+  <div class="panel" id="panel-pending">
+    <div class="sec-hdr"><div class="sec-title">Pending Review</div></div>
+    <div id="pending-alert"></div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 120px 80px 100px;">
+        <div class="th">Course</div><div class="th">Submitted By</div><div class="th">Date</div><div class="th">Action</div>
+      </div>
+      <div id="pending-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- NEW COURSE PANEL -->
+  <div class="panel" id="panel-new-course">
+    <div class="sec-hdr"><div class="sec-title">Create New Course</div></div>
+    <div id="new-course-alert"></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;">
+      <div class="form-group">
+        <label class="form-label">Course Title</label>
+        <input class="form-input" id="nc-title" placeholder="e.g. Family Law 1"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Course Code</label>
+        <input class="form-input" id="nc-code" placeholder="e.g. FAM1" style="text-transform:uppercase;"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Faculty</label>
+        <select class="form-select" id="nc-faculty">
+          <option value="">Select Faculty</option>
+          <option>Law</option>
+          <option>Health Sciences</option>
+          <option>Social Sciences</option>
+          <option>Business</option>
+          <option>IT and Digital Skills</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Level</label>
+        <select class="form-select" id="nc-level">
+          <option value="">Select Level</option>
+          <option>Year 1</option>
+          <option>Year 1-2</option>
+          <option>Year 2</option>
+          <option>Year 2-3</option>
+          <option>Year 3</option>
+          <option>Year 3-4</option>
+          <option>Year 4</option>
+          <option>Professional</option>
+          <option>Beginner</option>
+          <option>Intermediate</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Assign Lecturer</label>
+        <select class="form-select" id="nc-lecturer">
+          <option value="">Select Lecturer</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Course Description</label>
+        <textarea class="form-textarea" id="nc-desc" placeholder="Brief description of what this course covers..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Number of Modules</label>
+        <input class="form-input" id="nc-modules" type="number" min="1" max="20" placeholder="e.g. 8"/>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px;">
+        <button class="btn-primary" onclick="createCourse()">Create Course</button>
+        <button class="btn-secondary" onclick="showPanel('courses')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STUDENTS PANEL -->
+  <div class="panel" id="panel-students">
+    <div class="sec-hdr">
+      <div class="sec-title">All Students</div>
+      <input class="form-input" id="student-search" placeholder="Search by name or email..." style="max-width:260px;padding:9px 14px;font-size:13px;" oninput="filterStudents()"/>
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 130px 80px 80px;">
+        <div class="th">Student</div><div class="th">Student No.</div><div class="th">Role</div><div class="th">Action</div>
+      </div>
+      <div id="students-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- LECTURERS PANEL -->
+  <div class="panel" id="panel-lecturers">
+    <div class="sec-hdr">
+      <div class="sec-title">Lecturers</div>
+      <button class="btn-primary" onclick="openAddLecturerModal()">&#43; Add Lecturer</button>
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 100px 80px;">
+        <div class="th">Name</div><div class="th">Courses</div><div class="th">Action</div>
+      </div>
+      <div id="lecturers-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- ROLES PANEL -->
+  <div class="panel" id="panel-roles">
+    <div class="sec-hdr"><div class="sec-title">Manage User Roles</div></div>
+    <div class="alert" style="background:rgba(201,146,42,0.08);border:1px solid rgba(201,146,42,0.25);color:#92400E;border-radius:9px;padding:12px 14px;font-size:13px;margin-bottom:16px;">
+      Changing roles is permanent until changed again. Admin role gives full access to everything.
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 80px 100px;">
+        <div class="th">User</div><div class="th">Current Role</div><div class="th">Change To</div>
+      </div>
+      <div id="roles-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- ANNOUNCEMENTS PANEL -->
+  <div class="panel" id="panel-announcements">
+    <div class="sec-hdr">
+      <div class="sec-title">Announcements</div>
+      <button class="btn-primary" onclick="openAnnouncementModal()">&#43; New Announcement</button>
+    </div>
+    <div id="announcements-list"><div class="loading-row">Loading...</div></div>
+  </div>
+
+  <!-- CERTIFICATES PANEL -->
+  <div class="panel" id="panel-certificates">
+    <div class="sec-hdr"><div class="sec-title">Certificate Management</div></div>
+    <p style="font-size:13.5px;color:var(--text-2);margin-bottom:20px;line-height:1.65;">Certificates are issued automatically when a student reaches 80% average. Use this panel to manually issue or revoke certificates in exceptional cases.</p>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 100px 100px 80px;">
+        <div class="th">Student</div><div class="th">Course</div><div class="th">Score</div><div class="th">Action</div>
+      </div>
+      <div id="certs-list"><div class="loading-row">Loading certificate records...</div></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ADD LECTURER MODAL -->
+<div class="modal-overlay" id="lecturer-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add Lecturer</div>
+    <div class="form-group">
+      <label class="form-label">Search existing user by email</label>
+      <input class="form-input" id="lec-email" placeholder="lecturer@email.com"/>
+    </div>
+    <p style="font-size:12px;color:var(--text-3);margin-bottom:14px;">The user must already have a registered account. This will change their role to Lecturer.</p>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="addLecturer()">Add as Lecturer</button>
+      <button class="btn-secondary" onclick="closeModal('lecturer-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENT MODAL -->
+<div class="modal-overlay" id="announce-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">New Announcement</div>
+    <div class="form-group">
+      <label class="form-label">Audience</label>
+      <select class="form-select" id="ann-audience">
+        <option value="">Platform-wide (all students)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input class="form-input" id="ann-title" placeholder="Announcement title"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message</label>
+      <textarea class="form-textarea" id="ann-body" placeholder="Write your announcement here..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="postAnnouncement()">Post Announcement</button>
+      <button class="btn-secondary" onclick="closeModal('announce-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB = supabase.createClient(
+  'https://nzjojrebyvxuawnkitth.supabase.co',
+  'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
+);
+
+let currentAdmin = null;
+let allStudents = [];
+
+// ============================================================
+// INIT
+// ============================================================
+async function init() {
+  const { data: { session } } = await SB.auth.getSession();
+  if (!session) { window.location.href = '/education/portal/'; return; }
+
+  const { data: profile } = await SB.from('profiles').select('full_name, role').eq('id', session.user.id).maybeSingle();
+  if (!profile || profile.role !== 'admin') { window.location.href = '/education/portal/'; return; }
+
+  currentAdmin = { id: session.user.id, ...profile };
+  document.getElementById('admin-name').textContent = profile.full_name || 'Admin';
+
+  loadDashboard();
+  loadLecturersForSelect();
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('top-title').textContent = name.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+  closeSidebar();
+
+  if (name === 'courses') loadAllCourses();
+  if (name === 'pending') loadPending();
+  if (name === 'students') loadStudents();
+  if (name === 'lecturers') loadLecturers();
+  if (name === 'roles') loadRoles();
+  if (name === 'announcements') loadAnnouncements();
+  if (name === 'certificates') loadCertificates();
+  if (name === 'new-course') loadLecturersForSelect();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+async function loadDashboard() {
+  try {
+    const [courses, students, pending] = await Promise.all([
+      SB.from('courses').select('id', { count: 'exact', head: true }),
+      SB.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'student'),
+      SB.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'pending_review'),
+    ]);
+    const published = await SB.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'published');
+
+    document.getElementById('stat-courses').textContent = courses.count || 0;
+    document.getElementById('stat-students').textContent = students.count || 0;
+    document.getElementById('stat-pending').textContent = pending.count || 0;
+    document.getElementById('stat-published').textContent = published.count || 0;
+    document.getElementById('pending-count').textContent = pending.count || 0;
+
+    const { data: recent } = await SB.from('courses').select('title, status, course_code').order('updated_at', { ascending: false }).limit(8);
+    if (recent) {
+      document.getElementById('recent-courses').innerHTML = recent.map(c => `
+        <div class="t-row" style="grid-template-columns:1fr 100px 100px;">
+          <div class="td">${c.title}</div>
+          <div class="td"><span class="badge ${c.status || 'draft'}">${c.status || 'draft'}</span></div>
+          <div class="td"><button class="btn-secondary" onclick="showPanel('courses')" style="padding:6px 12px;font-size:12px;">View</button></div>
+        </div>`).join('');
+    }
+  } catch(e) { console.log(e); }
+}
+
+// ============================================================
+// COURSES
+// ============================================================
+async function loadAllCourses() {
+  const { data } = await SB.from('courses').select('id, title, faculty, status, course_code').order('faculty');
+  if (!data) return;
+  document.getElementById('all-courses-list').innerHTML = data.length === 0
+    ? '<div class="empty-state"><div class="ei">📚</div><p>No courses yet. Create the first one.</p></div>'
+    : data.map(c => `
+      <div class="t-row" style="grid-template-columns:1fr 80px 90px 90px;">
+        <div class="td">${c.title}</div>
+        <div class="td muted" style="font-size:11.5px;">${c.faculty || '-'}</div>
+        <div class="td"><span class="badge ${c.status || 'draft'}">${c.status || 'draft'}</span></div>
+        <div class="td">
+          ${c.status === 'pending_review'
+            ? `<button class="btn-primary" onclick="publishCourse('${c.id}')" style="padding:7px 12px;font-size:12px;">Publish</button>`
+            : `<button class="btn-secondary" onclick="alert('Course editor coming soon')" style="padding:7px 12px;font-size:12px;">Edit</button>`}
+        </div>
+      </div>`).join('');
+}
+
+async function createCourse() {
+  const title = document.getElementById('nc-title').value.trim();
+  const code = document.getElementById('nc-code').value.trim().toUpperCase();
+  const faculty = document.getElementById('nc-faculty').value;
+  const level = document.getElementById('nc-level').value;
+  const lecturer = document.getElementById('nc-lecturer').value;
+  const desc = document.getElementById('nc-desc').value.trim();
+  const modules = parseInt(document.getElementById('nc-modules').value);
+
+  if (!title || !code || !faculty) {
+    showAlert('new-course-alert', 'error', 'Title, code, and faculty are required.');
+    return;
+  }
+
+  const { error } = await SB.from('courses').insert({
+    title, course_code: code, faculty, level,
+    lecturer_id: lecturer || null,
+    description: desc,
+    status: 'draft',
+    updated_at: new Date().toISOString()
+  });
+
+  if (error) { showAlert('new-course-alert', 'error', 'Error: ' + error.message); return; }
+  showAlert('new-course-alert', 'success', 'Course created successfully.');
+  setTimeout(() => showPanel('courses'), 1500);
+}
+
+async function publishCourse(id) {
+  if (!confirm('Publish this course? It will go live on the platform.')) return;
+  await SB.from('courses').update({ status: 'published', published_at: new Date().toISOString() }).eq('id', id);
+  loadAllCourses();
+  loadDashboard();
+}
+
+// ============================================================
+// PENDING REVIEW
+// ============================================================
+async function loadPending() {
+  const { data } = await SB.from('courses')
+    .select('id, title, submitted_at, lecturer_id, profiles(full_name)')
+    .eq('status', 'pending_review')
+    .order('submitted_at');
+
+  document.getElementById('pending-list').innerHTML = !data || data.length === 0
+    ? '<div class="empty-state"><div class="ei">✅</div><p>No courses pending review.</p></div>'
+    : data.map(c => `
+      <div class="t-row" style="grid-template-columns:1fr 120px 80px 100px;">
+        <div class="td">${c.title}</div>
+        <div class="td muted" style="font-size:12px;">${c.profiles?.full_name || 'Unknown'}</div>
+        <div class="td muted" style="font-size:12px;">${c.submitted_at ? new Date(c.submitted_at).toLocaleDateString('en-GB') : '-'}</div>
+        <div class="td" style="display:flex;gap:6px;">
+          <button class="btn-primary" onclick="publishCourse('${c.id}')" style="padding:7px 10px;font-size:12px;">Publish</button>
+          <button class="btn-danger" onclick="rejectCourse('${c.id}')">Reject</button>
+        </div>
+      </div>`).join('');
+}
+
+async function rejectCourse(id) {
+  if (!confirm('Return this course to draft?')) return;
+  await SB.from('courses').update({ status: 'draft' }).eq('id', id);
+  loadPending();
+}
+
+// ============================================================
+// STUDENTS
+// ============================================================
+async function loadStudents() {
+  const { data } = await SB.from('profiles').select('id, full_name, email, student_number, role').order('full_name');
+  allStudents = data || [];
+  renderStudents(allStudents);
+}
+
+function filterStudents() {
+  const q = document.getElementById('student-search').value.toLowerCase();
+  renderStudents(allStudents.filter(s =>
+    (s.full_name || '').toLowerCase().includes(q) ||
+    (s.email || '').toLowerCase().includes(q) ||
+    (s.student_number || '').toLowerCase().includes(q)
+  ));
+}
+
+function renderStudents(list) {
+  document.getElementById('students-list').innerHTML = list.length === 0
+    ? '<div class="empty-state"><div class="ei">👥</div><p>No students found.</p></div>'
+    : list.map(s => `
+      <div class="t-row" style="grid-template-columns:1fr 130px 80px 80px;">
+        <div class="td">
+          <div style="font-weight:600;">${s.full_name || 'No name'}</div>
+          <div style="font-size:11.5px;color:var(--text-3);">${s.email || ''}</div>
+        </div>
+        <div class="td muted" style="font-size:12px;">${s.student_number || '-'}</div>
+        <div class="td"><span class="badge ${s.role}">${s.role}</span></div>
+        <div class="td"><button class="btn-secondary" onclick="viewStudent('${s.id}')" style="padding:7px 10px;font-size:12px;">View</button></div>
+      </div>`).join('');
+}
+
+function viewStudent(id) { alert('Student detail view coming in next update.'); }
+
+// ============================================================
+// LECTURERS
+// ============================================================
+async function loadLecturers() {
+  const { data } = await SB.from('profiles').select('id, full_name, email').eq('role', 'lecturer');
+  document.getElementById('lecturers-list').innerHTML = !data || data.length === 0
+    ? '<div class="empty-state"><div class="ei">🏫</div><p>No lecturers yet.</p></div>'
+    : data.map(l => `
+      <div class="t-row" style="grid-template-columns:1fr 100px 80px;">
+        <div class="td"><div style="font-weight:600;">${l.full_name}</div><div style="font-size:11.5px;color:var(--text-3);">${l.email}</div></div>
+        <div class="td muted" style="font-size:12px;">-</div>
+        <div class="td"><button class="btn-danger" onclick="removeRole('${l.id}')">Remove</button></div>
+      </div>`).join('');
+}
+
+async function loadLecturersForSelect() {
+  const { data } = await SB.from('profiles').select('id, full_name').eq('role', 'lecturer');
+  const sel = document.getElementById('nc-lecturer');
+  if (sel && data) {
+    sel.innerHTML = '<option value="">Select Lecturer</option>' +
+      data.map(l => `<option value="${l.id}">${l.full_name}</option>`).join('');
+  }
+}
+
+function openAddLecturerModal() { openModal('lecturer-modal'); }
+
+async function addLecturer() {
+  const email = document.getElementById('lec-email').value.trim();
+  if (!email) { alert('Enter an email address.'); return; }
+  const { data } = await SB.from('profiles').select('id').eq('email', email).maybeSingle();
+  if (!data) { alert('No registered user found with that email.'); return; }
+  await SB.from('profiles').update({ role: 'lecturer' }).eq('id', data.id);
+  closeModal('lecturer-modal');
+  loadLecturers();
+}
+
+// ============================================================
+// ROLES
+// ============================================================
+async function loadRoles() {
+  const { data } = await SB.from('profiles').select('id, full_name, email, role').order('full_name').limit(50);
+  document.getElementById('roles-list').innerHTML = !data || data.length === 0
+    ? '<div class="loading-row">No users found.</div>'
+    : data.map(u => `
+      <div class="t-row" style="grid-template-columns:1fr 80px 100px;">
+        <div class="td"><div style="font-weight:600;font-size:13px;">${u.full_name || u.email}</div></div>
+        <div class="td"><span class="badge ${u.role}">${u.role}</span></div>
+        <div class="td">
+          <select onchange="changeRole('${u.id}', this.value)" style="border:1.5px solid var(--border);border-radius:7px;padding:6px 10px;font-size:12px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text-1);">
+            <option value="">Change...</option>
+            <option value="admin">Admin</option>
+            <option value="lecturer">Lecturer</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+      </div>`).join('');
+}
+
+async function changeRole(userId, newRole) {
+  if (!newRole) return;
+  if (!confirm('Change this user to ' + newRole + '?')) return;
+  await SB.from('profiles').update({ role: newRole }).eq('id', userId);
+  loadRoles();
+}
+
+async function removeRole(userId) {
+  if (!confirm('Remove lecturer role? They will become a student.')) return;
+  await SB.from('profiles').update({ role: 'student' }).eq('id', userId);
+  loadLecturers();
+}
+
+// ============================================================
+// ANNOUNCEMENTS
+// ============================================================
+async function loadAnnouncements() {
+  const { data } = await SB.from('announcements').select('id, title, body, created_at, course_id').order('created_at', { ascending: false }).limit(20);
+  const el = document.getElementById('announcements-list');
+  if (!data || data.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="ei">📢</div><p>No announcements yet.</p></div>';
+    return;
+  }
+  el.innerHTML = data.map(a => `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;">
+        <div style="font-weight:700;font-size:14px;">${a.title}</div>
+        <span class="badge draft" style="flex-shrink:0;">${a.course_id ? 'Course' : 'Platform-wide'}</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-2);line-height:1.6;">${a.body}</div>
+      <div style="font-size:11.5px;color:var(--text-3);margin-top:10px;">${new Date(a.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div>
+    </div>`).join('');
+}
+
+function openAnnouncementModal() { openModal('announce-modal'); }
+
+async function postAnnouncement() {
+  const title = document.getElementById('ann-title').value.trim();
+  const body = document.getElementById('ann-body').value.trim();
+  if (!title || !body) { alert('Title and message are required.'); return; }
+  await SB.from('announcements').insert({ author_id: currentAdmin.id, title, body, course_id: null });
+  closeModal('announce-modal');
+  document.getElementById('ann-title').value = '';
+  document.getElementById('ann-body').value = '';
+  loadAnnouncements();
+}
+
+// ============================================================
+// CERTIFICATES
+// ============================================================
+async function loadCertificates() {
+  const { data } = await SB.from('quiz_attempts')
+    .select('student_id, course_code, percentage, attempted_at, profiles(full_name)')
+    .gte('percentage', 80)
+    .order('attempted_at', { ascending: false })
+    .limit(30);
+  document.getElementById('certs-list').innerHTML = !data || data.length === 0
+    ? '<div class="empty-state"><div class="ei">🎓</div><p>No certificates issued yet.</p></div>'
+    : data.map(c => `
+      <div class="t-row" style="grid-template-columns:1fr 100px 100px 80px;">
+        <div class="td">${c.profiles?.full_name || 'Unknown'}</div>
+        <div class="td muted">${c.course_code}</div>
+        <div class="td" style="color:var(--green);font-weight:700;">${c.percentage}%</div>
+        <div class="td"><button class="btn-secondary" style="padding:6px 10px;font-size:12px;">View</button></div>
+      </div>`).join('');
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function showAlert(containerId, type, msg) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = `<div class="alert ${type}">${msg}</div>`;
+  setTimeout(() => { el.innerHTML = ''; }, 4000);
+}
+
+async function signOut() {
+  await SB.auth.signOut();
+  window.location.href = '/education/portal/';
+}
+
+function tTheme() {
+  const h = document.documentElement, t = document.getElementById('tt'), th = t.querySelector('.tthumb');
+  const d = h.getAttribute('data-theme') === 'dark';
+  h.setAttribute('data-theme', d ? 'light' : 'dark');
+  t.setAttribute('aria-checked', d ? 'false' : 'true');
+  th.textContent = d ? '☀' : '🌙';
+  localStorage.setItem('kmv-theme', d ? 'light' : 'dark');
+}
+(function() {
+  const s = localStorage.getItem('kmv-theme'), p = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if ((s || (p ? 'dark' : 'light')) === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const t = document.getElementById('tt');
+    if (t) { t.setAttribute('aria-checked', 'true'); t.querySelector('.tthumb').textContent = '🌙'; }
+  }
+})();
+
+init();
+</script>
+</body>
+</html>
