@@ -20,12 +20,12 @@
  * That is all. The rest is automatic.
  */
 
-// Total pages per course - update as courses are added
+// Total pages per course - UPDATE when new courses are added or page counts change
 const COURSE_TOTALS = {
-  'EVL1': 56,  // 40 lesson pages + 8 practice quizzes + 8 graded quizzes
-  // Add others as courses are built:
-  // 'FAM1': 0,
-  // 'CRM1': 0,
+  'EVL1': 56,    // Evidence Law 1
+  'EVL2': 133,   // Evidence Law 2 (Modules 1-8 + completion)
+  'ENVPSY': 78,  // Environmental Psychology (Modules 1-9)
+  'HRM1': 101,   // Fundamentals of Human Resource Management (Modules 1-9)
 };
 
 async function trackProgress() {
