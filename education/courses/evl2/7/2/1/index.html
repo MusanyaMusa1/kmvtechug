@@ -142,7 +142,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 <body data-course="EVL2">
 <header class="topbar">
   <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
-  <nav class="tbc"><a href="/education/courses/evl2/">EVL2</a><span>&#8250;</span><a href="/education/courses/evl2/7/">Module 7</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Cross-Examination</span></nav>
+  <nav class="tbc"><a href="/education/courses/evl2/">EVL2</a><span>&#8250;</span><a href="/education/courses/evl2/7/1/1/">Module 7</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Cross-Examination</span></nav>
   <div class="tright">
     <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
     <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
@@ -202,7 +202,7 @@ async function chkAccess() {
   if (!session) { showLk('guest'); return; }
   const { data: pr } = await SB.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
   if (pr && pr.role === 'admin') { show(); return; }
-  const { data: co } = await SB.from('courses').select('id').eq('course_code', 'HRM1').maybeSingle();
+  const { data: co } = await SB.from('courses').select('id').eq('course_code', 'EVL2').maybeSingle();
   if (!co) { showLk('no_plan'); return; }
   const { data: en } = await SB.from('enrollments').select('id,expires_at').eq('student_id', session.user.id).eq('course_id', co.id).maybeSingle();
   if (!en) { showLk('no_plan'); return; }
