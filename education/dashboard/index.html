@@ -1456,8 +1456,13 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 // PROGRESS TRACKING
 // ============================================================
 const COURSE_TOTALS = {
-  'EVL1': 56,
-  // Add other courses as they are built
+  'EVL1':   56,
+  'EVL2':   133,
+  'ENVPSY': 78,
+  'HRM1':   101,
+  'COGPSY': 64,
+  'SOCPSY': 62,
+  'EQT1':   94,
 };
 
 async function getAllProgress(studentId, courseCodes) {
