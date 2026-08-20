@@ -74,4 +74,5 @@ SB.auth.getSession().then(({data:{session}})=>{if(!session)document.getElementBy
 document.getElementById('th').onclick=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('theme',d?'light':'dark')};
 if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
 </script>
+
 </body></html>

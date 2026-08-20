@@ -108,7 +108,6 @@ a{color:var(--blue);text-decoration:none}.topbar{position:sticky;top:0;z-index:1
   document.getElementById('sub').onclick=function(){let c=0,t=0;document.querySelectorAll('.quiz-q').forEach(q=>{t++;const s=q.querySelector('.selected');if(s&&s.dataset.v===q.dataset.a)c++});const p=Math.round(c/t*100);const b=document.getElementById('scoreBanner');b.style.display='block';b.className='score-banner '+(p>=70?'pass':'fail');b.textContent='Score: '+c+'/'+t+' ('+p+'%). '+(p>=70?'Well done!':'Review and try again.');document.getElementById('ret').style.display='inline-flex'};
   document.getElementById('ret').onclick=function(){document.querySelectorAll('.quiz-opt').forEach(x=>x.classList.remove('selected'));document.getElementById('scoreBanner').style.display='none';this.style.display='none'};
   </script>
-<div class="notes-dl" style="margin:20px 0 8px;padding:14px 16px;background:var(--card, #f8f9fc);border:1px solid var(--border,#e5e7eb);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div style="font-size:14px;color:var(--text,#1e293b)"><strong>Lesson Notes</strong><span style="display:block;font-size:12.5px;color:var(--muted,#64748b);margin-top:2px">Download the PDF notes for this lesson (works on phone).</span></div><a class="btn btn-primary" href="/education/courses/eqt1/notes/EQT1-M1-L1-History-Reception-of-Equity-Notes.pdf" download style="white-space:nowrap">Download Lesson Notes (PDF)</a></div>
 <div class="nav-btns">
 <a href="/education/courses/eqt1/1/1/3/" class="btn btn-secondary">← Page 3</a>
 <a href="/education/courses/eqt1/1/2/1/" class="btn btn-primary">Maxims Intro →</a>
@@ -124,4 +123,5 @@ checkAccess();
 const tb=document.getElementById('themeBtn');if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
 tb&&tb.addEventListener('click',()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('theme',d?'light':'dark')});
 </script>
+
 </body></html>

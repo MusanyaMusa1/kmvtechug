@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Grades | Law of Equity and Trusts (EQT1) | KMVTECH Education</title>
+<meta name="description" content="View your module quiz scores and certificate progress for EQT1 Law of Equity and Trusts at KMVTECH Education Uganda.">
+<meta name="keywords" content="EQT1 grades, equity and trusts quiz scores, KMVTECH Education, Ugandan law student results">
+<link rel="canonical" href="https://kmvtechug.app/education/courses/eqt1/grades/">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--cream:#FAF9F6;
+  --green:#15803D;--red:#DC2626;--text:#1C1C1C;--text2:#6B7280;--border:#E5E7EB;--card:#fff;
+}
+[data-theme=dark]{
+  --cream:#0F1419;--text:#F3F4F6;--text2:#9CA3AF;--border:#1F2937;--card:#111827;--navy:#020617;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.65}
+h1,h2,h3{font-family:'Playfair Display',serif}
+.topbar{position:sticky;top:0;z-index:50;background:var(--navy);color:#fff;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.logo{color:#fff;font-weight:700;font-size:14px;text-decoration:none}
+.bc{font-size:12px;color:#94A3B8}
+.icon-btn{background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none}
+.prog{height:3px;background:var(--border);position:sticky;top:52px;z-index:40}
+.prog>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));width:100%}
+.main{max-width:720px;margin:0 auto;padding:24px 14px 70px}
+.eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--purple);margin-bottom:4px}
+.page-title{font-size:1.55rem;color:var(--navy);margin-bottom:6px}
+[data-theme=dark] .page-title{color:#F8FAFC}
+.sub{font-size:14px;color:var(--text2);margin-bottom:22px}
+.hello{font-size:15px;margin-bottom:18px}
+.hello strong{color:var(--navy)}
+[data-theme=dark] .hello strong{color:#F8FAFC}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:22px}
+@media(min-width:560px){.cards{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center}
+.card .num{font-size:1.45rem;font-weight:700;color:var(--navy);font-family:'Playfair Display',serif}
+[data-theme=dark] .card .num{color:#F8FAFC}
+.card .lbl{font-size:11.5px;color:var(--text2);margin-top:4px}
+.cert{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:22px}
+.cert h2{font-size:1rem;margin-bottom:8px;color:var(--navy)}
+[data-theme=dark] .cert h2{color:#F8FAFC}
+.cert p{font-size:13.5px;color:var(--text2);margin-bottom:10px}
+.bar{height:10px;background:var(--border);border-radius:6px;overflow:hidden}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:6px;transition:width .4s}
+.cert-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-top:6px}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.badge-pass{background:rgba(21,128,61,.12);color:var(--green)}
+.badge-fail{background:rgba(220,38,38,.12);color:var(--red)}
+.badge-none{background:rgba(107,114,128,.12);color:var(--text2)}
+.badge-ready{background:rgba(201,146,42,.15);color:var(--gold)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:18px}
+th,td{padding:12px 10px;text-align:left;font-size:13.5px;border-bottom:1px solid var(--border)}
+th{background:rgba(43,63,191,.06);font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--text2)}
+tr:last-child td{border-bottom:none}
+.avg-row{font-weight:700}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:28px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap}
+.btn{padding:10px 16px;border-radius:8px;font-weight:600;font-size:13.5px;text-decoration:none;display:inline-block;border:none;cursor:pointer}
+.bp{background:var(--navy);color:#fff}
+.bs{border:1px solid var(--border);color:var(--text);background:transparent}
+.locked{display:none;text-align:center;padding:48px 14px}
+#lc{display:none}
+.loading{text-align:center;padding:30px;color:var(--text2);font-size:14px}
+.empty{font-size:13.5px;color:var(--text2);padding:8px 0}
+</style>
+</head>
+<body data-course="EQT1">
+<div class="topbar">
+  <a class="logo" href="/education/">KMVTECH Education</a>
+  <span class="bc">EQT1 · Grades</span>
+  <div style="display:flex;gap:8px">
+    <button class="icon-btn" id="th" type="button" title="Toggle dark mode">◐</button>
+    <a href="/education/dashboard/" class="icon-btn" title="Dashboard">⌂</a>
+  </div>
+</div>
+<div class="prog"><div></div></div>
+
+<div id="lk" class="locked">
+  <h2>Sign in required</h2>
+  <p style="margin:10px 0 18px;color:var(--text2)">Log in to view your EQT1 grades.</p>
+  <a class="btn bp" href="/education/courses/eqt1/">View Course</a>
+</div>
+
+<div id="lc">
+  <main class="main">
+    <div class="eyebrow">EQT1 · Law of Equity and Trusts</div>
+    <h1 class="page-title">My Grades</h1>
+    <p class="sub">Module graded quiz results and certificate progress.</p>
+    <p class="hello" id="hello">Loading your results…</p>
+
+    <div class="cards">
+      <div class="card"><div class="num" id="cDone">0</div><div class="lbl">Modules done</div></div>
+      <div class="card"><div class="num" id="cLeft">6</div><div class="lbl">Modules remaining</div></div>
+      <div class="card"><div class="num" id="cAvg">—</div><div class="lbl">Current average</div></div>
+      <div class="card"><div class="num">80%</div><div class="lbl">Certificate threshold</div></div>
+    </div>
+
+    <div class="cert">
+      <h2>Certificate status</h2>
+      <p id="certMsg">Complete module graded quizzes to track progress toward your certificate.</p>
+      <div class="bar"><div id="certBar" style="width:0%"></div></div>
+      <div class="cert-meta"><span id="certLeft">0 / 6 modules passed (70%+)</span><span id="certBadge" class="badge badge-none">In progress</span></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>Best score</th>
+          <th>Status</th>
+          <th>Submitted</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="4" class="loading">Loading scores…</td></tr>
+      </tbody>
+    </table>
+
+    <p class="empty" id="note">Pass mark for each module graded quiz is 70%. Certificate requires an overall average of at least 80% across modules you have completed, and all 6 modules passed.</p>
+
+    <div class="nav">
+      <a class="btn bs" href="/education/courses/eqt1/">← Course overview</a>
+      <a class="btn bp" href="/education/dashboard/">Dashboard</a>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
+<script>
+const SB = supabase.createClient(
+  'https://nzjojrebyvxuawnkitth.supabase.co',
+  'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
+);
+
+const COURSE = 'EQT1';
+const TOTAL_MODULES = 6;
+const MODULE_NAMES = {
+  1: 'Module 1 – Foundations of Equity',
+  2: 'Module 2 – Equitable Remedies',
+  3: 'Module 3 – Nature and Creation of Trusts',
+  4: 'Module 4 – Classification of Trusts',
+  5: 'Module 5 – Trusteeship and Duties',
+  6: 'Module 6 – Breach, Tracing and Remedies'
+};
+
+function show() {
+  document.getElementById('lk').style.display = 'none';
+  document.getElementById('lc').style.display = 'block';
+  if (typeof trackProgress === 'function') trackProgress();
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  } catch (e) { return '—'; }
+}
+
+function bestByModule(rows) {
+  // Keep highest percentage (or score/total) per module
+  const map = {};
+  for (const r of rows) {
+    const m = Number(r.module_number);
+    if (!m) continue;
+    const total = Number(r.total) || 0;
+    const score = Number(r.score) || 0;
+    const pct = r.percentage != null ? Number(r.percentage) : (total ? Math.round((score / total) * 100) : 0);
+    const prev = map[m];
+    if (!prev || pct > prev.pct) {
+      map[m] = {
+        pct,
+        score,
+        total,
+        at: r.submitted_at || r.created_at || r.completed_at || null
+      };
+    }
+  }
+  return map;
+}
+
+async function loadGrades(user) {
+  const name =
+    user.user_metadata?.full_name ||
+    user.user_metadata?.name ||
+    user.email ||
+    'Student';
+  document.getElementById('hello').innerHTML = 'Hello, <strong>' + name.replace(/</g, '') + '</strong>';
+
+  let rows = [];
+  // Primary table name used by save-quiz-score.js pattern
+  const tries = [
+    () => SB.from('quiz_scores').select('*').eq('student_id', user.id).eq('course_code', COURSE),
+    () => SB.from('module_quiz_scores').select('*').eq('student_id', user.id).eq('course_code', COURSE),
+    () => SB.from('quiz_scores').select('*').eq('user_id', user.id).eq('course_code', COURSE)
+  ];
+
+  for (const fn of tries) {
+    try {
+      const { data, error } = await fn();
+      if (!error && data) { rows = data; break; }
+    } catch (e) { /* try next */ }
+  }
+
+  const best = bestByModule(rows);
+  let done = 0;
+  let sumPct = 0;
+  let passed = 0;
+
+  let html = '';
+  for (let m = 1; m <= TOTAL_MODULES; m++) {
+    const b = best[m];
+    let status, scoreTxt, dateTxt;
+    if (!b) {
+      status = '<span class="badge badge-none">Not submitted</span>';
+      scoreTxt = '—';
+      dateTxt = '—';
+    } else {
+      done++;
+      sumPct += b.pct;
+      scoreTxt = b.total ? (b.score + '/' + b.total + ' (' + b.pct + '%)') : (b.pct + '%');
+      dateTxt = fmtDate(b.at);
+      if (b.pct >= 70) {
+        passed++;
+        status = '<span class="badge badge-pass">Pass</span>';
+      } else {
+        status = '<span class="badge badge-fail">Below 70%</span>';
+      }
+    }
+    html += '<tr><td>' + MODULE_NAMES[m] + '</td><td>' + scoreTxt + '</td><td>' + status + '</td><td>' + dateTxt + '</td></tr>';
+  }
+
+  const avg = done ? Math.round(sumPct / done) : null;
+  if (avg != null) {
+    html += '<tr class="avg-row"><td>Overall average</td><td colspan="3">' + avg + '%</td></tr>';
+  }
+
+  document.getElementById('tbody').innerHTML = html || '<tr><td colspan="4">No scores yet.</td></tr>';
+  document.getElementById('cDone').textContent = done;
+  document.getElementById('cLeft').textContent = TOTAL_MODULES - done;
+  document.getElementById('cAvg').textContent = avg != null ? avg + '%' : '—';
+
+  const certPct = Math.round((passed / TOTAL_MODULES) * 100);
+  document.getElementById('certBar').style.width = certPct + '%';
+  document.getElementById('certLeft').textContent = passed + ' / ' + TOTAL_MODULES + ' modules passed (70%+)';
+
+  const eligible = passed === TOTAL_MODULES && avg != null && avg >= 80;
+  const badge = document.getElementById('certBadge');
+  const msg = document.getElementById('certMsg');
+  if (eligible) {
+    badge.className = 'badge badge-ready';
+    badge.textContent = 'Certificate ready';
+    msg.textContent = 'You have passed all modules with an average of ' + avg + '%. You qualify for the course certificate.';
+  } else if (passed === TOTAL_MODULES && avg != null && avg < 80) {
+    badge.className = 'badge badge-fail';
+    badge.textContent = 'Average below 80%';
+    msg.textContent = 'All modules are passed, but your average is ' + avg + '%. Certificate threshold is 80%. Improve lower scores where retakes allow.';
+  } else {
+    badge.className = 'badge badge-none';
+    badge.textContent = 'In progress';
+    const need = TOTAL_MODULES - passed;
+    msg.textContent = need + ' more module' + (need === 1 ? '' : 's') + ' to pass (70%+). Certificate also needs 80% overall average.';
+  }
+}
+
+async function init() {
+  try {
+    const { data: { session } } = await SB.auth.getSession();
+    if (!session) {
+      document.getElementById('lk').style.display = 'block';
+      return;
+    }
+    show();
+    await loadGrades(session.user);
+  } catch (e) {
+    document.getElementById('lk').style.display = 'block';
+  }
+}
+
+document.getElementById('th').onclick = () => {
+  const d = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', d ? '' : 'dark');
+  localStorage.setItem('theme', d ? 'light' : 'dark');
+};
+if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+
+init();
+</script>
+</body>
+</html>
