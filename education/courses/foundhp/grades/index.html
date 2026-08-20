@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Your grades for Foundations of Health Professionals Education (FOUNDHP) - KMVTECH Education"/>
+<title>Grades - Foundations of Health Professionals Education (FOUNDHP) - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
+<style>
+
+:root{
+  --blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;
+  --green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;
+  --surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;
+  --text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;
+  --psy:#2F6B4F;--psy-light:rgba(47,107,79,0.08);--psy-border:rgba(47,107,79,0.22);
+}
+[data-theme="dark"]{
+  --bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;
+  --border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;
+  --psy-light:rgba(47,107,79,0.15);--psy-border:rgba(47,107,79,0.35);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);}
+.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);overflow:hidden;min-width:0;}
+.tbc a{color:var(--text-2);text-decoration:none;white-space:nowrap;}.tbc a:hover{color:var(--blue);}
+.tright{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;transition:transform .2s;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0;}
+@media(min-width:640px){.g-grid{grid-template-columns:repeat(4,1fr);}}
+.g-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+.g-card .gv{font-size:1.6rem;font-weight:800;color:var(--text-1);}
+.g-card .gl{font-size:0.75rem;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;}
+.cert-bar{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin:18px 0;}
+.cert-bar .track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:10px 0;}
+.cert-bar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:4px;width:0%;transition:width .4s;}
+.gtable{width:100%;border-collapse:collapse;font-size:0.9rem;margin:16px 0;}
+.gtable th,.gtable td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.gtable th{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-3);}
+.badge-pass{background:rgba(21,128,61,0.12);color:var(--green);font-weight:700;font-size:11px;padding:3px 10px;border-radius:20px;}
+.badge-fail{background:rgba(220,38,38,0.1);color:var(--red);font-weight:700;font-size:11px;padding:3px 10px;border-radius:20px;}
+.badge-ns{background:var(--border);color:var(--text-3);font-weight:600;font-size:11px;padding:3px 10px;border-radius:20px;}
+.lk{max-width:520px;margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.lki{font-size:40px;margin-bottom:14px;}
+.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
+.lk p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:360px;margin:0 auto 20px;}
+.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
+
+</style>
+</head>
+<body data-course="FOUNDHP">
+<header class="topbar">
+  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
+  <nav class="tbc">
+    <a href="/education/courses/foundhp/">Foundations of Health Professionals Education</a>
+    <span>&#8250;</span>
+    <span style="color:var(--text-1);font-weight:600;">Grades</span>
+  </nav>
+  <div class="tright">
+    <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
+  </div>
+</header>
+
+<main style="max-width:780px;margin:0 auto;padding:24px 16px 48px;">
+  <div id="lk"></div>
+  <div id="lc" style="display:none;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);">FOUNDHP</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text-1);margin:6px 0 8px;">Your grades</h1>
+    <p id="student-name" style="color:var(--text-2);font-size:0.95rem;margin-bottom:18px;">Loading...</p>
+
+    <div class="g-grid">
+      <div class="g-card"><div class="gv" id="s-done">-</div><div class="gl">Modules done</div></div>
+      <div class="g-card"><div class="gv" id="s-left">-</div><div class="gl">Remaining</div></div>
+      <div class="g-card"><div class="gv" id="s-avg">-</div><div class="gl">Current average</div></div>
+      <div class="g-card"><div class="gv">80%</div><div class="gl">Certificate target</div></div>
+    </div>
+
+    <div class="cert-bar">
+      <strong style="color:var(--text-1);">Certificate status</strong>
+      <p id="cert-msg" style="font-size:0.9rem;color:var(--text-2);margin:6px 0 0;">Complete all 6 module graded quizzes with an average of 80% or higher to unlock your certificate.</p>
+      <div class="track"><div class="fill" id="cert-fill"></div></div>
+      <div id="cert-label" style="font-size:0.8rem;color:var(--text-3);"></div>
+    </div>
+
+    <table class="gtable">
+      <thead>
+        <tr><th>Module</th><th>Best score</th><th>Status</th><th>Submitted</th></tr>
+      </thead>
+      <tbody id="g-body"></tbody>
+    </table>
+
+    <p style="font-size:0.9rem;color:var(--text-2);margin-top:12px;">Overall average (submitted modules only): <strong id="overall-avg" style="color:var(--text-1);">-</strong></p>
+    <p style="font-size:0.85rem;color:var(--text-3);margin-top:8px;">Pass mark per module quiz: 70%. Certificate requires all modules submitted and average 80%+.</p>
+
+    <div style="margin-top:24px;">
+      <a href="/education/courses/foundhp/" style="color:var(--blue);font-weight:600;text-decoration:none;">&#8592; Back to course overview</a>
+      &nbsp;&nbsp;
+      <a href="/education/dashboard/" style="color:var(--text-2);font-weight:600;text-decoration:none;">Dashboard</a>
+    </div>
+  </div>
+</main>
+
+<script>
+const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+const COURSE_CODE = 'FOUNDHP';
+const MODULE_COUNT = 6;
+const MODULES = [
+  {n:1, title:'Learning in the Health Professions'},
+  {n:2, title:'Teaching Methods and Feedback'},
+  {n:3, title:'Curriculum and Learning Outcomes'},
+  {n:4, title:'Assessment of Learners'},
+  {n:5, title:'Clinical Teaching and Supervision'},
+  {n:6, title:'Educational Leadership and Scholarship'}
+];
+
+function tTheme() {
+  const h = document.documentElement, t = document.getElementById('tt'), th = t.querySelector('.tthumb');
+  const d = h.getAttribute('data-theme') === 'dark';
+  h.setAttribute('data-theme', d ? 'light' : 'dark');
+  t.setAttribute('aria-checked', d ? 'false' : 'true');
+  th.textContent = d ? '\u2600' : '\u263E';
+  localStorage.setItem('kmv-theme', d ? 'light' : 'dark');
+}
+(function() {
+  const s = localStorage.getItem('kmv-theme'), p = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if ((s || (p ? 'dark' : 'light')) === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const t = document.getElementById('tt');
+    if (t) { t.setAttribute('aria-checked', 'true'); t.querySelector('.tthumb').textContent = '\u263E'; }
+  }
+})();
+
+async function chkAccess() {
+  const { data: { session } } = await SB.auth.getSession();
+  if (!session) { showLk('guest'); return; }
+  const { data: pr } = await SB.from('profiles').select('role, full_name, email').eq('id', session.user.id).maybeSingle();
+  if (pr && pr.role === 'admin') { show(); loadGrades(session.user.id, pr); return; }
+  const { data: co } = await SB.from('courses').select('id').eq('course_code', COURSE_CODE).maybeSingle();
+  if (!co) { showLk('no_plan'); return; }
+  const { data: en } = await SB.from('enrollments').select('id,expires_at').eq('student_id', session.user.id).eq('course_id', co.id).maybeSingle();
+  if (!en) { showLk('no_plan'); return; }
+  if (en.expires_at && new Date(en.expires_at) < new Date()) { showLk('expired'); return; }
+  show();
+  loadGrades(session.user.id, pr);
+}
+
+function showLk(r) {
+  const m = {
+    guest:   { i: '\uD83D\uDD12', h: 'Log in to view grades', p: 'Sign in and enrol to access grades and the certificate pathway.', b: 'Sign in', u: '/education/auth/' },
+    no_plan: { i: '\uD83D\uDCDA', h: 'Enrol to unlock', p: 'Choose a plan to access this course and your grades.', b: 'View Plans', u: '/education/courses/foundhp/' },
+    expired: { i: '\u23F0', h: 'Access expired', p: 'Renew your plan to view grades again.', b: 'Renew', u: '/education/courses/foundhp/' }
+  };
+  const x = m[r] || m.guest;
+  document.getElementById('lk').innerHTML = '<div class="lk"><div class="lki">' + x.i + '</div><h2>' + x.h + '</h2><p>' + x.p + '</p><a class="btnul" href="' + x.u + '">' + x.b + '</a></div>';
+  document.getElementById('lk').style.display = 'block';
+  document.getElementById('lc').style.display = 'none';
+}
+
+function show() {
+  document.getElementById('lk').style.display = 'none';
+  document.getElementById('lc').style.display = 'block';
+}
+
+function toPercent(row) {
+  // Supports saveQuizScore(course, module, percent) stored as score=percent,total=100
+  // and older rows where score/total are raw points
+  if (row.total && Number(row.total) > 0) {
+    return Math.round(100 * Number(row.score) / Number(row.total));
+  }
+  return Math.round(Number(row.score) || 0);
+}
+
+async function loadGrades(userId, profile) {
+  const nameEl = document.getElementById('student-name');
+  if (profile && (profile.full_name || profile.email)) {
+    nameEl.textContent = profile.full_name || profile.email;
+  } else {
+    nameEl.textContent = 'Your results';
+  }
+
+  let scores = [];
+  try {
+    const { data, error } = await SB.from('quiz_scores')
+      .select('module_number, score, total, created_at')
+      .eq('student_id', userId)
+      .eq('course_code', COURSE_CODE)
+      .order('created_at', { ascending: false });
+    if (!error && data) scores = data;
+  } catch (e) { scores = []; }
+
+  const best = {};
+  scores.forEach(row => {
+    const m = row.module_number;
+    const pct = toPercent(row);
+    if (!best[m] || pct > best[m].pct) {
+      best[m] = { pct, score: row.score, total: row.total, date: row.created_at };
+    }
+  });
+
+  let done = 0, sumPct = 0;
+  const tbody = document.getElementById('g-body');
+  tbody.innerHTML = '';
+  MODULES.forEach(mod => {
+    const b = best[mod.n];
+    const tr = document.createElement('tr');
+    let status, scoreTxt, dateTxt;
+    if (!b) {
+      status = '<span class="badge-ns">Not submitted</span>';
+      scoreTxt = '-';
+      dateTxt = '-';
+    } else {
+      done++;
+      sumPct += b.pct;
+      scoreTxt = b.pct + '%';
+      dateTxt = b.date ? new Date(b.date).toLocaleDateString() : '-';
+      status = b.pct >= 70
+        ? '<span class="badge-pass">Pass</span>'
+        : '<span class="badge-fail">Below 70%</span>';
+    }
+    tr.innerHTML = '<td><strong>M' + mod.n + '</strong> ' + mod.title + '</td><td>' + scoreTxt + '</td><td>' + status + '</td><td>' + dateTxt + '</td>';
+    tbody.appendChild(tr);
+  });
+
+  const left = MODULE_COUNT - done;
+  const avg = done ? Math.round(sumPct / done) : 0;
+  document.getElementById('s-done').textContent = done;
+  document.getElementById('s-left').textContent = left;
+  document.getElementById('s-avg').textContent = done ? avg + '%' : '-';
+  document.getElementById('overall-avg').textContent = done ? avg + '%' : 'No quizzes submitted yet';
+
+  const fill = Math.min(100, avg);
+  document.getElementById('cert-fill').style.width = (done ? fill : 0) + '%';
+  const msg = document.getElementById('cert-msg');
+  const label = document.getElementById('cert-label');
+  if (done === MODULE_COUNT && avg >= 80) {
+    msg.textContent = 'You have met the certificate threshold. Your certificate should appear on your dashboard.';
+    label.textContent = avg + '% average across ' + MODULE_COUNT + ' modules - eligible';
+  } else if (done === 0) {
+    label.textContent = 'No module quizzes submitted yet';
+  } else {
+    label.textContent = avg + '% average from ' + done + ' of ' + MODULE_COUNT + ' modules - need 80% across all ' + MODULE_COUNT;
+  }
+}
+
+chkAccess();
+</script>
+</body>
+</html>
