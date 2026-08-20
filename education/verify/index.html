@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Verify Certificate - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;display:flex;flex-direction:column;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);}
+.main{flex:1;max-width:600px;margin:0 auto;padding:48px 20px;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.page-title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--text-1);margin-bottom:8px;}
+.page-sub{font-size:0.88rem;color:var(--text-2);margin-bottom:32px;line-height:1.65;}
+.search-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px;}
+.search-label{font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:8px;display:block;}
+.search-row{display:flex;gap:10px;}
+.search-input{flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-1);background:var(--surface-2);outline:none;letter-spacing:0.05em;}
+.search-input:focus{border-color:var(--blue);background:var(--surface);}
+.search-btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:12px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;white-space:nowrap;}
+.search-btn:hover{background:var(--blue);}
+.search-btn:disabled{opacity:0.6;cursor:not-allowed;}
+.result{border-radius:14px;overflow:hidden;margin-top:8px;}
+.result-valid{background:rgba(21,128,61,0.06);border:1.5px solid rgba(21,128,61,0.3);}
+.result-invalid{background:rgba(220,38,38,0.05);border:1.5px solid rgba(220,38,38,0.2);}
+.result-header{padding:20px 22px 16px;display:flex;align-items:center;gap:14px;}
+.result-icon{font-size:32px;flex-shrink:0;}
+.result-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;}
+.result-title.valid{color:var(--green);}
+.result-title.invalid{color:var(--red);}
+.result-sub{font-size:12.5px;color:var(--text-2);margin-top:2px;}
+.result-body{padding:0 22px 22px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ri label{display:block;font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:3px;}
+.ri span{font-size:13.5px;color:var(--text-1);font-weight:500;}
+.ri.full{grid-column:1/-1;}
+.score-badge{display:inline-flex;align-items:center;background:#DCFCE7;color:#166534;font-size:13px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.info-note{background:rgba(43,63,191,0.06);border:1px solid rgba(43,63,191,0.18);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--blue);line-height:1.6;}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="/education/" class="tlogo">
+    <div class="tmark">KE</div>
+    <span class="tname">KMVTECH Education</span>
+  </a>
+</header>
+<main class="main">
+  <div class="eyebrow">Certificate Verification</div>
+  <h1 class="page-title">Verify a Certificate</h1>
+  <p class="page-sub">Enter the verification code found on any KMVTECH Education certificate to confirm it is genuine. This service is free and open to the public.</p>
+
+  <div class="search-box">
+    <label class="search-label" for="code-input">Certificate Verification Code</label>
+    <div class="search-row">
+      <input class="search-input" id="code-input" type="text" placeholder="e.g. EVL1-2026-A7K3M9" autocomplete="off" onkeydown="if(event.key==='Enter')verify()"/>
+      <button class="search-btn" id="verify-btn" onclick="verify()">Verify</button>
+    </div>
+  </div>
+
+  <div id="result"></div>
+
+  <div class="info-note">
+    This verification service confirms that the certificate was issued by KMVTECH Education and has not been altered. Each certificate contains a unique code that can only be generated by our system.
+  </div>
+</main>
+<script>
+const SB = supabase.createClient(
+  'https://nzjojrebyvxuawnkitth.supabase.co',
+  'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
+);
+
+// Check if code is in URL path e.g. /education/verify/EVL1-2026-A7K3M9/
+const pathParts = window.location.pathname.split('/').filter(Boolean);
+const urlCode = pathParts[pathParts.length - 1];
+if (urlCode && urlCode !== 'verify') {
+  document.getElementById('code-input').value = urlCode;
+  window.addEventListener('load', () => verify());
+}
+
+async function verify() {
+  const code = document.getElementById('code-input').value.trim().toUpperCase();
+  if (!code) { alert('Please enter a verification code.'); return; }
+
+  const btn = document.getElementById('verify-btn');
+  const result = document.getElementById('result');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+  result.innerHTML = '';
+
+  const { data: cert, error } = await SB.from('certificates')
+    .select('*')
+    .eq('verification_code', code)
+    .maybeSingle();
+
+  btn.disabled = false;
+  btn.textContent = 'Verify';
+
+  if (error || !cert) {
+    result.innerHTML = `
+      <div class="result result-invalid">
+        <div class="result-header">
+          <div class="result-icon">&#10060;</div>
+          <div>
+            <div class="result-title invalid">Certificate Not Found</div>
+            <div class="result-sub">No certificate exists with this code. Check the code and try again.</div>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const date = new Date(cert.issued_at).toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
+  result.innerHTML = `
+    <div class="result result-valid">
+      <div class="result-header">
+        <div class="result-icon">&#10004;&#65039;</div>
+        <div>
+          <div class="result-title valid">Certificate Verified</div>
+          <div class="result-sub">This is a genuine KMVTECH Education certificate.</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <div class="ri"><label>Student Name</label><span>${cert.student_name}</span></div>
+        <div class="ri"><label>Student Number</label><span>${cert.student_number}</span></div>
+        <div class="ri full"><label>Course Completed</label><span>${cert.course_title}</span></div>
+        <div class="ri"><label>Date Issued</label><span>${date}</span></div>
+        <div class="ri"><label>Overall Score</label><span class="score-badge">${cert.overall_score}%</span></div>
+        <div class="ri full"><label>Verification Code</label><span style="font-family:monospace;color:var(--blue);font-weight:600;">${cert.verification_code}</span></div>
+      </div>
+    </div>`;
+}
+</script>
+</body>
+</html>
