@@ -88,16 +88,7 @@ a{color:var(--blue);text-decoration:none}
   <p style="font-weight:600;color:var(--green);margin-bottom:8px">Congratulations – you passed Module 3!</p>
   <a class="btn bg" href="/education/courses/eqt1/4/1/1/">Continue to Module 4 →</a>
   </div>
-  <script>
-  document.querySelectorAll('.qo').forEach(b=>b.onclick=function(){this.parentElement.querySelectorAll('.qo').forEach(x=>x.classList.remove('sel'));this.classList.add('sel')});
-  document.getElementById('sub').onclick=function(){
-    let c=0,t=0;document.querySelectorAll('.qq').forEach(q=>{t++;const s=q.querySelector('.sel');if(s&&s.dataset.v===q.dataset.a)c++});
-    const p=Math.round(c/t*100);const b=document.getElementById('sb');b.style.display='block';
-    b.className='sb '+(p>=70?'ok':'no');b.textContent='Score: '+c+'/'+t+' ('+p+'%). '+(p>=70?'PASS':'Below 70% – review and retry');
-    if(p>=70)document.getElementById('passBox').style.display='block';
-    if(typeof saveQuizScore==='function')saveQuizScore('EQT1',3,c,t);
-  };
-  </script>
+  
   <div class="nav">
     <a href="/education/courses/eqt1/3/summary/" class="btn bs">← Module Summary</a>
     <span></span>
@@ -105,12 +96,25 @@ a{color:var(--blue);text-decoration:none}
 </div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/education/js/progress-tracking.js"></script>
+<script src="/education/js/save-quiz-score.js"></script>
+<script src="/education/js/check-certificate.js"></script>
 <script>
 const SB=supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
 function show(){document.getElementById('lk').style.display='none';document.getElementById('lc').style.display='block';if(typeof trackProgress==='function')trackProgress()}
 SB.auth.getSession().then(({data:{session}})=>{if(!session)document.getElementById('lk').style.display='block';else show()}).catch(show);
-document.getElementById('th').onclick=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('theme',d?'light':'dark')};
+const th=document.getElementById('th');
+if(th){th.onclick=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('theme',d?'light':'dark')}}
 if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
+document.querySelectorAll('.qo').forEach(b=>b.onclick=function(){this.parentElement.querySelectorAll('.qo').forEach(x=>x.classList.remove('sel'));this.classList.add('sel')});
+document.getElementById('sub').onclick=async function(){
+  let c=0,t=0;document.querySelectorAll('.qq').forEach(q=>{t++;const s=q.querySelector('.sel');if(s&&s.dataset.v===q.dataset.a)c++});
+  const p=Math.round(c/t*100);const b=document.getElementById('sb');b.style.display='block';
+  b.className='sb '+(p>=70?'ok':'no');b.textContent='Score: '+c+'/'+t+' ('+p+'%). '+(p>=70?'PASS':'Below 70% – review and retry');
+  if(p>=70)document.getElementById('passBox').style.display='block';
+  if(typeof saveQuizScore==='function')saveQuizScore('EQT1',3,c,t);
+  if(typeof checkAndIssueCertificate==='function')await checkAndIssueCertificate('EQT1',6);
+};
 </script>
-<script src="/education/js/save-quiz-score.js"></script>
-</body></html>
+
+</body>
+</html>
