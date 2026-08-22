@@ -1279,11 +1279,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <div class="section-panel" id="panel-certificates" role="region" aria-label="My certificates">
           <h2 class="panel-heading">My Certificates</h2>
           <p class="panel-sub">Certificates you have earned. Each one includes a unique verification code.</p>
-          <div class="cert-empty" role="status">
-            <div class="empty-icon" aria-hidden="true">🏆</div>
-            <h3>No certificates yet</h3>
-            <p>Complete all module quizzes in a course with an 80% average and your certificate generates automatically.</p>
-          </div>
+          <div style="background:linear-gradient(135deg,var(--navy),#1a2f5e);border-radius:14px;padding:28px;text-align:center;margin-bottom:16px;"><div style="font-size:36px;margin-bottom:12px;">&#127891;</div><div style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;color:#fff;margin-bottom:8px;">Your Certificates</div><p style="font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:18px;line-height:1.6;">View all certificates you have earned. Each includes a unique verification code and a downloadable PDF with your transcript.</p><a href="/education/certificates/" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;">View My Certificates &#8594;</a></div><div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text-2);line-height:1.6;">&#127891; Certificates are issued automatically when you complete all module quizzes with an 80% average.</div>
         </div>
 
         <!-- ================================================
@@ -1455,15 +1451,14 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 // ============================================================
 // PROGRESS TRACKING
 // ============================================================
-const COURSE_TOTALS = {
-  'EVL1':   56,
-  'EVL2':   133,
-  'ENVPSY': 78,
-  'HRM1':   101,
-  'COGPSY': 64,
-  'SOCPSY': 62,
-  'EQT1':   94,
-};
+const COURSE_TOTALS = {};
+
+async function loadCourseTotals() {
+  try {
+    const { data } = await sb.from('courses').select('course_code, total_pages');
+    if (data) data.forEach(c => { if (c.total_pages > 0) COURSE_TOTALS[c.course_code] = c.total_pages; });
+  } catch(e) { console.log('Course totals:', e.message); }
+}
 
 async function getAllProgress(studentId, courseCodes) {
   const result = {};
@@ -1597,6 +1592,7 @@ async function init() {
     // Load progress for all enrolled courses
     const courseCodes = enrollments.map(e => e.courses?.course_code).filter(Boolean);
     if (courseCodes.length > 0) {
+      await loadCourseTotals();
       courseProgress = await getAllProgress(currentUser.id, courseCodes);
       try {
         const { data: att } = await sb.from('quiz_attempts').select('course_code').eq('student_id', currentUser.id);
