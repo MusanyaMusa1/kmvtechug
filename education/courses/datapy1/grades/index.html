@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Grades - Data Analysis with Python (Intro) (DATAPY1) - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
+<style>
+:root{
+  --blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;
+  --green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;
+  --surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;
+  --text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;
+  --psy:#1B6B93;--psy-light:rgba(27,107,147,0.08);--psy-border:rgba(27,107,147,0.22);
+}
+[data-theme="dark"]{
+  --bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;
+  --border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;
+  --psy-light:rgba(27,107,147,0.15);--psy-border:rgba(27,107,147,0.35);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
+.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
+.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
+.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);overflow:hidden;min-width:0;}
+.tbc a{color:var(--text-2);text-decoration:none;white-space:nowrap;}.tbc a:hover{color:var(--blue);}
+.tright{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;transition:background 0.25s;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+.pbar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
+.pfill{height:100%;background:linear-gradient(90deg,var(--psy),#3d8a65);}
+.layout{display:flex;min-height:100vh;}
+.bwrap{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;}
+.sb{width:256px;flex-shrink:0;border-right:1px solid var(--border);background:var(--surface);position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
+.sb-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:16px 16px 8px;border-bottom:1px solid var(--border);}
+.sb-m{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:12px;font-weight:700;color:var(--text-2);border-bottom:1px solid var(--border);}
+.sb-n{width:20px;height:20px;border-radius:4px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2);flex-shrink:0;}
+.sb-n.on{background:var(--psy);color:#fff;}
+.sb-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);padding:6px 16px 4px;border-bottom:1px solid var(--border);}
+.sb-p{display:flex;align-items:center;gap:7px;padding:7px 16px 7px 26px;font-size:12px;color:var(--text-2);text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s;}
+.sb-p:hover{background:var(--surface-2);color:var(--text-1);}
+.sb-p.on{color:var(--psy);font-weight:600;background:var(--psy-light);}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;}
+.sb-p.on .sb-dot{background:var(--psy);}
+.main{flex:1;padding:0 20px 100px;min-width:0;}
+.hdr{max-width:var(--rw);margin:32px auto 28px;}
+.ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.ey::before{content:'';width:14px;height:1.5px;background:var(--psy);}
+.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.7rem,4vw,2.4rem);color:var(--text-1);line-height:1.15;letter-spacing:-0.01em;margin-bottom:14px;}
+.chips{padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;}
+.chip{display:inline-flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--text-2);}
+.chip.psy{background:var(--psy-light);border-color:var(--psy-border);color:var(--psy);font-weight:600;}
+.imgblock{max-width:var(--rw);margin:0 auto 28px;}
+.imgblock img{width:100%;height:auto;border-radius:12px;display:block;object-fit:cover;max-height:320px;}
+.imgcap{font-size:11.5px;color:var(--text-3);margin-top:8px;text-align:center;line-height:1.5;}
+.imgcap a{color:var(--text-2);text-decoration:underline;}
+.vwrap{max-width:var(--rw);margin:24px auto 0;}
+.vframe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:var(--navy);}
+.vframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;}
+.vmeta{font-size:11.5px;color:var(--text-3);text-align:center;margin-top:8px;}
+.vsum{max-width:var(--rw);margin:16px auto 28px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;}
+.vsl{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:7px;}
+.vsum p{font-size:0.88rem;color:var(--text-2);line-height:1.7;margin:0;}
+.vph{background:var(--navy);border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.ct{max-width:var(--rw);margin:0 auto;}
+.ct h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--text-1);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+.ct p{font-size:1rem;color:var(--text-1);line-height:1.85;margin-bottom:14px;}
+.ct strong{color:var(--text-1);}
+.ct ul,.ct ol{margin:0 0 16px 1.25rem;}
+.ct li{margin-bottom:8px;line-height:1.7;color:var(--text-1);}
+.gcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0;}
+.gcard h3{font-size:0.95rem;font-weight:700;color:var(--text-1);margin-bottom:6px;}
+.gcard p{font-size:0.9rem;color:var(--text-2);margin:0;line-height:1.65;}
+.auth{background:var(--psy-light);border:1px solid var(--psy-border);border-radius:10px;padding:14px 16px;margin:18px 0;}
+.al{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);margin-bottom:7px;}
+.auth p{font-size:0.87rem;color:var(--text-2);line-height:1.65;margin-bottom:5px;}
+.auth p:last-child{margin:0;}
+.sbox{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0;}
+.sl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:10px;}
+.slist{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.slist li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.slist li::before{content:'✓';color:var(--psy);font-weight:700;flex-shrink:0;margin-top:1px;}
+.pdfbar{max-width:var(--rw);margin:24px auto 0;background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.pdfi{font-size:22px;flex-shrink:0;}
+.pdft{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:2px;}
+.pdfs{font-size:11.5px;color:var(--text-2);}
+.btnpdf{flex-shrink:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;}
+.btnpdf:hover{background:var(--blue);}
+.nlcard{background:var(--navy);border-radius:12px;padding:20px 22px;margin:28px 0;text-align:center;}
+.nlcard p{color:rgba(255,255,255,0.6);font-size:0.88rem;margin-bottom:12px;}
+.nlcard a{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;text-decoration:none;}
+.pnav{max-width:var(--rw);margin:36px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;border-top:1px solid var(--border);}
+.nbtn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;transition:all 0.2s;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
+.nbtn:hover{border-color:var(--psy);color:var(--psy);}
+.nbtn.nx{background:var(--navy);color:#fff;border-color:var(--navy);}
+.nbtn.nx:hover{background:var(--psy);}
+.plbl{font-size:12px;color:var(--text-3);text-align:center;}
+.lk{max-width:var(--rw);margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
+.lki{font-size:40px;margin-bottom:14px;}
+.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
+.lk p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:360px;margin:0 auto 20px;}
+.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
+.out{width:210px;flex-shrink:0;border-left:1px solid var(--border);padding:24px 16px;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
+.otitle{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
+.olink{display:block;font-size:12px;color:var(--text-2);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--border);margin-bottom:4px;transition:all 0.15s;line-height:1.4;}
+.olink:hover,.olink.on{color:var(--psy);border-left-color:var(--psy);font-weight:600;}
+/* Quiz styles */
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.qnum{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--psy);margin-bottom:8px;}
+.qtext{font-size:1rem;font-weight:600;color:var(--text-1);margin-bottom:12px;line-height:1.5;}
+.qopt{display:block;padding:10px 14px;margin:6px 0;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:0.92rem;}
+.qopt:hover{border-color:var(--psy);background:var(--psy-light);}
+.qopt input{margin-right:10px;}
+.qopt.correct{border-color:var(--green);background:rgba(21,128,61,0.08);}
+.qopt.wrong{border-color:var(--red);background:rgba(220,38,38,0.06);}
+.qfb{font-size:0.88rem;margin-top:10px;padding:10px 12px;border-radius:8px;display:none;}
+.qfb.show{display:block;}
+.qfb.ok{background:rgba(21,128,61,0.1);color:var(--green);}
+.qfb.bad{background:rgba(220,38,38,0.08);color:var(--red);}
+.qactions{max-width:var(--rw);margin:24px auto;text-align:center;}
+.qbtn{background:var(--navy);color:#fff;border:none;font-weight:700;font-size:14px;padding:12px 28px;border-radius:9px;cursor:pointer;}
+.qbtn:hover{background:var(--psy);}
+.qscore{font-size:1.1rem;font-weight:700;margin:16px 0;color:var(--text-1);}
+@media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
+@media(min-width:1100px){.out{display:block;}}
+</style>
+<style>
+.g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0;}
+@media(min-width:640px){.g-grid{grid-template-columns:repeat(4,1fr);}}
+.g-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+.g-card .gv{font-size:1.6rem;font-weight:800;}
+.g-card .gl{font-size:0.75rem;color:var(--text-3);text-transform:uppercase;margin-top:4px;}
+.cert-bar{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin:18px 0;}
+.cert-bar .track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:10px 0;}
+.cert-bar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));width:0%;}
+.gtable{width:100%;border-collapse:collapse;font-size:0.9rem;margin:16px 0;}
+.gtable th,.gtable td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.badge-pass{background:rgba(21,128,61,0.12);color:var(--green);font-weight:700;font-size:11px;padding:3px 10px;border-radius:20px;}
+.badge-fail{background:rgba(220,38,38,0.1);color:var(--red);font-weight:700;font-size:11px;padding:3px 10px;border-radius:20px;}
+.badge-ns{background:var(--border);color:var(--text-3);font-weight:600;font-size:11px;padding:3px 10px;border-radius:20px;}
+</style>
+</head>
+<body data-course="DATAPY1">
+<header class="topbar">
+  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
+  <nav class="tbc"><a href="/education/courses/datapy1/">Data Analysis with Python (Intro)</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Grades</span></nav>
+  <div class="tright"><a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a></div>
+</header>
+<main style="max-width:780px;margin:0 auto;padding:24px 16px 48px;">
+  <div id="lk"></div>
+  <div id="lc" style="display:none;">
+    <div class="ey">DATAPY1</div>
+    <h1 class="ltitle">Your grades</h1>
+    <p id="student-name" style="color:var(--text-2);margin-bottom:18px;">Loading...</p>
+    <div class="g-grid">
+      <div class="g-card"><div class="gv" id="s-done">-</div><div class="gl">Modules done</div></div>
+      <div class="g-card"><div class="gv" id="s-left">-</div><div class="gl">Remaining</div></div>
+      <div class="g-card"><div class="gv" id="s-avg">-</div><div class="gl">Current average</div></div>
+      <div class="g-card"><div class="gv">80%</div><div class="gl">Certificate target</div></div>
+    </div>
+    <div class="cert-bar">
+      <strong>Certificate status</strong>
+      <p id="cert-msg" style="font-size:0.9rem;color:var(--text-2);margin:6px 0 0;">Complete all 6 module graded quizzes with an average of 80% or higher.</p>
+      <div class="track"><div class="fill" id="cert-fill"></div></div>
+      <div id="cert-label" style="font-size:0.8rem;color:var(--text-3);"></div>
+    </div>
+    <table class="gtable"><thead><tr><th>Module</th><th>Best score</th><th>Status</th><th>Submitted</th></tr></thead><tbody id="g-body"></tbody></table>
+    <p style="margin-top:12px;color:var(--text-2);">Overall average: <strong id="overall-avg">-</strong></p>
+    <p style="margin-top:24px;"><a href="/education/courses/datapy1/" style="color:var(--blue);font-weight:600;text-decoration:none;">&#8592; Back to course</a></p>
+  </div>
+</main>
+<script>
+const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+const COURSE_CODE = 'DATAPY1';
+const MODULE_COUNT = 6;
+const MODULES = [{n:1, title:'Data Thinking'},
+  {n:2, title:'Python Basics'},
+  {n:3, title:'Tables with Pandas'},
+  {n:4, title:'Cleaning and Exploring'},
+  {n:5, title:'Charts and Communication'},
+  {n:6, title:'Projects and Ethics'}];
+async function chkAccess() {
+  const { data: { session } } = await SB.auth.getSession();
+  if (!session) { document.getElementById('lk').innerHTML = '<div class="lock-card"><h2>Sign in required</h2><a class="nbtn primary" href="/education/auth/">Sign in</a></div>'; document.getElementById('lk').style.display='block'; return; }
+  const { data: pr } = await SB.from('profiles').select('role, full_name, email').eq('id', session.user.id).maybeSingle();
+  if (pr && pr.role === 'admin') { show(pr); loadGrades(session.user.id, pr); return; }
+  const { data: co } = await SB.from('courses').select('id').eq('course_code', COURSE_CODE).maybeSingle();
+  if (!co) { document.getElementById('lk').innerHTML = '<div class="lock-card"><h2>Course not available yet</h2><p>DATAPY1 may still need to be added in Supabase.</p></div>'; document.getElementById('lk').style.display='block'; return; }
+  const { data: en } = await SB.from('enrollments').select('id,expires_at').eq('student_id', session.user.id).eq('course_id', co.id).maybeSingle();
+  if (!en) { document.getElementById('lk').innerHTML = '<div class="lock-card"><h2>Enrol to unlock</h2></div>'; document.getElementById('lk').style.display='block'; return; }
+  show(pr); loadGrades(session.user.id, pr);
+}
+function show(pr) {
+  document.getElementById('lk').style.display = 'none';
+  document.getElementById('lc').style.display = 'block';
+  document.getElementById('student-name').textContent = (pr && (pr.full_name || pr.email)) || 'Your results';
+}
+function toPercent(row) {
+  if (row.total && Number(row.total) > 0) return Math.round(100 * Number(row.score) / Number(row.total));
+  return Math.round(Number(row.score) || 0);
+}
+async function loadGrades(userId) {
+  let scores = [];
+  try {
+    const { data } = await SB.from('quiz_scores').select('module_number, score, total, created_at').eq('student_id', userId).eq('course_code', COURSE_CODE).order('created_at', { ascending: false });
+    if (data) scores = data;
+  } catch (e) {}
+  const best = {};
+  scores.forEach(row => {
+    const m = row.module_number; const pct = toPercent(row);
+    if (!best[m] || pct > best[m].pct) best[m] = { pct, date: row.created_at };
+  });
+  let done = 0, sumPct = 0;
+  const tbody = document.getElementById('g-body'); tbody.innerHTML = '';
+  MODULES.forEach(mod => {
+    const b = best[mod.n]; const tr = document.createElement('tr');
+    if (!b) tr.innerHTML = '<td><strong>M' + mod.n + '</strong> ' + mod.title + '</td><td>-</td><td><span class="badge-ns">Not submitted</span></td><td>-</td>';
+    else {
+      done++; sumPct += b.pct;
+      const st = b.pct >= 70 ? '<span class="badge-pass">Pass</span>' : '<span class="badge-fail">Below 70%</span>';
+      tr.innerHTML = '<td><strong>M' + mod.n + '</strong> ' + mod.title + '</td><td>' + b.pct + '%</td><td>' + st + '</td><td>' + (b.date ? new Date(b.date).toLocaleDateString() : '-') + '</td>';
+    }
+    tbody.appendChild(tr);
+  });
+  const avg = done ? Math.round(sumPct / done) : 0;
+  document.getElementById('s-done').textContent = done;
+  document.getElementById('s-left').textContent = MODULE_COUNT - done;
+  document.getElementById('s-avg').textContent = done ? avg + '%' : '-';
+  document.getElementById('overall-avg').textContent = done ? avg + '%' : 'No quizzes submitted yet';
+  document.getElementById('cert-fill').style.width = (done ? Math.min(100, avg) : 0) + '%';
+  const label = document.getElementById('cert-label');
+  if (done === MODULE_COUNT && avg >= 80) label.textContent = avg + '% average - certificate eligible';
+  else if (done === 0) label.textContent = 'No module quizzes submitted yet';
+  else label.textContent = avg + '% average from ' + done + ' of ' + MODULE_COUNT + ' modules';
+}
+chkAccess();
+</script>
+</body>
+</html>
