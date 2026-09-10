@@ -1,10 +1,5 @@
 name: Rebuild King Musah Media Site
 
-# This runs automatically on GitHub's own servers, not on Claude, not on your
-# computer. Whenever data/articles.json changes inside the media folder, it
-# regenerates every page and publishes the update automatically — even if
-# Claude is unavailable.
-
 on:
   push:
     branches: [ main ]
@@ -37,5 +32,12 @@ jobs:
           git config user.name "King Musah Media Auto-Build"
           git config user.email "actions@github.com"
           git add media/
-          git diff --staged --quiet || git commit -m "Auto-rebuild site from articles.json [skip ci]"
-          git push
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-rebuild site from articles.json [skip ci]"
+            # Pull in case another run (e.g. the photo commit) pushed first —
+            # this is what was missing, and caused the failure emails.
+            git pull --rebase origin main
+            git push
+          else
+            echo "Nothing changed, nothing to push."
+          fi
