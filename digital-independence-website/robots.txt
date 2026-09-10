@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kmvtechug.app/digital-independence/sitemap.xml
