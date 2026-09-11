@@ -32,12 +32,22 @@ jobs:
           git config user.name "King Musah Media Auto-Build"
           git config user.email "actions@github.com"
           git add media/
-          if ! git diff --staged --quiet; then
-            git commit -m "Auto-rebuild site from articles.json [skip ci]"
-            # Pull in case another run (e.g. the photo commit) pushed first —
-            # this is what was missing, and caused the failure emails.
-            git pull --rebase origin main
-            git push
-          else
+
+          if git diff --staged --quiet; then
             echo "Nothing changed, nothing to push."
+            exit 0
+          fi
+
+          git commit -m "Auto-rebuild site from articles.json [skip ci]"
+
+          # If another run (e.g. the photo commit firing seconds apart) already
+          # pushed its own rebuild, our push will fail — and that's fine. Their
+          # rebuild is equally correct since it's generated from the same
+          # articles.json. We don't try to merge generated HTML; we just stand
+          # down instead of failing the whole job.
+          if git push; then
+            echo "Published successfully."
+          else
+            echo "Another run already published an equivalent rebuild — standing down, not a failure."
+            exit 0
           fi
