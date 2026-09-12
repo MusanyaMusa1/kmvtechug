@@ -249,19 +249,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
    TRUST BAR
    ============================================================ */
 .trust-bar{
-  background:var(--surface);border-bottom:1px solid var(--border);
-  padding:18px 24px;text-align:center;
+  background:var(--navy);
+  padding:14px 24px;text-align:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
 }
 .trust-bar-inner{
   max-width:1100px;margin:0 auto;
   display:flex;align-items:center;justify-content:center;
-  gap:32px;flex-wrap:wrap;
+  gap:0;flex-wrap:wrap;
 }
 .trust-item{
   display:flex;align-items:center;gap:8px;
-  font-size:13px;color:var(--text-2);font-weight:500;
+  font-size:12.5px;color:rgba(255,255,255,0.6);font-weight:500;
+  padding:4px 20px;
 }
-.trust-icon{font-size:18px;}
+.trust-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+}
+.trust-sep{
+  width:1px;height:14px;background:rgba(255,255,255,0.12);
+}
 
 /* ============================================================
    SECTION SHARED
@@ -348,7 +356,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   border-radius:14px;overflow:hidden;
   display:flex;flex-direction:column;
   transition:transform 0.25s,box-shadow 0.25s;
+  text-decoration:none;color:inherit;cursor:pointer;
 }
+.ccard:focus{outline:3px solid var(--blue);outline-offset:2px;}
 .ccard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
 .ccard-thumb{
   position:relative;aspect-ratio:16/9;
@@ -637,11 +647,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
      ============================================================ -->
 <div class="trust-bar" role="complementary" aria-label="Platform highlights">
   <div class="trust-bar-inner">
-    <div class="trust-item"><span class="trust-icon">&#127891;</span> Certificates Included with Every Plan</div>
-    <div class="trust-item"><span class="trust-icon">&#128247;</span> Mobile-First Design</div>
-    <div class="trust-item"><span class="trust-icon">&#127758;</span> Uganda-Specific Content</div>
-    <div class="trust-item"><span class="trust-icon">&#128274;</span> Instant Access After Payment</div>
-    <div class="trust-item"><span class="trust-icon">&#9989;</span> Auto-Marked Quizzes</div>
+    <div class="trust-item"><span class="trust-dot"></span>Certificates with Every Plan</div>
+    <div class="trust-sep" aria-hidden="true"></div>
+    <div class="trust-item"><span class="trust-dot"></span>Uganda-Specific Content</div>
+    <div class="trust-sep" aria-hidden="true"></div>
+    <div class="trust-item"><span class="trust-dot"></span>Mobile-First Design</div>
+    <div class="trust-sep" aria-hidden="true"></div>
+    <div class="trust-item"><span class="trust-dot"></span>Instant Access After Payment</div>
+    <div class="trust-sep" aria-hidden="true"></div>
+    <div class="trust-item"><span class="trust-dot"></span>Auto-Marked Quizzes</div>
   </div>
 </div>
 
@@ -853,11 +867,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
       </div>
       <div class="footer-col">
         <h4>Faculties</h4>
-        <a href="#catalogue" onclick="switchTab(document.querySelector('[data-faculty=law]'),'law')">Law</a>
-        <a href="#catalogue" onclick="switchTab(document.querySelector('[data-faculty=health]'),'health')">Health Sciences</a>
-        <a href="#catalogue" onclick="switchTab(document.querySelector('[data-faculty=social]'),'social')">Social Sciences</a>
-        <a href="#catalogue" onclick="switchTab(document.querySelector('[data-faculty=business]'),'business')">Business</a>
-        <a href="#catalogue" onclick="switchTab(document.querySelector('[data-faculty=it]'),'it')">IT &amp; Digital Skills</a>
+        <a href="#catalogue" onclick="goToFaculty('law')">Law</a>
+        <a href="#catalogue" onclick="goToFaculty('health')">Health Sciences</a>
+        <a href="#catalogue" onclick="goToFaculty('social')">Social Sciences</a>
+        <a href="#catalogue" onclick="goToFaculty('business')">Business</a>
+        <a href="#catalogue" onclick="goToFaculty('it')">IT &amp; Digital Skills</a>
       </div>
       <div class="footer-col">
         <h4>Support</h4>
@@ -903,25 +917,25 @@ const COURSES = [
   {code:'EQT1',title:'Law of Equity and Trusts',faculty:'law',level:'Year 3-4',status:'open',url:'./courses/eqt1/'},
   {code:'CRIMPROC',title:'Criminal Procedure',faculty:'law',level:'Year 3',status:'open',url:'./courses/crimproc/'},
   {code:'MEDLAW',title:'Medical Law',faculty:'law',level:'Year 3-4',status:'open',url:'./courses/medlaw/'},
-  {code:'FAM1',title:'Family Law 1',faculty:'law',level:'Year 2-3',status:'ready',url:null},
-  {code:'FAM2',title:'Family Law 2',faculty:'law',level:'Year 2-3',status:'ready',url:null},
-  {code:'LAN1',title:'Land Law 1',faculty:'law',level:'Year 2-3',status:'ready',url:null},
-  {code:'LAN2',title:'Land Law 2',faculty:'law',level:'Year 2-3',status:'ready',url:null},
-  {code:'CRM1',title:'Criminal Law 1',faculty:'law',level:'Year 1',status:'ready',url:null},
-  {code:'CRM2',title:'Criminal Law 2',faculty:'law',level:'Year 1-2',status:'ready',url:null},
-  {code:'JUR1',title:'Jurisprudence 1',faculty:'law',level:'Year 3-4',status:'ready',url:null},
-  {code:'JUR2',title:'Jurisprudence 2',faculty:'law',level:'Year 3-4',status:'ready',url:null},
-  {code:'CEL1',title:'Conservation and Environmental Law',faculty:'law',level:'Year 3-4',status:'ready',url:null},
-  {code:'SOG1',title:'Sales of Goods',faculty:'law',level:'Year 2-3',status:'ready',url:null},
-  {code:'INL1',title:'International Law',faculty:'law',level:'Year 3-4',status:'ready',url:null},
-  {code:'IPL1',title:'Intellectual Property Law',faculty:'law',level:'Year 3-4',status:'ready',url:null},
-  {code:'CPL1',title:'Civil Procedure Law',faculty:'law',level:'Year 3',status:'ready',url:null},
-  {code:'TORT1',title:'Tort Law 1',faculty:'law',level:'Year 2',status:'ready',url:null},
-  {code:'TORT2',title:'Tort Law 2',faculty:'law',level:'Year 2-3',status:'ready',url:null},
-  {code:'CONLAW1',title:'Contract Law 1',faculty:'law',level:'Year 1-2',status:'ready',url:null},
-  {code:'CONLAW2',title:'Contract Law 2',faculty:'law',level:'Year 2',status:'ready',url:null},
-  {code:'ADMINLAW',title:'Administrative Law',faculty:'law',level:'Year 3',status:'ready',url:null},
-  {code:'HRL1',title:'Human Rights Law',faculty:'law',level:'Year 3-4',status:'ready',url:null},
+  {code:'FAM1',title:'Family Law 1',faculty:'law',level:'Year 2-3',status:'open',url:null},
+  {code:'FAM2',title:'Family Law 2',faculty:'law',level:'Year 2-3',status:'open',url:null},
+  {code:'LAN1',title:'Land Law 1',faculty:'law',level:'Year 2-3',status:'open',url:null},
+  {code:'LAN2',title:'Land Law 2',faculty:'law',level:'Year 2-3',status:'open',url:null},
+  {code:'CRM1',title:'Criminal Law 1',faculty:'law',level:'Year 1',status:'open',url:null},
+  {code:'CRM2',title:'Criminal Law 2',faculty:'law',level:'Year 1-2',status:'open',url:null},
+  {code:'JUR1',title:'Jurisprudence 1',faculty:'law',level:'Year 3-4',status:'open',url:null},
+  {code:'JUR2',title:'Jurisprudence 2',faculty:'law',level:'Year 3-4',status:'open',url:null},
+  {code:'CEL1',title:'Conservation and Environmental Law',faculty:'law',level:'Year 3-4',status:'open',url:null},
+  {code:'SOG1',title:'Sales of Goods',faculty:'law',level:'Year 2-3',status:'open',url:null},
+  {code:'INL1',title:'International Law',faculty:'law',level:'Year 3-4',status:'open',url:null},
+  {code:'IPL1',title:'Intellectual Property Law',faculty:'law',level:'Year 3-4',status:'open',url:null},
+  {code:'CPL1',title:'Civil Procedure Law',faculty:'law',level:'Year 3',status:'open',url:null},
+  {code:'TORT1',title:'Tort Law 1',faculty:'law',level:'Year 2',status:'open',url:null},
+  {code:'TORT2',title:'Tort Law 2',faculty:'law',level:'Year 2-3',status:'open',url:null},
+  {code:'CONLAW1',title:'Contract Law 1',faculty:'law',level:'Year 1-2',status:'open',url:null},
+  {code:'CONLAW2',title:'Contract Law 2',faculty:'law',level:'Year 2',status:'open',url:null},
+  {code:'ADMINLAW',title:'Administrative Law',faculty:'law',level:'Year 3',status:'open',url:null},
+  {code:'HRL1',title:'Human Rights Law',faculty:'law',level:'Year 3-4',status:'open',url:null},
   // HEALTH SCIENCES
   {code:'FAEC',title:'First Aid and Basic Emergency Care',faculty:'health',level:'Beginner',status:'open',url:'./courses/faec/'},
   {code:'COMH',title:'Community Health and Health Promotion',faculty:'health',level:'Beginner',status:'open',url:'./courses/comh/'},
@@ -980,32 +994,24 @@ const COURSES = [
 // BUILD COURSE CARD
 // ============================================================
 function buildCard(c) {
-  const img = `${IMG}${c.code.toLowerCase()}-hero.jpg`;
-  const badgeClass = c.status === 'open' ? 'open' : c.status === 'ready' ? 'ready' : 'prod';
-  const badgeText = c.status === 'open' ? '&#9679; Open Now' : 'Launching Jan 2027';
-  const price = 'From UGX 5,000';
-
-  const action = c.status === 'open'
-    ? `<a href="${c.url}" class="ccard-cta start" aria-label="Start ${c.title}">Start &#8594;</a>`
-    : `<button class="ccard-cta notify" onclick="openModal('${c.title.replace(/'/g,"\\'")}')">Notify Me</button>`;
-
-  return `<article class="ccard" itemscope itemtype="https://schema.org/Course">
-    <div class="ccard-thumb">
-      <img src="${img}" alt="${c.title} course image" class="ccard-img" loading="lazy"
-        onerror="this.parentElement.style.background='linear-gradient(135deg,#0D1B2A,#1a2f5e)';this.style.display='none';"
-        itemprop="image"/>
-      <span class="ccard-badge ${badgeClass}">${badgeText}</span>
-    </div>
-    <div class="ccard-body">
-      <div class="ccard-fac" itemprop="provider">${getFacultyLabel(c.faculty)}</div>
-      <h3 class="ccard-title" itemprop="name">${c.title}</h3>
-      <div class="ccard-level">${c.level}</div>
-    </div>
-    <div class="ccard-foot">
-      <div class="ccard-price"><strong>${c.status === 'open' ? price : ''}</strong></div>
-      ${action}
-    </div>
-  </article>`;
+  const img = IMG + c.code.toLowerCase() + '-hero.jpg';
+  const url = '/education/courses/' + c.code.toLowerCase() + '/';
+  const t = c.title.replace(/"/g,'&quot;');
+  return '<a href="' + url + '" class="ccard" itemscope itemtype="https://schema.org/Course" aria-label="Open ' + t + '">'
+    + '<div class="ccard-thumb">'
+    + '<img src="' + img + '" alt="' + t + '" class="ccard-img" loading="lazy" onerror="this.parentElement.style.background='#0D1B2A';this.style.display='none';" itemprop="image"/>'
+    + '<span class="ccard-badge open">&#9679; Open Now</span>'
+    + '</div>'
+    + '<div class="ccard-body">'
+    + '<div class="ccard-fac" itemprop="provider">' + getFacultyLabel(c.faculty) + '</div>'
+    + '<h3 class="ccard-title" itemprop="name">' + c.title + '</h3>'
+    + '<div class="ccard-level">' + c.level + '</div>'
+    + '</div>'
+    + '<div class="ccard-foot">'
+    + '<div class="ccard-price"><strong>From UGX 5,000</strong><span> / month</span></div>'
+    + '<span class="ccard-cta start">Start &#8594;</span>'
+    + '</div>'
+    + '</a>';
 }
 
 function getFacultyLabel(f) {
@@ -1197,9 +1203,65 @@ window.addEventListener('scroll', function() {
 }, { passive: true });
 
 // ============================================================
+// GO TO FACULTY (for footer links)
+// ============================================================
+function goToFaculty(faculty) {
+  document.querySelector('#catalogue').scrollIntoView({ behavior: 'smooth' });
+  setTimeout(() => {
+    const btn = document.querySelector('[data-faculty="' + faculty + '"]');
+    if (btn) switchTab(btn, faculty);
+  }, 600);
+}
+
+// ============================================================
+// AUTH CHECK - show user name if logged in
+// ============================================================
+async function checkAuth() {
+  try {
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    const { data: profile } = await sb.from('profiles')
+      .select('full_name')
+      .eq('id', session.user.id)
+      .maybeSingle();
+    if (!profile) return;
+    const firstName = profile.full_name ? profile.full_name.split(' ')[0] : 'Student';
+    // Replace login/register buttons with name and dashboard link
+    const tbarRight = document.querySelector('.tbar-right');
+    if (tbarRight) {
+      const loginBtn = tbarRight.querySelector('.btn-login');
+      const regBtn = tbarRight.querySelector('.btn-register');
+      if (loginBtn) loginBtn.remove();
+      if (regBtn) {
+        regBtn.textContent = 'Dashboard';
+        regBtn.href = '/education/dashboard/';
+        regBtn.style.background = 'var(--blue)';
+      }
+      // Add name display before dashboard
+      const nameEl = document.createElement('span');
+      nameEl.style.cssText = 'font-size:13.5px;font-weight:600;color:var(--text-2);display:none;';
+      nameEl.id = 'user-name-display';
+      nameEl.textContent = 'Hi, ' + firstName;
+      tbarRight.insertBefore(nameEl, tbarRight.querySelector('.btn-register'));
+      if (window.innerWidth >= 900) nameEl.style.display = 'block';
+    }
+    // Same for mobile menu
+    const mobLogin = document.querySelector('.mob-login');
+    const mobReg = document.querySelector('.mob-reg');
+    if (mobLogin) mobLogin.remove();
+    if (mobReg) {
+      mobReg.textContent = 'Go to Dashboard';
+      mobReg.href = '/education/dashboard/';
+    }
+  } catch(e) {}
+}
+
+// ============================================================
 // INIT
 // ============================================================
 renderAll();
+checkAuth();
 </script>
 </body>
 </html>
