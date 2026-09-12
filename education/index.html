@@ -996,10 +996,15 @@ const COURSES = [
 function buildCard(c) {
   const img = IMG + c.code.toLowerCase() + '-hero.jpg';
   const url = '/education/courses/' + c.code.toLowerCase() + '/';
-  const t = c.title.replace(/"/g,'&quot;');
-  return '<a href="' + url + '" class="ccard" itemscope itemtype="https://schema.org/Course" aria-label="Open ' + t + '">'
-    + '<div class="ccard-thumb">'
-    + '<img src="' + img + '" alt="' + t + '" class="ccard-img" loading="lazy" onerror="this.parentElement.style.background='#0D1B2A';this.style.display='none';" itemprop="image"/>'
+  const d = document.createElement('a');
+  d.href = url;
+  d.className = 'ccard';
+  d.setAttribute('itemscope', '');
+  d.setAttribute('itemtype', 'https://schema.org/Course');
+  d.setAttribute('aria-label', 'Open ' + c.title);
+  d.innerHTML =
+    '<div class="ccard-thumb">'
+    + '<img src="' + img + '" alt="' + c.title + '" class="ccard-img" loading="lazy" itemprop="image"/>'
     + '<span class="ccard-badge open">&#9679; Open Now</span>'
     + '</div>'
     + '<div class="ccard-body">'
@@ -1010,8 +1015,14 @@ function buildCard(c) {
     + '<div class="ccard-foot">'
     + '<div class="ccard-price"><strong>From UGX 5,000</strong><span> / month</span></div>'
     + '<span class="ccard-cta start">Start &#8594;</span>'
-    + '</div>'
-    + '</a>';
+    + '</div>';
+  // Handle broken image
+  const img_el = d.querySelector('img');
+  if (img_el) img_el.addEventListener('error', function() {
+    this.parentElement.style.background = '#0D1B2A';
+    this.style.display = 'none';
+  });
+  return d.outerHTML;
 }
 
 function getFacultyLabel(f) {
@@ -1228,25 +1239,23 @@ async function checkAuth() {
     if (!profile) return;
     const firstName = profile.full_name ? profile.full_name.split(' ')[0] : 'Student';
     // Replace login/register buttons with name and dashboard link
-    const tbarRight = document.querySelector('.tbar-right');
-    if (tbarRight) {
-      const loginBtn = tbarRight.querySelector('.btn-login');
-      const regBtn = tbarRight.querySelector('.btn-register');
-      if (loginBtn) loginBtn.remove();
-      if (regBtn) {
-        regBtn.textContent = 'Dashboard';
-        regBtn.href = '/education/dashboard/';
-        regBtn.style.background = 'var(--blue)';
-      }
-      // Add name display before dashboard
-      const nameEl = document.createElement('span');
-      nameEl.style.cssText = 'font-size:13.5px;font-weight:600;color:var(--text-2);display:none;';
-      nameEl.id = 'user-name-display';
-      nameEl.textContent = 'Hi, ' + firstName;
-      tbarRight.insertBefore(nameEl, tbarRight.querySelector('.btn-register'));
-      if (window.innerWidth >= 900) nameEl.style.display = 'block';
+    // Update desktop topbar
+    const loginBtn = document.querySelector('.btn-login');
+    const regBtn = document.querySelector('.btn-register');
+    const hamburger = document.querySelector('.hamburger');
+    if (loginBtn) loginBtn.remove();
+    if (regBtn) {
+      regBtn.textContent = 'Dashboard';
+      regBtn.href = '/education/dashboard/';
     }
-    // Same for mobile menu
+    // Add greeting before dashboard button
+    const greeting = document.createElement('span');
+    greeting.style.cssText = 'font-size:13px;font-weight:600;color:var(--text-2);white-space:nowrap;';
+    greeting.textContent = 'Hi, ' + firstName;
+    if (regBtn && regBtn.parentElement) {
+      regBtn.parentElement.insertBefore(greeting, regBtn);
+    }
+    // Update mobile menu
     const mobLogin = document.querySelector('.mob-login');
     const mobReg = document.querySelector('.mob-reg');
     if (mobLogin) mobLogin.remove();
@@ -1261,7 +1270,12 @@ async function checkAuth() {
 // INIT
 // ============================================================
 renderAll();
-checkAuth();
+// Run auth check after page fully loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', checkAuth);
+} else {
+  checkAuth();
+}
 </script>
 </body>
 </html>
