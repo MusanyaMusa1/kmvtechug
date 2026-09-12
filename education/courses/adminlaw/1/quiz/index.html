@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-course="ADMINLAW">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="ADMINLAW M1 quiz"/>
+<meta name="keywords" content="administrative law Uganda, judicial review, natural justice, ADMINLAW, KMVTECH Education, Uganda LLB"/>
+<title>Graded M1 - ADMINLAW - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
+<script src="/education/js/save-quiz-score.js"></script>
+<script src="/education/js/check-certificate.js"></script>
+<style>
+:root{--blue:#2B3FBF;--navy:#0D1B2A;--gold:#C9922A;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--law:#1B4F72;--law-light:rgba(27,79,114,.08);--law-border:rgba(27,79,114,.22)}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold)}
+.tbc{flex:1;font-size:12.5px;color:var(--text-3)}.tbc a{color:var(--text-2);text-decoration:none}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.side{width:260px;background:var(--surface);border-right:1px solid var(--border);padding:16px 12px;display:none;overflow-y:auto}
+@media(min-width:960px){.side{display:block}}
+.side h3{font-size:11px;text-transform:uppercase;color:var(--text-3);margin:12px 8px 6px}
+.side a{display:block;padding:7px 10px;border-radius:8px;color:var(--text-2);text-decoration:none;font-size:13px}
+.side a:hover{background:var(--law-light);color:var(--law)}
+.main{flex:1;padding:28px 20px 60px;max-width:880px}
+.ey{font-size:12.5px;color:var(--text-3);margin-bottom:6px}
+.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:26px;margin-bottom:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:4px 10px;border-radius:999px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border)}
+.prose{max-width:680px}.prose p{margin:0 0 14px;font-size:15.5px}.prose h2{font-family:'Playfair Display',serif;font-size:20px;margin:20px 0 10px;color:var(--law)}.prose ul,.prose ol{margin:0 0 14px 1.2em}
+.callout{background:var(--law-light);border:1px solid var(--law-border);border-radius:12px;padding:14px 16px;margin:16px 0;font-size:14.5px}
+.statute{font-size:13.5px;background:var(--surface-2);border-left:3px solid var(--gold);padding:10px 14px;margin:14px 0}
+.fig{margin:18px 0;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.fig img{width:100%;display:block;max-height:280px;object-fit:cover}
+.fig .cap{font-size:12px;color:var(--text-3);padding:8px 12px;background:var(--surface-2)}
+.vwrap{margin:16px 0;border-radius:14px;overflow:hidden}.vph{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0D1B2A,#1B4F72);color:rgba(255,255,255,.85)}
+.nav-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.nbtn{display:inline-flex;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--border);color:var(--text-1);background:var(--surface);cursor:pointer}
+.nbtn.primary{background:var(--law);color:#fff;border-color:var(--law)}
+.lock-card{max-width:420px;margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
+.qopt{display:block;padding:8px 10px;margin:4px 0;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-size:14px}
+.result{margin-top:16px;padding:14px;border-radius:12px;display:none}.result.show{display:block}.result.pass{background:rgba(21,128,61,.12)}.result.fail{background:rgba(220,38,38,.1)}
+</style>
+</head>
+<body>
+<header class="topbar"><a href="/education/" style="text-decoration:none;display:flex;align-items:center;gap:8px"><div class="tmark">K</div></a>
+<nav class="tbc"><a href="/education/courses/adminlaw/">ADMINLAW</a></nav>
+<button id="themeBtn" class="nbtn" style="padding:6px 10px;font-size:12px" type="button">Theme</button>
+</header>
+<div class="layout"><aside class="side"><h3>ADMINLAW</h3><a href="/education/courses/adminlaw/">Course home</a>
+<h3>Module 1</h3>
+<a href="/education/courses/adminlaw/1/1/1/">L1. What is administrative law</a>
+<a href="/education/courses/adminlaw/1/quiz/">M1 graded quiz</a>
+<h3>Module 2</h3>
+<a href="/education/courses/adminlaw/2/1/1/">L1. Who exercises public power</a>
+<a href="/education/courses/adminlaw/2/quiz/">M2 graded quiz</a>
+<h3>Module 3</h3>
+<a href="/education/courses/adminlaw/3/1/1/">L1. Rule-making</a>
+<a href="/education/courses/adminlaw/3/quiz/">M3 graded quiz</a>
+<h3>Module 4</h3>
+<a href="/education/courses/adminlaw/4/1/1/">L1. Fair hearing and bias</a>
+<a href="/education/courses/adminlaw/4/quiz/">M4 graded quiz</a>
+<h3>Module 5</h3>
+<a href="/education/courses/adminlaw/5/1/1/">L1. Illegality, irrationality, p</a>
+<a href="/education/courses/adminlaw/5/quiz/">M5 graded quiz</a>
+<h3>Module 6</h3>
+<a href="/education/courses/adminlaw/6/1/1/">L1. How to challenge a decision</a>
+<a href="/education/courses/adminlaw/6/quiz/">M6 graded quiz</a>
+<h3>Module 7</h3>
+<a href="/education/courses/adminlaw/7/1/1/">L1. Tribunals, IGG and inquiries</a>
+<a href="/education/courses/adminlaw/7/quiz/">M7 graded quiz</a>
+<h3>Module 8</h3>
+<a href="/education/courses/adminlaw/8/1/1/">L1. Suing government and money p</a>
+<a href="/education/courses/adminlaw/8/quiz/">M8 graded quiz</a>
+<h3>Account</h3><a href="/education/courses/adminlaw/grades/">Grades</a><a href="/education/courses/adminlaw/complete/">Completion</a></aside><main class="main">
+
+<div id="lk"></div><div id="lc" style="display:none">
+<div class="ey">Module 1 · Graded quiz · 20 questions</div>
+<h1 class="ltitle">Module 1 graded quiz</h1>
+<p class="prose">Submit once. Retry from this screen is blocked after answers show.</p>
+<form id="qf"><div class="qcard"><p><strong>Q1.</strong> ADMINLAW M1: Administrative law mainly controls:</p><label class="qopt"><input type="radio" name="q0" value="0"/> Public power</label><label class="qopt"><input type="radio" name="q0" value="1"/> Private leases only</label><label class="qopt"><input type="radio" name="q0" value="2"/> Only criminal trials</label><label class="qopt"><input type="radio" name="q0" value="3"/> Only company floats</label></div><div class="qcard"><p><strong>Q2.</strong> Natural justice includes:</p><label class="qopt"><input type="radio" name="q1" value="0"/> Fair hearing and rule against bias</label><label class="qopt"><input type="radio" name="q1" value="1"/> Only written exams</label><label class="qopt"><input type="radio" name="q1" value="2"/> Only ministerial speeches</label><label class="qopt"><input type="radio" name="q1" value="3"/> Only foreign treaties</label></div><div class="qcard"><p><strong>Q3.</strong> Ultra vires means:</p><label class="qopt"><input type="radio" name="q2" value="0"/> Beyond legal power</label><label class="qopt"><input type="radio" name="q2" value="1"/> Always a crime</label><label class="qopt"><input type="radio" name="q2" value="2"/> Only a moral wrong</label><label class="qopt"><input type="radio" name="q2" value="3"/> Always valid</label></div><div class="qcard"><p><strong>Q4.</strong> Certiorari is used to:</p><label class="qopt"><input type="radio" name="q3" value="0"/> Quash a decision</label><label class="qopt"><input type="radio" name="q3" value="1"/> Create a company</label><label class="qopt"><input type="radio" name="q3" value="2"/> Grant bail</label><label class="qopt"><input type="radio" name="q3" value="3"/> Register a trademark</label></div><div class="qcard"><p><strong>Q5.</strong> Mandamus is used to:</p><label class="qopt"><input type="radio" name="q4" value="0"/> Compel performance of a public duty</label><label class="qopt"><input type="radio" name="q4" value="1"/> Quash only</label><label class="qopt"><input type="radio" name="q4" value="2"/> Dissolve Parliament</label><label class="qopt"><input type="radio" name="q4" value="3"/> Appoint judges only</label></div><div class="qcard"><p><strong>Q6.</strong> Delegated legislation must:</p><label class="qopt"><input type="radio" name="q5" value="0"/> Stay within the parent Act</label><label class="qopt"><input type="radio" name="q5" value="1"/> Ignore the Constitution</label><label class="qopt"><input type="radio" name="q5" value="2"/> Always be oral</label><label class="qopt"><input type="radio" name="q5" value="3"/> Need no publication ever</label></div><div class="qcard"><p><strong>Q7.</strong> Judicial review is mainly in the:</p><label class="qopt"><input type="radio" name="q6" value="0"/> High Court</label><label class="qopt"><input type="radio" name="q6" value="1"/> LC1 only</label><label class="qopt"><input type="radio" name="q6" value="2"/> Village meeting only</label><label class="qopt"><input type="radio" name="q6" value="3"/> Foreign embassies</label></div><div class="qcard"><p><strong>Q8.</strong> Statutory notice may be required when:</p><label class="qopt"><input type="radio" name="q7" value="0"/> Suing the Government</label><label class="qopt"><input type="radio" name="q7" value="1"/> Buying groceries</label><label class="qopt"><input type="radio" name="q7" value="2"/> Registering a birth only</label><label class="qopt"><input type="radio" name="q7" value="3"/> Opening a WhatsApp group</label></div><div class="qcard"><p><strong>Q9.</strong> Irrationality as a JR ground is:</p><label class="qopt"><input type="radio" name="q8" value="0"/> A high threshold</label><label class="qopt"><input type="radio" name="q8" value="1"/> Automatic for every error</label><label class="qopt"><input type="radio" name="q8" value="2"/> Only about spelling</label><label class="qopt"><input type="radio" name="q8" value="3"/> Only about land title</label></div><div class="qcard"><p><strong>Q10.</strong> Tribunals are useful because:</p><label class="qopt"><input type="radio" name="q9" value="0"/> Specialised, often faster routes</label><label class="qopt"><input type="radio" name="q9" value="1"/> They replace the Constitution</label><label class="qopt"><input type="radio" name="q9" value="2"/> They never make errors</label><label class="qopt"><input type="radio" name="q9" value="3"/> They ban all appeals</label></div><div class="qcard"><p><strong>Q11.</strong> Local governments derive powers from:</p><label class="qopt"><input type="radio" name="q10" value="0"/> Constitution and Local Governments Act</label><label class="qopt"><input type="radio" name="q10" value="1"/> Only custom without statute</label><label class="qopt"><input type="radio" name="q10" value="2"/> Only foreign law</label><label class="qopt"><input type="radio" name="q10" value="3"/> Only oral clan rules</label></div><div class="qcard"><p><strong>Q12.</strong> Bias can be shown by:</p><label class="qopt"><input type="radio" name="q11" value="0"/> Reasonable apprehension of partiality</label><label class="qopt"><input type="radio" name="q11" value="1"/> Only proven bribery always</label><label class="qopt"><input type="radio" name="q11" value="2"/> Never in Uganda</label><label class="qopt"><input type="radio" name="q11" value="3"/> Only foreign judges</label></div><div class="qcard"><p><strong>Q13.</strong> Public interest standing can be wider under:</p><label class="qopt"><input type="radio" name="q12" value="0"/> The Constitution</label><label class="qopt"><input type="radio" name="q12" value="1"/> Only English 1800s cases</label><label class="qopt"><input type="radio" name="q12" value="2"/> Only company law</label><label class="qopt"><input type="radio" name="q12" value="3"/> Only tax statutes</label></div><div class="qcard"><p><strong>Q14.</strong> Commissions of inquiry are governed by:</p><label class="qopt"><input type="radio" name="q13" value="0"/> Their enabling Act</label><label class="qopt"><input type="radio" name="q13" value="1"/> Only WhatsApp groups</label><label class="qopt"><input type="radio" name="q13" value="2"/> Only market bylaws</label><label class="qopt"><input type="radio" name="q13" value="3"/> Only sports rules</label></div><div class="qcard"><p><strong>Q15.</strong> Fettering discretion is a form of:</p><label class="qopt"><input type="radio" name="q14" value="0"/> Illegality</label><label class="qopt"><input type="radio" name="q14" value="1"/> Perfect validity</label><label class="qopt"><input type="radio" name="q14" value="2"/> Only a tort</label><label class="qopt"><input type="radio" name="q14" value="3"/> Only a crime</label></div><div class="qcard"><p><strong>Q16.</strong> Best ADMINLAW method:</p><label class="qopt"><input type="radio" name="q15" value="0"/> Power source → procedure → ground → remedy</label><label class="qopt"><input type="radio" name="q15" value="1"/> Ignore the enabling Act</label><label class="qopt"><input type="radio" name="q15" value="2"/> Only moral lectures</label><label class="qopt"><input type="radio" name="q15" value="3"/> Only foreign blogs</label></div><div class="qcard"><p><strong>Q17.</strong> IGG-type bodies mainly provide:</p><label class="qopt"><input type="radio" name="q16" value="0"/> Non-judicial accountability</label><label class="qopt"><input type="radio" name="q16" value="1"/> Criminal convictions only</label><label class="qopt"><input type="radio" name="q16" value="2"/> Land titles</label><label class="qopt"><input type="radio" name="q16" value="3"/> Marriage licences</label></div><div class="qcard"><p><strong>Q18.</strong> Separation of powers supports:</p><label class="qopt"><input type="radio" name="q17" value="0"/> Limits on concentrated administrative power</label><label class="qopt"><input type="radio" name="q17" value="1"/> Unlimited ministerial decrees</label><label class="qopt"><input type="radio" name="q17" value="2"/> Abolition of courts</label><label class="qopt"><input type="radio" name="q17" value="3"/> Abolition of Parliament</label></div><div class="qcard"><p><strong>Q19.</strong> Promptness in JR matters because:</p><label class="qopt"><input type="radio" name="q18" value="0"/> Delay can bar relief</label><label class="qopt"><input type="radio" name="q18" value="1"/> Time never matters</label><label class="qopt"><input type="radio" name="q18" value="2"/> Only foreigners may apply</label><label class="qopt"><input type="radio" name="q18" value="3"/> Only ministers may apply</label></div><div class="qcard"><p><strong>Q20.</strong> Cap numbers must be:</p><label class="qopt"><input type="radio" name="q19" value="0"/> 2024 Revised Edition</label><label class="qopt"><input type="radio" name="q19" value="1"/> Any random old number</label><label class="qopt"><input type="radio" name="q19" value="2"/> Never cited</label><label class="qopt"><input type="radio" name="q19" value="3"/> Only colonial numbers</label></div>
+<button type="button" class="nbtn primary" id="subBtn" onclick="sub()">Submit</button></form>
+<div id="res" class="result"></div>
+<div class="nav-row"><a class="nbtn" href="/education/courses/adminlaw/1/summary/">Back to summary</a></div>
+</div></main></div>
+<script>
+const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+document.getElementById('themeBtn')?.addEventListener('click',()=>{const d=document.documentElement;d.setAttribute('data-theme',d.getAttribute('data-theme')==='dark'?'light':'dark');});
+async function chkAccess(){
+  const {data:{session}}=await SB.auth.getSession();
+  if(!session){showLk('guest');return;}
+  const {data:pr}=await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();
+  if(pr&&pr.role==='admin'){show();return;}
+  const {data:co}=await SB.from('courses').select('id').eq('course_code','ADMINLAW').maybeSingle();
+  if(!co){showLk('no_plan');return;}
+  const {data:en}=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',co.id).maybeSingle();
+  if(!en){showLk('no_plan');return;}
+  if(en.expires_at&&new Date(en.expires_at)<new Date()){showLk('expired');return;}
+  show();
+}
+function showLk(r){
+  const lk=document.getElementById('lk'); if(!lk)return;
+  const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course.</p><a class="nbtn primary" href="/education/courses/adminlaw/">View course</a></div>',
+  expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/adminlaw/">Renew</a></div>'};
+  lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
+}
+function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='none'; const lc=document.getElementById('lc'); if(lc)lc.style.display='block'; if(typeof trackProgress==='function')trackProgress();}
+chkAccess();
+
+const ANS=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+function sub(){
+  let score=0;
+  for(let i=0;i<ANS.length;i++){const s=document.querySelector('input[name="q'+i+'"]:checked');if(s&&parseInt(s.value,10)===ANS[i])score++;}
+  const res=document.getElementById('res');
+  res.className='result show '+(score>=10?'pass':'fail');
+  res.innerHTML='<strong>Score: '+score+' / 20</strong><p>Graded retry from this screen is blocked.</p>';
+  document.getElementById('subBtn').disabled=true;
+  document.querySelectorAll('#qf input').forEach(el=>el.disabled=true);
+  if(typeof saveQuizScore==='function')saveQuizScore('ADMINLAW',1,score,20);
+  if(typeof checkAndIssueCertificate==='function')checkAndIssueCertificate('ADMINLAW',8);
+}
+</script></body></html>
