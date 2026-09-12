@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-course="TORT2">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="practice"/>
+<meta name="keywords" content="tort law Uganda, TORT2, negligence, Rylands, occupiers liability, KMVTECH Education"/>
+<title>Practice Injury without impact — psychiatric harm - TORT2 - KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
+<script src="/education/js/save-quiz-score.js"></script>
+<script src="/education/js/check-certificate.js"></script>
+<style>
+:root{--blue:#2B3FBF;--navy:#0D1B2A;--gold:#C9922A;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--law:#1B4F72;--law-light:rgba(27,79,114,.08);--law-border:rgba(27,79,114,.22)}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold)}
+.tbc{flex:1;font-size:12.5px;color:var(--text-3)}.tbc a{color:var(--text-2);text-decoration:none}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.side{width:260px;background:var(--surface);border-right:1px solid var(--border);padding:16px 12px;display:none;overflow-y:auto}
+@media(min-width:960px){.side{display:block}}
+.side h3{font-size:11px;text-transform:uppercase;color:var(--text-3);margin:12px 8px 6px}
+.side a{display:block;padding:7px 10px;border-radius:8px;color:var(--text-2);text-decoration:none;font-size:13px}
+.side a:hover{background:var(--law-light);color:var(--law)}
+.main{flex:1;padding:28px 20px 60px;max-width:880px}
+.ey{font-size:12.5px;color:var(--text-3);margin-bottom:6px}
+.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:26px;margin-bottom:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11.5px;padding:4px 10px;border-radius:999px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border)}
+.prose{max-width:680px}.prose p{margin:0 0 14px;font-size:15.5px}.prose h2{font-family:'Playfair Display',serif;font-size:20px;margin:20px 0 10px;color:var(--law)}.prose ul,.prose ol{margin:0 0 14px 1.2em}
+.callout{background:var(--law-light);border:1px solid var(--law-border);border-radius:12px;padding:14px 16px;margin:16px 0;font-size:14.5px}
+.statute{font-size:13.5px;background:var(--surface-2);border-left:3px solid var(--gold);padding:10px 14px;margin:14px 0}
+.checklist{background:var(--surface);border:1px solid var(--law-border);border-radius:12px;padding:14px 16px;margin:16px 0}
+.checklist h3{font-size:14px;color:var(--law);margin-bottom:8px}
+.vwrap{margin:16px 0;border-radius:14px;overflow:hidden}.vph{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0D1B2A,#1B4F72);color:rgba(255,255,255,.85)}
+.nav-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.nbtn{display:inline-flex;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--border);color:var(--text-1);background:var(--surface);cursor:pointer}
+.nbtn.primary{background:var(--law);color:#fff;border-color:var(--law)}
+.lock-card{max-width:420px;margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
+.qopt{display:block;padding:8px 10px;margin:4px 0;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-size:14px}
+.result{margin-top:16px;padding:14px;border-radius:12px;display:none}.result.show{display:block}.result.pass{background:rgba(21,128,61,.12)}.result.fail{background:rgba(220,38,38,.1)}
+.img-slot{margin:16px 0;border-radius:12px;background:var(--surface-2);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:13px;border:1px dashed var(--border)}
+</style>
+</head>
+<body>
+<header class="topbar"><a href="/education/" style="text-decoration:none;display:flex;align-items:center;gap:8px"><div class="tmark">K</div></a>
+<nav class="tbc"><a href="/education/courses/tort2/">TORT2</a></nav>
+<button id="themeBtn" class="nbtn" style="padding:6px 10px;font-size:12px" type="button">Theme</button>
+</header>
+<div class="layout"><aside class="side"><h3>TORT2</h3>
+<a href="/education/courses/tort2/">Course home</a>
+<h3>Module 1</h3>
+<a href="/education/courses/tort2/1/1/1/">L1. Duty of care</a>
+<a href="/education/courses/tort2/1/2/1/">L2. Standard of care</a>
+<a href="/education/courses/tort2/1/quiz/">M1 graded quiz</a>
+<h3>Module 2</h3>
+<a href="/education/courses/tort2/2/1/1/">L1. Breach of duty</a>
+<a href="/education/courses/tort2/2/2/1/">L2. Causation and remoteness</a>
+<a href="/education/courses/tort2/2/quiz/">M2 graded quiz</a>
+<h3>Module 3</h3>
+<a href="/education/courses/tort2/3/1/1/">L1. Novus actus and rescue</a>
+<a href="/education/courses/tort2/3/2/1/">L2. Injury without impact — psyc</a>
+<a href="/education/courses/tort2/3/quiz/">M3 graded quiz</a>
+<h3>Module 4</h3>
+<a href="/education/courses/tort2/4/1/1/">L1. Negligent misstatement</a>
+<a href="/education/courses/tort2/4/2/1/">L2. Pure economic loss and omiss</a>
+<a href="/education/courses/tort2/4/quiz/">M4 graded quiz</a>
+<h3>Module 5</h3>
+<a href="/education/courses/tort2/5/1/1/">L1. Res ipsa loquitur and profes</a>
+<a href="/education/courses/tort2/5/2/1/">L2. Death as a cause of action</a>
+<a href="/education/courses/tort2/5/quiz/">M5 graded quiz</a>
+<h3>Module 6</h3>
+<a href="/education/courses/tort2/6/1/1/">L1. Contributory negligence and </a>
+<a href="/education/courses/tort2/6/2/1/">L2. Illegality and practical app</a>
+<a href="/education/courses/tort2/6/quiz/">M6 graded quiz</a>
+<h3>Module 7</h3>
+<a href="/education/courses/tort2/7/1/1/">L1. Rylands v Fletcher</a>
+<a href="/education/courses/tort2/7/2/1/">L2. Fire and dangerous animals</a>
+<a href="/education/courses/tort2/7/quiz/">M7 graded quiz</a>
+<h3>Module 8</h3>
+<a href="/education/courses/tort2/8/1/1/">L1. Who is an occupier and to wh</a>
+<a href="/education/courses/tort2/8/2/1/">L2. Standard, warnings and defen</a>
+<a href="/education/courses/tort2/8/quiz/">M8 graded quiz</a>
+<h3>Module 9</h3>
+<a href="/education/courses/tort2/9/1/1/">L1. Inducing breach and intimida</a>
+<a href="/education/courses/tort2/9/2/1/">L2. Conspiracy and course close</a>
+<a href="/education/courses/tort2/9/quiz/">M9 graded quiz</a>
+<h3>Account</h3><a href="/education/courses/tort2/grades/">Grades</a><a href="/education/courses/tort2/complete/">Completion</a></aside>
+<main class="main"><div id="lk"></div><div id="lc" style="display:none">
+<div class="ey">Module 3 · L2 · Practice</div>
+<h1 class="ltitle">Practice: Injury without impact — psychiatric harm</h1>
+<div class="chips"><span class="chip">8 questions</span></div>
+<div id="quiz"><div class="qcard" data-type="mcq" data-a="1"><h4>1. The neighbour principle is associated with:</h4><label class="qopt"><input type="radio" name="q0" value="0"/> Rylands only</label><label class="qopt"><input type="radio" name="q0" value="1"/> Donoghue v Stevenson</label><label class="qopt"><input type="radio" name="q0" value="2"/> Only defamation</label><label class="qopt"><input type="radio" name="q0" value="3"/> Only trespass</label></div>
+<div class="qcard" data-type="tf" data-a="false"><h4>2. Pure economic loss is always recoverable in negligence against anyone.</h4><label class="qopt"><input type="radio" name="q1" value="true"/> True</label><label class="qopt"><input type="radio" name="q1" value="false"/> False</label></div>
+<div class="qcard" data-type="mcq" data-a="1"><h4>3. Res ipsa loquitur is:</h4><label class="qopt"><input type="radio" name="q2" value="0"/> A separate tort</label><label class="qopt"><input type="radio" name="q2" value="1"/> An aid to proving negligence in some cases</label><label class="qopt"><input type="radio" name="q2" value="2"/> Only a criminal rule</label><label class="qopt"><input type="radio" name="q2" value="3"/> A type of injunction</label></div>
+<div class="qcard" data-type="mcq" data-a="1"><h4>4. Contributory negligence usually:</h4><label class="qopt"><input type="radio" name="q3" value="0"/> Bars the claim completely always</label><label class="qopt"><input type="radio" name="q3" value="1"/> Reduces damages by a just percentage</label><label class="qopt"><input type="radio" name="q3" value="2"/> Increases exemplary damages only</label><label class="qopt"><input type="radio" name="q3" value="3"/> Applies only to trespass</label></div>
+<div class="qcard" data-type="tf" data-a="true"><h4>5. Occupiers&#x27; liability concerns dangers due to the state of premises under the occupier&#x27;s control.</h4><label class="qopt"><input type="radio" name="q4" value="true"/> True</label><label class="qopt"><input type="radio" name="q4" value="false"/> False</label></div>
+<div class="qcard" data-type="mcq" data-a="1"><h4>6. Rylands v Fletcher classically requires:</h4><label class="qopt"><input type="radio" name="q5" value="0"/> Only spoken words</label><label class="qopt"><input type="radio" name="q5" value="1"/> Escape from land of something likely to do mischief if it escapes</label><label class="qopt"><input type="radio" name="q5" value="2"/> Only assault</label><label class="qopt"><input type="radio" name="q5" value="3"/> Only defamation</label></div>
+<div class="qcard" data-type="fill" data-a="tort2"><h4>7. Course code for this subject is ____ .</h4><input name="q6" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px"/></div>
+<div class="qcard" data-type="mcq" data-a="1"><h4>8. Secondary victims claiming psychiatric injury generally need:</h4><label class="qopt"><input type="radio" name="q7" value="0"/> Only anger</label><label class="qopt"><input type="radio" name="q7" value="1"/> Close tie, proximity and sudden shock type controls</label><label class="qopt"><input type="radio" name="q7" value="2"/> No medical evidence ever</label><label class="qopt"><input type="radio" name="q7" value="3"/> Only a property title</label></div></div>
+<div class="nav-row"><button class="nbtn primary" type="button" onclick="gradeQuiz()">Check answers</button>
+<a class="nbtn" href="/education/courses/tort2/3/2/3/">Back</a></div>
+<div id="result" class="result"></div></div></main></div>
+<script>
+const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+document.getElementById('themeBtn')?.addEventListener('click',()=>{const d=document.documentElement;d.setAttribute('data-theme',d.getAttribute('data-theme')==='dark'?'light':'dark');});
+async function chkAccess(){
+  const {data:{session}}=await SB.auth.getSession();
+  if(!session){showLk('guest');return;}
+  const {data:pr}=await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();
+  if(pr&&pr.role==='admin'){show();return;}
+  const {data:co}=await SB.from('courses').select('id').eq('course_code','TORT2').maybeSingle();
+  if(!co){showLk('no_plan');return;}
+  const {data:en}=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',co.id).maybeSingle();
+  if(!en){showLk('no_plan');return;}
+  if(en.expires_at&&new Date(en.expires_at)<new Date()){showLk('expired');return;}
+  show();
+}
+function showLk(r){
+  const lk=document.getElementById('lk'); if(!lk)return;
+  const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course.</p><a class="nbtn primary" href="/education/courses/tort2/">View course</a></div>',
+  expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/tort2/">Renew</a></div>'};
+  lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
+}
+function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='none'; const lc=document.getElementById('lc'); if(lc)lc.style.display='block'; if(typeof trackProgress==='function')trackProgress();}
+function gradeQuiz(){const cards=[...document.querySelectorAll('.qcard')];let score=0,total=cards.length;
+cards.forEach(c=>{const t=c.dataset.type,corr=c.dataset.a;
+if(t==='mcq'||t==='tf'){const s=c.querySelector('input:checked'); if(s&&String(s.value)===String(corr))score++;}
+else{const v=(c.querySelector('input[type=text],input:not([type])')||{}).value||''; if(v.trim().toLowerCase()===String(corr).toLowerCase())score++;}});
+const pct=Math.round(100*score/total); const box=document.getElementById('result');
+box.className='result show '+(pct>=70?'pass':'fail'); box.innerHTML='<strong>Score: '+score+' / '+total+' ('+pct+'%)</strong>';}
+chkAccess();
+</script>
+</body></html>
