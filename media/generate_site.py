@@ -203,6 +203,27 @@ def image_tag(a, depth="", css_class=""):
     return f'<img{cls} src="{base}.jfif" data-base="{base}" data-ext-idx="0" alt="{alt}" loading="lazy" onerror="handleImgError(this)"/>'
 
 
+def resolve_image_ext(slug):
+    """Checks the real filesystem (not just guessing .jfif) to find which
+    image extension actually exists for this story. Used for og:image /
+    twitter:image, since social media crawlers don't run the JS fallback
+    that regular <img> tags use — they need one real, working absolute URL."""
+    for ext in ("jfif", "jpg", "jpeg", "png", "webp"):
+        path = os.path.join(ROOT, "assets", "images", f"{slug}.{ext}")
+        if os.path.isfile(path):
+            return ext
+    return None
+
+
+def og_image_url(a):
+    """Absolute URL for social previews. Falls back to the site logo if the
+    story has no image on disk at all, so a preview still shows something."""
+    ext = resolve_image_ext(a["slug"])
+    if ext:
+        return f'{BASE_URL}/assets/images/{a["slug"]}.{ext}'
+    return f'{BASE_URL}/assets/logo-kmm.jpg'
+
+
 def story_card(a, depth=""):
     breaking_flag = ' <span class="breaking-flag">&bull; Breaking</span>' if a.get("breaking") else ""
     return f'''<a class="story-card" href="{depth}stories/{a["slug"]}.html">
@@ -380,6 +401,8 @@ def build_article(a, articles):
   <meta property="article:published_time" content="{a["date"]}"/>
   <meta property="article:author" content="{a["author"]}"/>
   <meta property="article:section" content="{CATEGORIES.get(a["category"], a["category"])}"/>
+  <meta property="og:image" content="{og_image_url(a)}"/>
+  <meta name="twitter:image" content="{og_image_url(a)}"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
