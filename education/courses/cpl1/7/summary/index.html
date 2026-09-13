@@ -42,7 +42,7 @@
 .result{margin-top:16px;padding:14px;border-radius:12px;display:none}.result.show{display:block}.result.pass{background:rgba(21,128,61,.12)}.result.fail{background:rgba(220,38,38,.1)}
 </style>
 </head>
-<body>
+<body data-course="CPL1">
 <header class="topbar"><a href="/education/" style="text-decoration:none;display:flex;align-items:center;gap:8px"><div class="tmark">K</div></a>
 <nav class="tbc"><a href="/education/courses/cpl1/">CPL1</a></nav>
 <button id="themeBtn" class="nbtn" style="padding:6px 10px;font-size:12px" type="button">Theme</button>
@@ -82,7 +82,8 @@
 
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 7 · Summary</div><h1 class="ltitle">Trial and judgment</h1>
-<div class="prose"><p>Module 7: <strong>Trial and judgment</strong>.</p><ul><li>Hearing to decree</li></ul></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/cpl1/notes/KMVEDU-CPL1-M7-L1-Notes.pdf" download>Download Lesson PDF</a>
+    <p style="font-size:12px;color:var(--text-3)">If the PDF is not yet available, it is included with enrollment.</p><p>Module 7: <strong>Trial and judgment</strong>.</p><ul><li>Hearing to decree</li></ul></div>
 <div class="nav-row"><a class="nbtn primary" href="/education/courses/cpl1/7/quiz/">Take graded quiz</a>
 <a class="nbtn" href="/education/courses/cpl1/">Course home</a></div>
 </div></main></div><script>
@@ -109,4 +110,16 @@ function showLk(r){
 }
 function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='none'; const lc=document.getElementById('lc'); if(lc)lc.style.display='block'; if(typeof trackProgress==='function')trackProgress();}
 chkAccess();
-</script></body></html>
+</script><script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/cpl1/7/1/2/">Next Lesson →</a></body></html>

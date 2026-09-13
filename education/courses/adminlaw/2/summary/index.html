@@ -42,7 +42,7 @@
 .result{margin-top:16px;padding:14px;border-radius:12px;display:none}.result.show{display:block}.result.pass{background:rgba(21,128,61,.12)}.result.fail{background:rgba(220,38,38,.1)}
 </style>
 </head>
-<body>
+<body data-course="ADMINLAW">
 <header class="topbar"><a href="/education/" style="text-decoration:none;display:flex;align-items:center;gap:8px"><div class="tmark">K</div></a>
 <nav class="tbc"><a href="/education/courses/adminlaw/">ADMINLAW</a></nav>
 <button id="themeBtn" class="nbtn" style="padding:6px 10px;font-size:12px" type="button">Theme</button>
@@ -76,7 +76,7 @@
 
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 2 · Summary</div><h1 class="ltitle">Administrative authorities</h1>
-<div class="prose"><p>Module 2: <strong>Administrative authorities</strong>.</p><ul><li>Who exercises public power</li></ul></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/adminlaw/notes/KMVEDU-ADMINLAW-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Module 2: <strong>Administrative authorities</strong>.</p><ul><li>Who exercises public power</li></ul></div>
 <div class="nav-row"><a class="nbtn primary" href="/education/courses/adminlaw/2/quiz/">Take graded quiz</a>
 <a class="nbtn" href="/education/courses/adminlaw/">Course home</a></div>
 </div></main></div><script>
@@ -103,4 +103,16 @@ function showLk(r){
 }
 function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='none'; const lc=document.getElementById('lc'); if(lc)lc.style.display='block'; if(typeof trackProgress==='function')trackProgress();}
 chkAccess();
-</script></body></html>
+</script><script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/adminlaw/2/1/2/">Next Lesson →</a></body></html>

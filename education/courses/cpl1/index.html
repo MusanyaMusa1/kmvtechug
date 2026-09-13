@@ -1,130 +1,236 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light" data-course="CPL1">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="description" content="Civil Procedure CPL1"/>
-<meta name="keywords" content="civil procedure Uganda, Cap. 282, plaint, execution, CPL1, KMVTECH Education, Uganda LLB"/>
-<title>Civil Procedure - CPL1 - KMVTECH Education</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Civil Procedure Law (CPL1) | KMVTECH Education</title>
+<meta name="description" content="Master Civil Procedure in Uganda under Cap. 282 (2024 Revised Edition). Learn plaints, jurisdiction, interlocutory applications, trial, execution and appeals. Certificate on completion."/>
+<meta name="keywords" content="Civil Procedure Uganda, Cap. 282, Civil Procedure Act, plaint, execution, interlocutory, KMVTECH Education, LLB Uganda, CPL1"/>
+<meta property="og:title" content="Civil Procedure Law (CPL1) | KMVTECH Education"/>
+<meta property="og:description" content="Practical civil procedure for Ugandan courts. 2024 Revised Edition. Graded quizzes and certificate."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="/education/courses/cpl1/hero.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://education.kmvtechug.app/education/courses/cpl1/"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/education/js/progress-tracking.js"></script>
 <style>
-:root{--blue:#2B3FBF;--navy:#0D1B2A;--gold:#C9922A;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--law:#1B4F72;--law-light:rgba(27,79,114,.08);--law-border:rgba(27,79,114,.22)}
-[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7}
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px}
-.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold)}
-.tbc{flex:1;font-size:12.5px;color:var(--text-3)}.tbc a{color:var(--text-2);text-decoration:none}
+:root{
+  --blue:#2B3FBF;--navy:#0D1B2A;--gold:#C9922A;
+  --bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;
+  --text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;
+  --law:#1B4F72;--law-light:rgba(27,79,114,.08);--law-border:rgba(27,79,114,.22);
+  --success:#059669;--locked:#9CA3AF;
+}
+[data-theme="dark"]{
+  --bg:#0F1117;--surface:#1A1D27;--surface-2:#242836;--border:#2E3248;
+  --text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;
+  --law-light:rgba(27,79,114,.2);--law-border:rgba(27,79,114,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7}
+a{color:var(--law);text-decoration:none}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 16px;height:56px;display:flex;align-items:center;gap:12px}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);flex-shrink:0}
+.tbc{flex:1;font-size:12.5px;color:var(--text-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbc a{color:var(--text-2)}
+.theme-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--text-2);font-size:13px}
 .layout{display:flex;min-height:calc(100vh - 56px)}
-.side{width:260px;background:var(--surface);border-right:1px solid var(--border);padding:16px 12px;display:none;overflow-y:auto}
+.side{width:270px;background:var(--surface);border-right:1px solid var(--border);padding:16px 12px;display:none;overflow-y:auto;flex-shrink:0}
 @media(min-width:960px){.side{display:block}}
-.side h3{font-size:11px;text-transform:uppercase;color:var(--text-3);margin:12px 8px 6px}
-.side a{display:block;padding:7px 10px;border-radius:8px;color:var(--text-2);text-decoration:none;font-size:13px}
+.side h3{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:14px 8px 6px}
+.side a{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;color:var(--text-2);font-size:13px;margin-bottom:2px}
 .side a:hover{background:var(--law-light);color:var(--law)}
-.main{flex:1;padding:28px 20px 60px;max-width:880px}
-.ey{font-size:12.5px;color:var(--text-3);margin-bottom:6px}
-.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:26px;margin-bottom:10px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.chip{font-size:11.5px;padding:4px 10px;border-radius:999px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border)}
-.prose{max-width:680px}.prose p{margin:0 0 14px;font-size:15.5px}.prose h2{font-family:'Playfair Display',serif;font-size:20px;margin:20px 0 10px;color:var(--law)}.prose ul,.prose ol{margin:0 0 14px 1.2em}
-.callout{background:var(--law-light);border:1px solid var(--law-border);border-radius:12px;padding:14px 16px;margin:16px 0;font-size:14.5px}
-.statute{font-size:13.5px;background:var(--surface-2);border-left:3px solid var(--gold);padding:10px 14px;margin:14px 0}
-.fig{margin:18px 0;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
-.fig img{width:100%;display:block;max-height:280px;object-fit:cover}
-.fig .cap{font-size:12px;color:var(--text-3);padding:8px 12px;background:var(--surface-2)}
-.vwrap{margin:16px 0;border-radius:14px;overflow:hidden}.vph{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0D1B2A,#1B4F72);color:rgba(255,255,255,.85)}
-.nav-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
-.nbtn{display:inline-flex;padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--border);color:var(--text-1);background:var(--surface);cursor:pointer}
-.nbtn.primary{background:var(--law);color:#fff;border-color:var(--law)}
-.lock-card{max-width:420px;margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center}
-.qcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
-.qopt{display:block;padding:8px 10px;margin:4px 0;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-size:14px}
-.result{margin-top:16px;padding:14px;border-radius:12px;display:none}.result.show{display:block}.result.pass{background:rgba(21,128,61,.12)}.result.fail{background:rgba(220,38,38,.1)}
+.side a.current{background:var(--law-light);color:var(--law);font-weight:600}
+.side a.completed::before{content:"✓";color:var(--success);font-weight:700;font-size:12px}
+.side a.locked{opacity:.55}
+.side a.locked::before{content:"🔒";font-size:11px}
+.progress-box{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;margin:8px;font-size:12.5px}
+.progress-box .bar{height:6px;background:var(--border);border-radius:99px;margin:8px 0;overflow:hidden}
+.progress-box .bar > i{display:block;height:100%;background:var(--law);border-radius:99px}
+.main{flex:1;padding:28px 20px 80px;max-width:880px}
+.hero{width:100%;max-height:280px;object-fit:cover;border-radius:12px;margin-bottom:20px;border:1px solid var(--border)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.chip{font-size:12px;padding:5px 12px;border-radius:999px;font-weight:600}
+.chip-faculty{background:var(--navy);color:#fff}
+.chip-uganda{background:#F5E6C8;color:#7A5C1E}
+[data-theme="dark"] .chip-uganda{background:#3D3420;color:#E8D5A3}
+.badge-2024{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:4px 10px;border-radius:6px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border);font-weight:600;margin-bottom:12px}
+.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:28px;line-height:1.25;margin-bottom:8px}
+.lead{font-size:16px;color:var(--text-2);margin-bottom:20px}
+.section{margin:28px 0}
+.section h2{font-family:'Playfair Display',serif;font-size:20px;color:var(--law);margin-bottom:10px}
+.section p,.section li{font-size:15px;color:var(--text-1);margin-bottom:8px}
+.section ul{padding-left:1.2em}
+.mod-list{list-style:none;padding:0}
+.mod-list li{padding:10px 12px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--surface)}
+.mod-list strong{color:var(--law)}
+.price-box{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:18px;margin:20px 0}
+.price-box .from{font-size:13px;color:var(--text-2)}
+.price-box .amount{font-size:26px;font-weight:800;color:var(--navy)}
+[data-theme="dark"] .price-box .amount{color:var(--gold)}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:10px;font-weight:700;font-size:14.5px;border:none;cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-primary:hover{opacity:.92}
+.btn-secondary{background:transparent;color:var(--law);border:1.5px solid var(--law-border)}
+.faq details{border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--surface);padding:12px 14px}
+.faq summary{font-weight:600;cursor:pointer;color:var(--text-1)}
+.faq details p{margin-top:8px;font-size:14.5px;color:var(--text-2)}
+/* Mobile floating Next */
+.mobile-next{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;padding:12px 16px;background:var(--navy);color:#fff;text-align:center;font-weight:700;font-size:15px;border:none;text-decoration:none}
+@media(max-width:767px){.mobile-next{display:block}.main{padding-bottom:90px}}
+.pdf-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:7px 12px;border-radius:8px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border);margin:10px 0;font-weight:600}
 </style>
 </head>
 <body>
-<header class="topbar"><a href="/education/" style="text-decoration:none;display:flex;align-items:center;gap:8px"><div class="tmark">K</div></a>
-<nav class="tbc"><a href="/education/courses/cpl1/">CPL1</a></nav>
-<button id="themeBtn" class="nbtn" style="padding:6px 10px;font-size:12px" type="button">Theme</button>
-</header>
-<div class="layout"><aside class="side"><h3>CPL1</h3><a href="/education/courses/cpl1/">Course home</a>
-<h3>Module 1</h3>
-<a href="/education/courses/cpl1/1/1/1/">L1. What civil procedure is</a>
-<a href="/education/courses/cpl1/1/quiz/">M1 graded quiz</a>
-<h3>Module 2</h3>
-<a href="/education/courses/cpl1/2/1/1/">L1. Where to sue</a>
-<a href="/education/courses/cpl1/2/quiz/">M2 graded quiz</a>
-<h3>Module 3</h3>
-<a href="/education/courses/cpl1/3/1/1/">L1. Who sues and when</a>
-<a href="/education/courses/cpl1/3/quiz/">M3 graded quiz</a>
-<h3>Module 4</h3>
-<a href="/education/courses/cpl1/4/1/1/">L1. Plaint and summons</a>
-<a href="/education/courses/cpl1/4/quiz/">M4 graded quiz</a>
-<h3>Module 5</h3>
-<a href="/education/courses/cpl1/5/1/1/">L1. Written statement and defaul</a>
-<a href="/education/courses/cpl1/5/quiz/">M5 graded quiz</a>
-<h3>Module 6</h3>
-<a href="/education/courses/cpl1/6/1/1/">L1. Interim protection</a>
-<a href="/education/courses/cpl1/6/quiz/">M6 graded quiz</a>
-<h3>Module 7</h3>
-<a href="/education/courses/cpl1/7/1/1/">L1. Hearing to decree</a>
-<a href="/education/courses/cpl1/7/quiz/">M7 graded quiz</a>
-<h3>Module 8</h3>
-<a href="/education/courses/cpl1/8/1/1/">L1. Enforcing the decree</a>
-<a href="/education/courses/cpl1/8/quiz/">M8 graded quiz</a>
-<h3>Module 9</h3>
-<a href="/education/courses/cpl1/9/1/1/">L1. Challenging decisions</a>
-<a href="/education/courses/cpl1/9/quiz/">M9 graded quiz</a>
-<h3>Module 10</h3>
-<a href="/education/courses/cpl1/10/1/1/">L1. Settlement, costs, suing the</a>
-<a href="/education/courses/cpl1/10/quiz/">M10 graded quiz</a>
-<h3>Account</h3><a href="/education/courses/cpl1/grades/">Grades</a><a href="/education/courses/cpl1/complete/">Completion</a></aside><main class="main">
-
-<div class="ey">Law · Year 3–4</div>
-<h1 class="ltitle">Civil Procedure</h1>
-<div class="chips"><span class="chip">CPL1</span><span class="chip">10 modules</span><span class="chip">Certificate</span></div>
-<div class="prose">
-<p><strong>Civil Procedure</strong> uses <strong>2024 Revised Edition</strong> Cap numbers and Ugandan practice throughout.</p>
-<h2>Why it matters</h2><p>Civil procedure is how civil rights become enforceable decrees. Cap. 282 and the Rules are daily tools in Ugandan practice.</p>
-<h2>You will study</h2><ul><li>Jurisdiction and parties</li><li>Plaint, service, defence</li><li>Interim relief and trial</li><li>Execution, appeals, revision</li><li>ADR, costs, government suits</li></ul>
-<h2>Modules</h2><ol><li><a href="/education/courses/cpl1/1/1/1/">Introduction to civil procedure</a></li>
-<li><a href="/education/courses/cpl1/2/1/1/">Courts and jurisdiction</a></li>
-<li><a href="/education/courses/cpl1/3/1/1/">Parties, causes of action and limitation</a></li>
-<li><a href="/education/courses/cpl1/4/1/1/">Commencing a suit</a></li>
-<li><a href="/education/courses/cpl1/5/1/1/">Defence and early judgment</a></li>
-<li><a href="/education/courses/cpl1/6/1/1/">Interlocutory applications</a></li>
-<li><a href="/education/courses/cpl1/7/1/1/">Trial and judgment</a></li>
-<li><a href="/education/courses/cpl1/8/1/1/">Execution</a></li>
-<li><a href="/education/courses/cpl1/9/1/1/">Appeals, revision and review</a></li>
-<li><a href="/education/courses/cpl1/10/1/1/">ADR, costs and government suits</a></li></ol>
-<p><strong>Price:</strong> UGX 5,000 lifetime · monthly 20,000 · semester 50,000</p>
+<div class="topbar">
+  <div class="tmark">K</div>
+  <div class="tbc"><a href="/education/">KMVTECH Education</a> · Law · Civil Procedure Law</div>
+  <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark mode">Theme</button>
 </div>
-<div class="nav-row">
-<a class="nbtn primary" href="/education/courses/cpl1/1/1/1/">Start Module 1</a>
-<a class="nbtn" href="/education/courses/cpl1/grades/">Grades</a>
-</div></main></div>
+<div class="layout">
+  <aside class="side">
+    <h3>Course</h3>
+    <a href="/education/courses/cpl1/" class="current">Overview</a>
+    <div class="progress-box" id="progressBox" style="display:none">
+      <div><strong>Your progress</strong></div>
+      <div class="bar"><i id="progBar" style="width:0%"></i></div>
+      <div id="progText">0 / 10 modules</div>
+      <div id="progAvg" style="margin-top:4px;color:var(--text-2)"></div>
+      <div id="progCert" style="margin-top:4px;font-weight:600"></div>
+    </div>
+    <h3>Modules</h3>
+    <a href="/education/courses/cpl1/1/1/1/" class="locked" data-mod="1">M1: Introduction to civil proced…</a><a href="/education/courses/cpl1/2/1/1/" class="locked" data-mod="2">M2: Courts and jurisdiction</a><a href="/education/courses/cpl1/3/1/1/" class="locked" data-mod="3">M3: Parties, causes of action an…</a><a href="/education/courses/cpl1/4/1/1/" class="locked" data-mod="4">M4: Commencing a suit</a><a href="/education/courses/cpl1/5/1/1/" class="locked" data-mod="5">M5: Defence and early judgment</a><a href="/education/courses/cpl1/6/1/1/" class="locked" data-mod="6">M6: Interlocutory applications</a><a href="/education/courses/cpl1/7/1/1/" class="locked" data-mod="7">M7: Trial and judgment</a><a href="/education/courses/cpl1/8/1/1/" class="locked" data-mod="8">M8: Execution</a><a href="/education/courses/cpl1/9/1/1/" class="locked" data-mod="9">M9: Appeals, revision and review</a><a href="/education/courses/cpl1/10/1/1/" class="locked" data-mod="10">M10: ADR, costs and government su…</a>
+  </aside>
+  <main class="main">
+    <img class="hero" src="hero.jpg" alt="Civil Procedure Law course hero"/>
+    <div class="badge-2024">Uganda 2024 Revised Edition</div>
+    <h1 class="ltitle">Civil Procedure Law</h1>
+    <div class="chips">
+      <span class="chip chip-faculty">Law</span>
+      <span class="chip chip-uganda">Uganda 2024 Acts Cited</span>
+    </div>
+    <p class="lead">The complete practical guide to civil litigation in Ugandan courts under the Civil Procedure Act Cap. 282 and the Civil Procedure Rules.</p>
+
+    <div class="section">
+      <h2>The Big Transformation</h2>
+      <p>After this course you will be able to advise on the correct court and parties, draft a competent plaint and defence, make and resist interlocutory applications, take a matter through trial to a clean decree, and plan effective execution and appeals — all under the 2024 Revised Edition.</p>
+    </div>
+
+    <div class="section">
+      <h2>Who This Course Is For</h2>
+      <p>Year 2–4 LLB students at Ugandan universities, bar candidates revising civil procedure, and junior practitioners who want a structured, practice-oriented grasp of Cap. 282 and the Rules.</p>
+    </div>
+
+    <div class="section">
+      <h2>Prerequisites and Recommended Sequence</h2>
+      <p>No prior knowledge of civil procedure is required beyond secondary school education and basic familiarity with the court system. A first course in Contract or Tort is helpful but not mandatory.</p>
+    </div>
+
+    <div class="section">
+      <h2>What You Will Learn — Module Breakdown</h2>
+      <ul class="mod-list">
+        <li><strong>Module 1: Introduction to civil procedure</strong> — Procedure vs substance, Cap. 282 spine, and the four questions every civil file must answer.</li>
+<li><strong>Module 2: Courts and jurisdiction</strong> — Subject-matter, pecuniary and territorial jurisdiction; choosing the correct forum.</li>
+<li><strong>Module 3: Parties, causes of action and limitation</strong> — Who may sue or be sued, cause of action elements, and the Limitation Act diary.</li>
+<li><strong>Module 4: Commencing a suit</strong> — Drafting the plaint, accompanying lists, effective service and proof of service.</li>
+<li><strong>Module 5: Defence and early judgment</strong> — Written statement of defence, default judgment, summary procedure and counterclaims.</li>
+<li><strong>Module 6: Interlocutory applications</strong> — Injunctions, interim relief, affidavits, full and frank disclosure and other interim tools.</li>
+<li><strong>Module 7: Trial and judgment</strong> — Framing issues, hearing flow, judgment reasons and extracting a clean decree.</li>
+<li><strong>Module 8: Execution</strong> — Modes of execution under Cap. 282, attachment, garnishee, possession and practical enforcement.</li>
+<li><strong>Module 9: Appeals, revision and review</strong> — Appeal routes, revision and review powers, timelines and grounds.</li>
+<li><strong>Module 10: ADR, costs and government suits</strong> — Court-annexed mediation, costs principles, and special rules for suits by or against Government.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Assessment and Certificate</h2>
+      <p>Each module ends with a graded quiz. You need <strong>70%</strong> to pass each module and an <strong>80% average</strong> across all modules to earn your certificate. You may retake quizzes. Progress is saved when you are logged in and enrolled.</p>
+    </div>
+
+    <div class="section">
+      <h2>Time Commitment</h2>
+      <p>Approximately 35–45 hours of focused study (lessons, notes, practice and graded quizzes). Most students complete the course in 4–8 weeks part-time.</p>
+    </div>
+
+    <div class="price-box">
+      <div class="from">From</div>
+      <div class="amount">UGX 5,000 <span style="font-size:16px;font-weight:500">per month</span></div>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-2)">One course: UGX 5,000/month · All courses: UGX 20,000/month · 5 months unlimited: UGX 50,000</p>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-primary" href="/education/enroll/?course=CPL1&name=Civil%20Procedure%20Law">Enroll Now</a>
+      <a class="btn btn-secondary" href="/education/courses/cpl1/1/1/1/">Start Learning</a>
+    </div>
+
+    <div class="section faq">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>Is this course enough for my university exams?</summary>
+        <p>Yes. The course is built around Cap. 282 (2024) and the Civil Procedure Rules, with Ugandan practice and typical exam traps. Use it alongside your faculty materials and past papers.</p>
+      </details>
+      <details>
+        <summary>Do I need to complete another course before this one?</summary>
+        <p>No. Civil Procedure is a standalone course. Basic knowledge of contract or tort is useful but not required.</p>
+      </details>
+      <details>
+        <summary>How long does it take to earn the certificate?</summary>
+        <p>Most students finish in 4–8 weeks studying part-time. You need 70% on each module quiz and 80% average overall.</p>
+      </details>
+      <details>
+        <summary>Can I access this course on my phone?</summary>
+        <p>Yes. The site is mobile-responsive. A floating “Next Lesson” button appears on small screens for easy navigation.</p>
+      </details>
+      <details>
+        <summary>Will I get a certificate even if I fail some modules and retake?</summary>
+        <p>Yes. You may retake graded quizzes. Once you reach the required scores, the certificate is issued automatically.</p>
+      </details>
+    </div>
+  </main>
+</div>
 <script>
-const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
-document.getElementById('themeBtn')?.addEventListener('click',()=>{const d=document.documentElement;d.setAttribute('data-theme',d.getAttribute('data-theme')==='dark'?'light':'dark');});
-async function chkAccess(){
-  const {data:{session}}=await SB.auth.getSession();
-  if(!session){showLk('guest');return;}
-  const {data:pr}=await SB.from('profiles').select('role').eq('id',session.user.id).maybeSingle();
-  if(pr&&pr.role==='admin'){show();return;}
-  const {data:co}=await SB.from('courses').select('id').eq('course_code','CPL1').maybeSingle();
-  if(!co){showLk('no_plan');return;}
-  const {data:en}=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',co.id).maybeSingle();
-  if(!en){showLk('no_plan');return;}
-  if(en.expires_at&&new Date(en.expires_at)<new Date()){showLk('expired');return;}
-  show();
-}
-function showLk(r){
-  const lk=document.getElementById('lk'); if(!lk)return;
-  const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course.</p><a class="nbtn primary" href="/education/courses/cpl1/">View course</a></div>',
-  expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/cpl1/">Renew</a></div>'};
-  lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
-}
-function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='none'; const lc=document.getElementById('lc'); if(lc)lc.style.display='block'; if(typeof trackProgress==='function')trackProgress();}
-chkAccess();
-</script></body></html>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script>
+<script>
+// Soft progress indicator (only if logged in + enrolled)
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    if (typeof supabase === 'undefined' || !window.getProgress) return;
+    const p = await window.getProgress('CPL1');
+    if (!p) return;
+    const box = document.getElementById('progressBox');
+    box.style.display = 'block';
+    const done = p.completedModules || 0;
+    const pct = Math.round((done / 10) * 100);
+    document.getElementById('progBar').style.width = pct + '%';
+    document.getElementById('progText').textContent = done + ' / 10 modules';
+    if (p.average != null) document.getElementById('progAvg').textContent = 'Quiz average: ' + p.average + '%';
+    const onTrack = (p.average || 0) >= 80 && done === 10;
+    document.getElementById('progCert').textContent = onTrack ? 'On track for certificate' : 'Keep going for your certificate';
+    document.getElementById('progCert').style.color = onTrack ? 'var(--success)' : 'var(--text-2)';
+    // soft unlock visuals
+    document.querySelectorAll('.side a[data-mod]').forEach(a => {
+      const m = parseInt(a.dataset.mod, 10);
+      a.classList.remove('locked','completed','current');
+      if ((p.completedModulesList || []).includes(m)) a.classList.add('completed');
+      else if (m === (p.currentModule || 1)) a.classList.add('current');
+      else if (m > (p.currentModule || 1)) a.classList.add('locked');
+    });
+  } catch(e) {}
+});
+</script>
+</body>
+</html>
