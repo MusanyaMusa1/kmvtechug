@@ -35,7 +35,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);m
 .sb-user strong{color:rgba(255,255,255,0.85);display:block;font-size:13px;}
 .btn-signout{width:100%;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);color:#F87171;border-radius:8px;padding:9px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
 .btn-signout:hover{background:rgba(220,38,38,0.25);}
-
+<button class="sb-link" onclick="showPanel('requests')">
+  <span class="sb-icon">&#128276;</span>Enroll Requests
+  <span class="sb-badge" id="requests-count">0</span>
+</button>
+  
 /* TOPBAR */
 .topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 20px;position:sticky;top:0;z-index:50;}
 .menu-btn{width:36px;height:36px;border:1.5px solid var(--border);border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
@@ -281,7 +285,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);m
       </div>
     </div>
   </div>
-
+<div class="panel" id="panel-requests">
+  <div class="sec-hdr">
+    <div class="sec-title">Enrollment Requests</div>
+    <button class="btn-secondary" onclick="loadRequests()">&#8635; Refresh</button>
+  </div>
+  <div class="table-wrap">
+    <div class="t-head" style="grid-template-columns:1fr 120px 90px 100px;">
+      <div class="th">Student</div>
+      <div class="th">Plan</div>
+      <div class="th">Date</div>
+      <div class="th">Action</div>
+    </div>
+    <div id="requests-list"><div class="loading-row">Loading...</div></div>
+  </div>
+</div>
+  
   <!-- STUDENTS PANEL -->
   <div class="panel" id="panel-students">
     <div class="sec-hdr">
@@ -743,6 +762,64 @@ function showAlert(containerId, type, msg) {
   setTimeout(() => { el.innerHTML = ''; }, 4000);
 }
 
+  /**
+ * KMVTECH Education - Add Enrollment Requests Panel to Admin Portal
+ * 
+ * This is a JavaScript snippet to paste into your existing admin portal
+ * at education/portal/admin/index.html
+ * 
+ * Instructions:
+ * 1. Open education/portal/admin/index.html in your text editor
+ * 2. Find the comment: // PANEL SWITCHING
+ * 3. Paste the loadRequests function before that comment
+ * 4. Add the sidebar link and panel HTML as described below
+ */
+
+// PASTE THIS FUNCTION before the signOut() function in your admin portal:
+
+async function loadRequests() {
+  const { data } = await SB.from('notify_requests')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(50);
+
+  const newCount = data ? data.filter(r => r.status === 'new').length : 0;
+  const badge = document.getElementById('requests-count');
+  if (badge) badge.textContent = newCount;
+
+  const el = document.getElementById('requests-list');
+  if (!el) return;
+
+  if (!data || data.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-3);">No enrollment requests yet.</div>';
+    return;
+  }
+
+  el.innerHTML = data.map(r => {
+    const date = new Date(r.created_at).toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'});
+    const waMsg = 'Hello ' + r.full_name + ', thank you for your interest in KMVTECH Education. We are reaching out regarding your enrollment request for ' + (r.course_name || r.course_code || 'our courses') + '.';
+    const waLink = 'https://wa.me/' + r.phone.replace('+','').replace(/\s/g,'') + '?text=' + encodeURIComponent(waMsg);
+    const isNew = r.status === 'new';
+    return '<div class="t-row" style="grid-template-columns:1fr 120px 90px 100px;' + (isNew ? 'background:rgba(43,63,191,0.04);' : '') + '">'
+      + '<div class="td">'
+      + '<div style="font-weight:700;font-size:13px;">' + r.full_name + (isNew ? ' <span style="background:#DBEAFE;color:#1E40AF;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;">NEW</span>' : '') + '</div>'
+      + '<div style="font-size:11.5px;color:var(--text-3);margin-top:2px;">' + r.phone + (r.email ? ' &middot; ' + r.email : '') + '</div>'
+      + '<div style="font-size:11.5px;color:var(--text-2);margin-top:2px;">' + (r.course_name || r.course_code || '-') + '</div>'
+      + '</div>'
+      + '<div class="td muted" style="font-size:11.5px;">' + (r.message ? r.message.replace('Plan preference: ', '') : '-') + '</div>'
+      + '<div class="td muted" style="font-size:12px;">' + date + '</div>'
+      + '<div class="td" style="display:flex;gap:6px;align-items:center;">'
+      + '<a href="' + waLink + '" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:12px;padding:7px 10px;border-radius:7px;">&#128172; WhatsApp</a>'
+      + (isNew ? '<button onclick="markHandled(\'' + r.id + '\')" style="background:none;border:1.5px solid var(--border);border-radius:7px;padding:7px 10px;font-size:12px;cursor:pointer;font-family:DM Sans,sans-serif;color:var(--text-2);">Done</button>' : '')
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+async function markHandled(id) {
+  await SB.from('notify_requests').update({ status: 'handled' }).eq('id', id);
+  loadRequests();
+}
 async function signOut() {
   await SB.auth.signOut();
   window.location.href = '/education/portal/';
