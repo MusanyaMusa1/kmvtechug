@@ -1,375 +1,181 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-course="ENVPSY">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Environmental &amp; Conservation Psychology (ENVPSY) - KMVTECH Education</title>
-<meta name="description" content="Practical environmental and conservation psychology for Ugandan university students. 9 modules, graded quizzes, certificate at 80% average. From UGX 5,000."/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Environmental Psychology (ENVPSY) | KMVTECH Education</title>
+<meta name="description" content="Environmental psychology: perception, behaviour, communication, eco-anxiety, policy and careers."/>
+<meta name="keywords" content="Environmental Psychology Uganda, pro-environmental behaviour, eco-anxiety, KMVTECH Education"/>
+<meta property="og:title" content="Environmental Psychology (ENVPSY) | KMVTECH Education"/>
+<meta property="og:description" content="Environmental psychology: perception, behaviour, communication, eco-anxiety, policy and careers."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="/education/courses/envpsy/hero.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://education.kmvtechug.app/education/courses/envpsy/"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
 <style>
-/* ============================================================
-   KMVTECH EDUCATION - ENVPSY Lesson Page
-   Course accent: Sage / Forest Green #2F6B4F
-   Never use em dashes. Use hyphens or rephrase.
-   ============================================================ */
-
 :root{
-  --blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;
-  --green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;
-  --surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;
-  --text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;
-  /* Psychology course accent */
-  --psy:#2F6B4F;--psy-light:rgba(47,107,79,0.08);--psy-border:rgba(47,107,79,0.22);
+  --blue:#2B3FBF;--navy:#0D1B2A;--gold:#C9922A;
+  --bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;
+  --text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;
+  --law:#1B4F72;--law-light:rgba(27,79,114,.08);--law-border:rgba(27,79,114,.22);
+  --success:#059669;--locked:#9CA3AF;
 }
 [data-theme="dark"]{
-  --bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;
-  --border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;
-  --psy-light:rgba(47,107,79,0.15);--psy-border:rgba(47,107,79,0.35);
+  --bg:#0F1117;--surface:#1A1D27;--surface-2:#242836;--border:#2E3248;
+  --text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;
+  --law-light:rgba(27,79,114,.2);--law-border:rgba(27,79,114,.4);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
-:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
-
-/* TOPBAR */
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
-.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
-.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
-.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
-.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);overflow:hidden;min-width:0;}
-.tbc a{color:var(--text-2);text-decoration:none;white-space:nowrap;}.tbc a:hover{color:var(--blue);}
-.tright{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;transition:background 0.25s;}
-.tbtn[aria-checked="true"]{background:var(--blue);}
-.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
-.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
-
-/* PROGRESS BAR - Psychology uses sage gradient */
-.pbar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
-.pfill{height:100%;background:linear-gradient(90deg,var(--psy),#3d8a65);}
-
-/* LAYOUT */
-.layout{display:flex;min-height:100vh;}
-.bwrap{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;}
-
-/* SIDEBAR */
-.sb{width:256px;flex-shrink:0;border-right:1px solid var(--border);background:var(--surface);position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
-.sb-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:16px 16px 8px;border-bottom:1px solid var(--border);}
-.sb-m{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:12px;font-weight:700;color:var(--text-2);border-bottom:1px solid var(--border);}
-.sb-n{width:20px;height:20px;border-radius:4px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2);flex-shrink:0;}
-.sb-n.on{background:var(--psy);color:#fff;}
-.sb-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);padding:6px 16px 4px;border-bottom:1px solid var(--border);}
-.sb-p{display:flex;align-items:center;gap:7px;padding:7px 16px 7px 26px;font-size:12px;color:var(--text-2);text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s;}
-.sb-p:hover{background:var(--surface-2);color:var(--text-1);}
-.sb-p.on{color:var(--psy);font-weight:600;background:var(--psy-light);}
-.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;}
-.sb-p.on .sb-dot{background:var(--psy);}
-
-/* MAIN CONTENT */
-.main{flex:1;padding:0 20px 100px;min-width:0;}
-.hdr{max-width:var(--rw);margin:32px auto 28px;}
-.ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.ey::before{content:'';width:14px;height:1.5px;background:var(--psy);}
-.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.7rem,4vw,2.4rem);color:var(--text-1);line-height:1.15;letter-spacing:-0.01em;margin-bottom:14px;}
-.chips{padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;}
-.chip{display:inline-flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--text-2);}
-.chip.psy{background:var(--psy-light);border-color:var(--psy-border);color:var(--psy);font-weight:600;}
-
-/* IMAGE BLOCK (plain-text pages) */
-.imgblock{max-width:var(--rw);margin:0 auto 28px;}
-.imgblock img{width:100%;height:auto;border-radius:12px;display:block;object-fit:cover;max-height:320px;}
-.imgcap{font-size:11.5px;color:var(--text-3);margin-top:8px;text-align:center;line-height:1.5;}
-.imgcap a{color:var(--text-2);text-decoration:underline;}
-
-/* ARTICLE CONTENT */
-.ct{max-width:var(--rw);margin:0 auto;}
-.ct h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--text-1);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border);}
-.ct p{font-size:1rem;color:var(--text-1);line-height:1.85;margin-bottom:14px;}
-.ct strong{color:var(--text-1);}
-.ct ol,.ct ul{margin:0 0 16px 1.25rem;}
-.ct li{margin-bottom:8px;line-height:1.7;color:var(--text-1);}
-
-/* GOAL CARDS */
-.gcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0;}
-.gcard h3{font-size:0.95rem;font-weight:700;color:var(--text-1);margin-bottom:6px;}
-.gcard p{font-size:0.9rem;color:var(--text-2);margin:0;line-height:1.65;}
-
-/* AUTHORITY / CALLOUT */
-.auth{background:var(--psy-light);border:1px solid var(--psy-border);border-radius:10px;padding:14px 16px;margin:18px 0;}
-.al{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);margin-bottom:7px;}
-.auth p{font-size:0.87rem;color:var(--text-2);line-height:1.65;margin-bottom:5px;}
-.auth p:last-child{margin:0;}
-
-/* KEY POINTS */
-.sbox{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0;}
-.sl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:10px;}
-.slist{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.slist li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
-.slist li::before{content:'✓';color:var(--psy);font-weight:700;flex-shrink:0;margin-top:1px;}
-
-/* PDF BAR */
-.pdfbar{max-width:var(--rw);margin:24px auto 0;background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
-.pdfi{font-size:22px;flex-shrink:0;}
-.pdft{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:2px;}
-.pdfs{font-size:11.5px;color:var(--text-2);}
-.btnpdf{flex-shrink:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;}
-.btnpdf:hover{background:var(--blue);}
-
-/* NEXT LESSON CARD */
-.nlcard{background:var(--navy);border-radius:12px;padding:20px 22px;margin:28px 0;text-align:center;}
-.nlcard p{color:rgba(255,255,255,0.6);font-size:0.88rem;margin-bottom:12px;}
-.nlcard a{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;text-decoration:none;}
-
-/* PAGE NAV */
-.pnav{max-width:var(--rw);margin:36px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;border-top:1px solid var(--border);}
-.nbtn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;transition:all 0.2s;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
-.nbtn:hover{border-color:var(--psy);color:var(--psy);}
-.nbtn.nx{background:var(--navy);color:#fff;border-color:var(--navy);}
-.nbtn.nx:hover{background:var(--psy);}
-.plbl{font-size:12px;color:var(--text-3);text-align:center;}
-
-/* LOCKED */
-.lk{max-width:var(--rw);margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
-.lki{font-size:40px;margin-bottom:14px;}
-.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
-.lk p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:360px;margin:0 auto 20px;}
-.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
-
-/* OUTLINE */
-.out{width:210px;flex-shrink:0;border-left:1px solid var(--border);padding:24px 16px;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
-.otitle{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
-.olink{display:block;font-size:12px;color:var(--text-2);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--border);margin-bottom:4px;transition:all 0.15s;line-height:1.4;}
-.olink:hover,.olink.on{color:var(--psy);border-left-color:var(--psy);font-weight:600;}
-
-@media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
-@media(min-width:1100px){.out{display:block;}}
-
-.qcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0;}
-.qnum{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--psy);margin-bottom:8px;}
-.qtext{font-size:1rem;font-weight:600;color:var(--text-1);margin-bottom:12px;line-height:1.5;}
-.qopt{display:block;padding:10px 14px;margin:6px 0;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:0.92rem;}
-.qopt:hover{border-color:var(--psy);background:var(--psy-light);}
-.qopt input{margin-right:10px;}
-.qopt.correct{border-color:var(--green);background:rgba(21,128,61,0.08);}
-.qopt.wrong{border-color:var(--red);background:rgba(220,38,38,0.06);}
-.qfb{font-size:0.88rem;margin-top:10px;padding:10px 12px;border-radius:8px;display:none;}
-.qfb.show{display:block;}
-.qfb.ok{background:rgba(21,128,61,0.1);color:var(--green);}
-.qfb.bad{background:rgba(220,38,38,0.08);color:var(--red);}
-.qactions{max-width:var(--rw);margin:24px auto;text-align:center;}
-.qbtn{background:var(--navy);color:#fff;border:none;font-weight:700;font-size:14px;padding:12px 28px;border-radius:9px;cursor:pointer;margin:6px;}
-.qbtn:hover{background:var(--psy);}
-.qscore{font-size:1.1rem;font-weight:700;margin:16px 0;color:var(--text-1);}
-.fillin{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:0.95rem;margin-top:8px;}
-.vph{background:var(--navy);border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
-.gcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0;}
-.gcard h3{font-size:0.95rem;font-weight:700;color:var(--text-1);margin-bottom:6px;}
-.gcard p{font-size:0.9rem;color:var(--text-2);margin:0;line-height:1.65;}
-
-.hero{max-width:var(--rw);margin:0 auto;padding:36px 20px 28px;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:var(--text-1);line-height:1.2;margin:8px 0 12px;}
-.hero .lead{font-size:1.05rem;color:var(--text-2);line-height:1.7;max-width:640px;}
-.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0;}
-.plan{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:8px;}
-.plan.featured{border-color:var(--psy);box-shadow:0 0 0 1px var(--psy);}
-.plan .pname{font-size:0.8rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--psy);}
-.plan .pprice{font-size:1.6rem;font-weight:800;color:var(--text-1);}
-.plan .pprice span{font-size:0.85rem;font-weight:500;color:var(--text-3);}
-.plan .pdesc{font-size:0.9rem;color:var(--text-2);line-height:1.55;flex:1;}
-.plan .pbtn{display:inline-block;text-align:center;background:var(--navy);color:#fff;font-weight:700;font-size:14px;padding:11px 18px;border-radius:9px;text-decoration:none;margin-top:8px;}
-.plan .pbtn:hover{background:var(--psy);}
-.plan.featured .pbtn{background:var(--psy);}
-.modlist{list-style:none;padding:0;margin:12px 0;}
-.modlist li{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;font-size:0.95rem;color:var(--text-1);}
-.modlist li:last-child{border-bottom:none;}
-.modlist .mn{min-width:28px;height:28px;border-radius:8px;background:var(--psy-light);color:var(--psy);font-weight:700;font-size:0.8rem;display:flex;align-items:center;justify-content:center;}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0;}
-.cta-primary{display:inline-block;background:var(--psy);color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:10px;text-decoration:none;}
-.cta-primary:hover{opacity:0.92;}
-.cta-secondary{display:inline-block;background:var(--surface);color:var(--text-1);font-weight:600;font-size:15px;padding:14px 24px;border-radius:10px;text-decoration:none;border:1.5px solid var(--border);}
-.access-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 20px;margin:24px 0;}
-.access-box h2{font-size:1.15rem;margin:0 0 8px;color:var(--text-1);}
-.access-box p{font-size:0.95rem;color:var(--text-2);margin:0 0 14px;line-height:1.6;}
-.rules{background:rgba(47,107,79,0.08);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0;}
-.rules li{margin:6px 0;font-size:0.92rem;color:var(--text-2);}
-.complete-hero{text-align:center;padding:48px 20px 32px;max-width:640px;margin:0 auto;}
-.complete-hero .badge{font-size:48px;margin-bottom:12px;}
-.complete-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;color:var(--text-1);margin:0 0 12px;}
-.complete-hero p{font-size:1.05rem;color:var(--text-2);line-height:1.7;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7}
+a{color:var(--law);text-decoration:none}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 16px;height:56px;display:flex;align-items:center;gap:12px}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);flex-shrink:0}
+.tbc{flex:1;font-size:12.5px;color:var(--text-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbc a{color:var(--text-2)}
+.theme-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--text-2);font-size:13px}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.side{width:270px;background:var(--surface);border-right:1px solid var(--border);padding:16px 12px;display:none;overflow-y:auto;flex-shrink:0}
+@media(min-width:960px){.side{display:block}}
+.side h3{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:14px 8px 6px}
+.side a{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;color:var(--text-2);font-size:13px;margin-bottom:2px}
+.side a:hover{background:var(--law-light);color:var(--law)}
+.side a.current{background:var(--law-light);color:var(--law);font-weight:600}
+.side a.completed::before{content:"✓";color:var(--success);font-weight:700;font-size:12px}
+.side a.locked{opacity:.55}
+.side a.locked::before{content:"🔒";font-size:11px}
+.progress-box{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;margin:8px;font-size:12.5px}
+.progress-box .bar{height:6px;background:var(--border);border-radius:99px;margin:8px 0;overflow:hidden}
+.progress-box .bar > i{display:block;height:100%;background:var(--law);border-radius:99px}
+.main{flex:1;padding:28px 20px 80px;max-width:880px}
+.hero{width:100%;max-height:280px;object-fit:cover;border-radius:12px;margin-bottom:20px;border:1px solid var(--border)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.chip{font-size:12px;padding:5px 12px;border-radius:999px;font-weight:600}
+.chip-faculty{background:var(--navy);color:#fff}
+.chip-uganda{background:#F5E6C8;color:#7A5C1E}
+[data-theme="dark"] .chip-uganda{background:#3D3420;color:#E8D5A3}
+.badge-2024{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:4px 10px;border-radius:6px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border);font-weight:600;margin-bottom:12px}
+.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:28px;line-height:1.25;margin-bottom:8px}
+.lead{font-size:16px;color:var(--text-2);margin-bottom:20px}
+.section{margin:28px 0}
+.section h2{font-family:'Playfair Display',serif;font-size:20px;color:var(--law);margin-bottom:10px}
+.section p,.section li{font-size:15px;color:var(--text-1);margin-bottom:8px}
+.section ul{padding-left:1.2em}
+.mod-list{list-style:none;padding:0}
+.mod-list li{padding:10px 12px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--surface)}
+.mod-list strong{color:var(--law)}
+.price-box{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:18px;margin:20px 0}
+.price-box .from{font-size:13px;color:var(--text-2)}
+.price-box .amount{font-size:26px;font-weight:800;color:var(--navy)}
+[data-theme="dark"] .price-box .amount{color:var(--gold)}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:10px;font-weight:700;font-size:14.5px;border:none;cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-primary:hover{opacity:.92}
+.btn-secondary{background:transparent;color:var(--law);border:1.5px solid var(--law-border)}
+.faq details{border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--surface);padding:12px 14px}
+.faq summary{font-weight:600;cursor:pointer;color:var(--text-1)}
+.faq details p{margin-top:8px;font-size:14.5px;color:var(--text-2)}
+/* Mobile floating Next */
+.mobile-next{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;padding:12px 16px;background:var(--navy);color:#fff;text-align:center;font-weight:700;font-size:15px;border:none;text-decoration:none}
+@media(max-width:767px){.mobile-next{display:block}.main{padding-bottom:90px}}
+.pdf-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:7px 12px;border-radius:8px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border);margin:10px 0;font-weight:600}
 </style>
 </head>
-<body data-course="ENVPSY">
-<header class="topbar">
-  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
-  <nav class="tbc"><a href="/education/">Courses</a><span>&#8250;</span><span style="color:var(--text-1);font-weight:600;">Environmental Psychology</span></nav>
-  <div class="tright">
-    <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
-    <a href="/education/dashboard/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Dashboard</a>
-  </div>
-</header>
-<div class="pbar"><div class="pfill" style="width:0%;"></div></div>
-
-<main style="max-width:780px;margin:0 auto;padding:0 16px 48px;">
-  <div class="hero">
-    <div class="ey" style="color:var(--psy);">Course code: ENVPSY</div>
-    <h1>Environmental &amp; Conservation Psychology</h1>
-    <p class="lead">Practical, simplified psychology of how people relate to the environment - designed for Ugandan university students across law, health, social sciences, business, and IT. Global frameworks, Ugandan examples, certificate on completion.</p>
-    <div class="chips" style="margin-top:14px;">
-      <span class="chip psy">9 modules</span>
-      <span class="chip">Graded + certificate</span>
-      <span class="chip">Mobile-first</span>
+<body>
+<div class="topbar">
+  <div class="tmark">K</div>
+  <div class="tbc"><a href="/education/">KMVTECH Education</a> · Social Sciences · Environmental Psychology</div>
+  <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark mode">Theme</button>
+</div>
+<div class="layout">
+  <aside class="side">
+    <h3>Course</h3>
+    <a href="/education/courses/envpsy/" class="current">Overview</a>
+    <div class="progress-box" id="progressBox" style="display:none">
+      <div><strong>Your progress</strong></div>
+      <div class="bar"><i id="progBar" style="width:0%"></i></div>
+      <div id="progText">0 / 9 modules</div>
+      <div id="progAvg" style="margin-top:4px;color:var(--text-2)"></div>
+      <div id="progCert" style="margin-top:4px;font-weight:600"></div>
     </div>
-  </div>
-
-  <section class="access-box" id="access">
-    <div id="state-loading" style="display:block;font-size:0.9rem;color:var(--text-3);">Checking your access...</div>
-
-    <div id="state-guest" style="display:none;">
-      <h2>Start learning</h2>
-      <p>Anyone can read this overview. To study the lessons and earn a certificate, register free and choose a plan.</p>
-      <div class="cta-row">
-        <a href="/education/register/" class="cta-primary">Register free</a>
-        <a href="/education/login/" class="cta-secondary">Log in</a>
-      </div>
-      <p style="font-size:0.85rem;color:var(--text-3);margin-top:8px;">Already have an account? Log in, then enrol below.</p>
+    <h3>Modules</h3>
+    <a href="/education/courses/envpsy/1/1/1/" class="locked" data-mod="1">M1: Two Fields, One Big Idea</a><a href="/education/courses/envpsy/2/1/1/" class="locked" data-mod="2">M2: Perception and Cognition</a><a href="/education/courses/envpsy/3/1/1/" class="locked" data-mod="3">M3: Pro-Environmental Behaviour</a><a href="/education/courses/envpsy/4/1/1/" class="locked" data-mod="4">M4: Environmental Communication</a><a href="/education/courses/envpsy/5/1/1/" class="locked" data-mod="5">M5: Eco-Anxiety</a><a href="/education/courses/envpsy/6/1/1/" class="locked" data-mod="6">M6: Disasters and Communities</a><a href="/education/courses/envpsy/7/1/1/" class="locked" data-mod="7">M7: Environmental Policy</a><a href="/education/courses/envpsy/8/1/1/" class="locked" data-mod="8">M8: Economy and Environment</a><a href="/education/courses/envpsy/9/1/1/" class="locked" data-mod="9">M9: Career Paths</a>
+  </aside>
+  <main class="main">
+    <img class="hero" src="hero.jpg" alt="Environmental Psychology course hero"/>
+    <div class="badge-2024">Social Sciences · Uganda</div>
+    <h1 class="ltitle">Environmental Psychology</h1>
+    <div class="chips">
+      <span class="chip chip-faculty">Social Sciences</span>
+      <span class="chip chip-uganda">Ugandan Context</span>
     </div>
-
-    <div id="state-noplan" style="display:none;">
-      <h2>Enrol to unlock lessons</h2>
-      <p>You are logged in. Choose a plan to access all 9 modules, graded quizzes, and the certificate pathway.</p>
-      <div class="plan-grid">
-        <div class="plan featured">
-          <div class="pname">This course only</div>
-          <div class="pprice">UGX 5,000 <span>lifetime</span></div>
-          <div class="pdesc">Full access to Environmental &amp; Conservation Psychology, including certificate when you hit 80% average on module quizzes.</div>
-          <a href="/education/#pricing" class="pbtn">Enrol - ENVPSY</a>
-        </div>
-        <div class="plan">
-          <div class="pname">Monthly unlimited</div>
-          <div class="pprice">UGX 20,000 <span>/ 30 days</span></div>
-          <div class="pdesc">All KMVTECH Education courses for 30 days. Ideal if you are taking more than one subject this month.</div>
-          <a href="/education/#pricing" class="pbtn">Choose monthly</a>
-        </div>
-        <div class="plan">
-          <div class="pname">Semester unlimited</div>
-          <div class="pprice">UGX 50,000 <span>/ 5 months</span></div>
-          <div class="pdesc">All courses for a full semester. Best value for students stacking several modules.</div>
-          <a href="/education/#pricing" class="pbtn">Choose semester</a>
-        </div>
-      </div>
-      <p style="font-size:0.85rem;color:var(--text-3);">Payment (mobile money / card) is being finalised. If you have already paid, contact support or wait for enrolment to appear on your dashboard.</p>
+    <p class="lead">Environmental psychology: perception, behaviour, communication, eco-anxiety, policy and careers.</p>
+    <div class="section"><h2>The Big Transformation</h2><p>After this course you will be able to explain how people perceive and relate to environments, analyse drivers of pro-environmental behaviour, communicate environmental issues, and connect psychology to policy and careers.</p></div>
+    <div class="section"><h2>Who This Course Is For</h2><p>Psychology and environmental studies students, NGO staff, educators and policy-interested professionals.</p></div>
+    <div class="section"><h2>Prerequisites and Recommended Sequence</h2><p>No prior knowledge required beyond secondary school education.</p></div>
+    <div class="section"><h2>What You Will Learn - Module Breakdown</h2><ul class="mod-list"><li><strong>Module 1: Two Fields, One Big Idea</strong> - What environmental psychology is and why it matters.</li>
+<li><strong>Module 2: Perception and Cognition</strong> - Why we see the same place differently.</li>
+<li><strong>Module 3: Pro-Environmental Behaviour</strong> - What drives pro-environmental action.</li>
+<li><strong>Module 4: Environmental Communication</strong> - Communicating environment effectively.</li>
+<li><strong>Module 5: Eco-Anxiety</strong> - Living with worry about the planet.</li>
+<li><strong>Module 6: Disasters and Communities</strong> - Psychological effects of environmental disasters.</li>
+<li><strong>Module 7: Environmental Policy</strong> - How environmental policy works.</li>
+<li><strong>Module 8: Economy and Environment</strong> - How economic activity affects the environment.</li>
+<li><strong>Module 9: Career Paths</strong> - Where environmental psychology takes you.</li></ul></div>
+    <div class="section"><h2>Assessment and Certificate</h2>
+      <p>Each module ends with a graded quiz. You need <strong>70%</strong> to pass each module and an <strong>80% average</strong> across all modules to earn your certificate. You may retake quizzes. Progress is saved when you are logged in and enrolled.</p>
     </div>
-
-    <div id="state-enrolled" style="display:none;">
-      <h2>You are enrolled</h2>
-      <p>Lifetime or active plan access to ENVPSY. Progress is saved automatically as you complete pages and quizzes.</p>
-      <div class="cta-row">
-        <a href="/education/courses/envpsy/1/1/1/" class="cta-primary">Start / Continue course</a>
-        <a href="/education/courses/envpsy/grades/" class="cta-secondary">View grades</a>
-        <a href="/education/dashboard/" class="cta-secondary">Dashboard</a>
-      </div>
+    <div class="section"><h2>Time Commitment</h2><p>Approximately 30-40 hours. Most students finish in 4-7 weeks part-time.</p></div>
+    <div class="price-box">
+      <div class="from">From</div>
+      <div class="amount">UGX 5,000 <span style="font-size:16px;font-weight:500">per month</span></div>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-2)">One course: UGX 5,000/month · All courses: UGX 20,000/month · 5 months unlimited: UGX 50,000</p>
     </div>
-  </section>
-
-  <section style="margin:32px 0;">
-    <h2 style="font-size:1.25rem;color:var(--text-1);margin-bottom:8px;">What you will study</h2>
-    <p style="color:var(--text-2);font-size:0.95rem;line-height:1.65;">Nine modules from foundations through policy, economics, and careers - with Uganda-specific examples, practice quizzes, and graded module quizzes.</p>
-    <ul class="modlist">
-      <li><span class="mn">1</span><span>Foundations of Environmental &amp; Conservation Psychology</span></li>
-      <li><span class="mn">2</span><span>Perceiving &amp; Valuing the Environment</span></li>
-      <li><span class="mn">3</span><span>Pro-Environmental Behaviour</span></li>
-      <li><span class="mn">4</span><span>Environmental Communication &amp; Media</span></li>
-      <li><span class="mn">5</span><span>Climate Change Psychology</span></li>
-      <li><span class="mn">6</span><span>Community, Disasters &amp; Conservation Behaviour</span></li>
-      <li><span class="mn">7</span><span>Environmental Policy &amp; Behaviour Change</span></li>
-      <li><span class="mn">8</span><span>Economic Policy &amp; Global Environmental Concerns</span></li>
-      <li><span class="mn">9</span><span>Applying Environmental Psychology - Careers &amp; Practice</span></li>
-    </ul>
-  </section>
-
-  <section class="rules">
-    <strong style="color:var(--text-1);display:block;margin-bottom:8px;">Grading &amp; certificate</strong>
-    <ul style="margin:0;padding-left:18px;">
-      <li>Each module has a <strong>graded quiz</strong> (70% pass, max 3 attempts).</li>
-      <li>Practice quizzes are unlimited and do not count toward the certificate.</li>
-      <li>Certificate is issued automatically when your <strong>average across all 9 module graded quizzes is 80% or higher</strong>.</li>
-      <li>Certificate is delivered to your email and KMVTECH Education dashboard.</li>
-    </ul>
-  </section>
-
-  <section style="margin:28px 0 8px;">
-    <h2 style="font-size:1.15rem;color:var(--text-1);">Who this is for</h2>
-    <p style="color:var(--text-2);font-size:0.95rem;line-height:1.65;">University students in Uganda (and East Africa) in psychology, law, health sciences, social sciences, business, environmental studies, and related fields. No advanced psychology degree required - content is practical and accessible.</p>
-  </section>
-</main>
-
-<footer style="border-top:1px solid var(--border);padding:20px;text-align:center;font-size:0.85rem;color:var(--text-3);">
-  KMVTECH Education · Kampala, Uganda · <a href="/education/" style="color:var(--blue);">All courses</a>
-</footer>
-
+    <div class="btn-row">
+      <a class="btn btn-primary" href="/education/enroll/?course=ENVPSY&name=Environmental%20Psychology">Enroll Now</a>
+      <a class="btn btn-secondary" href="/education/courses/envpsy/1/1/1/">Start Learning</a>
+    </div>
+    <div class="section faq">
+      <h2>Frequently Asked Questions</h2>
+      <details><summary>Is this course enough for my university exams?</summary><p>Yes. Content is aligned with common social science and psychology programmes. Use it alongside your faculty materials and readings.</p></details>
+      <details><summary>Do I need prior psychology or research knowledge?</summary><p>See Prerequisites. Most courses start from foundations.</p></details>
+      <details><summary>How long does it take to earn the certificate?</summary><p>Most students finish in 3-7 weeks studying part-time. You need 70% on each module quiz and 80% average overall.</p></details>
+      <details><summary>Can I access this course on my phone?</summary><p>Yes. Mobile-responsive with a floating Next Lesson button on small screens.</p></details>
+      <details><summary>Will I get a certificate even if I fail some modules and retake?</summary><p>Yes. You may retake graded quizzes. Certificate issues automatically when scores are met.</p></details>
+    </div>
+  </main>
+</div>
 <script>
-const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
-
-async function resolveAccess() {
-  const guest = document.getElementById('state-guest');
-  const noplan = document.getElementById('state-noplan');
-  const enrolled = document.getElementById('state-enrolled');
-  const loading = document.getElementById('state-loading');
-  if (loading) loading.style.display = 'block';
-  [guest, noplan, enrolled].forEach(el => { if (el) el.style.display = 'none'; });
-
-  try {
-    const { data: { session } } = await SB.auth.getSession();
-    if (!session) {
-      if (loading) loading.style.display = 'none';
-      if (guest) guest.style.display = 'block';
-      return;
-    }
-    const { data: pr } = await SB.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
-    if (pr && pr.role === 'admin') {
-      if (loading) loading.style.display = 'none';
-      if (enrolled) enrolled.style.display = 'block';
-      return;
-    }
-    const { data: co } = await SB.from('courses').select('id').eq('course_code', 'ENVPSY').maybeSingle();
-    if (!co) {
-      if (loading) loading.style.display = 'none';
-      if (noplan) noplan.style.display = 'block';
-      return;
-    }
-    const { data: en } = await SB.from('enrollments').select('id,expires_at').eq('student_id', session.user.id).eq('course_id', co.id).maybeSingle();
-    if (!en || (en.expires_at && new Date(en.expires_at) < new Date())) {
-      if (loading) loading.style.display = 'none';
-      if (noplan) noplan.style.display = 'block';
-      return;
-    }
-    if (loading) loading.style.display = 'none';
-    if (enrolled) enrolled.style.display = 'block';
-  } catch (e) {
-    if (loading) loading.style.display = 'none';
-    if (guest) guest.style.display = 'block';
-  }
-}
-
-function tTheme() {
-  const h = document.documentElement, t = document.getElementById('tt'), th = t.querySelector('.tthumb');
-  const d = h.getAttribute('data-theme') === 'dark';
-  h.setAttribute('data-theme', d ? 'light' : 'dark');
-  t.setAttribute('aria-checked', d ? 'false' : 'true');
-  th.textContent = d ? '☀' : '🌙';
-  localStorage.setItem('kmv-theme', d ? 'light' : 'dark');
-}
-(function() {
-  const s = localStorage.getItem('kmv-theme'), p = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if ((s || (p ? 'dark' : 'light')) === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    const t = document.getElementById('tt');
-    if (t) { t.setAttribute('aria-checked', 'true'); t.querySelector('.tthumb').textContent = '🌙'; }
-  }
-})();
-resolveAccess();
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
 </script>
-
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    if (typeof supabase === 'undefined' || !window.getProgress) return;
+    const p = await window.getProgress('ENVPSY');
+    if (!p) return;
+    document.getElementById('progressBox').style.display = 'block';
+    const done = p.completedModules || 0;
+    document.getElementById('progBar').style.width = Math.round((done/9)*100) + '%';
+    document.getElementById('progText').textContent = done + ' / 9 modules';
+    if (p.average != null) document.getElementById('progAvg').textContent = 'Quiz average: ' + p.average + '%';
+    const onTrack = (p.average||0) >= 80 && done === 9;
+    document.getElementById('progCert').textContent = onTrack ? 'On track for certificate' : 'Keep going for your certificate';
+    document.getElementById('progCert').style.color = onTrack ? 'var(--success)' : 'var(--text-2)';
+    document.querySelectorAll('.side a[data-mod]').forEach(a => {
+      const m = parseInt(a.dataset.mod, 10);
+      a.classList.remove('locked','completed','current');
+      if ((p.completedModulesList||[]).includes(m)) a.classList.add('completed');
+      else if (m === (p.currentModule||1)) a.classList.add('current');
+      else if (m > (p.currentModule||1)) a.classList.add('locked');
+    });
+  } catch(e) {}
+});
+</script>
 </body>
 </html>

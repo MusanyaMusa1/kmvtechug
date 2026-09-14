@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.1 · Practice Quiz</div><h1 class="ltitle">L2.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/genmedia/notes/KMVEDU-GENMEDIA-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Gendered news framing can emphasise:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Appearance for some and status for others</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only equal depth always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only sports scores</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only weather</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Advertising influences:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Aspirations and product-linked identities</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Nothing about gender</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only prices</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only fonts</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Expert panels that rarely include women:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Signal whose knowledge is valued</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Prove women lack expertise always</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Are required by physics</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>End radio</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Music video tropes can:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Normalise narrow beauty or dominance scripts</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Never affect youth</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only entertain without meaning</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban critique</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Measuring patterns needs:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>More than one example</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>A single viral clip only</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No method</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Only opinion</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/genmedia/2/1/2/">Next Lesson →</a></body>
 </html>

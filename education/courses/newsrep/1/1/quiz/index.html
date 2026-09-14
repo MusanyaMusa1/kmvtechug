@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Practice Quiz</div><h1 class="ltitle">L1.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/newsrep/notes/KMVEDU-NEWSREP-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. News is primarily information that is:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>New significant and useful to a public</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only entertaining gossip</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only official speeches with no check</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only social media trends</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Impact as a news value means:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>How many people are affected</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>How famous the reporter is</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>How long the article is</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>How many ads sell</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Proximity often raises interest because:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Events near the audience feel relevant</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Distant events never matter</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only capital cities count</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only foreign news counts</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Ugandan audiences often rely on:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Radio TV digital and community talk</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only one national paper exclusively</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only international wires</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>No local media</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Rumour without verification is:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Not ready to publish as fact</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Always the lead story</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Required by ethics</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Safer than documents</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/newsrep/1/1/2/">Next Lesson →</a></body>
 </html>

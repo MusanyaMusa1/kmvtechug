@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Practice Quiz</div><h1 class="ltitle">L3.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/newsrep/notes/KMVEDU-NEWSREP-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. On-the-record material:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>May be quoted with attribution as agreed</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Must never be published</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Is always anonymous</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Bans names</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Unclear off-record deals:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Should be clarified before relying on them</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Are fine to ignore</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Always protect the reporter only</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Replace ethics codes</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Multiple sources reduce:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Risk of one-sided error</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>All need for documents</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Deadline pressure magically</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Audience size</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Right of reply is especially important when:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Serious allegations are made</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Stories are only weather</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Quotes are praise only</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>No one is named</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Accurate paraphrase means:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Keeping the meaning without distortion</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Twisting for drama</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Dropping context that softens blame always</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Inventing sharper words</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/newsrep/3/summary/">Next Lesson →</a></body>
 </html>

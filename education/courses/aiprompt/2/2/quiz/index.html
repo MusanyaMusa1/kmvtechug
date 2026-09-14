@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Practice Quiz</div><h1 class="ltitle">L2.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/aiprompt/notes/KMVEDU-AIPROMPT-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Task framing should name:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>A clear deliverable</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only the weather</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>The AI company CEO</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Nothing</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. A campus-ready prompt example is:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Outline a 4-section essay on X for Year 1</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Do something</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Whatever</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ignore school</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Role + Task + Audience + Format is:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>A practical starter pattern</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>A law of physics</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>A type of malware</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Optional silence</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Email prompts should often include:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Purpose and polite professional tone</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only slang</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Fake threats</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>No subject context</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Study-group explanations should match:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Peer level and simple language</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>PhD jargon only</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No structure</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Random topics</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/aiprompt/2/summary/">Next Lesson →</a></body>
 </html>

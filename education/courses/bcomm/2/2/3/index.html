@@ -163,7 +163,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 <main class="main" id="main" tabindex="-1"><div id="lk"></div>
 <div id="lc" style="display:none;">
 <header class="hdr"><div class="ey">Module 2 · L2.2 · Page 3 of 3</div><h1 class="ltitle">Visual Layout</h1><div class="chips"><span class="chip">Text</span></div></header>
-<div class="prose"><p>Headings, lists, and white space help scanning on phones. Dense walls of text lose busy readers.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/bcomm/notes/KMVEDU-BCOMM-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Headings, lists, and white space help scanning on phones. Dense walls of text lose busy readers.</p></div>
 <div class="nav-row"><a class="nbtn primary" href="/education/courses/bcomm/2/2/quiz/" onclick="show()">L2.2 Practice Quiz &#8594;</a></div>
 </div></main></div></div>
 <script>
@@ -199,4 +199,9 @@ function tTheme() {
   h.setAttribute('data-theme', d?'light':'dark');
 }
 chkAccess();
-</script></body></html>
+</script><script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/bcomm/2/summary/">Next Lesson →</a></body></html>

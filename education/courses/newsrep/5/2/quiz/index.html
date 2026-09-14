@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.2 · Practice Quiz</div><h1 class="ltitle">L5.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/newsrep/notes/KMVEDU-NEWSREP-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Mobile-first presentation still requires:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Verified facts</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Lower standards</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Anonymous attacks</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>No links to sources</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Image manipulation that changes meaning:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Is unethical journalism</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Is required art</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Is always legal sport</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Replaces captions</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Credits and captions:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Protect honesty and creators</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Are optional decoration</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ban photos</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>End multimedia</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Self-editing includes:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Checking names numbers and clutter</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only adding adjectives</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Deleting attribution</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Skipping read-throughs</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Short social posts should:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Not contradict the full story</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Oversell for clicks always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Hide corrections</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Invent quotes</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/newsrep/5/summary/">Next Lesson →</a></body>
 </html>

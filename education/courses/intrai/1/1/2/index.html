@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Page 2 of 3</div><h1 class="ltitle">Strong, Weak, Narrow and General AI</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose">
+<div class="prose"><a class="pdf-btn" href="/education/courses/intrai/notes/KMVEDU-INTRAI-M1-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p><strong>Narrow AI</strong> (also called weak AI) is designed for a specific task. Face unlock, spam filters, or a crop-disease image classifier are narrow systems. Almost all AI you meet today is narrow.</p>
 <p><strong>General AI</strong> would handle a wide range of tasks at human-like flexibility. That does not exist yet in a practical form. News headlines sometimes blur this difference.</p>
 <figure style="margin:1.2rem 0;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
@@ -223,5 +223,10 @@ function tTheme() {
 chkAccess();
 </script>
 
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/intrai/1/1/2/">Next Lesson →</a></body>
 </html>

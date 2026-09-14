@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 6 · L6.2 · Practice Quiz</div><h1 class="ltitle">L6.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/intrai/notes/KMVEDU-INTRAI-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. AI literacy is useful for:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Many fields, not only engineers</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Nobody</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only gamers</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Avoiding all jobs</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. A logical next course is:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>AIPROMPT</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Ignoring security forever</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Unlearning typing</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only paper crafts</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Domain depth matters because:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>AI tools still need human context</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Domain knowledge is obsolete</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Models replace all experts tomorrow</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Majors do not matter</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Certificate progress is tracked via:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Dashboard after graded work and page visits</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Social media likes</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Handwritten letters only</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Guessing</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Core takeaway of INTRAI:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>AI is a powerful limited tool requiring judgment</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>AI is magic authority</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>AI has no limits</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>AI is irrelevant in Uganda</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -240,5 +240,10 @@ function tTheme() {
 chkAccess();
 </script>
 
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/intrai/6/summary/">Next Lesson →</a></body>
 </html>

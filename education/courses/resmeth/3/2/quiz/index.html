@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Practice Quiz</div><h1 class="ltitle">L3.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/resmeth/notes/KMVEDU-RESMETH-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Power analysis relates mainly to:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Detecting effects in quantitative tests</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only qualitative theme counts</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending sample planning</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban statistics</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Saturation in qualitative work means:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>New data add little new insight</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Infinite interviews always required</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending analysis</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban coding</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Gatekeeper approval:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Is often required but does not replace individual consent</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Ends all ethics</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ban participants</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Replaces consent forms always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Inclusion planning prevents:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Accidental silence of marginalised groups</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>All diversity</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending equity</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban criteria</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Field contingency plans cover:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Weather access refusals equipment failure</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only ideal days</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending realism</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban budgets</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/resmeth/3/summary/">Next Lesson →</a></body>
 </html>

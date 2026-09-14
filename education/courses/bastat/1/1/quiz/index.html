@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Practice Quiz</div><h1 class="ltitle">L1.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/bastat/notes/KMVEDU-BASTAT-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Statistics help us:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Summarise and reason about variation</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Avoid all uncertainty</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Replace all judgment</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only decorate reports</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. A sample is:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>A subset of the population studied</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Always the entire country</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only one person</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only online users</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. A variable is:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>A characteristic that can take different values</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>A fixed constant only</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only a graph title</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only a password</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Qualitative data can include:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Categories such as district or gender</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only continuous height measures</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only exact temperatures</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Only formula results</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Ugandan students meet statistics in:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Surveys exams research and public reports</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only foreign textbooks never local data</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Only sports scores</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Only ads</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/bastat/1/1/2/">Next Lesson →</a></body>
 </html>

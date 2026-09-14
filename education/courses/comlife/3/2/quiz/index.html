@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Practice Quiz</div><h1 class="ltitle">L3.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/comlife/notes/KMVEDU-COMLIFE-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Assertiveness protects:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Boundaries without insult</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only the loudest person</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Silence as the only option</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Public humiliation</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. I-statements focus on:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Your experience and request</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Blaming the whole person</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Audience entertainment</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Winning only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Public call-outs of peers often:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Escalate shame more than learning</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Always improve teams</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Replace private feedback usefully always</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>End all conflict</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Respect across difference means:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Dignity in disagreement</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Pretending all views are equal facts</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Banning debate</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Mocking minorities</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Resentment from passivity can:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Explode later in unhelpful ways</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Improve clarity always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>End all needs</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Replace assertiveness forever</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/comlife/3/summary/">Next Lesson →</a></body>
 </html>

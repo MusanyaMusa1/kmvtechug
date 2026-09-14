@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.2 · Practice Quiz</div><h1 class="ltitle">L5.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/genmedia/notes/KMVEDU-GENMEDIA-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Analysis should separate:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Description from judgment</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Facts from all ethics</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Method from examples</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Local from useful</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Rewriting drills build:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Practical alternative language</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only complaint without craft</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Cynicism only</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Silence</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Counting speakers is:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>A start not the whole story</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>The only metric needed</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Useless</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Banned</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Role quality means:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Whether people appear as experts leaders or only relatives</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only screen time seconds</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only clothing</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Only age</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Longitudinal checks:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Show change or stagnation</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only one-day snapshots</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>End research</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban radio logs</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/genmedia/5/summary/">Next Lesson →</a></body>
 </html>

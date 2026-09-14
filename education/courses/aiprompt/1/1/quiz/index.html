@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Practice Quiz</div><h1 class="ltitle">L1.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/aiprompt/notes/KMVEDU-AIPROMPT-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="1"><div class="qtext">1. A prompt is best defined as:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>The AI's internal memory only</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>The instruction or question you give the AI</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>A type of computer virus</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>A university fee</span></label></div><div class="qblock" data-ans="1"><div class="qtext">2. Vague prompts often lead to:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Perfect answers always</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Guesswork and weaker results</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Free certificates</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>No output ever</span></label></div><div class="qblock" data-ans="1"><div class="qtext">3. Prompting skill matters because:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Tools read minds</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Clearer asks produce more useful answers</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>AI never needs instructions</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only engineers can prompt</span></label></div><div class="qblock" data-ans="1"><div class="qtext">4. Compared with search, generative prompting is often better for:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Finding the official university PDF</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Drafting and restructuring text you will verify</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Replacing all reading</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ignoring sources</span></label></div><div class="qblock" data-ans="1"><div class="qtext">5. Academic honesty and prompting:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Are unrelated</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Work together when you design the task and verify outputs</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Mean you must never use tools</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Mean the AI owns your degree</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/aiprompt/1/1/2/">Next Lesson →</a></body>
 </html>

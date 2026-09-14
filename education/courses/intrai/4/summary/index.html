@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · Summary</div><h1 class="ltitle">Module 4 Summary</h1><div class="chips"><span class="chip">Summary</span></div></header>
-<div class="prose"><ul>
+<div class="prose"><a class="pdf-btn" href="/education/courses/intrai/notes/KMVEDU-INTRAI-M4-L1-Notes.pdf" download>Download Lesson PDF</a><ul>
 <li>Generative AI creates content from patterns.</li>
 <li>Useful for drafts and practice; weak on guaranteed truth.</li>
 <li>Study use is fine with checking and honesty.</li>
@@ -220,5 +220,10 @@ function tTheme() {
 chkAccess();
 </script>
 
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/intrai/4/1/2/">Next Lesson →</a></body>
 </html>

@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Page 3 of 3</div><h1 class="ltitle">Data Quality and Bias</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose">
+<div class="prose"><a class="pdf-btn" href="/education/courses/intrai/notes/KMVEDU-INTRAI-M3-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p>If one group is under-represented in training data, the model may perform worse for that group. Bias is not always intentional, but impact is real.</p>
 <p>In local settings, language, lighting, device quality, and who appears in the data all matter.</p>
 </div>
@@ -218,5 +218,10 @@ function tTheme() {
 chkAccess();
 </script>
 
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/intrai/3/summary/">Next Lesson →</a></body>
 </html>

@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.1 · Practice Quiz</div><h1 class="ltitle">L4.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/intrai/notes/KMVEDU-INTRAI-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Generative AI mainly:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Creates new content from patterns</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only deletes files</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Replaces human ethics</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Needs no prompts</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. A common failure mode is:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Inventing plausible but false details</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Never making errors</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only working offline forever</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Refusing all text</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Chat tools are helpful for:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Brainstorming and outlining with review</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Submitting unedited final exams blindly</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Replacing all reading</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Avoiding learning</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Code suggestions should be:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Reviewed and understood</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Past always without reading</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Trusted as law</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ignored always</span></label></div><div class="qblock" data-ans="1"><div class="qtext">5. Overconfident tone means:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>The answer is guaranteed</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>You should still verify important claims</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Facts are unnecessary</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Local context never matters</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -240,5 +240,10 @@ function tTheme() {
 chkAccess();
 </script>
 
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/intrai/4/1/2/">Next Lesson →</a></body>
 </html>

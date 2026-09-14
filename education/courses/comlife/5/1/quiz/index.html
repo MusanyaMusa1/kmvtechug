@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.1 · Practice Quiz</div><h1 class="ltitle">L5.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/comlife/notes/KMVEDU-COMLIFE-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Clear roles in teams reduce:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Duplication and dropped tasks</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>All creativity</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>All meetings</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>All conflict forever</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. A useful agenda states:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Topics time and desired outcomes</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only the room number</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only snacks</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only complaints</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Recording decisions helps:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Accountability after the meeting</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Forgetting owners</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Hiding outcomes</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Endless debate only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Constructive conflict targets:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Issues and behaviours</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Identity insults</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Public shame first</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Silent treatment only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Safety concerns should be:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Taken seriously and escalated appropriately</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Ignored for harmony</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Mocked</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Kept only as gossip</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/comlife/5/1/2/">Next Lesson →</a></body>
 </html>

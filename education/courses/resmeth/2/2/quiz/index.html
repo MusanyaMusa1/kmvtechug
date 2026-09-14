@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Practice Quiz</div><h1 class="ltitle">L2.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/resmeth/notes/KMVEDU-RESMETH-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Reliable measures are:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Consistent across repeated use under similar conditions</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Always valid automatically</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending calibration</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban scales</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. A valid measure:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Captures the intended construct</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only looks scientific</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending definition</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban indicators</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Threats to internal validity include:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Confounding and selection problems</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only pretty graphs</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending controls</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban pretests</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. External validity asks:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>To whom and where results may apply</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only laboratory purity</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending transfer</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban field studies</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Design fit means:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Question ethics resources align with method</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Copying any published design blindly</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending judgment</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban supervisors</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/resmeth/2/summary/">Next Lesson →</a></body>
 </html>
