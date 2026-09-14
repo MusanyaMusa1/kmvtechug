@@ -97,7 +97,7 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course.</p><a class="nbtn primary" href="/education/courses/sog1/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month.</p><a class="nbtn primary" href="/education/courses/sog1/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/sog1/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }

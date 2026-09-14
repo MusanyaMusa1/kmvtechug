@@ -58,7 +58,7 @@
 <a href="/education/courses/lan1/1/2/1/">L2. Sources of Uganda land law</a>
 <a href="/education/courses/lan1/1/quiz/">M1 graded quiz</a>
 <h3>Module 2</h3>
-<a href="/education/courses/lan1/2/1/1/">L1. Meaning of land — surface, b</a>
+<a href="/education/courses/lan1/2/1/1/">L1. Meaning of land  -  surface, b</a>
 <a href="/education/courses/lan1/2/2/1/">L2. Fixtures</a>
 <a href="/education/courses/lan1/2/quiz/">M2 graded quiz</a>
 <h3>Module 3</h3>
@@ -70,7 +70,7 @@
 <a href="/education/courses/lan1/4/2/1/">L2. Certification, conversion an</a>
 <a href="/education/courses/lan1/4/quiz/">M4 graded quiz</a>
 <h3>Module 5</h3>
-<a href="/education/courses/lan1/5/1/1/">L1. Mailo — origins and modern f</a>
+<a href="/education/courses/lan1/5/1/1/">L1. Mailo  -  origins and modern f</a>
 <a href="/education/courses/lan1/5/2/1/">L2. Key disputes and method</a>
 <a href="/education/courses/lan1/5/quiz/">M5 graded quiz</a>
 <h3>Module 6</h3>
@@ -119,7 +119,7 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course.</p><a class="nbtn primary" href="/education/courses/lan1/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month.</p><a class="nbtn primary" href="/education/courses/lan1/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/lan1/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
@@ -132,4 +132,16 @@ const pct=Math.round(100*score/total); const box=document.getElementById('result
 box.className='result show '+(pct>=70?'pass':'fail'); box.innerHTML='<strong>Score: '+score+' / '+total+' ('+pct+'%)</strong>';}
 chkAccess();
 </script>
-</body></html>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/lan1/4/1/2/">Next Lesson →</a></body></html>

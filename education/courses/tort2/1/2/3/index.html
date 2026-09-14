@@ -62,7 +62,7 @@
 <a href="/education/courses/tort2/2/quiz/">M2 graded quiz</a>
 <h3>Module 3</h3>
 <a href="/education/courses/tort2/3/1/1/">L1. Novus actus and rescue</a>
-<a href="/education/courses/tort2/3/2/1/">L2. Injury without impact — psyc</a>
+<a href="/education/courses/tort2/3/2/1/">L2. Injury without impact  -  psyc</a>
 <a href="/education/courses/tort2/3/quiz/">M3 graded quiz</a>
 <h3>Module 4</h3>
 <a href="/education/courses/tort2/4/1/1/">L1. Negligent misstatement</a>
@@ -92,7 +92,7 @@
 <main class="main"><div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 1 · L2 · Page 3 of 3</div>
 <h1 class="ltitle">Skilled defendants preview</h1><div class="chips"><span class="chip">Reading</span><span class="chip">TORT2</span></div>
-<div class="prose"><p>Professionals are judged by the standard of a reasonably competent member of that profession. Detailed treatment continues in Module 5.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/tort2/notes/KMVEDU-TORT2-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Professionals are judged by the standard of a reasonably competent member of that profession. Detailed treatment continues in Module 5.</p></div>
 <div class="nav-row"><a class="nbtn" href="/education/courses/tort2/1/2/2/">Previous</a><a class="nbtn primary" href="/education/courses/tort2/1/2/quiz/" onclick="show()">Practice quiz</a></div></div></main></div>
 <script>
 const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
@@ -112,7 +112,7 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course.</p><a class="nbtn primary" href="/education/courses/tort2/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month.</p><a class="nbtn primary" href="/education/courses/tort2/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/tort2/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
@@ -120,4 +120,16 @@ function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='
 
 chkAccess();
 </script>
-</body></html>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/tort2/1/summary/">Next Lesson →</a></body></html>

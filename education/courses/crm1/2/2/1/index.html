@@ -85,7 +85,7 @@
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 2 · L2 · Page 1 of 2</div>
 <h1 class="ltitle">Principle of legality and burden of proof</h1><div class="chips"><span class="chip">Video</span><span class="chip">CRM1</span></div>
-<div class="vwrap"><div class="vph"><div style="font-size:42px">&#9654;</div><div style="font-size:13px;margin-top:8px">Video will be added here</div></div></div><div class="prose"><p>The principle of legality requires that offences and penalties be fixed by law in advance, in clear language, and not applied retrospectively to the detriment of the accused.</p>
+<div class="vwrap"><div class="vph"><div style="font-size:42px">&#9654;</div><div style="font-size:13px;margin-top:8px">Video will be added here</div></div></div><div class="prose"><a class="pdf-btn" href="/education/courses/crm1/notes/KMVEDU-CRM1-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>The principle of legality requires that offences and penalties be fixed by law in advance, in clear language, and not applied retrospectively to the detriment of the accused.</p>
 <p><strong>Burden of proof:</strong> In criminal cases the prosecution bears the legal burden of proving every essential element of the offence. The standard is <strong>proof beyond reasonable doubt</strong>. The accused need not prove innocence.</p>
 <p><strong>Presumption of innocence</strong> is constitutional (Art. 28(3)(a)). Reverse onus provisions exist in limited contexts (for example some presumptions in the Penal Code or specialised statutes) but must be interpreted consistently with the Constitution.</p>
 <div class="statute">Art. 28(3)(a): Every person charged with a criminal offence shall be presumed to be innocent until proved guilty or until that person has pleaded guilty.</div></div>
@@ -110,7 +110,7 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course, or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm1/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month., or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm1/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/crm1/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
@@ -118,4 +118,16 @@ function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='
 chkAccess();
 
 </script>
-</body></html>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/crm1/2/summary/">Next Lesson →</a></body></html>

@@ -84,7 +84,7 @@
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 1 · L1 · Page 2 of 3</div>
 <h1 class="ltitle">Who is a human victim?</h1><div class="chips"><span class="chip">Reading</span><span class="chip">CRM2</span></div>
-<div class="prose"><p>For murder and manslaughter the victim must be a human being who has been born alive. Section 197 of Cap. 128 addresses when a child is a person capable of being killed - complete extrusion from the mother in a living state, whether or not the child has breathed, and whether or not the cord is cut.</p>
+<div class="prose"><a class="pdf-btn" href="/education/courses/crm2/notes/KMVEDU-CRM2-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>For murder and manslaughter the victim must be a human being who has been born alive. Section 197 of Cap. 128 addresses when a child is a person capable of being killed - complete extrusion from the mother in a living state, whether or not the child has breathed, and whether or not the cord is cut.</p>
 <p>Historical common-law tests focused on independent circulation and breathing. Modern medicine also discusses brain death where machines support circulation. For exams, start with the Code text and leading East African authorities on live birth.</p>
 <div class="statute">Always separate: (1) was there a living human victim? (2) did the accused cause death? (3) was the killing unlawful? (4) what was the mental element?</div></div>
 <div class="nav-row"><a class="nbtn primary" href="/education/courses/crm2/1/1/3/" onclick="show()">Next page</a></div>
@@ -108,7 +108,7 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course, or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm2/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month., or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm2/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/crm2/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
@@ -116,4 +116,16 @@ function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='
 chkAccess();
 
 </script>
-</body></html>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/crm2/1/1/2/">Next Lesson →</a></body></html>

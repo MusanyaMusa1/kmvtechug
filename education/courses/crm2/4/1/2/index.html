@@ -84,7 +84,7 @@
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 4 · L1 · Page 2 of 2</div>
 <h1 class="ltitle">Assault occasioning actual bodily harm</h1><div class="chips"><span class="chip">Reading</span><span class="chip">CRM2</span></div>
-<div class="prose"><p>Where assault results in actual bodily harm - bruises, swelling, or recognised psychiatric injury - liability rises (section 219 framework). <em>R v Roberts</em> (persuasive) shows that injuries suffered while escaping an assault can still be attributed to the assailant.</p>
+<div class="prose"><a class="pdf-btn" href="/education/courses/crm2/notes/KMVEDU-CRM2-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Where assault results in actual bodily harm - bruises, swelling, or recognised psychiatric injury - liability rises (section 219 framework). <em>R v Roberts</em> (persuasive) shows that injuries suffered while escaping an assault can still be attributed to the assailant.</p>
 <p>Market fight example: a vendor is slapped and shoved, left bruised and distressed - ABH territory rather than mere common assault.</p>
 <p>Punishment maxima are higher than for common assault; always cite the current Cap. 128 section and maximum when advising.</p></div>
 <div class="nav-row"><a class="nbtn primary" href="/education/courses/crm2/4/1/quiz/" onclick="show()">Practice quiz</a></div>
@@ -108,7 +108,7 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course, or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm2/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month., or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm2/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/crm2/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
@@ -116,4 +116,16 @@ function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='
 chkAccess();
 
 </script>
-</body></html>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/crm2/4/1/2/">Next Lesson →</a></body></html>

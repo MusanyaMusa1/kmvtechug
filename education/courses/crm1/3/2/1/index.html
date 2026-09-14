@@ -85,7 +85,7 @@
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 3 · L2 · Page 1 of 1</div>
 <h1 class="ltitle">Voluntary act and coincidence of AR and MR</h1><div class="chips"><span class="chip">Reading</span><span class="chip">CRM1</span></div>
-<div class="prose"><p>Criminal liability generally requires a voluntary act (or omission in breach of duty) accompanied by the required mental element at the relevant time. This is the principle of coincidence of actus reus and mens rea.</p>
+<div class="prose"><a class="pdf-btn" href="/education/courses/crm1/notes/KMVEDU-CRM1-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Criminal liability generally requires a voluntary act (or omission in breach of duty) accompanied by the required mental element at the relevant time. This is the principle of coincidence of actus reus and mens rea.</p>
 <p>Problems arise when the mental element is formed at one moment and the harmful result occurs later, or when a continuing act spans a change in awareness. Common-law authorities (e.g. continuing-act analysis) are persuasive where consistent with Cap. 128.</p>
 <div class="statute">When reading any offence section in Cap. 128, underline the verbs (conduct), the circumstances, and any result words. That map is your actus reus checklist.</div>
 <p>Ugandan problem questions often involve land disputes, bar fights, domestic conflicts and road incidents. Apply the same structure every time: identify AR, identify MR, then consider defences.</p></div>
@@ -110,7 +110,7 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course, or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm1/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month., or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm1/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/crm1/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
@@ -118,4 +118,16 @@ function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='
 chkAccess();
 
 </script>
-</body></html>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/crm1/3/summary/">Next Lesson →</a></body></html>

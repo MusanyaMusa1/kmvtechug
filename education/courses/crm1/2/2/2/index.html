@@ -85,7 +85,7 @@
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 2 · L2 · Page 2 of 2</div>
 <h1 class="ltitle">Standard of proof in practice</h1><div class="chips"><span class="chip">Reading</span><span class="chip">CRM1</span></div>
-<div class="prose"><p>"Beyond reasonable doubt" does not mean beyond all doubt. It means the evidence must leave the court sure of guilt. If a reasonable alternative consistent with innocence remains open on the evidence, the accused is entitled to acquittal.</p>
+<div class="prose"><a class="pdf-btn" href="/education/courses/crm1/notes/KMVEDU-CRM1-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>"Beyond reasonable doubt" does not mean beyond all doubt. It means the evidence must leave the court sure of guilt. If a reasonable alternative consistent with innocence remains open on the evidence, the accused is entitled to acquittal.</p>
 <p>Alibi evidence illustrates the point. The accused who raises alibi does not assume the burden of proving it. The prosecution must still prove presence and participation. Cases such as <em>Abdul Ngobi v Uganda</em> and recent High Court decisions restate that the prosecution carries the burden throughout.</p>
 <p>For the student: always separate (1) who must prove, (2) what must be proved, and (3) to what standard. Confusing these three leads to weak exam answers and weak advocacy.</p></div>
 <div class="nav-row"><a class="nbtn primary" href="/education/courses/crm1/2/2/quiz/" onclick="show()">Practice quiz</a></div>
@@ -109,7 +109,7 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course, or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm1/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month., or monthly/semester plans.</p><a class="nbtn primary" href="/education/courses/crm1/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/crm1/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
@@ -117,4 +117,16 @@ function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='
 chkAccess();
 
 </script>
-</body></html>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/crm1/2/summary/">Next Lesson →</a></body></html>
