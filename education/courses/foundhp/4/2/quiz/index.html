@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.2 · Practice Quiz</div><h1 class="ltitle">L4.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/foundhp/notes/KMVEDU-FOUNDHP-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Specific feedback names:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Observable behaviours to change</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only personality attacks</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Vague luck</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Public ridicule only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Timely feedback is better when:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Close to the performance</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Delayed by years</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Never given</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only annual</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Teachers should invite:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Learner comments on teaching</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>No evaluation</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only praise</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Silence</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Clear criteria reduce:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Arbitrary scoring</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>All standards</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Need for training</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Transparency</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Public humiliation as feedback:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Harms learning and trust</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Is best practice</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Is required</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Builds safety</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/foundhp/4/summary/">Next Lesson →</a></body>
 </html>

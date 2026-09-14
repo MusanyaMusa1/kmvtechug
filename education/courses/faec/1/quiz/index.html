@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · Graded Quiz</div><h1 class="ltitle">Module 1 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/faec/notes/KMVEDU-FAEC-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Preserve life is:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>A core aim of first aid</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Optional decoration</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only for hospitals</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>A social media slogan</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Becoming a second casualty:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Helps no one</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Is required</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Improves outcomes</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Is best practice</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Unresponsive casualties generally allow:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Necessary life-saving first aid</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>No care at all</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Photo sharing</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Forced surgery by bystanders</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Body fluid protection includes:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Gloves and hand hygiene</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Bare-hand pressure always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ignoring blood</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Wiping with sleeves only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Ambulance access in Uganda:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Varies by location</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Is identical in every village</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Never exists</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Replaces all facilities</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Sharing casualty photos online is:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Not appropriate</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Required documentation</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Always legal entertainment</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>A first aid step</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. A kit without gloves is:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Incomplete for safer care</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Fully adequate always</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Better than a full kit</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Only for decoration</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Scope of a first aider is:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Simple taught actions within limits</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Full clinical diagnosis</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Prescribing all drugs</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Replacing emergency departments</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/faec/1/1/2/">Next Lesson →</a></body>
 </html>

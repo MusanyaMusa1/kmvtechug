@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · Graded Quiz</div><h1 class="ltitle">Module 1 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/mnch/notes/KMVEDU-MNCH-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Newborn health is part of:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>MNCH</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only surgical training</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only geriatric care</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Unrelated to maternity</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Receiving care delay happens:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Inside the facility system</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only at home always</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only on roads always</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Never</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Pre-pregnancy health matters because:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>It affects later pregnancy outcomes</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>It is irrelevant</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>It replaces ANC</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>It ends all risk</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Companion of choice can support:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Respectful labour experience</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Forced procedures</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Abuse</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>No communication</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Rural distance barriers need:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Transport and referral solutions</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Ignoring outreach</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Closing HC IIIs</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>No birth plans</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Teamwork across cadres:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Improves continuum care</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Wastes time always</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Is optional always</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Replaces clinical skill</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Informed consent is:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Part of respectful care</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Unnecessary in labour always</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Only for surgery abroad</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>A barrier to save lives always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. National MNCH strategy focuses on:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Preventable mortality reduction</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Only building hotels</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Ignoring newborns</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>No immunisation</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/mnch/1/1/2/">Next Lesson →</a></body>
 </html>

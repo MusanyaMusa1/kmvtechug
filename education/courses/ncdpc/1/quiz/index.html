@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · Graded Quiz</div><h1 class="ltitle">Module 1 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/ncdpc/notes/KMVEDU-NCDPC-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. NCDs usually require:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Long-term management</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>One week of antibiotics only</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No follow-up</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only traditional herbs always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Stroke can be a complication of:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Uncontrolled hypertension</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Seasonal flu only</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Dental caries only</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Vitamin C excess only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Physical inactivity is:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>A modifiable risk factor</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Impossible to change</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only genetic</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Irrelevant in Uganda</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Opportunistic screening means:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Checking risk when patients attend for other reasons</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only mass camps once a decade</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Never measuring BP</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ignoring glucose</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Air pollution can contribute to:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Chronic respiratory and heart risk</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only skin colour</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Exam scores</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Passport delays</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Primary prevention example:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Tobacco cessation support</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Only dialysis</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Only amputation care</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Ignoring diet</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Stigma around chronic illness:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Can block care-seeking</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Always helps adherence</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Is required</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Has no effect</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. HC III staff can contribute by:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>BP checks, counselling, and organised follow-up</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Only referral without assessment</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Avoiding all NCD talk</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Stopping all medicines</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/ncdpc/1/1/2/">Next Lesson →</a></body>
 </html>

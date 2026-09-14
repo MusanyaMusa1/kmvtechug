@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.1 · Practice Quiz</div><h1 class="ltitle">L5.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/fammed/notes/KMVEDU-FAMMED-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Family decision-makers often control:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Transport and medicine money</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only clinic uniforms</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No health outcomes</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Lab machines only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Poverty affects:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Adherence and late presentation</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Nothing clinical</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only fashion</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Exam boards</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. VHTs help primary care by:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Mobilisation and follow-up linkage</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Replacing all clinicians</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ignoring households</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Blocking referral</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Seasonal disease patterns should:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Inform clinic preparedness</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Be ignored</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only concern weather apps</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Have no staffing effect</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Gender norms may delay:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Care-seeking for women or men in different ways</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only sports</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No health behaviour</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Uniform policy only</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/fammed/5/1/2/">Next Lesson →</a></body>
 </html>

@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.2 · Practice Quiz</div><h1 class="ltitle">L5.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/faec/notes/KMVEDU-FAEC-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Anaphylaxis needs:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Immediate emergency help</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Waiting a day</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only rest at home without help</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ice cream</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Auto-injectors should be:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>The casualty's prescribed device</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Borrowed from anyone</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Shared in the dorm freely</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Used for mild itching only always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Unconscious diabetic must not be given:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Food or drink by mouth</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Recovery position if breathing</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Emergency call</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Airway attention</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Child unable to drink with severe illness:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Needs urgent care</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Can wait a week</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only needs more play</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Should run a race</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. First aid replaces malaria tests:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>False</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>True</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Only in cities</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Only on weekends</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/faec/5/summary/">Next Lesson →</a></body>
 </html>

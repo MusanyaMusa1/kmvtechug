@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Practice Quiz</div><h1 class="ltitle">L3.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/comh/notes/KMVEDU-COMH-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Information alone usually:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Is not enough for change</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Always changes behaviour fully</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Replaces soap and water</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ends poverty overnight</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Enabling environments make healthy choices:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Easier</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Impossible</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Illegal</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Irrelevant</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Local groups help because:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>They already hold trust</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>They never need support</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>They replace MoH</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>They avoid all health topics</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Barriers to action include:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Cost, time, and distance</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only laziness always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Perfect motivation always</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Unlimited resources</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Community action is stronger when:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>People own the priority</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Outsiders decide everything secretly</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No one is consulted</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Only one meeting happens ever</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/comh/3/summary/">Next Lesson →</a></body>
 </html>

@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.2 · Practice Quiz</div><h1 class="ltitle">L1.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/faec/notes/KMVEDU-FAEC-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. If the scene is unsafe you should:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Stay back and call for help</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Rush in regardless</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ignore traffic</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Move wires with bare hands</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Gloves help protect against:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Blood and body fluid contact</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>All diseases forever</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Need for hand washing</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Calling for help</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. When calling help, include:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Location and casualty condition</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only your name</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Vague directions</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>No phone number</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. First aid kits should be:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Checked and restocked</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Hidden and expired</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Used for office stationery</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Shared without gloves always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Hand hygiene after care is:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Important when possible</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Never needed</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Only for surgeons</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Optional always</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/faec/1/summary/">Next Lesson →</a></body>
 </html>

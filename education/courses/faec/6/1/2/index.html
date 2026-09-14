@@ -169,9 +169,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 6 · L6.1 · Page 2 of 3</div><h1 class="ltitle">Snake Bites and Common Environmental Risks</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose">
+<div class="prose"><a class="pdf-btn" href="/education/courses/faec/notes/KMVEDU-FAEC-M6-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p>Keep the person calm and still. Immobilise the bitten limb if possible. Get to a health facility as soon as possible.</p>
-<p>Do not cut the wound, suck venom, or apply tight tourniquets as routine “traditional” fixes — these can worsen harm.</p>
+<p>Do not cut the wound, suck venom, or apply tight tourniquets as routine “traditional” fixes  -  these can worsen harm.</p>
 <figure style="margin:1.2rem 0;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
 <img src="https://images.unsplash.com/photo-1535083783855-76ae62b2914e?w=800&q=80" alt="" style="width:100%;display:block;max-height:280px;object-fit:cover;"/>
 <figcaption style="font-size:12px;color:var(--text-3);padding:8px 12px;">Calm immobilisation and rapid facility care matter more than myths.</figcaption>
@@ -220,5 +220,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/faec/6/1/2/">Next Lesson →</a></body>
 </html>

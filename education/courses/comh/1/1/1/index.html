@@ -170,8 +170,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Page 1 of 3</div><h1 class="ltitle">What is Community Health?</h1><div class="chips"><span class="chip">Video</span><span class="chip">~6 min</span></div></header>
 <div class="vwrap"><div class="vph"><div style="font-size:44px;color:rgba(255,255,255,0.9);">&#9654;</div>
-<div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:8px;">Video will be added here</div></div></div><div class="prose">
-<p>Community health focuses on the health of groups of people in a shared place — a village, parish, campus, or urban settlement — not only on individual clinic visits.</p>
+<div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:8px;">Video will be added here</div></div></div><div class="prose"><a class="pdf-btn" href="/education/courses/comh/notes/KMVEDU-COMH-M1-L1-Notes.pdf" download>Download Lesson PDF</a>
+<p>Community health focuses on the health of groups of people in a shared place  -  a village, parish, campus, or urban settlement  -  not only on individual clinic visits.</p>
 <p>It includes prevention, health promotion, access to services, and the social conditions that shape wellbeing in Uganda.</p>
 </div>
     <div class="nav-row"><a class="nbtn primary" href="/education/courses/comh/1/1/2/" onclick="show()">Next: Primary Health Care Ideas &#8594;</a></div>
@@ -217,5 +217,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/comh/1/1/2/">Next Lesson →</a></body>
 </html>

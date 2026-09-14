@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Practice Quiz</div><h1 class="ltitle">L3.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/acct1/notes/KMVEDU-ACCT1-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. To increase an asset you typically:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Debit the asset account</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Credit the asset account always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending expense rules</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban cash</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. To increase revenue you typically:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Credit the revenue account</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Debit revenue always</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending equity link</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban sales</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Posting means:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Transferring journal data to ledger accounts</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Skipping the journal</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending trial balance</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban cross-references</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. An account balance is:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>The net of debits and credits on that account</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Always zero</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending statements</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban opening balances</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Account codes help:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Organise and find accounts quickly</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only confuse beginners</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending software</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban reporting</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/acct1/3/summary/">Next Lesson →</a></body>
 </html>

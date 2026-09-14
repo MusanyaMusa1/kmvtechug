@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 6 · Graded Quiz</div><h1 class="ltitle">Module 6 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/ncdpc/notes/KMVEDU-NCDPC-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Defaulting from NCD clinics:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Should trigger respectful outreach</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Means abandon the patient</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Is ideal</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Needs public shame</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Uncontrolled BP despite treatment:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>May need review and possible referral</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Means stop measuring</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Is always patient fault only</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Needs no change</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Dispenser counselling on refills:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Supports adherence</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Is outside all useful roles</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Replaces diagnosis</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ends doctor visits forever</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Data on NCD attendance:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Guides improvement</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Is only for filing</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Has no use</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Should stay hidden from teams</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Emergency NCD presentations:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Need stabilisation and pathway knowledge</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Are rare myths</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Need no protocols</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Only occur in capital cities</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Student role in NCD clinics:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Learn measurement, education, and systems under supervision</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Prescribe freely without rules</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Ignore lifestyle</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Avoid all chronic patients</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Integration with HIV or ANC clinics:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Can expand screening reach</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Always harms programmes</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Is impossible</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Ends specialisation</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. After NCDPC, apply skills:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Under supervision in real primary care</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Only in theory forever</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>By stopping all guidelines</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Without teamwork</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/ncdpc/6/1/2/">Next Lesson →</a></body>
 </html>

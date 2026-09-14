@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 6 · Graded Quiz</div><h1 class="ltitle">Module 6 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/mnch/notes/KMVEDU-MNCH-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Community birth preparedness committees can:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Support transport and funds</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Replace skilled attendants</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>End all risk</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ignore women</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Stabilisation before referral:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Improves survival chances</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Is always impossible</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Wastes time always</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Means no communication</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Adolescent-friendly MNCH services:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Reduce barriers for young mothers</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Exclude teens on purpose</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Are unnecessary</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only exist in theory abroad</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Vaccine defaulter tracing should be:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Respectful</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Public humiliation</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Abandoned</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Hidden from supervisors</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Interpersonal quality includes:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Privacy and clear explanation</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Ignoring questions</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Rushing without consent</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Mocking fears</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. MNCH success is measured partly by:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Coverage and outcomes data</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Only building size</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Uniform colour</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Parking spaces</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Continuum thinking after discharge:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Plans postnatal and child follow-up</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Ends all contact at the gate</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Ignores immunisation</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Avoids community workers</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Your next step after this course:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Apply skills under supervision in real settings</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Forget danger signs</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Avoid all maternity wards</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Skip respectful care</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/mnch/6/1/2/">Next Lesson →</a></body>
 </html>

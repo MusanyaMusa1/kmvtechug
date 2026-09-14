@@ -170,7 +170,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Page 1 of 3</div><h1 class="ltitle">What is First Aid?</h1><div class="chips"><span class="chip">Video</span><span class="chip">~6 min</span></div></header>
 <div class="vwrap"><div class="vph"><div style="font-size:44px;color:rgba(255,255,255,0.9);">&#9654;</div>
-<div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:8px;">Video will be added here</div></div></div><div class="prose">
+<div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:8px;">Video will be added here</div></div></div><div class="prose"><a class="pdf-btn" href="/education/courses/faec/notes/KMVEDU-FAEC-M1-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p>First aid is the immediate care given to an injured or suddenly ill person before professional medical help is available.</p>
 <p>The three classic aims are: <strong>preserve life</strong>, <strong>prevent the condition from worsening</strong>, and <strong>promote recovery</strong>.</p>
 <p>This course builds practical awareness for campus, workplace, and community settings in Uganda. It does not replace certified practical training or clinical protocols.</p>
@@ -218,5 +218,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/faec/1/1/2/">Next Lesson →</a></body>
 </html>

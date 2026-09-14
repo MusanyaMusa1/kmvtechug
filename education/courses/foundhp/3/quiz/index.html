@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · Graded Quiz</div><h1 class="ltitle">Module 3 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/foundhp/notes/KMVEDU-FOUNDHP-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Minute papers or exit questions:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Check understanding quickly</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only decorate paper</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Replace all exams always</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>End teaching</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Quiet learners need:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Invitation without humiliation</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Permanent silence</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Public shaming to speak</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Exclusion</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Teaching on ward rounds works best with:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Agreed focus and time limits</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Unlimited digressions only</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>No patient consent</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Maximum noise</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Checklist for a procedure skill:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Supports consistent practice</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Blocks all learning</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Is only for aviation</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ends supervision</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Role-play of counselling:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Builds communication skill</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Is childish always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Replaces clinical contact forever</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Has no feedback value</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Phone video review of technique:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Can aid self and peer feedback</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Is always unethical without rules</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Replaces patients always</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Ends teacher roles</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Problem-based learning needs:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Skilled facilitation</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Only answer keys without process</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>No group work</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Teacher monologue only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Resource limits are:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>A design challenge, not an excuse for no practice</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>A reason to skip all skills</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Proof teaching is impossible</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Only urban problems</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/foundhp/3/1/2/">Next Lesson →</a></body>
 </html>

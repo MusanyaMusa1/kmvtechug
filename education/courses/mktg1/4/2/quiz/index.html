@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.2 · Practice Quiz</div><h1 class="ltitle">L4.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/mktg1/notes/KMVEDU-MKTG1-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Brand equity shows up as:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Preference and willingness to pay more</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only a pretty logo</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending loyalty</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban recognition</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Good brand names are often:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Easy to say remember and relevant</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Random long strings</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending legal checks</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban meaning</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Packaging can:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Differentiate on the shelf</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Never affect choice</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending information</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban sustainability issues</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Service marketing adds emphasis on:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>People process and physical evidence</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only mass media</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending training</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban standards</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Line extensions:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Add variants under the same brand</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Always dilute without care</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending strategy</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban fit</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/mktg1/4/summary/">Next Lesson →</a></body>
 </html>

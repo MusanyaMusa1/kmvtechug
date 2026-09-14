@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Practice Quiz</div><h1 class="ltitle">L2.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/intepi/notes/KMVEDU-INTEPI-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Risk is roughly:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Probability of an event in a period</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only a count with no base</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>A brand name</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Always 100%</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Case fatality reflects:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Severity among those with the disease</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only population prevalence</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>No deaths</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only mild illness</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Incomplete registration means:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Interpret mortality with caution</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Data are perfect always</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ignore all death data</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>No limitations exist</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Age standardisation helps when:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Age structures differ</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Everyone is the same age</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>No comparison is made</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Only one person exists</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Person-time accounts for:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Varying observation time</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only calendar posters</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No follow-up</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Fixed heads only always</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/intepi/2/summary/">Next Lesson →</a></body>
 </html>

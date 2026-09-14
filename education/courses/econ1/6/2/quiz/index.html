@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 6 · L6.2 · Practice Quiz</div><h1 class="ltitle">L6.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/econ1/notes/KMVEDU-ECON1-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Cyclical unemployment rises in:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Recessions when demand is weak</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only seasonal farming always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending stimulus debates</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban natural rate ideas</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Structural unemployment reflects:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Mismatch of skills or location with jobs</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Friction of short job search only</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending training needs</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban technology shifts</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Inflation measured by CPI tracks:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Price changes in a basket of consumer goods</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only one item forever</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending core vs headline</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban expectations</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Unexpected inflation redistributes from:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Lenders to borrowers often in simple cases</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Nobody</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending contracts</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban indexation</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Informal employment means official unemployment rates:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>May understate labour underutilisation</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Capture everything perfectly</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending survey design</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban policy targets</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/econ1/6/summary/">Next Lesson →</a></body>
 </html>

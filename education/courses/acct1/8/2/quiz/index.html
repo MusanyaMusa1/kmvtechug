@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 8 · L8.2 · Practice Quiz</div><h1 class="ltitle">L8.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/acct1/notes/KMVEDU-ACCT1-M8-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Objectivity requires:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Not allowing bias or undue influence to override judgment</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Pleasing the boss always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending integrity</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban conflicts disclosure</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Confidentiality means:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Not disclosing information without proper authority</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Publishing client data</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending exceptions for legal duty</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban professional care</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Tax bases may differ from:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Accounting profit measurement</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Identical rules always</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending deferred tax awareness later</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban record quality</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Continuous learning matters because:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Standards and practice evolve</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>One course ends all need</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending CPD for professionals</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban updates</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Certificate progress is on:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Dashboard and grades page</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only posters</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Only radio</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Nowhere</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/acct1/8/summary/">Next Lesson →</a></body>
 </html>

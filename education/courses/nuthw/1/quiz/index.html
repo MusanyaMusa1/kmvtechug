@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · Graded Quiz</div><h1 class="ltitle">Module 1 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/nuthw/notes/KMVEDU-NUTHW-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Dietary diversity supports:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Micronutrient adequacy</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only one food group forever</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No immunity link</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only colour of plates</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Maternal anaemia is:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>A major nutrition-related problem in many settings</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Mythical</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only a surgical issue</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Irrelevant to pregnancy</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Health worker nutrition roles include:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Screening and counselling within scope</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Prescribing experimental drugs freely</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ignoring growth charts</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only selling supplements</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Climate and markets influence:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Food prices and availability</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only fashion</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>No rural diets</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Nothing in cities either</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Respectful counselling starts from:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>What the family already eats and can access</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Foreign menus only</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Blame</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ignoring caregivers</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Energy imbalance over time can lead to:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Underweight or overweight</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Only perfect weight always</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>No NCD risk</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Only hair change</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Community programmes work best when:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Facility and VHT efforts align</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Facilities ignore communities</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Only posters exist</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>No counselling occurs</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. This course replaces specialist dietetics degrees:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>False</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>True</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Only for nurses</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Only for VHTs</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/nuthw/1/1/2/">Next Lesson →</a></body>
 </html>

@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Practice Quiz</div><h1 class="ltitle">L2.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/hcpe/notes/KMVEDU-HCPE-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Pill charts help when:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Regimens are complex</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Patients never take medicine</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No explanation is given</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only specialists prescribe</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Confirming a return date should use:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>References the patient understands</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only vague 'soon'</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>No written note ever</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Medical Latin only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Speaking to the patient not only the interpreter:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Maintains respect and engagement</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Is rude</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ends accuracy</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Is banned</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Shaming low literacy:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Blocks further questions</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Improves learning</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Is required</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Builds trust</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. High-risk instructions need:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Extra confirmation steps</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Less explanation</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Only one rushed sentence</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>No teach-back</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/hcpe/2/summary/">Next Lesson →</a></body>
 </html>

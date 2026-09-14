@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · Graded Quiz</div><h1 class="ltitle">Module 1 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/repuro/notes/KMVEDU-REPURO-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Reproductive health in primary care includes:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Men and women across ages</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only obstetric surgery</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only infants</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>No urinary topics</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Explaining why questions are asked:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Improves cooperation</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Wastes time always</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Is unprofessional</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ends all honesty</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Suspected testicular torsion:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Is time-critical</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Can wait a month</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Is never surgical</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Needs no urgency</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Notes should avoid:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Unnecessary sensitive detail in shared spaces</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>All clinical facts</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Safety-net advice</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Follow-up plans</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Loin pain with fever may suggest:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Upper urinary infection risk</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only muscle strain always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No kidney link</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ignore fluids</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Gender-sensitive language:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Supports dignity</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Is optional mockery</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Blocks diagnosis</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Is banned</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. This course replaces specialist urology training:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>False</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>True</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Only for nurses</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Only for VHTs</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Community silence about STIs:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Increases transmission risk</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Eliminates disease</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Helps only stigma</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Has no effect</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/repuro/1/1/2/">Next Lesson →</a></body>
 </html>

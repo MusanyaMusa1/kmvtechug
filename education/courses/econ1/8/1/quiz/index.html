@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 8 · L8.1 · Practice Quiz</div><h1 class="ltitle">L8.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/econ1/notes/KMVEDU-ECON1-M8-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Comparative advantage is about:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Lower opportunity cost</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only absolute productivity always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending specialisation gains</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban trade barriers debates</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Currency depreciation makes exports:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Cheaper to foreign buyers other things equal</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Always more expensive</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending import cost rise</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban pass-through</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Current account includes:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Trade in goods services and income flows roughly</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only stock markets</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending financial account contrast</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban remittances importance</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Tariffs raise:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Domestic prices of imported goods typically</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Free trade automatically</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending consumer producer effects</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban revenue</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Gains from trade arise when:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Countries specialise according to comparative advantage</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Everyone produces everything</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending terms of trade</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban adjustment costs real</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/econ1/8/1/2/">Next Lesson →</a></body>
 </html>

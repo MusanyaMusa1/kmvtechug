@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Practice Quiz</div><h1 class="ltitle">L2.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/ipc1/notes/KMVEDU-IPC1-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Fingertips and thumbs:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Must be included in technique</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Can be skipped</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Do not carry organisms</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only matter in surgery abroad</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Alcohol rub should:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Dry before contact with surfaces</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Stay wet on equipment</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Be wiped on the uniform only</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Be shared from open bowls unsafely</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Empty dispensers should be:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Reported and refilled</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Ignored all shift</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Used as decoration</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Hidden from supervisors</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Peer reminders work best when:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Respectful and routine</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Public humiliation</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only shouted</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Never given</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Point-of-care hand rub helps because:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>It is available at the moment of need</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>It replaces all sinks forever</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>It ends stock management</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>It is optional always</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/ipc1/2/summary/">Next Lesson →</a></body>
 </html>

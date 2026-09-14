@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.1 · Practice Quiz</div><h1 class="ltitle">L2.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/acct1/notes/KMVEDU-ACCT1-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. If assets increase and liabilities stay the same, equity:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Increases</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Always decreases</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ends the equation</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban balance</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Cash is typically classified as:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>An asset</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>A liability always</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only equity</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ending inventory</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. A bank loan is typically:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>A liability</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>An asset</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only drawings</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ending revenue</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Owner's capital is part of:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Equity</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Liabilities only</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Expenses only</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ending assets always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Paying a supplier in cash:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Decreases assets and decreases liabilities</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Increases both always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending equation</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban credit notes</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/acct1/2/1/2/">Next Lesson →</a></body>
 </html>

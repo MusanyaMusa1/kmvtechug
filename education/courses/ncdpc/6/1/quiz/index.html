@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 6 · L6.1 · Practice Quiz</div><h1 class="ltitle">L6.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/ncdpc/notes/KMVEDU-NCDPC-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Opportunistic screening uses:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Existing patient contacts</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only rare mass camps</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No measurement</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Avoiding adults</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Chronic care registers help:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Track defaulters and due dates</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only decorate shelves</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Hide missing patients</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>End outreach</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Medicine stock-outs:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Threaten control of NCDs</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Improve adherence</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Are ideal</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Need no reporting</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Referral criteria should be:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Clear to the team</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Secret</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Random</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ignored</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Organised follow-up is better than:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Only emergency visits after crisis</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>No care at all preference</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Perfect continuous care already everywhere</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Avoiding registers</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/ncdpc/6/1/2/">Next Lesson →</a></body>
 </html>

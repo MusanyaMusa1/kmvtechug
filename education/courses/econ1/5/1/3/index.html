@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.1 · Page 3 of 3</div><h1 class="ltitle">Information Problems</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose"><p>Asymmetric information - one side knows more - can cause adverse selection and moral hazard. Warranties, reputation, and regulation try to reduce the damage.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/econ1/notes/KMVEDU-ECON1-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Asymmetric information - one side knows more - can cause adverse selection and moral hazard. Warranties, reputation, and regulation try to reduce the damage.</p></div>
     <div class="nav-row"><a class="nbtn primary" href="/education/courses/econ1/5/1/quiz/" onclick="show()">L5.1 Practice Quiz &#8594;</a></div>
   </div>
 </main>
@@ -215,5 +215,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/econ1/5/1/2/">Next Lesson →</a></body>
 </html>

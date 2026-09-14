@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · Graded Quiz</div><h1 class="ltitle">Module 5 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/foundhp/notes/KMVEDU-FOUNDHP-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Vague outcomes like 'understand X':</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Are weaker than observable actions</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Are always perfect</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Need no verbs</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>End alignment</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Time-boxing activities:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Keeps sessions on track</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Is impossible</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ends interaction</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Harms planning</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Direct observation beats:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Assumption of competence from seniority only</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>All assessment</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Feedback</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Practice</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Staffing shortages:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Do not justify unsafe independence</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Automatically entrust all tasks</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>End supervision duty</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Replace training</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Consent for teaching encounters:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Respects autonomy</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Is never needed</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Only slows care without value</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Is optional cruelty</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Remediation plans should be:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Specific and time-bound</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Vague hopes</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Secret from the learner</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Punitive only without support</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Programme leads help when:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Local coaching is not enough</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Everything is fine always</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>No documentation exists</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Bias is desired</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Alignment fails when:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Exams test different content than taught</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Methods match outcomes</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Feedback is given</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Plans exist</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/foundhp/5/1/2/">Next Lesson →</a></body>
 </html>

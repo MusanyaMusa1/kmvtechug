@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.2 · Page 1 of 3</div><h1 class="ltitle">Bad Debts and Allowances</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose"><p>When receivables become uncollectable, write them off. Allowances (provisions) estimate expected credit losses so receivables are not overstated.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/acct1/notes/KMVEDU-ACCT1-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>When receivables become uncollectable, write them off. Allowances (provisions) estimate expected credit losses so receivables are not overstated.</p></div>
     <div class="nav-row"><a class="nbtn primary" href="/education/courses/acct1/5/2/2/" onclick="show()">Next: Inventory and Cost of Sales &#8594;</a></div>
   </div>
 </main>
@@ -215,5 +215,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/acct1/5/summary/">Next Lesson →</a></body>
 </html>

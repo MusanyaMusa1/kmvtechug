@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.1 · Practice Quiz</div><h1 class="ltitle">L2.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/meeth/notes/KMVEDU-MEETH-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Autonomy supports:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Informed choice including refusal within limits</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Forced treatment of all capable adults always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No information sharing</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ignoring capacity</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Non-maleficence means:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Avoid needless harm</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Never treat anyone</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only maximise profit</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ignore side effects</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Beneficence means:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Act for the patient's good</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only follow personal convenience</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ignore outcomes</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>End all risk discussion</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Queue jumping for friends is:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>An injustice</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Required professionalism</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Always ethical</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Best practice</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Discrimination in care violates:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Justice</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only fashion</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No principle</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Autonomy only ever</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/meeth/2/1/2/">Next Lesson →</a></body>
 </html>

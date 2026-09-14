@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 7 · L7.1 · Practice Quiz</div><h1 class="ltitle">L7.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/econ1/notes/KMVEDU-ECON1-M7-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Medium of exchange means money is:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Accepted in payment for goods and services</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only a collectible</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending unit of account store of value</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban liquidity</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Fractional-reserve banking means banks:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Hold reserves against a fraction of deposits and lend the rest</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Keep 100% of deposits idle always</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending money creation process simplified</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban runs risk</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. A central bank typically:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Issues currency and sets monetary policy tools</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Runs every commercial shop</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending lender of last resort role</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban independence debates</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Credit risk is the risk that:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Borrowers fail to repay</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Prices never change</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending collateral</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban screening</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Inflation erodes money's role as a:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Stable store of value</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Medium of exchange instantly always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending menu costs</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban credibility</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/econ1/7/1/2/">Next Lesson →</a></body>
 </html>

@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.1 · Practice Quiz</div><h1 class="ltitle">L4.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/comh/notes/KMVEDU-COMH-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Knowing a community starts with:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Listening and learning</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Imported plans only</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ignoring leaders</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Secret surveys only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Needs assessment tools should be:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Short and respectful</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Exhausting and rude</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Hidden from communities</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Endless without purpose</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Facility data can show:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Disease and age patterns</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Nothing useful</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only staff salaries</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Weather only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Observation helps reveal:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Living conditions and access barriers</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only laboratory results</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Passport data</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Exam scores</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Seasonal patterns matter for:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Planning outreach timing</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Ignoring malaria peaks</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Random scheduling only</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>No logistics</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/comh/4/1/2/">Next Lesson →</a></body>
 </html>

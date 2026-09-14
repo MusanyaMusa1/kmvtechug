@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.2 · Practice Quiz</div><h1 class="ltitle">L5.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/mhwp/notes/KMVEDU-MHWP-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Crisis plans should define:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Who to call and safety steps</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only informal panic</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No roles</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Public livestream rules</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Impairment in safety roles:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Requires clear stand-down rules</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Can be ignored</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Is always punished without help options</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Needs no policy</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Organizational justice means:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Fair and consistent process</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Favouritism</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Secret rules</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Random enforcement</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Evaluation of programmes:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Guides improvement</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Is optional vanity only</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ends after launch posters</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Needs no metrics</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Witnesses of workplace crises may need:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Support and information</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Forced silence forever</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No debrief option</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Blame only</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/mhwp/5/summary/">Next Lesson →</a></body>
 </html>

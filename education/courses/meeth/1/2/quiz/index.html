@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.2 · Practice Quiz</div><h1 class="ltitle">L1.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/meeth/notes/KMVEDU-MEETH-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Historical research abuses show why:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Consent and oversight matter</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Ethics is optional</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Vulnerable groups need no protection</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Codes are useless</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Family involvement in Uganda often:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Supports care if rights are protected</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Means patients have no say ever</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ends all privacy always</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Is illegal always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Ethical decision steps start with:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Clear facts</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Random guessing</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ignoring stakeholders</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>No review</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Seeking ethics advice when stuck is:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Professional strength</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Weakness</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Banned</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Only for students</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Culture should:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Inform respectful practice without erasing rights</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Override all individual consent always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Be ignored completely</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>End all guidelines</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/meeth/1/summary/">Next Lesson →</a></body>
 </html>

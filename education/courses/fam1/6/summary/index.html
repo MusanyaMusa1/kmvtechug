@@ -76,7 +76,7 @@
 
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 6 · Summary</div><h1 class="ltitle">Rights and duties of spouses</h1>
-<div class="prose"><p>Module 6: <strong>Rights and duties of spouses</strong>.</p><ul><li>Consortium and support</li></ul></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/fam1/notes/KMVEDU-FAM1-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Module 6: <strong>Rights and duties of spouses</strong>.</p><ul><li>Consortium and support</li></ul></div>
 <div class="nav-row"><a class="nbtn primary" href="/education/courses/fam1/6/quiz/">Take graded quiz</a>
 <a class="nbtn" href="/education/courses/fam1/">Course home</a></div>
 </div></main></div><script>
@@ -97,10 +97,22 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course.</p><a class="nbtn primary" href="/education/courses/fam1/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month.</p><a class="nbtn primary" href="/education/courses/fam1/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/fam1/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
 function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='none'; const lc=document.getElementById('lc'); if(lc)lc.style.display='block'; if(typeof trackProgress==='function')trackProgress();}
 chkAccess();
-</script></body></html>
+</script><script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/fam1/6/1/2/">Next Lesson →</a></body></html>

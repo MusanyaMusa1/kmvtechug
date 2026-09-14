@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.1 · Practice Quiz</div><h1 class="ltitle">L3.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/bmgt1/notes/KMVEDU-BMGT1-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Organisation chart shows:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Formal reporting relationships</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only salaries</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending structure</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban titles</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Responsibility without authority:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Frustrates performance</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Is ideal design</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending accountability</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban delegation</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Wide span of control suits:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Routine skilled work with less supervision need</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Always chaotic teams</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending managers</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban autonomy</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Functional departmentalisation groups by:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Specialised activities such as marketing or finance</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only random names</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending expertise</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban silos risk</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Structure should follow:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Strategy and environment roughly</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only fashion</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending fit</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban redesign</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/bmgt1/3/1/2/">Next Lesson →</a></body>
 </html>

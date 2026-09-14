@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 7 · L7.2 · Practice Quiz</div><h1 class="ltitle">L7.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/acct1/notes/KMVEDU-ACCT1-M7-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Separation of duties reduces:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Opportunity for undetected fraud</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>All need for trust</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending collusion residual risk</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban owner review</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. False expense claims are deterred by:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Vouchers approval and review</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>No receipts ever</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending policy</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban samples checks</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Mobile money statements should be:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Reconciled like bank statements</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Ignored</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending business vs personal</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban fees recording</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Collusion means:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Two or more people cooperate to bypass controls</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Solo error only</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending residual risk</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban rotation of duties</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Good control culture includes:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Leadership example and consequences for breaches</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Posters only</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending training</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban reporting channels</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/acct1/7/summary/">Next Lesson →</a></body>
 </html>

@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.2 · Practice Quiz</div><h1 class="ltitle">L5.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/bmgt1/notes/KMVEDU-BMGT1-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Budget variance analysis asks:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Why results differ from plan</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only who to blame</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending finance</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban learning</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Continuous improvement emphasises:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Ongoing small gains</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only annual overhaul</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending employees ideas</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban waste reduction</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Clan control relies on:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Shared values and culture</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only thick rule books</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending norms</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban onboarding</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Market control uses:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Price and competition signals</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only internal hierarchy</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending customers</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban benchmarks</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Balanced scorecard idea tracks:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Multiple performance perspectives</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only one KPI forever</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending strategy link</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban learning metrics</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/bmgt1/5/summary/">Next Lesson →</a></body>
 </html>

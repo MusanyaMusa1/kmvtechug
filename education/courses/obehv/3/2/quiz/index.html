@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Practice Quiz</div><h1 class="ltitle">L3.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/obehv/notes/KMVEDU-OBEHV-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Autonomy in job design means:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Meaningful discretion over how work is done</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>No accountability</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending motivation potential</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban micromanagement contrast</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Intrinsic motivation comes from:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>The activity itself meaning and mastery</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only external bonuses</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending crowding-out debates carefully</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban purpose</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Inequity can lead to:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Reduced effort or exit</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Always higher loyalty</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending restoration tactics</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban transparent criteria</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Feedback should be:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Timely specific and behavioural</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only annual and vague</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending goal progress</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban two-way</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Local motivation practice should:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Fit culture resources and what people value</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Copy foreign perks blindly</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending listening</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban experiments</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/obehv/3/summary/">Next Lesson →</a></body>
 </html>

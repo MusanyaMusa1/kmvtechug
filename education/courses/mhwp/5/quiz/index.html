@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · Graded Quiz</div><h1 class="ltitle">Module 5 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/mhwp/notes/KMVEDU-MHWP-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Low EAP utilisation may mean:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Stigma or distrust of confidentiality</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Perfect wellbeing always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No need to improve access</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Success by default</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Clinical treatment decisions belong to:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Qualified practitioners and the client</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only the line manager</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>The whole open office</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Social media polls</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Follow-up after return to work:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Catches problems early</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Is harassment always</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ends adjustment talks</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Is unnecessary</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Stand-down for safety:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Can be temporary and reviewed</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Means permanent exile always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Needs no communication</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Is never legitimate</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Metrics without worker voice:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Miss lived experience</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Are always complete</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Replace all surveys</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>End bias</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Coordinating HR and occupational health:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Improves coherent support</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Creates mandatory gossip</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Ends privacy</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Blocks care</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Evidence-informed counselling standards:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Protect clients</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Are optional decoration</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Mean any chat is therapy</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>End referral need</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Org psych evaluation skills help:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Test whether interventions work</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Only decorate reports</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Ignore outcomes</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Replace ethics</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/mhwp/5/1/2/">Next Lesson →</a></body>
 </html>

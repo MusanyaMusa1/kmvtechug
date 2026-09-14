@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.1 · Practice Quiz</div><h1 class="ltitle">L4.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/acct1/notes/KMVEDU-ACCT1-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Trial balance columns are:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Debit balances and credit balances</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only cash amounts</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending ledgers</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban totals</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. If trial balance agrees:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Arithmetic of double-entry may be correct</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>All errors are impossible</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending statements quality</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban other checks</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Error of omission means:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>A transaction left out entirely</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Wrong account but balanced</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending principle</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban documents</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Error of principle means:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Wrong type of account used e.g. asset vs expense</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Simple arithmetic slip only</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending reversal</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban training</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Compensating errors:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Offset each other so TB may still balance</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Always show in TB</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending detection difficulty</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban reviews</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/acct1/4/1/2/">Next Lesson →</a></body>
 </html>

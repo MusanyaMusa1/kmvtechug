@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · Graded Quiz</div><h1 class="ltitle">Module 5 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/comh/notes/KMVEDU-COMH-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Postnatal checks help detect:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Problems in mother and newborn</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only school results</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Passport issues</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>No clinical value</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Vaccine confidence grows with:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Respectful dialogue</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Forced public humiliation</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Silence about concerns</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Rumours only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. TB work includes:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Adherence support awareness</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Encouraging treatment stop</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Hiding cough forever</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>No facility link</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Hypertension in the community needs:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Awareness and care linkage</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Ignoring blood pressure</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>One salt lecture only</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>No lifestyle talk</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Food diversity messages should be:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Locally realistic</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Impossible imports only</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ignoring seasons</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>One food forever</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Mental health first steps include:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Reduce stigma and guide to help</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Mock symptoms</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Block all services</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Diagnose in the market</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Transport plans for delivery:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Reduce delays</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Are unnecessary</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Replace skilled care</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Ignore families</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Community NCD role is not:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Prescribing independently</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Encouraging follow-up</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Lifestyle support</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Awareness</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/comh/5/1/2/">Next Lesson →</a></body>
 </html>

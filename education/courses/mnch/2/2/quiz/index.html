@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Practice Quiz</div><h1 class="ltitle">L2.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/mnch/notes/KMVEDU-MNCH-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Vaginal bleeding in pregnancy is:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>A danger sign needing urgent care</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Always normal</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ignored until birth</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Treated only with rest at home forever</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Reduced fetal movements:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Should prompt urgent assessment</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Are never important</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Mean stop all ANC</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only matter after birth</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Birth preparedness includes:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Transport and funds plan</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>No discussion of place of birth</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Hiding the pregnancy always</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Avoiding all facilities</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Malaria prevention in pregnancy:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Follows national ANC guidance</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Is optional always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only for men</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ends at first trimester always without review</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Alcohol in pregnancy is:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Harmful and should be avoided</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Recommended daily</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Required for blood volume</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Unrelated to the fetus</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/mnch/2/summary/">Next Lesson →</a></body>
 </html>

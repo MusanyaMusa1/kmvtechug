@@ -153,10 +153,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 <div class="sb-m" style="opacity:1;"><div class="sb-n on">3</div>Male Reproductive Health</div>
 <a href="/education/courses/repuro/3/1/1/" class="sb-p " ><div class="sb-dot"></div>3.1.1 Common Male Concerns in Primary Care</a>
 <a href="/education/courses/repuro/3/1/2/" class="sb-p " ><div class="sb-dot"></div>3.1.2 Prostate Symptom Awareness</a>
-<a href="/education/courses/repuro/3/1/3/" class="sb-p " ><div class="sb-dot"></div>3.1.3 Scrotal Pain — Urgency Flags</a>
+<a href="/education/courses/repuro/3/1/3/" class="sb-p " ><div class="sb-dot"></div>3.1.3 Scrotal Pain  -  Urgency Flags</a>
 <a href="/education/courses/repuro/3/1/quiz/" class="sb-p " style="color:var(--purple);font-weight:700;"><div class="sb-dot"></div>L3.1 Practice Quiz</a>
-<a href="/education/courses/repuro/3/2/1/" class="sb-p " ><div class="sb-dot"></div>3.2.1 Erectile and Sexual Function — Sensitive Approach</a>
-<a href="/education/courses/repuro/3/2/2/" class="sb-p " ><div class="sb-dot"></div>3.2.2 Male Infertility — First Steps</a>
+<a href="/education/courses/repuro/3/2/1/" class="sb-p " ><div class="sb-dot"></div>3.2.1 Erectile and Sexual Function  -  Sensitive Approach</a>
+<a href="/education/courses/repuro/3/2/2/" class="sb-p " ><div class="sb-dot"></div>3.2.2 Male Infertility  -  First Steps</a>
 <a href="/education/courses/repuro/3/2/3/" class="sb-p " ><div class="sb-dot"></div>3.2.3 Prevention and Health Promotion for Men</a>
 <a href="/education/courses/repuro/3/2/quiz/" class="sb-p on" style="color:var(--blue);"><div class="sb-dot"></div>L3.2 Practice Quiz</a>
 <a href="/education/courses/repuro/3/summary/" class="sb-p " style="color:var(--gold);"><div class="sb-dot"></div>Module 3 Summary</a>
@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Practice Quiz</div><h1 class="ltitle">L3.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/repuro/notes/KMVEDU-REPURO-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Erectile difficulty may flag:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Cardiovascular risk</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only laziness</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No medical link</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only fashion concerns</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Fertility assessment should include:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Both partners where possible</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only blaming the man</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only blaming the woman</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>No history</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Safer sex promotion:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Reduces STI and HIV risk</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Is irrelevant to men</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ends all disease alone</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Is only for women</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Alcohol and tobacco can affect:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Sexual and general health</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only liver with no sexual link</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Nothing</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Only skin colour</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Authorised prescribing limits:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Must be respected</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Can be ignored by students freely</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Do not exist</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Apply only to surgery</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/repuro/3/summary/">Next Lesson →</a></body>
 </html>

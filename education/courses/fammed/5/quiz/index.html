@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · Graded Quiz</div><h1 class="ltitle">Module 5 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/fammed/notes/KMVEDU-FAMMED-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Mapping who gives medicines at home:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Can improve adherence plans</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Is irrelevant</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only wastes time</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Replaces diagnosis</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Distance to facility influences:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>When people present</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only fuel prices</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>No clinical timing</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Uniform colour</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Immunisation pockets of low coverage:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Are a community-oriented target</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Should be ignored</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only concern national level with no local action</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Mean stop all outreach</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Stereotypes about tribes or religions:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Harm care quality</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Improve accuracy always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Are required</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Replace history taking</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Harmful traditional practices:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Need clear safety counselling</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Must be mocked publicly</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Are always clinically perfect</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Have no discussion space</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Older people may present with:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Atypical symptoms</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Only one disease pattern always</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>No primary care needs</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Identical child protocols</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Language barriers require:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Interpreters or careful plain speech</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Shouting</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Ignoring the patient</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Only written English jargon</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Community leaders can support:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Health mobilisation</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Only politics without health</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>No vaccine work</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Blocking VHTs always</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/fammed/5/1/2/">Next Lesson →</a></body>
 </html>

@@ -154,7 +154,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 <a href="/education/courses/repuro/2/1/2/" class="sb-p " ><div class="sb-dot"></div>2.1.2 Urinary Tract Infection Awareness</a>
 <a href="/education/courses/repuro/2/1/3/" class="sb-p " ><div class="sb-dot"></div>2.1.3 Complicated UTI and Pyelonephritis Flags</a>
 <a href="/education/courses/repuro/2/1/quiz/" class="sb-p " style="color:var(--purple);font-weight:700;"><div class="sb-dot"></div>L2.1 Practice Quiz</a>
-<a href="/education/courses/repuro/2/2/1/" class="sb-p " ><div class="sb-dot"></div>2.2.1 Haematuria — Take It Seriously</a>
+<a href="/education/courses/repuro/2/2/1/" class="sb-p " ><div class="sb-dot"></div>2.2.1 Haematuria  -  Take It Seriously</a>
 <a href="/education/courses/repuro/2/2/2/" class="sb-p " ><div class="sb-dot"></div>2.2.2 Stones and Colic Awareness</a>
 <a href="/education/courses/repuro/2/2/3/" class="sb-p on" ><div class="sb-dot"></div>2.2.3 Chronic Kidney Risk Links</a>
 <a href="/education/courses/repuro/2/2/quiz/" class="sb-p " style="color:var(--blue);"><div class="sb-dot"></div>L2.2 Practice Quiz</a>
@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Page 3 of 3</div><h1 class="ltitle">Chronic Kidney Risk Links</h1><div class="chips"><span class="chip">Text</span><span class="chip">~4 min</span></div></header>
-<div class="prose">
+<div class="prose"><a class="pdf-btn" href="/education/courses/repuro/notes/KMVEDU-REPURO-M2-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p>Recurrent obstruction, uncontrolled hypertension, diabetes, and some infections contribute to kidney damage. Primary care links urinary problems to long-term kidney protection.</p>
 </div>
     <div class="nav-row"><a class="nbtn primary" href="/education/courses/repuro/2/2/quiz/" onclick="show()">L2.2 Practice Quiz &#8594;</a></div>
@@ -215,5 +215,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/repuro/2/summary/">Next Lesson →</a></body>
 </html>

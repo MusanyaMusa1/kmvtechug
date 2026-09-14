@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · Graded Quiz</div><h1 class="ltitle">Module 1 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/ipc1/notes/KMVEDU-IPC1-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. IPC is best described as:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Practical actions to prevent spread</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>A theory with no practice</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only a cleaning checklist for floors</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Optional for students</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. A reservoir can be:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>A person, surface, or equipment</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only outdoor air always</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only textbooks</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Never a patient</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Portal of entry examples include:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Broken skin and mucous membranes</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Locked cupboards only</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Uniforms only</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Staff meetings</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Standard precautions include:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Hand hygiene and safe injections</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Guessing diagnoses first</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Sharing razors</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Open waste on floors</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Students on placement must:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Follow IPC like staff</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Ignore PPE rules</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Practise without gloves always</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Skip hand hygiene to save time</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Improvising by reusing syringes:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Is not acceptable</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Is required policy</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Is safer than new syringes</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Is recommended in all wards</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Reporting stock-outs helps:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Leadership restore supplies</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Hide problems forever</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Blame junior staff only</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>End all services</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. IPC benefits include:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Safer patients and workers</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Longer hospital stays only</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Higher infection rates</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>No effect on trust</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/ipc1/1/1/2/">Next Lesson →</a></body>
 </html>

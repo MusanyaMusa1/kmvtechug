@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.1 · Practice Quiz</div><h1 class="ltitle">L3.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/intepi/notes/KMVEDU-INTEPI-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Cross-sectional studies are strong for:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Prevalence snapshots</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Always proving causation alone</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Assigning treatment randomly</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ignoring exposure</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Case-control studies start with:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Cases and controls</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only a full population census always</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Random drug assignment</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>No comparison</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Looking back at exposures is:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Retrospective direction</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only future follow-up</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>No time idea</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only experimental</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Rare disease efficiency favours:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Case-control designs often</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only huge cohorts always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>No study</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Only anecdotes</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Temporal sequence is clearer in:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Designs that follow people over time</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only one-time snapshots always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No design</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Only cross-section</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/intepi/3/1/2/">Next Lesson →</a></body>
 </html>

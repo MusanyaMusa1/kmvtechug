@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Page 1 of 3</div><h1 class="ltitle">Recovery Position</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose">
+<div class="prose"><a class="pdf-btn" href="/education/courses/faec/notes/KMVEDU-FAEC-M2-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p>If the person is unresponsive but breathing normally, and you do not suspect spinal injury, the recovery position helps keep the airway clear and reduces the risk of choking on vomit.</p>
 <p>Roll them onto their side with the head tilted to keep the airway open. Monitor breathing until help arrives.</p>
 <figure style="margin:1.2rem 0;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
@@ -220,5 +220,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/faec/2/summary/">Next Lesson →</a></body>
 </html>

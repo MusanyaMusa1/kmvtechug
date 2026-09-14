@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.2 · Practice Quiz</div><h1 class="ltitle">L4.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/obehv/notes/KMVEDU-OBEHV-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Psychological safety means:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>People can speak up without fear of punishment for honest mistakes</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>No performance standards</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending learning teams</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban leadership tone</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Social loafing is:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Reduced effort when individual contribution is hard to see</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Always maximum effort in groups</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending smaller teams accountability</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban identifiable outputs</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Task conflict focuses on:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Ideas and work content</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Personal dislike only</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending constructive use</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban facilitation</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Hybrid teams need:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Clear norms for when and how people connect</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Assumption that proximity is automatic</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending inclusion of remote members</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban tool training</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Team charters help by:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Agreeing purpose roles and working agreements early</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Replacing all management</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending revisiting when stuck</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban onboarding</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/obehv/4/summary/">Next Lesson →</a></body>
 </html>

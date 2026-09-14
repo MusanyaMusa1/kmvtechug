@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · Graded Quiz</div><h1 class="ltitle">Module 2 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/comh/notes/KMVEDU-COMH-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Safe water mainly reduces:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Many infections</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Need for all education</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>All injuries</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Phone costs</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Food insecurity links to:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Poor health outcomes</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Perfect immunity</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>No child risk</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Unlimited energy</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Marketing of harmful products:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Influences behaviour</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Is irrelevant to health</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only helps patients</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Removes poverty</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Unpaid care work often falls on:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Women and girls</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Hospital CEOs only</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Lab machines</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Foreign tourists</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Disability inclusion means:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Removing access barriers</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Ignoring special needs</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Excluding outreach</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>One-size messages only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Determinants thinking helps programmes:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Address root causes</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Only count tablets</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Avoid communities</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Skip partners</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Urban informal settlements may face:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Crowding and WASH gaps</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>No health issues ever</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Only luxury risks</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Zero service needs</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Community health without equity:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Misses those most at risk</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Automatically succeeds</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Needs no data</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Replaces all clinics</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/comh/2/1/2/">Next Lesson →</a></body>
 </html>

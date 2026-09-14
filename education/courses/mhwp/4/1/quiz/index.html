@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.1 · Practice Quiz</div><h1 class="ltitle">L4.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/mhwp/notes/KMVEDU-MHWP-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. A good opening is often:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Private, specific, and caring</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Public confrontation</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Diagnosing in the corridor</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ignoring changes</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Non-clinicians should avoid:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Formal diagnosing of colleagues</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>All listening</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Offering referral info</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Adjusting workload when able</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Psychological first aid emphasises:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Safety, calm, practical help, connection</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Long-term psychoanalysis by managers</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Medication prescribing by HR</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Public exposure</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Respecting autonomy means:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Not forcing disclosure or help</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Forcing therapy appointments</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Gossiping for their good</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Removing all choices</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Exploring work factors you control:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Is a practical manager action</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Is irrelevant</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Only a clinician task</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ends all support</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/mhwp/4/1/2/">Next Lesson →</a></body>
 </html>

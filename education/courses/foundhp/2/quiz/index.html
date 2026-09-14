@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · Graded Quiz</div><h1 class="ltitle">Module 2 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/foundhp/notes/KMVEDU-FOUNDHP-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Application soon after teaching:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Strengthens retention</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Has no effect</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only harms memory</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ends practice need</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Legitimate peripheral participation means:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Gradual entry into real work</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Immediate unsupervised surgery</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>No observation phase</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Avoiding the team</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Expert teachers may forget:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>How hard steps were for novices</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>All clinical facts</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Patient names only</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>No teaching duty</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Fear-based teaching often produces:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Silence and hidden gaps</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Open questions always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Stronger honesty</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Better safety culture</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Disability inclusion in training:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Removes unnecessary barriers</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Means lowering all standards always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Is optional cruelty</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Bans support</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Reflection on experience supports:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Deeper learning</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Only busywork</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>No competence</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Avoiding theory</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Peer learning can:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Complement teacher input</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Replace all faculty always</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>End supervision</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Harm all groups always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Motivation drops when:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Content feels irrelevant</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Goals are clear</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Progress is visible</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Respect is shown</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/foundhp/2/1/2/">Next Lesson →</a></body>
 </html>

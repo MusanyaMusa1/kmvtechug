@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 6 · L6.2 · Practice Quiz</div><h1 class="ltitle">L6.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/entrep/notes/KMVEDU-ENTREP-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Break-even analysis shows:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Sales needed to cover costs</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only maximum profit dreams</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending pricing</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban fixed costs</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Soft funding from family still needs:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Clear terms to protect relationships</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Zero discussion</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending gratitude</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban written notes</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Microfinance often suits:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Smaller loans with structured repayment</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Unlimited free capital</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending discipline</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban purpose fit</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Collateral requirements:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Affect who can access formal credit</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Never exist</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending alternatives</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban group guarantees options</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Investors usually expect:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Growth and a path to return</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Donations without accountability</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending pitches</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban due diligence</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/entrep/6/summary/">Next Lesson →</a></body>
 </html>

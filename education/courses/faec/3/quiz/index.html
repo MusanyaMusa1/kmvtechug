@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · Graded Quiz</div><h1 class="ltitle">Module 3 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/faec/notes/KMVEDU-FAEC-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Severe choking needs:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Urgent action and help</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only watching silently forever</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Forced solid food</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Running alone without calling</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Abdominal thrusts are:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>For severe choking when trained/appropriate</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>For every cough</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>For spinal injury</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>For burns</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. CPR certification comes from:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Recognised practical training</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Reading one page only</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Watching one film only</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Social media challenges</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Direct pressure should be:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Firm and continuous</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Light and occasional</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Removed every second</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Applied with bare hands preferably</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Signs of shock can include:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Pale cool skin and weakness</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Bright energy and warmth only</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Normal behaviour always</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Only headache</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Do not pull out:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Deeply embedded objects</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Surface dirt you can wipe</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Loose clothing near fire</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Gloves after care</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Warmth in shock helps:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Reduce heat loss</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Replace blood loss fully</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Diagnose infection</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Stop all bleeding alone</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Untrained responders should:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Call help and follow guidance</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Avoid any emergency always</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Perform surgery</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Ignore dispatcher advice</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/faec/3/1/2/">Next Lesson →</a></body>
 </html>

@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · Graded Quiz</div><h1 class="ltitle">Module 1 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/mhwp/notes/KMVEDU-MHWP-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Organizational climate affects:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Willingness to seek help</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only cafeteria menus</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No behaviour</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only uniform colour</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Presenteeism costs organizations through:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Reduced quality and errors</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only visible absence days</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>No productivity link</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Perfect output</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Health and org psych together address:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Person and system factors</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only molecules</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only buildings</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>No people issues</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Posters without leadership behaviour:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Have limited impact on stigma</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>End all discrimination</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Replace policy</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Fix workload</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Occupational health notes should be:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Handled confidentially</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Posted on noticeboards</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Shared in team gossip</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ignored in policy</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Line managers influence:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Daily demands and recognition</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Only national GDP</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>No stress levels</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Only payroll software</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. This course replaces specialist psychiatry training:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>False</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>True</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>Only for HR</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Only for students</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Ethical workplace support avoids:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Coercion and gossip</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>All listening</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>All referral</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Fair process</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/mhwp/1/1/2/">Next Lesson →</a></body>
 </html>

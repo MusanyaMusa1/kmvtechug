@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.2 · Practice Quiz</div><h1 class="ltitle">L3.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/foundhp/notes/KMVEDU-FOUNDHP-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Deliberate practice includes:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Repetition with feedback</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>One passive observation only</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No correction</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Avoiding hard steps</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Probing learner reasoning:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Reveals thinking errors early</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only wastes time</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ends discussion</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Replaces all knowledge</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Local cases improve:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Relevance of reasoning practice</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only foreign textbook distance</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>No engagement</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Memorisation of irrelevant names</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Low-cost simulation can:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Support skill rehearsal</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Never help</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Replace all patients always</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>End feedback need</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. See one do one teach one fails when:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Practice and feedback are missing</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Steps are demonstrated</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Supervision exists</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Outcomes are clear</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/foundhp/3/summary/">Next Lesson →</a></body>
 </html>

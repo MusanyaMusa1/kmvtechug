@@ -171,7 +171,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.1 · Practice Quiz</div><h1 class="ltitle">L4.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/entrep/notes/KMVEDU-ENTREP-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. A practical plan prioritises:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Clarity for decisions and partners</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Maximum page count</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Ending updates</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban numbers</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Limited liability is typically associated with:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Company forms more than sole trading</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>All informal trade automatically</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Ending risk</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Ban advice</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Registration helps with:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Access to formal contracts and finance later</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Guaranteeing sales</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Ending customers</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ban compliance</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Sector licences may apply to:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Food health transport and other regulated activities</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only software</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Ending checks</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban local authorities</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Plans should be:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Revised as reality teaches</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Frozen after day one</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Ending learning</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban reviews</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -241,5 +241,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/entrep/4/1/2/">Next Lesson →</a></body>
 </html>

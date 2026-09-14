@@ -77,7 +77,7 @@
 <div id="lk"></div><div id="lc" style="display:none">
 <div class="ey">Module 6 · L1 · Page 1 of 2</div>
 <h1 class="ltitle">Types and appointment</h1><div class="chips"><span class="chip">Video</span><span class="chip">FAM2</span></div>
-<div class="vwrap"><div class="vph"><div style="font-size:42px">&#9654;</div><div style="font-size:13px;margin-top:8px">Video will be added here</div></div></div><div class="prose"><p>Guardianship covers parental responsibility-type powers when parents are dead, unfit, or unavailable. Cap. 62 distinguishes forms of guardian and sets appointment procedures. The welfare principle governs.</p></div>
+<div class="vwrap"><div class="vph"><div style="font-size:42px">&#9654;</div><div style="font-size:13px;margin-top:8px">Video will be added here</div></div></div><div class="prose"><a class="pdf-btn" href="/education/courses/fam2/notes/KMVEDU-FAM2-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Guardianship covers parental responsibility-type powers when parents are dead, unfit, or unavailable. Cap. 62 distinguishes forms of guardian and sets appointment procedures. The welfare principle governs.</p></div>
 <div class="nav-row"><a class="nbtn primary" href="/education/courses/fam2/6/1/2/" onclick="show()">Next page</a></div>
 </div></main></div><script>
 const SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
@@ -97,10 +97,22 @@ async function chkAccess(){
 function showLk(r){
   const lk=document.getElementById('lk'); if(!lk)return;
   const msgs={guest:'<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>UGX 5,000 lifetime per course.</p><a class="nbtn primary" href="/education/courses/fam2/">View course</a></div>',
+  no_plan:'<div class="lock-card"><h2>Enrol to continue</h2><p>From UGX 5,000 per month.</p><a class="nbtn primary" href="/education/courses/fam2/">View course</a></div>',
   expired:'<div class="lock-card"><h2>Access expired</h2><a class="nbtn primary" href="/education/courses/fam2/">Renew</a></div>'};
   lk.innerHTML=msgs[r]||msgs.no_plan; const lc=document.getElementById('lc'); if(lc)lc.style.display='none';
 }
 function show(){const lk=document.getElementById('lk'); if(lk)lk.style.display='none'; const lc=document.getElementById('lc'); if(lc)lc.style.display='block'; if(typeof trackProgress==='function')trackProgress();}
 chkAccess();
-</script></body></html>
+</script><script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/fam2/6/1/2/">Next Lesson →</a></body></html>

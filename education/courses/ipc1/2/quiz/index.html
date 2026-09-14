@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · Graded Quiz</div><h1 class="ltitle">Module 2 Graded Quiz</h1><div class="chips"><span class="chip">Graded</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/ipc1/notes/KMVEDU-IPC1-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. The most effective routine IPC action is often:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Hand hygiene</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Skipping gloves always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Sharing towels</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Open coughing without cover</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Before touching a patient:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Clean hands</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Touch three others first</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Adjust your phone with dirty hands</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>No action needed</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. After body fluid risk:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Clean hands promptly</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Wait until end of shift</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Use patient bedsheet only</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Ignore</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Soap and water are preferred when:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Hands are visibly soiled</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Hands are clean and dry always only</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Never in clinics</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Only at home</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Incomplete technique leaves:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Contamination on missed surfaces</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Perfect safety always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>No risk</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Only fashion problems</span></label></div><div class="qblock" data-ans="0"><div class="qtext">6. Skin care helps compliance when:</div><label class="opt"><input type="radio" name="q6" value="0"/><span>Irritation is reduced</span></label><label class="opt"><input type="radio" name="q6" value="1"/><span>Hands are never washed</span></label><label class="opt"><input type="radio" name="q6" value="2"/><span>Only bleach is used</span></label><label class="opt"><input type="radio" name="q6" value="3"/><span>Gloves replace all hygiene</span></label></div><div class="qblock" data-ans="0"><div class="qtext">7. Busy wards still require:</div><label class="opt"><input type="radio" name="q7" value="0"/><span>Moment-based hygiene</span></label><label class="opt"><input type="radio" name="q7" value="1"/><span>Abandoning IPC</span></label><label class="opt"><input type="radio" name="q7" value="2"/><span>One wash per day only</span></label><label class="opt"><input type="radio" name="q7" value="3"/><span>Hygiene only for seniors</span></label></div><div class="qblock" data-ans="0"><div class="qtext">8. Training without supplies:</div><label class="opt"><input type="radio" name="q8" value="0"/><span>Limits real practice</span></label><label class="opt"><input type="radio" name="q8" value="1"/><span>Is enough alone</span></label><label class="opt"><input type="radio" name="q8" value="2"/><span>Removes need for dispensers</span></label><label class="opt"><input type="radio" name="q8" value="3"/><span>Replaces leadership</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -238,5 +238,17 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){
+  const root=document.documentElement;
+  const saved=localStorage.getItem('kmv-theme');
+  if(saved) root.setAttribute('data-theme',saved);
+  else root.setAttribute('data-theme','light');
+  window.toggleTheme=function(){
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    localStorage.setItem('kmv-theme',next);
+  };
+})();
+</script><a class="mobile-next" href="/education/courses/ipc1/2/1/2/">Next Lesson →</a></body>
 </html>
