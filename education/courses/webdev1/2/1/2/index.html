@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.1 · Page 2 of 3</div><h1 class="ltitle">Headings, Paragraphs and Lists</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose">
+<div class="prose"><a class="pdf-btn" href="/education/courses/webdev1/notes/KMVEDU-WEBDEV1-M2-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p>Use one logical h1 per page idea, then h2/h3 for sections. Paragraphs carry prose. Lists (ul/ol) make steps and features scannable - useful for course pages and NGO sites alike.</p>
 <figure style="margin:1.2rem 0;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
 <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80" alt="" style="width:100%;display:block;max-height:280px;object-fit:cover;"/>
@@ -219,5 +219,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/webdev1/2/1/2/">Next Lesson →</a></body>
 </html>

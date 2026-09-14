@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 6 · L6.2 · Practice Quiz</div><h1 class="ltitle">L6.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/cybersec/notes/KMVEDU-CYBERSEC-M6-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Ethical hacking requires:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Authorisation and lawfulness</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Attacking any system for fun</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>No skills</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Hidden illegal access</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. A next course on this platform is:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>ETHHACK</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Ignoring security</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only paper crafts</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Unrelated cooking only</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Security careers build on:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Foundations plus specialised skill</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Memes only</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Shared root passwords</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>No learning</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Certificate progress appears on:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>The student dashboard</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Random ads</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Social likes only</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Street posters</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Core takeaway:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Habits plus calm response protect you</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Panic is the only strategy</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Security is optional always</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>OTPs should be public</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -236,5 +236,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/cybersec/6/summary/">Next Lesson →</a></body>
 </html>

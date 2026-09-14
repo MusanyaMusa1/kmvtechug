@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.2 · Practice Quiz</div><h1 class="ltitle">L5.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/webdev1/notes/KMVEDU-WEBDEV1-M5-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Validating before submit:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Reduces bad data and user frustration</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Is useless</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Bans HTML forms</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only works offline</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Toggling a CSS class is often better than:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Sprinkling many inline styles from JS</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Using HTML at all</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Using CSS files</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Using a browser</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Script at the end of body or DOMContentLoaded:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Helps ensure elements exist</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Always breaks pages</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Bans modules</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Removes events</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. console.log is useful for:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Debugging during learning and development</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Production secrets</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Storing passwords</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Replacing HTTPS</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Selecting a missing element yields:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>null - which you should handle</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Automatic HTML creation always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>A new server</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>A CSS file</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/webdev1/5/summary/">Next Lesson →</a></body>
 </html>

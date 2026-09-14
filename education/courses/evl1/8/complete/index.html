@@ -116,5 +116,5 @@ function showLk(r){const m={guest:{i:'🔒',h:'Log in',p:'Register free then cho
 function show(){{document.getElementById('lk').style.display='none';const qs=document.getElementById('qs');if(qs)qs.style.display='block';trackProgress();}}
 function tTheme(){const h=document.documentElement,t=document.getElementById('tt'),th=t.querySelector('.tthumb'),d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');t.setAttribute('aria-checked',d?'false':'true');th.textContent=d?'☀':'🌙';localStorage.setItem('kmv-theme',d?'light':'dark');}
 (function(){const s=localStorage.getItem('kmv-theme'),p=window.matchMedia('(prefers-color-scheme: dark)').matches;if((s||(p?'dark':'light'))==='dark'){document.documentElement.setAttribute('data-theme','dark');const t=document.getElementById('tt');if(t){t.setAttribute('aria-checked','true');t.querySelector('.tthumb').textContent='🌙';}}})();chkAccess();</script>
-</body>
+<a class="mobile-next" href="/education/courses/evl1/8/1/2/">Next Lesson →</a></body>
 </html>

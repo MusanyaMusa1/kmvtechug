@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Page 2 of 3</div><h1 class="ltitle">Clients, Servers and Browsers</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose">
+<div class="prose"><a class="pdf-btn" href="/education/courses/webdev1/notes/KMVEDU-WEBDEV1-M1-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p>Your phone or laptop is the <strong>client</strong>. A <strong>server</strong> stores and sends files. The <strong>browser</strong> requests pages and displays them. Understanding this triangle explains almost every web problem.</p>
 <figure style="margin:1.2rem 0;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
 <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" alt="" style="width:100%;display:block;max-height:280px;object-fit:cover;"/>
@@ -219,5 +219,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/webdev1/1/1/2/">Next Lesson →</a></body>
 </html>

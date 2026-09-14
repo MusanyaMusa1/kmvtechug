@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.2 · Page 2 of 3</div><h1 class="ltitle">Firewalls and NAT Awareness</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose"><p>Firewalls filter traffic by policy. NAT maps many private addresses to fewer public ones - common at home and enterprise edges.</p>
+<div class="prose"><a class="pdf-btn" href="/education/courses/netfund/notes/KMVEDU-NETFUND-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Firewalls filter traffic by policy. NAT maps many private addresses to fewer public ones - common at home and enterprise edges.</p>
 <figure style="margin:1.2rem 0;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
 <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80" alt="" style="width:100%;display:block;max-height:280px;object-fit:cover;"/>
 <figcaption style="font-size:12px;color:var(--text-3);padding:8px 12px;">Edge policy shapes what is allowed in and out.</figcaption>
@@ -218,5 +218,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/netfund/4/summary/">Next Lesson →</a></body>
 </html>

@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 4 · L4.2 · Practice Quiz</div><h1 class="ltitle">L4.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/cybersec/notes/KMVEDU-CYBERSEC-M4-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Before clicking an email link:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Check the real destination and sender</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Always click quickly</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Reply with OTP</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Disable MFA</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Excess app permissions can:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Expose private data</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Improve battery always</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Replace antivirus</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Remove phishing</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Open public Wi-Fi is riskier for:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Sensitive account logins</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Reading public news only</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Checking the weather</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Viewing public maps</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Second-channel verification means:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Confirm via known official contact methods</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Trust the same suspicious email thread only</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Post on social media</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ignore the request silently forever without checking policy</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. A torch app requesting contacts is:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Suspicious overreach</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Normal and required</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>A government rule</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Proof of safety</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -236,5 +236,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/cybersec/4/summary/">Next Lesson →</a></body>
 </html>

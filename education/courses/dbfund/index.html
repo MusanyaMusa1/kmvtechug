@@ -1,174 +1,178 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-course="DBFUND">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="description" content="Database Fundamentals (DBFUND). SQL, relational design for Ugandan students. KMVTECH Education."/>
-<meta name="keywords" content="database course Uganda, SQL beginner, DBFUND, KMVTECH Education"/>
-<title>Database Fundamentals - Preview - KMVTECH Education</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Database Fundamentals (DBFUND) | KMVTECH Education</title>
+<meta name="description" content="Database fundamentals: SQL, joins, entities, constraints and sample schemas."/>
+<meta name="keywords" content="Database Fundamentals Uganda, SQL, joins, entities, constraints, KMVTECH Education"/>
+<meta property="og:title" content="Database Fundamentals (DBFUND) | KMVTECH Education"/>
+<meta property="og:description" content="Database fundamentals: SQL, joins, entities, constraints and sample schemas."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="/education/courses/dbfund/hero.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://education.kmvtechug.app/education/courses/dbfund/"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/education/js/progress-tracking.js"></script>
 <style>
 :root{
-  --blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;
-  --green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;
-  --surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;
-  --text-2:#6B7280;--text-3:#9CA3AF;--rw:680px;
-  --psy:#1B6B93;--psy-light:rgba(27,107,147,0.08);--psy-border:rgba(27,107,147,0.22);
+  --blue:#2B3FBF;--navy:#0D1B2A;--gold:#C9922A;
+  --bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;
+  --text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;
+  --law:#1B4F72;--law-light:rgba(27,79,114,.08);--law-border:rgba(27,79,114,.22);
+  --success:#059669;--locked:#9CA3AF;
 }
 [data-theme="dark"]{
-  --bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;
-  --border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;
-  --psy-light:rgba(27,107,147,0.15);--psy-border:rgba(27,107,147,0.35);
+  --bg:#0F1117;--surface:#1A1D27;--surface-2:#242836;--border:#2E3248;
+  --text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;
+  --law-light:rgba(27,79,114,.2);--law-border:rgba(27,79,114,.4);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
-:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 20px;height:56px;display:flex;align-items:center;gap:14px;}
-.tlogo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
-.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);}
-.tname{font-family:'Playfair Display',serif;font-weight:800;font-size:14px;color:var(--text-1);display:none;}
-.tbc{flex:1;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-3);overflow:hidden;min-width:0;}
-.tbc a{color:var(--text-2);text-decoration:none;white-space:nowrap;}.tbc a:hover{color:var(--blue);}
-.tright{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;transition:background 0.25s;}
-.tbtn[aria-checked="true"]{background:var(--blue);}
-.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
-.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
-.pbar{position:sticky;top:56px;z-index:190;height:3px;background:var(--border);}
-.pfill{height:100%;background:linear-gradient(90deg,var(--psy),#3d8a65);}
-.layout{display:flex;min-height:100vh;}
-.bwrap{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;}
-.sb{width:256px;flex-shrink:0;border-right:1px solid var(--border);background:var(--surface);position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
-.sb-t{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:16px 16px 8px;border-bottom:1px solid var(--border);}
-.sb-m{display:flex;align-items:center;gap:8px;padding:9px 16px;font-size:12px;font-weight:700;color:var(--text-2);border-bottom:1px solid var(--border);}
-.sb-n{width:20px;height:20px;border-radius:4px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2);flex-shrink:0;}
-.sb-n.on{background:var(--psy);color:#fff;}
-.sb-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);padding:6px 16px 4px;border-bottom:1px solid var(--border);}
-.sb-p{display:flex;align-items:center;gap:7px;padding:7px 16px 7px 26px;font-size:12px;color:var(--text-2);text-decoration:none;border-bottom:1px solid var(--border);transition:background 0.15s;}
-.sb-p:hover{background:var(--surface-2);color:var(--text-1);}
-.sb-p.on{color:var(--psy);font-weight:600;background:var(--psy-light);}
-.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;}
-.sb-p.on .sb-dot{background:var(--psy);}
-.main{flex:1;padding:0 20px 100px;min-width:0;}
-.hdr{max-width:var(--rw);margin:32px auto 28px;}
-.ey{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.ey::before{content:'';width:14px;height:1.5px;background:var(--psy);}
-.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(1.7rem,4vw,2.4rem);color:var(--text-1);line-height:1.15;letter-spacing:-0.01em;margin-bottom:14px;}
-.chips{padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px;}
-.chip{display:inline-flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--text-2);}
-.chip.psy{background:var(--psy-light);border-color:var(--psy-border);color:var(--psy);font-weight:600;}
-.imgblock{max-width:var(--rw);margin:0 auto 28px;}
-.imgblock img{width:100%;height:auto;border-radius:12px;display:block;object-fit:cover;max-height:320px;}
-.imgcap{font-size:11.5px;color:var(--text-3);margin-top:8px;text-align:center;line-height:1.5;}
-.imgcap a{color:var(--text-2);text-decoration:underline;}
-.vwrap{max-width:var(--rw);margin:24px auto 0;}
-.vframe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:var(--navy);}
-.vframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;}
-.vmeta{font-size:11.5px;color:var(--text-3);text-align:center;margin-top:8px;}
-.vsum{max-width:var(--rw);margin:16px auto 28px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;}
-.vsl{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:7px;}
-.vsum p{font-size:0.88rem;color:var(--text-2);line-height:1.7;margin:0;}
-.vph{background:var(--navy);border-radius:12px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
-.ct{max-width:var(--rw);margin:0 auto;}
-.ct h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--text-1);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border);}
-.ct p{font-size:1rem;color:var(--text-1);line-height:1.85;margin-bottom:14px;}
-.ct strong{color:var(--text-1);}
-.ct ul,.ct ol{margin:0 0 16px 1.25rem;}
-.ct li{margin-bottom:8px;line-height:1.7;color:var(--text-1);}
-.gcard{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--psy);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0;}
-.gcard h3{font-size:0.95rem;font-weight:700;color:var(--text-1);margin-bottom:6px;}
-.gcard p{font-size:0.9rem;color:var(--text-2);margin:0;line-height:1.65;}
-.auth{background:var(--psy-light);border:1px solid var(--psy-border);border-radius:10px;padding:14px 16px;margin:18px 0;}
-.al{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--psy);margin-bottom:7px;}
-.auth p{font-size:0.87rem;color:var(--text-2);line-height:1.65;margin-bottom:5px;}
-.auth p:last-child{margin:0;}
-.sbox{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:24px 0;}
-.sl{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:10px;}
-.slist{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.slist li{font-size:0.9rem;color:var(--text-2);display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
-.slist li::before{content:'✓';color:var(--psy);font-weight:700;flex-shrink:0;margin-top:1px;}
-.pdfbar{max-width:var(--rw);margin:24px auto 0;background:var(--surface);border:1px dashed var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
-.pdfi{font-size:22px;flex-shrink:0;}
-.pdft{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:2px;}
-.pdfs{font-size:11.5px;color:var(--text-2);}
-.btnpdf{flex-shrink:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:8px;text-decoration:none;}
-.btnpdf:hover{background:var(--blue);}
-.nlcard{background:var(--navy);border-radius:12px;padding:20px 22px;margin:28px 0;text-align:center;}
-.nlcard p{color:rgba(255,255,255,0.6);font-size:0.88rem;margin-bottom:12px;}
-.nlcard a{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;text-decoration:none;}
-.pnav{max-width:var(--rw);margin:36px auto 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;border-top:1px solid var(--border);}
-.nbtn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:11px 18px;border-radius:9px;text-decoration:none;transition:all 0.2s;border:1.5px solid var(--border);color:var(--text-2);background:var(--surface);}
-.nbtn:hover{border-color:var(--psy);color:var(--psy);}
-.nbtn.nx{background:var(--navy);color:#fff;border-color:var(--navy);}
-.nbtn.nx:hover{background:var(--psy);}
-.plbl{font-size:12px;color:var(--text-3);text-align:center;}
-.lk{max-width:var(--rw);margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 28px;text-align:center;}
-.lki{font-size:40px;margin-bottom:14px;}
-.lk h2{font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;color:var(--text-1);margin-bottom:8px;}
-.lk p{font-size:0.88rem;color:var(--text-2);line-height:1.65;max-width:360px;margin:0 auto 20px;}
-.btnul{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:9px;}
-.out{width:210px;flex-shrink:0;border-left:1px solid var(--border);padding:24px 16px;position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;display:none;}
-.otitle{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
-.olink{display:block;font-size:12px;color:var(--text-2);text-decoration:none;padding:4px 0 4px 10px;border-left:2px solid var(--border);margin-bottom:4px;transition:all 0.15s;line-height:1.4;}
-.olink:hover,.olink.on{color:var(--psy);border-left-color:var(--psy);font-weight:600;}
-/* Quiz styles */
-.qcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:16px 0;}
-.qnum{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--psy);margin-bottom:8px;}
-.qtext{font-size:1rem;font-weight:600;color:var(--text-1);margin-bottom:12px;line-height:1.5;}
-.qopt{display:block;padding:10px 14px;margin:6px 0;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:0.92rem;}
-.qopt:hover{border-color:var(--psy);background:var(--psy-light);}
-.qopt input{margin-right:10px;}
-.qopt.correct{border-color:var(--green);background:rgba(21,128,61,0.08);}
-.qopt.wrong{border-color:var(--red);background:rgba(220,38,38,0.06);}
-.qfb{font-size:0.88rem;margin-top:10px;padding:10px 12px;border-radius:8px;display:none;}
-.qfb.show{display:block;}
-.qfb.ok{background:rgba(21,128,61,0.1);color:var(--green);}
-.qfb.bad{background:rgba(220,38,38,0.08);color:var(--red);}
-.qactions{max-width:var(--rw);margin:24px auto;text-align:center;}
-.qbtn{background:var(--navy);color:#fff;border:none;font-weight:700;font-size:14px;padding:12px 28px;border-radius:9px;cursor:pointer;}
-.qbtn:hover{background:var(--psy);}
-.qscore{font-size:1.1rem;font-weight:700;margin:16px 0;color:var(--text-1);}
-@media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
-@media(min-width:1100px){.out{display:block;}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text-1);line-height:1.7}
+a{color:var(--law);text-decoration:none}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 16px;height:56px;display:flex;align-items:center;gap:12px}
+.tmark{width:28px;height:28px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:11px;color:var(--gold);flex-shrink:0}
+.tbc{flex:1;font-size:12.5px;color:var(--text-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbc a{color:var(--text-2)}
+.theme-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--text-2);font-size:13px}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.side{width:270px;background:var(--surface);border-right:1px solid var(--border);padding:16px 12px;display:none;overflow-y:auto;flex-shrink:0}
+@media(min-width:960px){.side{display:block}}
+.side h3{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:14px 8px 6px}
+.side a{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;color:var(--text-2);font-size:13px;margin-bottom:2px}
+.side a:hover{background:var(--law-light);color:var(--law)}
+.side a.current{background:var(--law-light);color:var(--law);font-weight:600}
+.side a.completed::before{content:"✓";color:var(--success);font-weight:700;font-size:12px}
+.side a.locked{opacity:.55}
+.side a.locked::before{content:"🔒";font-size:11px}
+.progress-box{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;margin:8px;font-size:12.5px}
+.progress-box .bar{height:6px;background:var(--border);border-radius:99px;margin:8px 0;overflow:hidden}
+.progress-box .bar > i{display:block;height:100%;background:var(--law);border-radius:99px}
+.main{flex:1;padding:28px 20px 80px;max-width:880px}
+.hero{width:100%;max-height:280px;object-fit:cover;border-radius:12px;margin-bottom:20px;border:1px solid var(--border)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.chip{font-size:12px;padding:5px 12px;border-radius:999px;font-weight:600}
+.chip-faculty{background:var(--navy);color:#fff}
+.chip-uganda{background:#F5E6C8;color:#7A5C1E}
+[data-theme="dark"] .chip-uganda{background:#3D3420;color:#E8D5A3}
+.badge-2024{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:4px 10px;border-radius:6px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border);font-weight:600;margin-bottom:12px}
+.ltitle{font-family:'Playfair Display',serif;font-weight:800;font-size:28px;line-height:1.25;margin-bottom:8px}
+.lead{font-size:16px;color:var(--text-2);margin-bottom:20px}
+.section{margin:28px 0}
+.section h2{font-family:'Playfair Display',serif;font-size:20px;color:var(--law);margin-bottom:10px}
+.section p,.section li{font-size:15px;color:var(--text-1);margin-bottom:8px}
+.section ul{padding-left:1.2em}
+.mod-list{list-style:none;padding:0}
+.mod-list li{padding:10px 12px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--surface)}
+.mod-list strong{color:var(--law)}
+.price-box{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:18px;margin:20px 0}
+.price-box .from{font-size:13px;color:var(--text-2)}
+.price-box .amount{font-size:26px;font-weight:800;color:var(--navy)}
+[data-theme="dark"] .price-box .amount{color:var(--gold)}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:10px;font-weight:700;font-size:14.5px;border:none;cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-primary:hover{opacity:.92}
+.btn-secondary{background:transparent;color:var(--law);border:1.5px solid var(--law-border)}
+.faq details{border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--surface);padding:12px 14px}
+.faq summary{font-weight:600;cursor:pointer;color:var(--text-1)}
+.faq details p{margin-top:8px;font-size:14.5px;color:var(--text-2)}
+/* Mobile floating Next */
+.mobile-next{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;padding:12px 16px;background:var(--navy);color:#fff;text-align:center;font-weight:700;font-size:15px;border:none;text-decoration:none}
+@media(max-width:767px){.mobile-next{display:block}.main{padding-bottom:90px}}
+.pdf-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:7px 12px;border-radius:8px;background:var(--law-light);color:var(--law);border:1px solid var(--law-border);margin:10px 0;font-weight:600}
 </style>
 </head>
 <body>
-<header class="topbar">
-  <a href="/education/" class="tlogo"><div class="tmark">KE</div><span class="tname">KMVTECH Education</span></a>
-  <nav class="tbc"><span style="color:var(--text-1);font-weight:600;">Database Fundamentals</span></nav>
-  <div class="tright"><a href="/education/auth/" style="font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;">Sign in</a></div>
-</header>
-<main class="main" style="max-width:720px;margin:0 auto;padding:32px 20px;">
-  <div class="ey">IT &amp; Digital Skills · Beginner–Intermediate</div>
-  <h1 class="ltitle">Database Fundamentals</h1>
-  <div class="chips"><span class="chip">6 modules</span><span class="chip">~62 pages</span><span class="chip">Certificate</span></div>
-  <div class="prose" style="margin-top:24px;">
-  <h2 style="color:var(--psy);font-size:1.2rem;">Why this course is relevant</h2>
-  <p>Every modern system - school, clinic, shop, or government service - stores data in databases. DBFUND teaches relational thinking and practical SQL so graduates can query, design simple schemas, and work safely with shared data.</p>
-  <h2 style="color:var(--psy);font-size:1.2rem;margin-top:20px;">What you will gain</h2>
-  <ul>
-  <li>Why databases beat scattered files for shared work</li>
-  <li>Tables, keys, and relationships</li>
-  <li>SQL: SELECT, filters, aggregates, GROUP BY</li>
-  <li>Joins across tables</li>
-  <li>Basic design, constraints, and security awareness</li>
-  <li>Reporting practice and next learning steps</li>
-  </ul>
-  <h2 style="color:var(--psy);font-size:1.2rem;margin-top:20px;">Modules</h2>
-  <ol>
-  <li>Database Thinking</li>
-  <li>SQL Basics</li>
-  <li>Joins and Multi-Table</li>
-  <li>Design Basics</li>
-  <li>Integrity and Safety</li>
-  <li>Practice and Next Steps</li>
-  </ol>
-  <h2 style="color:var(--psy);font-size:1.2rem;margin-top:20px;">Pricing</h2>
-  <p>Per course lifetime: <strong>UGX 5,000</strong> · Monthly unlimited: UGX 20,000 · Semester: UGX 50,000.</p>
-  <p style="margin-top:12px;font-size:0.9rem;color:var(--text-2);"><em>Note: Add DBFUND in Supabase before student enrolment goes live.</em></p>
-  <p style="margin-top:24px;"><a class="nbtn primary" href="/education/courses/dbfund/1/1/1/">Start learning</a></p>
-  </div>
-</main>
+<div class="topbar">
+  <div class="tmark">K</div>
+  <div class="tbc"><a href="/education/">KMVTECH Education</a> · IT & Digital · Database Fundamentals</div>
+  <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark mode">Theme</button>
+</div>
+<div class="layout">
+  <aside class="side">
+    <h3>Course</h3>
+    <a href="/education/courses/dbfund/" class="current">Overview</a>
+    <div class="progress-box" id="progressBox" style="display:none">
+      <div><strong>Your progress</strong></div>
+      <div class="bar"><i id="progBar" style="width:0%"></i></div>
+      <div id="progText">0 / 6 modules</div>
+      <div id="progAvg" style="margin-top:4px;color:var(--text-2)"></div>
+      <div id="progCert" style="margin-top:4px;font-weight:600"></div>
+    </div>
+    <h3>Modules</h3>
+    <a href="/education/courses/dbfund/1/1/1/" class="locked" data-mod="1">M1: Why Databases Exist</a><a href="/education/courses/dbfund/2/1/1/" class="locked" data-mod="2">M2: What is SQL?</a><a href="/education/courses/dbfund/3/1/1/" class="locked" data-mod="3">M3: Why Joins Matter</a><a href="/education/courses/dbfund/4/1/1/" class="locked" data-mod="4">M4: Entities and Attributes</a><a href="/education/courses/dbfund/5/1/1/" class="locked" data-mod="5">M5: Constraints</a><a href="/education/courses/dbfund/6/1/1/" class="locked" data-mod="6">M6: Working with Sample Schemas</a>
+  </aside>
+  <main class="main">
+    <img class="hero" src="hero.jpg" alt="Database Fundamentals course hero"/>
+    <div class="badge-2024">IT & Digital Skills · Uganda</div>
+    <h1 class="ltitle">Database Fundamentals</h1>
+    <div class="chips">
+      <span class="chip chip-faculty">IT and Digital Skills</span>
+      <span class="chip chip-uganda">Ugandan Context</span>
+    </div>
+    <p class="lead">Database fundamentals: SQL, joins, entities, constraints and sample schemas.</p>
+    <div class="section"><h2>The Big Transformation</h2><p>After this course you will be able to explain why databases exist, write simple SQL, use joins, model basic entities and attributes, apply common constraints, and practise on sample schemas.</p></div>
+    <div class="section"><h2>Who This Course Is For</h2><p>IT students, junior developers and anyone who works with structured data.</p></div>
+    <div class="section"><h2>Prerequisites and Recommended Sequence</h2><p>Basic computer literacy. No prior database experience required.</p></div>
+    <div class="section"><h2>What You Will Learn - Module Breakdown</h2><ul class="mod-list"><li><strong>Module 1: Why Databases Exist</strong> - Purpose of databases in applications.</li>
+<li><strong>Module 2: What is SQL?</strong> - SQL as the language of relational data.</li>
+<li><strong>Module 3: Why Joins Matter</strong> - Combining tables with joins.</li>
+<li><strong>Module 4: Entities and Attributes</strong> - Entities, attributes and simple modelling.</li>
+<li><strong>Module 5: Constraints</strong> - NOT NULL, UNIQUE and related constraints.</li>
+<li><strong>Module 6: Working with Sample Schemas</strong> - Practising on sample schemas.</li></ul></div>
+    <div class="section"><h2>Assessment and Certificate</h2>
+      <p>Each module ends with a graded quiz. You need <strong>70%</strong> to pass each module and an <strong>80% average</strong> across all modules to earn your certificate. You may retake quizzes. Progress is saved when you are logged in and enrolled.</p>
+    </div>
+    <div class="section"><h2>Time Commitment</h2><p>Approximately 20-30 hours. Most students finish in 3-5 weeks part-time.</p></div>
+    <div class="price-box">
+      <div class="from">From</div>
+      <div class="amount">UGX 5,000 <span style="font-size:16px;font-weight:500">per month</span></div>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-2)">One course: UGX 5,000/month · All courses: UGX 20,000/month · 5 months unlimited: UGX 50,000</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="/education/enroll/?course=DBFUND&name=Database%20Fundamentals">Enroll Now</a>
+      <a class="btn btn-secondary" href="/education/courses/dbfund/1/1/1/">Start Learning</a>
+    </div>
+    <div class="section faq">
+      <h2>Frequently Asked Questions</h2>
+      <details><summary>Is this course practical enough for work or further study?</summary><p>Yes. Content is hands-on and aligned with common digital skills needs in Uganda. Use it alongside practice on your own device.</p></details>
+      <details><summary>Do I need prior technical knowledge?</summary><p>See Prerequisites. Most courses start from foundations; a computer and internet access help.</p></details>
+      <details><summary>How long does it take to earn the certificate?</summary><p>Most students finish in 3-6 weeks studying part-time. You need 70% on each module quiz and 80% average overall.</p></details>
+      <details><summary>Can I access this course on my phone?</summary><p>Yes. Mobile-responsive with a floating Next Lesson button. Some practice is easier on a computer.</p></details>
+      <details><summary>Will I get a certificate even if I fail some modules and retake?</summary><p>Yes. You may retake graded quizzes. Certificate issues automatically when scores are met.</p></details>
+    </div>
+  </main>
+</div>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    if (typeof supabase === 'undefined' || !window.getProgress) return;
+    const p = await window.getProgress('DBFUND');
+    if (!p) return;
+    document.getElementById('progressBox').style.display = 'block';
+    const done = p.completedModules || 0;
+    document.getElementById('progBar').style.width = Math.round((done/6)*100) + '%';
+    document.getElementById('progText').textContent = done + ' / 6 modules';
+    if (p.average != null) document.getElementById('progAvg').textContent = 'Quiz average: ' + p.average + '%';
+    const onTrack = (p.average||0) >= 80 && done === 6;
+    document.getElementById('progCert').textContent = onTrack ? 'On track for certificate' : 'Keep going for your certificate';
+    document.getElementById('progCert').style.color = onTrack ? 'var(--success)' : 'var(--text-2)';
+    document.querySelectorAll('.side a[data-mod]').forEach(a => {
+      const m = parseInt(a.dataset.mod, 10);
+      a.classList.remove('locked','completed','current');
+      if ((p.completedModulesList||[]).includes(m)) a.classList.add('completed');
+      else if (m === (p.currentModule||1)) a.classList.add('current');
+      else if (m > (p.currentModule||1)) a.classList.add('locked');
+    });
+  } catch(e) {}
+});
+</script>
 </body>
 </html>

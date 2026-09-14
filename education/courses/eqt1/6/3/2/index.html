@@ -49,21 +49,21 @@ a{color:var(--blue);text-decoration:none}
   <div class="content">
 <h2>Core Statutes (7th Revised Edition)</h2>
 <ul>
-<li><strong>Judicature Act Cap 16</strong> – concurrent administration of law and equity; equity prevails in conflict.</li>
-<li><strong>Trustees Act Cap 270</strong> – appointment, powers, duties and relief of trustees.</li>
-<li><strong>Registration of Titles Act Cap 240</strong> – registered title and its interaction with equitable interests.</li>
-<li><strong>Succession Act Cap 268</strong> – relevant to testamentary trusts and secret trusts context.</li>
-<li><strong>Constitution of Uganda 1995, Art 126(2)(e)</strong> – substance over form.</li>
+<li><strong>Judicature Act Cap 16</strong> - concurrent administration of law and equity; equity prevails in conflict.</li>
+<li><strong>Trustees Act Cap 270</strong> - appointment, powers, duties and relief of trustees.</li>
+<li><strong>Registration of Titles Act Cap 240</strong> - registered title and its interaction with equitable interests.</li>
+<li><strong>Succession Act Cap 268</strong> - relevant to testamentary trusts and secret trusts context.</li>
+<li><strong>Constitution of Uganda 1995, Art 126(2)(e)</strong> - substance over form.</li>
 </ul>
 <h2>Key Cases (Illustrative)</h2>
 <ul>
-<li>Knight v Knight – three certainties.</li>
-<li>Milroy v Lord – constitution of trusts.</li>
-<li>McPhail v Doulton – certainty of objects for discretionary trusts.</li>
-<li>Keech v Sandford – fiduciary no-profit rule / constructive trust.</li>
-<li>Pemsel – four heads of charity.</li>
-<li>Re Hallett – mixing and withdrawals.</li>
-<li>American Cyanamid / Kiyimba Kaggwa – interlocutory injunctions.</li>
+<li>Knight v Knight - three certainties.</li>
+<li>Milroy v Lord - constitution of trusts.</li>
+<li>McPhail v Doulton - certainty of objects for discretionary trusts.</li>
+<li>Keech v Sandford - fiduciary no-profit rule / constructive trust.</li>
+<li>Pemsel - four heads of charity.</li>
+<li>Re Hallett - mixing and withdrawals.</li>
+<li>American Cyanamid / Kiyimba Kaggwa - interlocutory injunctions.</li>
 </ul>
 <div class="kbox"><h3>Key Points</h3><ul>
 <li>Know the Cap numbers from the 7th Revised Edition.</li>
@@ -84,4 +84,9 @@ SB.auth.getSession().then(({data:{session}})=>{if(!session)document.getElementBy
 document.getElementById('th').onclick=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('theme',d?'light':'dark')};
 if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
 </script>
-</body></html>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/eqt1/6/summary/">Next Lesson →</a></body></html>

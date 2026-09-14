@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Practice Quiz</div><h1 class="ltitle">L2.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/datapy1/notes/KMVEDU-DATAPY1-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Functions help you:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Reuse logic without copy-paste</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Avoid all planning</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Delete documentation</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Ban variables</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. The bottom of a traceback often shows:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>The immediate error type and message</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only your Wi-Fi password</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only CSS</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only the OS theme</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. NameError usually means:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>A name is not defined as you typed it</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>The internet is down</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>CSV is illegal</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Pandas is banned</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Notebooks are strong for:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Interactive exploration</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only production payment systems always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Only BIOS updates</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Only DNS</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Clear function names:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Make teamwork easier</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Slow Python always</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Are optional noise</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ban comments</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/datapy1/2/summary/">Next Lesson →</a></body>
 </html>

@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.2 · Practice Quiz</div><h1 class="ltitle">L1.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/webdev1/notes/KMVEDU-WEBDEV1-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Front-end work mainly happens:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>In the browser with HTML CSS and JS</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only inside the database server room</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only on printers</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only in spreadsheet cells</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Back-end work often includes:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Servers databases and APIs</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only choosing font colours</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only cropping images</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only writing slogans</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. A practical starter toolkit includes:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Editor browser and project folder</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Only a gaming console</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only satellite internet always</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>No browser at all</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Browser developer tools help you:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Inspect and debug pages</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Delete the internet</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Replace HTML forever</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban all CSS</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Local opportunity grows when you:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Ship real small projects employers can see</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only list buzzwords with no demos</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Avoid all practice</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Never open a browser</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/webdev1/1/summary/">Next Lesson →</a></body>
 </html>

@@ -93,7 +93,7 @@ tr:last-child td{border-bottom:none}
     <div class="cards">
       <div class="card"><div class="num" id="cDone">0</div><div class="lbl">Modules done</div></div>
       <div class="card"><div class="num" id="cLeft">6</div><div class="lbl">Modules remaining</div></div>
-      <div class="card"><div class="num" id="cAvg">—</div><div class="lbl">Current average</div></div>
+      <div class="card"><div class="num" id="cAvg"> - </div><div class="lbl">Current average</div></div>
       <div class="card"><div class="num">80%</div><div class="lbl">Certificate threshold</div></div>
     </div>
 
@@ -138,12 +138,12 @@ const SB = supabase.createClient(
 const COURSE = 'EQT1';
 const TOTAL_MODULES = 6;
 const MODULE_NAMES = {
-  1: 'Module 1 – Foundations of Equity',
-  2: 'Module 2 – Equitable Remedies',
-  3: 'Module 3 – Nature and Creation of Trusts',
-  4: 'Module 4 – Classification of Trusts',
-  5: 'Module 5 – Trusteeship and Duties',
-  6: 'Module 6 – Breach, Tracing and Remedies'
+  1: 'Module 1 - Foundations of Equity',
+  2: 'Module 2 - Equitable Remedies',
+  3: 'Module 3 - Nature and Creation of Trusts',
+  4: 'Module 4 - Classification of Trusts',
+  5: 'Module 5 - Trusteeship and Duties',
+  6: 'Module 6 - Breach, Tracing and Remedies'
 };
 
 function show() {
@@ -153,11 +153,11 @@ function show() {
 }
 
 function fmtDate(iso) {
-  if (!iso) return '—';
+  if (!iso) return ' - ';
   try {
     const d = new Date(iso);
     return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-  } catch (e) { return '—'; }
+  } catch (e) { return ' - '; }
 }
 
 function bestByModule(rows) {
@@ -216,8 +216,8 @@ async function loadGrades(user) {
     let status, scoreTxt, dateTxt;
     if (!b) {
       status = '<span class="badge badge-none">Not submitted</span>';
-      scoreTxt = '—';
-      dateTxt = '—';
+      scoreTxt = ' - ';
+      dateTxt = ' - ';
     } else {
       done++;
       sumPct += b.pct;
@@ -241,7 +241,7 @@ async function loadGrades(user) {
   document.getElementById('tbody').innerHTML = html || '<tr><td colspan="4">No scores yet.</td></tr>';
   document.getElementById('cDone').textContent = done;
   document.getElementById('cLeft').textContent = TOTAL_MODULES - done;
-  document.getElementById('cAvg').textContent = avg != null ? avg + '%' : '—';
+  document.getElementById('cAvg').textContent = avg != null ? avg + '%' : ' - ';
 
   const certPct = Math.round((passed / TOTAL_MODULES) * 100);
   document.getElementById('certBar').style.width = certPct + '%';
@@ -289,5 +289,10 @@ if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttrib
 
 init();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/eqt1/1/1/2/">Next Lesson →</a></body>
 </html>

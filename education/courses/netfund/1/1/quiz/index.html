@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Practice Quiz</div><h1 class="ltitle">L1.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/netfund/notes/KMVEDU-NETFUND-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. Networks mainly enable:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Communication and shared services</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only printing offline always</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only single-user calculators</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only paper mail</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Mobile data in Uganda is:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>A primary access path for many users</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Irrelevant to students</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only for voice with no data</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Banned on campuses always</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Reliability means:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>The network stays usable over time</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Cables never exist</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Security is ignored</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only peak speed matters</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Security on networks aims to:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Protect data and services from misuse</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Slow everyone equally always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Remove all passwords</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Ban encryption</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. IT staff who understand networks:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Support users and systems better</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Only design logos</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Avoid all troubleshooting</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Ignore outages</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/netfund/1/1/2/">Next Lesson →</a></body>
 </html>

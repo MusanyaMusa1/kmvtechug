@@ -49,18 +49,18 @@ a{color:var(--blue);text-decoration:none}
   <div class="content">
   <h2>Core Duties at a Glance</h2>
   <ul>
-  <li><strong>Duty of care</strong> – prudent person standard; higher for professionals.</li>
-  <li><strong>Fiduciary duty of loyalty</strong> – no conflict, no unauthorised profit.</li>
-  <li><strong>Duty to invest</strong> – manage the fund productively within authorised range.</li>
-  <li><strong>Duty to keep accounts</strong> – clear and accurate records.</li>
-  <li><strong>Duty to provide information</strong> – material information for beneficiaries.</li>
+  <li><strong>Duty of care</strong> - prudent person standard; higher for professionals.</li>
+  <li><strong>Fiduciary duty of loyalty</strong> - no conflict, no unauthorised profit.</li>
+  <li><strong>Duty to invest</strong> - manage the fund productively within authorised range.</li>
+  <li><strong>Duty to keep accounts</strong> - clear and accurate records.</li>
+  <li><strong>Duty to provide information</strong> - material information for beneficiaries.</li>
   <li><strong>Duty to act impartially</strong> between beneficiaries (where relevant).</li>
   </ul>
   <h2>Key Authorities</h2>
   <ul>
-  <li><strong>Keech v Sandford</strong> – unauthorised profit held on constructive trust.</li>
-  <li><strong>Speight v Gaunt</strong> – trustee who employs an agent is not liable if the agent is carefully selected and supervised.</li>
-  <li><strong>Trustees Act Cap 270</strong> – statutory powers and protections.</li>
+  <li><strong>Keech v Sandford</strong> - unauthorised profit held on constructive trust.</li>
+  <li><strong>Speight v Gaunt</strong> - trustee who employs an agent is not liable if the agent is carefully selected and supervised.</li>
+  <li><strong>Trustees Act Cap 270</strong> - statutory powers and protections.</li>
   </ul>
   <p>In Uganda always cross-check the trust instrument, the Trustees Act Cap 270, and any relevant case law applying these principles.</p>
   <div class="kbox"><h3>Key Points</h3><ul>
@@ -82,4 +82,9 @@ SB.auth.getSession().then(({data:{session}})=>{if(!session)document.getElementBy
 document.getElementById('th').onclick=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('theme',d?'light':'dark')};
 if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
 </script>
-</body></html>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/eqt1/5/summary/">Next Lesson →</a></body></html>

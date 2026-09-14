@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 3 · L3.1 · Practice Quiz</div><h1 class="ltitle">L3.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/webdev1/notes/KMVEDU-WEBDEV1-M3-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. A CSS rule is mainly:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Selector plus declarations</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only a database query</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only a server log</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only a DNS name</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. Specificity affects:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Which competing rule wins</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only image downloads</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only HTTPS certificates</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only domain cost</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Padding is:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Space inside the border around content</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Space outside the margin always</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only font weight</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only z-index</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Readable contrast matters because:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Users read in varied lighting</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Colour is illegal</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>CSS cannot set colour</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Phones ignore CSS</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. border-box sizing often:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Includes padding and border in the width calculation</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Deletes margins forever</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Bans flexbox</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Removes HTML</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/webdev1/3/1/2/">Next Lesson →</a></body>
 </html>

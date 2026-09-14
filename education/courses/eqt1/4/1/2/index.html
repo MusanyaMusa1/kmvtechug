@@ -55,9 +55,9 @@ a{color:var(--blue);text-decoration:none}
 <div id="lc"><div class="layout">
 <aside class="sidebar">
   <h4>Earlier Modules</h4>
-  <a href="/education/courses/eqt1/1/1/1/" class="faded">Module 1 – Foundations</a>
-  <a href="/education/courses/eqt1/2/1/1/" class="faded">Module 2 – Remedies</a>
-  <a href="/education/courses/eqt1/3/1/1/" class="faded">Module 3 – Nature of Trusts</a>
+  <a href="/education/courses/eqt1/1/1/1/" class="faded">Module 1 - Foundations</a>
+  <a href="/education/courses/eqt1/2/1/1/" class="faded">Module 2 - Remedies</a>
+  <a href="/education/courses/eqt1/3/1/1/" class="faded">Module 3 - Nature of Trusts</a>
   <h4>Module 4</h4>
   <a href="/education/courses/eqt1/4/1/1/">1. Express Trusts</a>
   <a href="/education/courses/eqt1/4/1/1/" style="padding-left:16px;font-size:11.5px">Page 1</a>
@@ -79,7 +79,7 @@ a{color:var(--blue);text-decoration:none}
   <a href="/education/courses/eqt1/4/summary/">Module Summary</a>
   <a href="/education/courses/eqt1/4/quiz/">Graded Quiz</a>
   <h4>Next</h4>
-  <a href="#" class="faded">Module 5 – Trusteeship</a>
+  <a href="#" class="faded">Module 5 - Trusteeship</a>
 </aside>
 <main class="main">
   <div class="eyebrow">EQT1 · Module 4 · Lesson 1 · Page 2</div>
@@ -90,7 +90,7 @@ a{color:var(--blue);text-decoration:none}
   <div class="content">
   <h2>Protective Trusts</h2>
   <p>A protective trust is designed to protect a beneficiary from his or her own improvidence or from creditors. Typically the beneficiary receives a life interest that is determinable on events such as bankruptcy or attempted alienation. On the occurrence of the determining event, the trust becomes a discretionary trust for a class that includes the original beneficiary and his or her family.</p>
-  <h2>Discretionary Trusts – Practical Features</h2>
+  <h2>Discretionary Trusts - Practical Features</h2>
   <p>Discretionary trusts give trustees flexibility to respond to changing family circumstances. The beneficiaries under a discretionary trust do not have a fixed proprietary interest in any particular part of the fund until the trustees exercise their discretion in their favour. They have a right to be considered and to compel the trustees to exercise the discretion properly.</p>
   <div class="kbox"><h3>Key Points</h3><ul>
   <li>Protective trusts protect against improvidence and creditors.</li>
@@ -112,4 +112,9 @@ SB.auth.getSession().then(({data:{session}})=>{if(!session)document.getElementBy
 document.getElementById('th').onclick=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('theme',d?'light':'dark')};
 if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
 </script>
-</body></html>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/eqt1/4/1/2/">Next Lesson →</a></body></html>

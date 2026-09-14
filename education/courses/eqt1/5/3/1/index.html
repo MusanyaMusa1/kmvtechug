@@ -55,8 +55,8 @@ a{color:var(--blue);text-decoration:none}
   <p>These are powers to dispose of the beneficial interest, such as powers of appointment, powers of advancement, and powers of maintenance. They allow trustees to respond to the changing needs of beneficiaries within the framework set by the settlor.</p>
   <p>All powers must be exercised for the purposes for which they were conferred, in good faith, and with the care required by the duty of care. An improper exercise of a power may be set aside and may expose the trustee to liability.</p>
   <div class="kbox"><h3>Key Points</h3><ul>
-  <li>Administrative powers – management of trust property.</li>
-  <li>Dispositive powers – disposition of beneficial interests.</li>
+  <li>Administrative powers - management of trust property.</li>
+  <li>Dispositive powers - disposition of beneficial interests.</li>
   <li>Powers must be exercised for proper purposes and with due care.</li>
   </ul></div></div>
   <div class="nav">
@@ -74,4 +74,9 @@ SB.auth.getSession().then(({data:{session}})=>{if(!session)document.getElementBy
 document.getElementById('th').onclick=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('theme',d?'light':'dark')};
 if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
 </script>
-</body></html>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/eqt1/5/summary/">Next Lesson →</a></body></html>

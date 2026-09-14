@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.1 · Practice Quiz</div><h1 class="ltitle">L1.1 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/cybersec/notes/KMVEDU-CYBERSEC-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="1"><div class="qtext">1. Cybersecurity mainly protects:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Only large banks</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Systems, networks, devices, and data</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only printed books</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Nothing digital</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. CIA stands for:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Confidentiality, Integrity, Availability</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Computers, Internet, Apps</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Code, Input, Access</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Campus, ID, Account</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. Availability means:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Systems are usable when needed</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Anyone can edit data</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Secrets are public</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Passwords are shared</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. Students need cybersecurity because:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>They hold valuable accounts and data</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Only IT staff have accounts</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Phones cannot be attacked</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Fraud never targets youth</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. Integrity means:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>Data is not changed without authorisation</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>Data is always public</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>Servers are offline</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>Wi-Fi is free</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -236,5 +236,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/cybersec/1/1/2/">Next Lesson →</a></body>
 </html>

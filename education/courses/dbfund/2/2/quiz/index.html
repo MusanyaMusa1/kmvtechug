@@ -169,7 +169,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 2 · L2.2 · Practice Quiz</div><h1 class="ltitle">L2.2 Practice Quiz</h1><div class="chips"><span class="chip">Quiz</span></div></header>
-<div class="prose"><p>Select the best answer for each question.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/dbfund/notes/KMVEDU-DBFUND-M2-L1-Notes.pdf" download>Download Lesson PDF</a><p>Select the best answer for each question.</p></div>
 <form id="quizForm" onsubmit="return gradeQuiz(event)"><div class="qblock" data-ans="0"><div class="qtext">1. COUNT(*) typically counts:</div><label class="opt"><input type="radio" name="q1" value="0"/><span>Rows in the result group</span></label><label class="opt"><input type="radio" name="q1" value="1"/><span>Only column widths</span></label><label class="opt"><input type="radio" name="q1" value="2"/><span>Only indexes</span></label><label class="opt"><input type="radio" name="q1" value="3"/><span>Only users online</span></label></div><div class="qblock" data-ans="0"><div class="qtext">2. GROUP BY is used with:</div><label class="opt"><input type="radio" name="q2" value="0"/><span>Aggregates per category</span></label><label class="opt"><input type="radio" name="q2" value="1"/><span>Only ORDER BY without sense</span></label><label class="opt"><input type="radio" name="q2" value="2"/><span>Only passwords</span></label><label class="opt"><input type="radio" name="q2" value="3"/><span>Only CSS</span></label></div><div class="qblock" data-ans="0"><div class="qtext">3. HAVING filters:</div><label class="opt"><input type="radio" name="q3" value="0"/><span>Groups after aggregation</span></label><label class="opt"><input type="radio" name="q3" value="1"/><span>Rows before FROM</span></label><label class="opt"><input type="radio" name="q3" value="2"/><span>Only table names</span></label><label class="opt"><input type="radio" name="q3" value="3"/><span>Only database names</span></label></div><div class="qblock" data-ans="0"><div class="qtext">4. NULL means:</div><label class="opt"><input type="radio" name="q4" value="0"/><span>Unknown or missing</span></label><label class="opt"><input type="radio" name="q4" value="1"/><span>Zero always</span></label><label class="opt"><input type="radio" name="q4" value="2"/><span>Empty string always</span></label><label class="opt"><input type="radio" name="q4" value="3"/><span>Primary key</span></label></div><div class="qblock" data-ans="0"><div class="qtext">5. DISTINCT helps when:</div><label class="opt"><input type="radio" name="q5" value="0"/><span>You need unique values in a column</span></label><label class="opt"><input type="radio" name="q5" value="1"/><span>You want more duplicates</span></label><label class="opt"><input type="radio" name="q5" value="2"/><span>You delete keys</span></label><label class="opt"><input type="radio" name="q5" value="3"/><span>You ban SELECT</span></label></div>
 <button type="submit" class="nbtn primary" style="margin-top:16px;">Check answers</button></form>
 <div id="quizResult" style="display:none;margin-top:16px;" class="prose"></div>
@@ -239,5 +239,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/dbfund/2/summary/">Next Lesson →</a></body>
 </html>

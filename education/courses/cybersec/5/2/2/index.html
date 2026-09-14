@@ -167,7 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 5 · L5.2 · Page 2 of 3</div><h1 class="ltitle">Privacy Settings Basics</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose">
+<div class="prose"><a class="pdf-btn" href="/education/courses/cybersec/notes/KMVEDU-CYBERSEC-M5-L1-Notes.pdf" download>Download Lesson PDF</a>
 <p>Review who can see posts, stories, and personal info. Prefer least public settings for sensitive content.</p>
 </div>
     <div class="nav-row"><a class="nbtn primary" href="/education/courses/cybersec/5/2/3/" onclick="show()">Next: Campus and Work Data &#8594;</a></div>
@@ -213,5 +213,10 @@ function tTheme() {
 }
 chkAccess();
 </script>
-</body>
+<script>
+(function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');
+if(saved)root.setAttribute('data-theme',saved);else root.setAttribute('data-theme','light');
+window.toggleTheme=function(){const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+root.setAttribute('data-theme',next);localStorage.setItem('kmv-theme',next);};})();
+</script><a class="mobile-next" href="/education/courses/cybersec/5/summary/">Next Lesson →</a></body>
 </html>
