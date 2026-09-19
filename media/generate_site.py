@@ -264,7 +264,7 @@ def build_index(articles):
   <meta property="og:description" content="Breaking news and stories from Uganda and beyond — politics, sports, business and entertainment, in English and Luganda."/>
   <meta property="og:url" content="{BASE_URL}/index.html"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
   {adsense_snippet()}
@@ -404,7 +404,7 @@ def build_article(a, articles):
   <meta property="og:image" content="{og_image_url(a)}"/>
   <meta name="twitter:image" content="{og_image_url(a)}"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
   {adsense_snippet()}
@@ -469,7 +469,7 @@ def build_category(cat_key, cat_label, articles):
   <title>{cat_label} — {SITE_NAME}</title>
   <meta name="description" content="{cat_label} news and stories from {SITE_NAME}, covering Uganda and beyond."/>
   <link rel="canonical" href="{BASE_URL}/category/{cat_key}.html"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
   {adsense_snippet()}
@@ -506,7 +506,7 @@ def build_archive(articles):
   <title>All Stories — {SITE_NAME}</title>
   <meta name="description" content="Browse every story published by {SITE_NAME}, from breaking news to archived reporting."/>
   <link rel="canonical" href="{BASE_URL}/stories/index.html"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
   {adsense_snippet()}
@@ -569,7 +569,7 @@ def build_privacy_policy():
   <title>Privacy Policy — {SITE_NAME}</title>
   <meta name="description" content="How King Musah Media collects, uses, and protects information from visitors to this website."/>
   <link rel="canonical" href="{BASE_URL}/privacy.html"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
   {adsense_snippet()}
@@ -619,7 +619,7 @@ def build_terms_of_service():
   <title>Terms of Service — {SITE_NAME}</title>
   <meta name="description" content="The terms governing use of the King Musah Media website and its content."/>
   <link rel="canonical" href="{BASE_URL}/terms.html"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
   {adsense_snippet()}
@@ -677,7 +677,7 @@ def build_support():
   <title>Support Independent Media — {SITE_NAME}</title>
   <meta name="description" content="Support King Musah Media's independent journalism in Uganda. Every contribution helps us keep reporting the stories that matter."/>
   <link rel="canonical" href="{BASE_URL}/support.html"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
   {ga_snippet()}
   {adsense_snippet()}
