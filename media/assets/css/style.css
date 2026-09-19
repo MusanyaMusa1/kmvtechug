@@ -207,10 +207,14 @@ footer{background:var(--bg);color:var(--text-faint);padding:40px 5vw 24px;border
   .ticker-label{font-size:.62rem;padding:0 .6rem}
   .ticker-track a{font-size:.74rem}
 
-  .story-grid{grid-template-columns:1fr;gap:1rem}
-  .story-body{padding:1rem 1.1rem 1.2rem}
-  .story-body h3{font-size:1.15rem}
-  .story-body p{font-size:.82rem}
+  .story-grid{grid-template-columns:repeat(2,1fr);gap:.7rem}
+  .story-media{aspect-ratio:4/3}
+  .story-cat-tag{font-size:.55rem;padding:.18rem .45rem;top:.5rem;left:.5rem}
+  .story-lang-tag{display:none}
+  .story-body{padding:.65rem .7rem .8rem;gap:.3rem}
+  .story-body h3{font-size:.88rem;line-height:1.25}
+  .story-body p{display:none}
+  .story-meta{font-size:.62rem;gap:.35rem}
 
   .hero-story{grid-template-columns:1fr}
   .hero-story-media{aspect-ratio:16/9}
