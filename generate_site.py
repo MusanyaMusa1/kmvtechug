@@ -453,7 +453,8 @@ def build_article(a, articles):
     </div>
   </div>
   {lang_note}
-  {youtube_embed_html(a) or f'<div class="article-media" aria-hidden="true">{image_tag(a, depth="../")}&#128247; {a.get("image_alt", "")}</div>'}
+  <div class="article-media" aria-hidden="true">{image_tag(a, depth="../")}&#128247; {a.get("image_alt", "")}</div>
+  {youtube_embed_html(a) or ""}
   <div class="article-body">
 {body_html}
   </div>
