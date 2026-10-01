@@ -125,6 +125,8 @@ nav{position:fixed;top:0;left:0;right:0;height:66px;background:var(--nav-bg);bac
 .author-avatar{width:38px;height:38px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Merriweather',serif;font-size:1rem;flex-shrink:0}
 .byline-name{color:var(--text);font-weight:700}
 .article-media{aspect-ratio:16/9;border-radius:10px;background:linear-gradient(135deg,var(--bg-elev-2),var(--bg-elev));display:flex;align-items:center;justify-content:center;color:var(--text-faint);font-size:2rem;margin-bottom:1.8rem;position:relative;overflow:hidden}
+.video-embed-wrap{aspect-ratio:16/9;border-radius:10px;margin-bottom:1.8rem;overflow:hidden;background:#000}
+.video-embed-wrap iframe{width:100%;height:100%;border:0;display:block}
 .article-body{font-size:1.08rem;line-height:1.9;color:var(--text)}
 .article-body p{margin-bottom:1.3rem}
 .article-tags{display:flex;gap:.6rem;flex-wrap:wrap;margin:2rem 0}
