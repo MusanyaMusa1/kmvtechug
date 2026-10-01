@@ -16,6 +16,7 @@ Usage:
 """
 import json
 import os
+import re
 from datetime import datetime
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -201,6 +202,31 @@ def image_tag(a, depth="", css_class=""):
     alt = a.get("image_alt", a["title"])
     cls = f' class="{css_class}"' if css_class else ""
     return f'<img{cls} src="{base}.jfif" data-base="{base}" data-ext-idx="0" alt="{alt}" loading="lazy" onerror="handleImgError(this)"/>'
+
+
+def youtube_embed_html(a):
+    """Returns a responsive YouTube embed if this story has a video_url,
+    otherwise returns None so the caller falls back to the photo instead."""
+    url = a.get("video_url")
+    if not url:
+        return None
+
+    video_id = None
+    match = re.search(r"(?:v=|youtu\.be/|embed/|shorts/)([A-Za-z0-9_-]{11})", url)
+    if match:
+        video_id = match.group(1)
+
+    if not video_id:
+        return None
+
+    return (
+        f'<div class="video-embed-wrap">'
+        f'<iframe src="https://www.youtube.com/embed/{video_id}" '
+        f'title="{a.get("title", "Video")}" loading="lazy" '
+        f'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" '
+        f'allowfullscreen></iframe>'
+        f'</div>'
+    )
 
 
 def resolve_image_ext(slug):
@@ -427,7 +453,7 @@ def build_article(a, articles):
     </div>
   </div>
   {lang_note}
-  <div class="article-media" aria-hidden="true">{image_tag(a, depth="../")}&#128247; {a.get("image_alt", "")}</div>
+  {youtube_embed_html(a) or f'<div class="article-media" aria-hidden="true">{image_tag(a, depth="../")}&#128247; {a.get("image_alt", "")}</div>'}
   <div class="article-body">
 {body_html}
   </div>
