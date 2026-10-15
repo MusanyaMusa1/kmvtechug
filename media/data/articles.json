@@ -2332,7 +2332,7 @@
     "author": "King Musah Media News Desk",
     "date": "2026-09-10",
     "breaking": false,
-    "featured": true,
+    "featured": false,
     "excerpt": "Tooro Queen Mother Best Kemigisa has claimed that the royal family is under house arrest at Karuziika Palace after royal guards were removed and troops deployed, just days before the burial of King Oyo.",
     "image_alt": "Queen Mother Best Kemigisa of Tooro Kingdom",
     "content": [
@@ -2353,7 +2353,8 @@
       "Tooro succession",
       "King Oyo",
       "Karuziika Palace"
-    ]
+    ],
+    "video_url": null
   },
   {
     "slug": "prince-edward-rukidi-kijanangoma-named-new-king-of-tooro",
