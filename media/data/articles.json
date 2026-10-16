@@ -4842,7 +4842,7 @@
     "author": "King Musah Media News Desk",
     "date": "2026-08-04",
     "breaking": false,
-    "featured": true,
+    "featured": false,
     "excerpt": "President Yoweri Museveni on Monday formally presented Ambassador Olara Otunnu as Uganda’s candidate for the position of United Nations Secretary-General. He urged ambassadors of UN Security Council member states to convey Uganda’s endorsement to their governments.",
     "image_alt": "President Museveni meeting ambassadors of UN Security Council member states at State House Entebbe  ",
     "content": [
@@ -4856,7 +4856,8 @@
       "United Nations",
       "Uganda diplomacy",
       "Security Council"
-    ]
+    ],
+    "video_url": null
   },
   {
     "slug": "president-museveni-hits-back-at-andrew-mwenda-over-stephen-nuwagaba-insists-tort",
