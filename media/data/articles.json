@@ -4115,7 +4115,7 @@
     "author": "King Musah Media News Desk",
     "date": "2026-08-13",
     "breaking": false,
-    "featured": true,
+    "featured": false,
     "excerpt": "Chief of Defence Forces Gen Muhoozi Kainerugaba has urged Eastern African countries to build military independence and reduce reliance on external support. He made the call while opening the 36th Ordinary Session of the Eastern Africa Standby Force in Kampala",
     "image_alt": "Gen Muhoozi Kainerugaba addressing EASF defence chiefs in Kampala ",
     "content": [
@@ -4130,7 +4130,8 @@
       "regional security",
       "Uganda",
       "defence"
-    ]
+    ],
+    "video_url": null
   },
   {
     "slug": "12th-parliament-holds-inaugural-service-led-by-archbishop-kaziimba",
