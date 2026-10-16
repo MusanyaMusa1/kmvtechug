@@ -4239,7 +4239,7 @@
     "author": "King Musah Media News Desk",
     "date": "2026-08-11",
     "breaking": false,
-    "featured": true,
+    "featured": false,
     "excerpt": "President Yoweri Museveni has rejected the resignation of Uganda Human Rights Commission Chairperson Mariam Fauzat Wangadya and instructed her to remain in office. Wangadya revealed this while appearing before Parliament’s COSASE committee.",
     "image_alt": "UHRC Chairperson Mariam Wangadya appearing before Parliament  ",
     "content": [
@@ -4253,7 +4253,8 @@
       "human rights",
       "Parliament",
       "resignation"
-    ]
+    ],
+    "video_url": null
   },
   {
     "slug": "committee-pauses-review-of-auditor-generals-report-as-two-officials-claim-ceo-po",
