@@ -4141,7 +4141,7 @@
     "author": "Musanya Musa",
     "date": "2026-08-13",
     "breaking": false,
-    "featured": true,
+    "featured": false,
     "excerpt": "The Archbishop of the Church of Uganda, Dr Stephen Samuel Kaziimba Mugalu, has led the inaugural service for the 12th Parliament under the theme “Called to Serve.”  ",
     "image_alt": "Inaugural service of the 12th Parliament",
     "content": [
@@ -4155,7 +4155,8 @@
       "Norbert Mao",
       "inaugural service",
       "Church of Uganda"
-    ]
+    ],
+    "video_url": null
   },
   {
     "slug": "armed-security-operatives-raid-musicians-home-with-reports-of-gunfire-days-befor",
