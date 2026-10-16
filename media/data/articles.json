@@ -4574,7 +4574,7 @@
     "author": "King Musah Media News Desk",
     "date": "2026-08-05",
     "breaking": false,
-    "featured": true,
+    "featured": false,
     "excerpt": "The High Court has sentenced Hajara Nakandi and Abbas Musa Buwembo to death for their central roles in the 2018 kidnap and murder of Susan Magara. The remaining seven convicts received life imprisonment.  ",
     "image_alt": "The nine convicts in the Susan Magara case during sentencing at the High Court  ",
     "content": [
@@ -4589,7 +4589,8 @@
       "Justice Alex Ajiji",
       "kidnap",
       "murder"
-    ]
+    ],
+    "video_url": null
   },
   {
     "slug": "musasizi-and-lugoloobi-urge-enterprise-uganda-to-leverage-technology-for-wider-e",
