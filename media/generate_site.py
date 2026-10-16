@@ -27,6 +27,10 @@ BASE_URL = "https://kmvtechug.app/media"
 SITE_NAME = "King Musah Media"
 CONTACT_EMAIL = "kingmusahmedia@gmail.com"
 
+# Reader story submissions (Google Form). To change the form, change these two lines.
+SUBMIT_FORM_URL = "https://forms.gle/5XstWDPwWvv6i1bb9"
+SUBMIT_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdfGVQ84w2RtUGjikrDwmHOOWpK3F4BEEX2YHM0e5F_hrn-Eg/viewform?embedded=true"
+
 CATEGORIES = {
     "news": "News",
     "politics": "Politics",
@@ -109,6 +113,7 @@ def mobile_nav_html(depth=""):
         ("category/entertainment.html", "Entertainment"),
         ("category/sports.html", "Sports"),
         ("category/business.html", "Business"),
+        ("submit.html", "Send Us a Story"),
     ]
     return "".join(
         f'<a href="{depth}{href}" onclick="document.getElementById(\'mob\').classList.remove(\'open\')">{label}</a>'
@@ -184,6 +189,7 @@ def footer_block(depth=""):
   <div class="footer-bottom">
     <span>&copy; {datetime.now().year} King Musah Media. All rights reserved.</span>
     <div class="hub-links">
+      <a href="{depth}submit.html">Send us a story</a>
       <a href="{depth}privacy.html">Privacy Policy</a>
       <a href="{depth}terms.html">Terms of Service</a>
       <a href="mailto:{CONTACT_EMAIL}">Contact us</a>
@@ -357,6 +363,14 @@ def build_index(articles):
     <div class="perf-card"><h2>2020</h2><p>Year Founded</p></div>
     <div class="perf-card"><h2>4<span>+</span></h2><p>Platforms Active</p></div>
   </div>
+</section>
+
+<section class="submit-strip" aria-label="Submit a story">
+  <div>
+    <h3>Have a story to tell?</h3>
+    <p>Saw something that matters in your community? Send it to our newsroom. Our editors read every submission, and published pieces carry the credit you choose.</p>
+  </div>
+  <a class="submit-btn" href="submit.html">Send us a story</a>
 </section>
 
 <section class="sec" id="platforms">
@@ -561,6 +575,7 @@ def build_archive(articles):
 def build_sitemap(articles):
     urls = [f"{BASE_URL}/index.html", f"{BASE_URL}/stories/index.html"]
     urls += [f"{BASE_URL}/category/{k}.html" for k in CATEGORIES]
+    urls.append(f"{BASE_URL}/submit.html")
     urls += [f"{BASE_URL}/stories/{a['slug']}.html" for a in articles]
     body = "\n".join(f"  <url><loc>{u}</loc></url>" for u in urls)
     xml = f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}\n</urlset>\n'
@@ -750,6 +765,66 @@ def build_support():
     write(os.path.join(ROOT, "support.html"), html)
 
 
+def build_submit():
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Send Us a Story — {SITE_NAME}</title>
+  <meta name="description" content="Have a story from your community? Send it to the King Musah Media newsroom. Our editors review every submission."/>
+  <link rel="canonical" href="{BASE_URL}/submit.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
+</head>
+<body>
+{header_block(active="submit")}
+
+<main id="main">
+<section class="support-hero">
+  <span class="sec-tag">Reader Contributions</span>
+  <h1>Send Us a Story</h1>
+  <p>You are often the first to know what is happening in your community. If you have witnessed something that matters, tell us. Our editors read every submission, and the strongest stories are published with the credit you choose.</p>
+</section>
+
+<div class="submit-wrap">
+  <div class="submit-card">
+    <h2>Before you send</h2>
+    <ul>
+      <li>Tell us what happened, where, and when. Stick to facts we can check.</li>
+      <li>Give us a phone number or WhatsApp. An editor will contact you to verify the story before anything is published. Your contact details are only used by our editors and are never published.</li>
+      <li>Only send photos and videos you took yourself, or have permission to share.</li>
+      <li>We may edit stories for length, clarity and accuracy, and we may decline stories we cannot verify.</li>
+    </ul>
+  </div>
+
+  <div class="submit-card">
+    <h2>What happens next</h2>
+    <ol>
+      <li>An editor reads your story.</li>
+      <li>We contact you to confirm the details.</li>
+      <li>If it is published, it is marked as a reader contribution, credited the way you asked: your full name, your first name and district, or anonymous.</li>
+    </ol>
+  </div>
+
+  <div class="submit-cta">
+    <a class="submit-btn" href="{SUBMIT_FORM_URL}" target="_blank" rel="noopener">Open the submission form</a>
+  </div>
+
+  <details class="submit-frame-wrap">
+    <summary>Or fill it in right here on this page</summary>
+    <iframe class="submit-frame" src="{SUBMIT_FORM_EMBED_URL}" title="Story submission form" loading="lazy">Loading&hellip;</iframe>
+  </details>
+</div>
+</main>
+
+{footer_block()}
+</body>
+</html>'''
+    write(os.path.join(ROOT, "submit.html"), html)
+
+
 def main():
     articles = load_articles()
     build_index(articles)
@@ -759,6 +834,7 @@ def main():
     for a in articles:
         build_article(a, articles)
     build_support()
+    build_submit()
     build_privacy_policy()
     build_terms_of_service()
     build_sitemap(articles)
