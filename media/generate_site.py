@@ -579,7 +579,7 @@ def build_sitemap(articles):
     urls += [f"{BASE_URL}/stories/{a['slug']}.html" for a in articles]
     body = "\n".join(f"  <url><loc>{u}</loc></url>" for u in urls)
     xml = f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}\n</urlset>\n'
-    write(os.path.join(ROOT, "sitemap.xml"), xml)
+    write(os.path.join(ROOT, "sitemap.xml"), clean_absolute_urls(xml))
 
 
 def build_ads_txt():
@@ -595,7 +595,54 @@ def build_robots():
     write(os.path.join(ROOT, "robots.txt"), txt)
 
 
+# ---- Clean URLs: show /support instead of /support.html -------------------------
+# GitHub Pages serves every page both ways, so this only changes which address the
+# site LINKS to and announces (menus, canonical tags, sharing, sitemap). Old .html
+# addresses keep working, so nothing already shared or bookmarked breaks.
+_SKIP_PREFIXES = ("http://", "https://", "//", "mailto:", "tel:", "#", "javascript:", "data:")
+_OWN_HTML_URL = re.compile(re.escape(BASE_URL) + r"/([^\"'\s<>?#&]*?)\.html")
+
+
+def _clean_path(path):
+    """support.html -> support   |   stories/index.html -> stories/   |   index.html -> ./"""
+    if path.endswith("index.html"):
+        path = path[: -len("index.html")]
+        return path or "./"
+    if path.endswith(".html"):
+        return path[:-5]
+    return path
+
+
+def _clean_relative_href(match):
+    value = match.group(1)
+    if value.startswith(_SKIP_PREFIXES) or ".html" not in value:
+        return match.group(0)
+    path, hash_mark, fragment = value.partition("#")
+    return f'href="{_clean_path(path)}{hash_mark}{fragment}"'
+
+
+def _clean_own_url(match):
+    path = match.group(1)
+    if path == "index":
+        return BASE_URL + "/"
+    if path.endswith("/index"):
+        return BASE_URL + "/" + path[: -len("index")]
+    return BASE_URL + "/" + path
+
+
+def clean_absolute_urls(text):
+    """Our own full web addresses: canonical tags, og:url, structured data, share buttons, sitemap."""
+    return _OWN_HTML_URL.sub(_clean_own_url, text)
+
+
+def clean_page_links(html):
+    html = clean_absolute_urls(html)
+    return re.sub(r'href="([^"]*)"', _clean_relative_href, html)
+
+
 def write(path, content):
+    if path.endswith(".html"):
+        content = clean_page_links(content)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
