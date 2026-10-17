@@ -29,6 +29,11 @@ CONTACT_EMAIL = "kingmusahmedia@gmail.com"
 
 # Reader story submissions (Google Form). To change the form, change these two lines.
 SUBMIT_FORM_URL = "https://forms.gle/5XstWDPwWvv6i1bb9"
+
+# Reader comments live in Supabase. The "anon" key below is the PUBLIC key meant for websites:
+# it can only call the two safe comment functions (read approved / submit for review).
+SUPABASE_URL = "https://imvrrrpkjsixfdutcbbj.supabase.co"
+SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltdnJycnBranNpeGZkdXRjYmJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTczODgsImV4cCI6MjEwMDI5MzM4OH0.gVJAhZcjWanxkdwmWnLrTNErVB7WF4Qn7u3TQtgdDQc"
 SUBMIT_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdfGVQ84w2RtUGjikrDwmHOOWpK3F4BEEX2YHM0e5F_hrn-Eg/viewform?embedded=true"
 
 CATEGORIES = {
@@ -481,6 +486,7 @@ def build_article(a, articles):
     <a class="share-btn" target="_blank" rel="noopener" aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={share_url}">f</a>
   </div>
 
+{comments_section(a["slug"], "../")}
   <h2 class="related-heading">More in {CATEGORIES.get(a["category"], a["category"])}</h2>
   <div class="story-grid">
 {related_html}
@@ -676,6 +682,8 @@ def build_privacy_policy():
 
     <p><strong>Information we collect.</strong> We do not require you to create an account or provide personal information to read our content. If you choose to contact us by email, WhatsApp, or phone, we receive whatever information you share with us directly. If you send a donation via Mobile Money, we may see your name and phone number as provided by the mobile money network, but we do not store payment card details ourselves.</p>
 
+    <p><strong>Comments and story submissions.</strong> If you post a comment, we store the name you enter, your comment and the time. To slow down spam we also store a scrambled (hashed) fingerprint of your network address, not the address itself. Comments are reviewed before they appear and are shown publicly with the name you entered, so please do not include personal details you want to keep private. Stories sent through our submission form are handled through Google Forms and used only by our editors to review and verify your story. To have a comment or submission removed, contact us at the address below.</p>
+
     <p><strong>Analytics.</strong> We use Google Analytics to understand how visitors use this site &mdash; for example, which stories are most read and which countries our audience comes from. Google Analytics uses cookies and collects information such as your approximate location, device type, and browsing behaviour on this site. This data is aggregated and does not identify you personally. You can opt out of Google Analytics tracking using browser extensions such as Google's own Analytics Opt-out Browser Add-on.</p>
 
     <p><strong>Advertising.</strong> This site may display advertisements served by Google AdSense. Google and its partners may use cookies to serve ads based on your prior visits to this or other websites. You can learn more about how Google uses this information and manage your ad preferences at <a href="https://policies.google.com/technologies/ads" style="color:var(--red)">policies.google.com/technologies/ads</a>. You may opt out of personalised advertising by visiting <a href="https://adssettings.google.com" style="color:var(--red)">Google Ads Settings</a>.</p>
@@ -730,7 +738,7 @@ def build_terms_of_service():
 
     <p><strong>Intellectual property.</strong> Unless otherwise stated, content on this Site is the property of King Musah Media. You may share links to our articles and quote brief excerpts with attribution, but you may not republish, redistribute, or reproduce substantial portions of our content without our prior written permission.</p>
 
-    <p><strong>User conduct.</strong> If we introduce comments, forums, or submission features in the future, you agree not to post content that is defamatory, hateful, obscene, or unlawful, or that infringes on the rights of others.</p>
+    <p><strong>Reader comments and submissions.</strong> Comments are reviewed by our editors before they appear, and we may edit, decline or remove any comment or submission at our discretion, including anything defamatory, hateful, obscene, abusive, unlawful, containing web links, or that infringes the rights of others. You are responsible for what you post. By posting a comment or submitting a story you confirm it is your own work and give King Musah Media permission to publish it on this Site and our related channels. Comments express the views of their authors, not of King Musah Media.</p>
 
     <p><strong>External links.</strong> This Site may link to third-party websites for reference or source material. We do not control and are not responsible for the content or practices of those sites.</p>
 
@@ -810,6 +818,131 @@ def build_support():
 </body>
 </html>'''
     write(os.path.join(ROOT, "support.html"), html)
+
+
+COMMENTS_TEMPLATE = """
+  <section class="comments" id="comments" aria-labelledby="comments-heading">
+    <h2 class="comments-heading" id="comments-heading">Comments <span id="comment-count"></span></h2>
+    <p class="comments-note">Comments are reviewed before they appear. Please keep it respectful: no abuse, hate speech or web links. See our <a href="__DEPTH__terms">Terms of Service</a>.</p>
+    <div class="comment-list" id="comment-list" aria-live="polite"><p class="comment-empty">Loading comments&hellip;</p></div>
+
+    <form class="comment-form" id="comment-form" novalidate>
+      <h3>Join the conversation</h3>
+      <label for="c-name">Your name</label>
+      <input id="c-name" type="text" maxlength="50" autocomplete="name" required />
+      <label for="c-body">Your comment</label>
+      <textarea id="c-body" rows="4" maxlength="1000" required></textarea>
+      <div class="c-count"><span id="c-chars">0</span> / 1000</div>
+      <div class="hp-field" aria-hidden="true"><label>Leave this field empty<input id="c-website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+      <button type="submit" class="submit-btn" id="c-submit">Post comment</button>
+      <p class="c-status" id="c-status" role="status"></p>
+    </form>
+  </section>
+  <script>
+  (function () {
+    var SB = __SB__, KEY = __KEY__, SLUG = __SLUG__;
+    var list = document.getElementById('comment-list');
+    var countEl = document.getElementById('comment-count');
+    var form = document.getElementById('comment-form');
+    var nameEl = document.getElementById('c-name');
+    var bodyEl = document.getElementById('c-body');
+    var trapEl = document.getElementById('c-website');
+    var charsEl = document.getElementById('c-chars');
+    var btn = document.getElementById('c-submit');
+    var statusEl = document.getElementById('c-status');
+
+    function api(fn, payload) {
+      return fetch(SB + '/rest/v1/rpc/' + fn, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (!r.ok) { throw new Error('http ' + r.status); }
+        return r.json();
+      });
+    }
+
+    function say(text, kind) {
+      statusEl.textContent = text;
+      statusEl.className = 'c-status' + (kind ? ' ' + kind : '');
+    }
+
+    function message(text) {
+      list.textContent = '';
+      var p = document.createElement('p');
+      p.className = 'comment-empty';
+      p.textContent = text;
+      list.appendChild(p);
+    }
+
+    function formatDate(iso) {
+      try { return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
+      catch (e) { return ''; }
+    }
+
+    // Everything below uses textContent, never innerHTML, so a comment can never run code.
+    function render(items) {
+      if (!items || !items.length) { countEl.textContent = ''; message('No comments yet. Be the first to share your thoughts.'); return; }
+      countEl.textContent = '(' + items.length + ')';
+      list.textContent = '';
+      items.forEach(function (c) {
+        var box = document.createElement('article');
+        box.className = 'comment';
+        var head = document.createElement('div');
+        head.className = 'comment-head';
+        var who = document.createElement('strong');
+        who.textContent = c.author_name;
+        var when = document.createElement('time');
+        when.setAttribute('datetime', c.created_at);
+        when.textContent = formatDate(c.created_at);
+        head.appendChild(who);
+        head.appendChild(when);
+        var body = document.createElement('p');
+        body.className = 'comment-body';
+        body.textContent = c.body;
+        box.appendChild(head);
+        box.appendChild(body);
+        list.appendChild(box);
+      });
+    }
+
+    api('get_comments', { p_slug: SLUG }).then(render).catch(function () {
+      message('Comments could not be loaded right now.');
+    });
+
+    bodyEl.addEventListener('input', function () { charsEl.textContent = bodyEl.value.length; });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = nameEl.value.trim();
+      var text = bodyEl.value.trim();
+      if (name.length < 2) { say('Please enter your name.', 'error'); nameEl.focus(); return; }
+      if (text.length < 3) { say('Please write your comment.', 'error'); bodyEl.focus(); return; }
+      btn.disabled = true;
+      say('Sending\u2026', '');
+      api('submit_comment', { p_slug: SLUG, p_name: name, p_body: text, p_website: trapEl.value })
+        .then(function (res) {
+          if (res && res.ok) {
+            bodyEl.value = ''; charsEl.textContent = '0';
+            say(res.message, 'success');
+          } else {
+            say((res && res.message) || 'Something went wrong. Please try again.', 'error');
+          }
+        })
+        .catch(function () { say('Could not send your comment. Please check your connection and try again.', 'error'); })
+        .then(function () { btn.disabled = false; });
+    });
+  })();
+  </script>
+"""
+
+
+def comments_section(slug, depth=""):
+    return (COMMENTS_TEMPLATE
+            .replace("__DEPTH__", depth)
+            .replace("__SB__", json.dumps(SUPABASE_URL))
+            .replace("__KEY__", json.dumps(SUPABASE_ANON_KEY))
+            .replace("__SLUG__", json.dumps(slug)))
 
 
 def build_submit():
