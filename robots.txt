@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kmvtechug.app/media/sitemap.xml
