@@ -128,7 +128,7 @@ function gradeQuiz(){const cards=[...document.querySelectorAll('.qcard')];let sc
 cards.forEach(c=>{const t=c.dataset.type,corr=c.dataset.a;
 if(t==='mcq'||t==='tf'){const s=c.querySelector('input:checked'); if(s&&String(s.value)===String(corr))score++;}
 else{const v=(c.querySelector('input[type=text],input:not([type])')||{}).value||''; if(v.trim().toLowerCase()===String(corr).toLowerCase())score++;}});
-const pct=Math.round(100*score/total); const box=document.getElementById('result');
+const pct=Math.round(100*score/total);saveQuizScore('LAN1',1,score,total);checkAndIssueCertificate('LAN1',6); const box=document.getElementById('result');
 box.className='result show '+(pct>=70?'pass':'fail'); box.innerHTML='<strong>Score: '+score+' / '+total+' ('+pct+'%)</strong>';}
 chkAccess();
 </script>

@@ -9,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/education/js/progress-tracking.js"></script>
+<script src="/education/js/save-quiz-score.js"></script>
+<script src="/education/js/check-certificate.js"></script>
 <style>
 :root{--blue:#2B3FBF;--navy:#0D1B2A;--gold:#C9922A;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--law:#1B4F72;--law-light:rgba(27,79,114,.08);--law-border:rgba(27,79,114,.22)}
 [data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF}
@@ -127,7 +129,7 @@ function gradeQuiz(){const cards=[...document.querySelectorAll('.qcard')];let sc
 cards.forEach(c=>{const t=c.dataset.type,corr=c.dataset.a;
 if(t==='mcq'||t==='tf'){const s=c.querySelector('input:checked'); if(s&&String(s.value)===String(corr))score++;}
 else{const v=(c.querySelector('input[type=text],input:not([type])')||{}).value||''; if(v.trim().toLowerCase()===String(corr).toLowerCase())score++;}});
-const pct=Math.round(100*score/total); const box=document.getElementById('result');
+const pct=Math.round(100*score/total);saveQuizScore('CRIMPROC',2,score,total);checkAndIssueCertificate('CRIMPROC',6); const box=document.getElementById('result');
 box.className='result show '+(pct>=70?'pass':'fail');
 box.innerHTML='<strong>Score: '+score+' / '+total+' ('+pct+'%)</strong>';}
 

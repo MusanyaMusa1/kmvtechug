@@ -151,7 +151,7 @@ a{color:var(--law);text-decoration:none}
         const enrollUrl = '/education/enroll/?course=' + COURSE_CODE + '&name=' + encodeURIComponent(document.querySelector('.ltitle') ? document.querySelector('.ltitle').textContent : COURSE_CODE);
 
         if (!sb) {
-          // No supabase — show enroll only
+          // No supabase - show enroll only
           cta.innerHTML = '<a class="btn btn-primary" href="' + enrollUrl + '">Enroll Now</a>';
           return;
         }
@@ -159,13 +159,13 @@ a{color:var(--law);text-decoration:none}
         const { data: { session } } = await sb.auth.getSession();
 
         if (!session) {
-          // Not logged in — show both but Start Learning goes to login first
+          // Not logged in - show both but Start Learning goes to login first
           cta.innerHTML = '<a class="btn btn-primary" href="' + enrollUrl + '">Enroll Now</a>'
             + '<a class="btn btn-secondary" href="/education/login/?return=' + encodeURIComponent(window.location.href) + '">Log In to Start</a>';
           return;
         }
 
-        // Logged in — check enrollment
+        // Logged in - check enrollment
         const now = new Date().toISOString();
         const { data: enr } = await sb
           .from('enrollments')
@@ -177,10 +177,10 @@ a{color:var(--law);text-decoration:none}
         const isEnrolled = enr && (!enr.expires_at || enr.expires_at > now);
 
         if (isEnrolled) {
-          // Enrolled — show Start Learning only
+          // Enrolled - show Start Learning only
           cta.innerHTML = '<a class="btn btn-primary" href="' + firstUrl + '">Start Learning</a>';
         } else {
-          // Not enrolled — show Enroll Now only
+          // Not enrolled - show Enroll Now only
           cta.innerHTML = '<a class="btn btn-primary" href="' + enrollUrl + '">Enroll Now</a>';
         }
       } catch(e) {
