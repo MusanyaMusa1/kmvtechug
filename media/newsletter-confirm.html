@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm your subscription — King Musah Media</title>
+  <meta name="description" content="Confirm your King Musah Media newsletter subscription."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta name="referrer" content="no-referrer"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261020185600"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<nav>
+  <a class="nav-logo" href="./">
+    <img src="assets/logo-kmm.jpg" data-base="assets/logo-kmm" data-ext-idx="0" alt="King Musah Media" onerror="handleImgError(this)"/>
+    <span class="nav-logo-text">King Musah Media</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="./">Home</a></li><li><a href="stories/">All Stories</a></li><li><a href="category/news">News</a></li><li><a href="category/politics">Politics</a></li><li><a href="category/entertainment">Entertainment</a></li><li><a href="category/sports">Sports</a></li><li><a href="category/business">Business</a></li><li><a href="support" class="nav-cta">Support Us</a></li>
+  </ul>
+  <div class="theme-toggle">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark and light mode">&#9728;</button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mob">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="./" onclick="document.getElementById('mob').classList.remove('open')">Home</a><a href="stories/" onclick="document.getElementById('mob').classList.remove('open')">All Stories</a><a href="category/news" onclick="document.getElementById('mob').classList.remove('open')">News</a><a href="category/politics" onclick="document.getElementById('mob').classList.remove('open')">Politics</a><a href="category/entertainment" onclick="document.getElementById('mob').classList.remove('open')">Entertainment</a><a href="category/sports" onclick="document.getElementById('mob').classList.remove('open')">Sports</a><a href="category/business" onclick="document.getElementById('mob').classList.remove('open')">Business</a><a href="newsletter" onclick="document.getElementById('mob').classList.remove('open')">Newsletter</a><a href="submit" onclick="document.getElementById('mob').classList.remove('open')">Send Us a Story</a><a href="support" style="color:var(--red);font-weight:700" onclick="document.getElementById('mob').classList.remove('open')">Support Us</a>
+</div>
+
+<main id="main">
+
+<section class="support-hero">
+  <span class="sec-tag">Newsletter</span>
+  <h1 id="nc-title">Confirming your subscription&hellip;</h1>
+  <p id="nc-text">One moment, please.</p>
+</section>
+<div class="submit-wrap"><p class="nl-hint" id="nc-extra"></p><noscript><p class="nl-hint">Please turn on JavaScript to confirm your subscription.</p></noscript></div>
+<script>
+(function () {
+  var SB = "https://imvrrrpkjsixfdutcbbj.supabase.co", KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltdnJycnBranNpeGZkdXRjYmJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTczODgsImV4cCI6MjEwMDI5MzM4OH0.gVJAhZcjWanxkdwmWnLrTNErVB7WF4Qn7u3TQtgdDQc";
+  var titleEl = document.getElementById('nc-title');
+  var textEl = document.getElementById('nc-text');
+  var extraEl = document.getElementById('nc-extra');
+  function show(title, text, extra) { titleEl.textContent = title; textEl.textContent = text; extraEl.textContent = extra || ''; }
+  var token = new URLSearchParams(window.location.search).get('t') || '';
+  if (!/^[a-f0-9]{64}$/.test(token)) {
+    show("This link isn't valid", 'It may be incomplete. Please use the button in your confirmation email, or sign up again on our newsletter page.');
+    return;
+  }
+  fetch(SB + '/rest/v1/rpc/confirm_newsletter', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY },
+    body: JSON.stringify({ p_token: token })
+  })
+    .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); })
+    .then(function (res) {
+      if (res && res.ok) {
+        var first = String(res.name || '').split(' ')[0];
+        var editions = [];
+        if (res.weekly) { editions.push('the Weekly Edition'); }
+        if (res.monthly) { editions.push('the Monthly Edition'); }
+        show(res.already ? 'You are already subscribed' : 'You are subscribed' + (first ? ', ' + first : '') + '!',
+             'You will receive ' + editions.join(' and ') + '. It is free until 31 December 2026.',
+             'You can unsubscribe at any time using the link at the bottom of every email.');
+      } else if (res && res.code === 'cancelled') {
+        show('This subscription was cancelled', 'If you would like to subscribe again, please sign up on our newsletter page.');
+      } else {
+        show("This link isn't valid", 'It may have expired. Please sign up again on our newsletter page.');
+      }
+    })
+    .catch(function () { show('We could not confirm right now', 'Please check your connection and try the link again in a moment.'); });
+})();
+</script>
+
+</main>
+
+<div class="back-bar">
+  <a href="https://kmvtechug.app" class="back-link">&larr; Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="https://kmvtechug.app/tech/">KMVTECH</a>
+    <a href="https://kmvtechug.app/education/">KMVTECH Education</a>
+    <a href="https://kmvtechug.app/musa/">Musanya Musa</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; 2026 King Musah Media. All rights reserved.</span>
+    <div class="hub-links">
+      <a href="newsletter">Newsletter</a>
+      <a href="submit">Send us a story</a>
+      <a href="privacy">Privacy Policy</a>
+      <a href="terms">Terms of Service</a>
+      <a href="mailto:kingmusahmedia@gmail.com">Contact us</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js?v=20261020185600"></script>
+</body>
+</html>

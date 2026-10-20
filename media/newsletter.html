@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Newsletter — King Musah Media</title>
+  <meta name="description" content="Get the King Musah Media weekly or monthly newsletter by email. Free until 31 December 2026."/>
+  <link rel="canonical" href="https://kmvtechug.app/media/newsletter"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GEN75BG21K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GEN75BG21K');
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261020185600"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<nav>
+  <a class="nav-logo" href="./">
+    <img src="assets/logo-kmm.jpg" data-base="assets/logo-kmm" data-ext-idx="0" alt="King Musah Media" onerror="handleImgError(this)"/>
+    <span class="nav-logo-text">King Musah Media</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="./">Home</a></li><li><a href="stories/">All Stories</a></li><li><a href="category/news">News</a></li><li><a href="category/politics">Politics</a></li><li><a href="category/entertainment">Entertainment</a></li><li><a href="category/sports">Sports</a></li><li><a href="category/business">Business</a></li><li><a href="support" class="nav-cta">Support Us</a></li>
+  </ul>
+  <div class="theme-toggle">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark and light mode">&#9728;</button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mob">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="./" onclick="document.getElementById('mob').classList.remove('open')">Home</a><a href="stories/" onclick="document.getElementById('mob').classList.remove('open')">All Stories</a><a href="category/news" onclick="document.getElementById('mob').classList.remove('open')">News</a><a href="category/politics" onclick="document.getElementById('mob').classList.remove('open')">Politics</a><a href="category/entertainment" onclick="document.getElementById('mob').classList.remove('open')">Entertainment</a><a href="category/sports" onclick="document.getElementById('mob').classList.remove('open')">Sports</a><a href="category/business" onclick="document.getElementById('mob').classList.remove('open')">Business</a><a href="newsletter" onclick="document.getElementById('mob').classList.remove('open')">Newsletter</a><a href="submit" onclick="document.getElementById('mob').classList.remove('open')">Send Us a Story</a><a href="support" style="color:var(--red);font-weight:700" onclick="document.getElementById('mob').classList.remove('open')">Support Us</a>
+</div>
+
+<main id="main">
+
+<section class="support-hero">
+  <span class="sec-tag">Newsletter</span>
+  <h1>The King Musah Media Newsletter</h1>
+  <p>Uganda's news, explained and delivered to your inbox. Choose the weekly edition, the monthly edition, or both. It is free until 31 December 2026.</p>
+</section>
+
+<div class="submit-wrap">
+  <div class="nl-editions">
+    <div class="submit-card">
+      <h2>The Weekly Edition</h2>
+      <p class="nl-when">Every Saturday morning</p>
+      <ul>
+        <li>The front page and the week's biggest stories</li>
+        <li>Uganda, politics, business, world, sports and entertainment</li>
+        <li>Editor's analysis and explainers</li>
+        <li>A Luganda section and opportunities</li>
+      </ul>
+    </div>
+    <div class="submit-card">
+      <h2>The Monthly Edition</h2>
+      <p class="nl-when">The last day of every month</p>
+      <ul>
+        <li>The month in review, and what it all means</li>
+        <li>Longer analysis of the stories that mattered</li>
+        <li>A Luganda section and opportunities</li>
+        <li>Access to past editions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="submit-card nl-note">
+    <h2>Free until 31 December 2026</h2>
+    <p>Our first editions are on the way. Sign up now and you will be among the first to receive them. From January 2027 the full editions become a paid subscription, and everyone keeps receiving a free headlines email. We will announce prices before then.</p>
+  </div>
+
+  <form class="nl-form" id="nl-form" novalidate>
+    <h3>Subscribe</h3>
+
+    <label for="nl-name">Full name</label>
+    <input id="nl-name" type="text" maxlength="80" autocomplete="name" required />
+
+    <label for="nl-email">Email address</label>
+    <input id="nl-email" type="email" maxlength="254" autocomplete="email" required />
+
+    <label for="nl-phone">Phone number <span class="nl-opt">(optional)</span></label>
+    <input id="nl-phone" type="tel" maxlength="30" autocomplete="tel" placeholder="e.g. +256 7XX XXX XXX" />
+    <p class="nl-hint">Optional. It will help if you would like to pay by mobile money when subscriptions begin.</p>
+
+    <fieldset class="nl-editions-pick">
+      <legend>Which editions would you like?</legend>
+      <label class="nl-check"><input type="checkbox" id="nl-weekly" /> The Weekly Edition (Saturdays)</label>
+      <label class="nl-check"><input type="checkbox" id="nl-monthly" /> The Monthly Edition (last day of the month)</label>
+    </fieldset>
+
+    <label class="nl-check nl-consent"><input type="checkbox" id="nl-consent" /> <span>I agree to receive the King Musah Media newsletter by email, and I understand I can unsubscribe at any time. See our <a href="privacy">Privacy Policy</a>.</span></label>
+    <label class="nl-check"><input type="checkbox" id="nl-marketing" /> <span>I would also like to receive offers and announcements from King Musah Media. <span class="nl-opt">(optional)</span></span></label>
+
+    <div class="hp-field" aria-hidden="true"><label>Leave this field empty<input id="nl-website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+
+    <button type="submit" class="submit-btn" id="nl-submit">Subscribe free</button>
+    <p class="c-status" id="nl-status" role="status"></p>
+  </form>
+
+  <div class="submit-card nl-done" id="nl-done" hidden>
+    <h2>Check your inbox</h2>
+    <p id="nl-done-text"></p>
+  </div>
+  <noscript><p class="nl-hint">Please turn on JavaScript to subscribe.</p></noscript>
+</div>
+
+<script>
+(function () {
+  var FN = "https://imvrrrpkjsixfdutcbbj.supabase.co/functions/v1/newsletter-subscribe", KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltdnJycnBranNpeGZkdXRjYmJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTczODgsImV4cCI6MjEwMDI5MzM4OH0.gVJAhZcjWanxkdwmWnLrTNErVB7WF4Qn7u3TQtgdDQc";
+  var form = document.getElementById('nl-form');
+  var nameEl = document.getElementById('nl-name');
+  var emailEl = document.getElementById('nl-email');
+  var phoneEl = document.getElementById('nl-phone');
+  var weeklyEl = document.getElementById('nl-weekly');
+  var monthlyEl = document.getElementById('nl-monthly');
+  var consentEl = document.getElementById('nl-consent');
+  var marketingEl = document.getElementById('nl-marketing');
+  var trapEl = document.getElementById('nl-website');
+  var btn = document.getElementById('nl-submit');
+  var statusEl = document.getElementById('nl-status');
+  var doneBox = document.getElementById('nl-done');
+  var doneText = document.getElementById('nl-done-text');
+
+  function say(text, kind) { statusEl.textContent = text; statusEl.className = 'c-status' + (kind ? ' ' + kind : ''); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = nameEl.value.trim();
+    var email = emailEl.value.trim();
+    if (name.length < 2) { say('Please enter your full name.', 'error'); nameEl.focus(); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { say('Please enter a valid email address.', 'error'); emailEl.focus(); return; }
+    if (!weeklyEl.checked && !monthlyEl.checked) { say('Please choose the weekly edition, the monthly edition, or both.', 'error'); return; }
+    if (!consentEl.checked) { say('Please tick the box to agree to receive the newsletter.', 'error'); return; }
+
+    btn.disabled = true;
+    say('Sending\u2026', '');
+    fetch(FN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY },
+      body: JSON.stringify({
+        name: name, email: email, phone: phoneEl.value.trim(),
+        weekly: weeklyEl.checked, monthly: monthlyEl.checked, marketing: marketingEl.checked,
+        source: 'newsletter-page', website: trapEl.value
+      })
+    })
+      .then(function (r) { return r.json().catch(function () { return null; }); })
+      .then(function (body) {
+        if (body && body.ok) {
+          form.hidden = true;
+          doneText.textContent = body.message;
+          doneBox.hidden = false;
+          doneBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          say((body && body.message) || 'Something went wrong. Please try again.', 'error');
+        }
+      })
+      .catch(function () { say('Could not send your details. Please check your connection and try again.', 'error'); })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+
+</main>
+
+<div class="back-bar">
+  <a href="https://kmvtechug.app" class="back-link">&larr; Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="https://kmvtechug.app/tech/">KMVTECH</a>
+    <a href="https://kmvtechug.app/education/">KMVTECH Education</a>
+    <a href="https://kmvtechug.app/musa/">Musanya Musa</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; 2026 King Musah Media. All rights reserved.</span>
+    <div class="hub-links">
+      <a href="newsletter">Newsletter</a>
+      <a href="submit">Send us a story</a>
+      <a href="privacy">Privacy Policy</a>
+      <a href="terms">Terms of Service</a>
+      <a href="mailto:kingmusahmedia@gmail.com">Contact us</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js?v=20261020185600"></script>
+</body>
+</html>
