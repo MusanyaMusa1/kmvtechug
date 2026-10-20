@@ -292,3 +292,29 @@ footer{background:var(--bg);color:var(--text-faint);padding:40px 5vw 24px;border
 .c-status.success{color:#2e9e5b}
 .c-status.error{color:var(--red)}
 @media(max-width:768px){.comment-form{padding:1.1rem 1rem}}
+
+/* ---- Newsletter ---- */
+.nl-editions{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:0}
+.nl-editions .submit-card{margin-bottom:1.4rem}
+.nl-when{color:var(--red);font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin:-.3rem 0 .8rem}
+.nl-note p{color:var(--text-soft);line-height:1.7;font-size:.95rem}
+.nl-form{background:var(--bg-elev);border:1px solid var(--border);border-radius:12px;padding:1.6rem 1.7rem;margin-top:.4rem}
+.nl-form h3{font-family:'Merriweather',serif;font-weight:700;font-size:1.15rem;margin-bottom:.4rem}
+.nl-form label{display:block;font-size:.85rem;color:var(--text-soft);margin:1rem 0 .35rem}
+.nl-form input[type=text],.nl-form input[type=email],.nl-form input[type=tel]{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.75rem .9rem;font:inherit;font-size:.95rem}
+.nl-form input:focus{outline:2px solid var(--red);outline-offset:1px}
+.nl-opt{color:var(--text-faint);font-weight:400}
+.nl-hint{color:var(--text-faint);font-size:.8rem;line-height:1.55;margin-top:.4rem}
+.nl-editions-pick{border:0;padding:0;margin:1.2rem 0 .2rem}
+.nl-editions-pick legend{font-size:.85rem;color:var(--text-soft);margin-bottom:.4rem;padding:0}
+.nl-form .nl-check{display:flex;align-items:flex-start;gap:.6rem;font-size:.9rem;color:var(--text);margin:.55rem 0;cursor:pointer;line-height:1.5}
+.nl-form .nl-check input{margin-top:.25rem;width:1.05rem;height:1.05rem;flex:0 0 auto;accent-color:var(--red)}
+.nl-form .nl-consent{margin-top:1.3rem;padding-top:1.1rem;border-top:1px solid var(--border)}
+.nl-form .nl-consent a,.nl-hint a{color:var(--red)}
+.nl-form .submit-btn{margin-top:1.2rem;border:0;cursor:pointer;font:inherit;font-weight:600}
+.nl-form .submit-btn:disabled{opacity:.55;cursor:wait}
+.nl-done{text-align:center;padding:2rem 1.6rem}
+.nl-done p{color:var(--text-soft);line-height:1.7}
+.nl-inline{background:var(--bg-elev);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:8px;padding:.85rem 1.1rem;font-size:.92rem;color:var(--text-soft);margin:2rem 0 0}
+.nl-inline a{color:var(--red);font-weight:600}
+@media(max-width:768px){.nl-editions{grid-template-columns:1fr;gap:0}.nl-form{padding:1.2rem 1.05rem}}
