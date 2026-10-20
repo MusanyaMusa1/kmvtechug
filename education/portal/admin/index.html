@@ -150,7 +150,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);m
     <div class="sb-section">Students</div>
     <button class="sb-link" onclick="showPanel('students')"><span class="sb-icon">&#128101;</span>All Students</button>
     <button class="sb-link" onclick="showPanel('requests')"><span class="sb-icon">&#128276;</span>Enroll Requests<span class="sb-badge" id="requests-count">0</span></button>
-    <button class="sb-link" onclick="showPanel('enrollments')"><span class="sb-icon">&#128203;</span>Enrollments</button>
+    <button class="sb-link" onclick="showPanel('requests')"><span class="sb-icon">&#128203;</span>Enrollments</button>
 
     <div class="sb-section">Staff</div>
     <button class="sb-link" onclick="showPanel('lecturers')"><span class="sb-icon">&#127979;</span>Lecturers</button>
@@ -202,8 +202,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);m
       <button class="btn-primary" onclick="showPanel('new-course')">&#43; New Course</button>
     </div>
     <div class="table-wrap">
-      <div class="t-head" style="grid-template-columns:1fr 80px 90px 90px;">
-        <div class="th">Course</div><div class="th">Faculty</div><div class="th">Status</div><div class="th">Action</div>
+      <div class="t-head" style="grid-template-columns:1fr 110px 80px 80px 100px;">
+        <div class="th">Course</div><div class="th">Faculty</div><div class="th">Status</div><div class="th">Pages</div><div class="th">Actions</div>
       </div>
       <div id="all-courses-list"><div class="loading-row">Loading...</div></div>
     </div>
@@ -497,22 +497,28 @@ async function loadDashboard() {
 // COURSES
 // ============================================================
 async function loadAllCourses() {
-  const { data, error: cErr } = await SB.from('courses').select('*').order('created_at', { ascending: false });
+  const { data, error: cErr } = await SB.from('courses').select('*').order('course_code', { ascending: true });
   if (cErr) { console.log('Courses error:', cErr); }
   if (!data) return;
   document.getElementById('all-courses-list').innerHTML = data.length === 0
     ? '<div class="empty-state"><div class="ei">📚</div><p>No courses yet. Create the first one.</p></div>'
-    : data.map(c => `
-      <div class="t-row" style="grid-template-columns:1fr 80px 90px 90px;">
-        <div class="td">${c.title}</div>
-        <div class="td muted" style="font-size:11.5px;">${c.faculty || '-'}</div>
-        <div class="td"><span class="badge ${c.status || 'draft'}">${c.status || 'draft'}</span></div>
-        <div class="td">
-          ${c.status === 'pending_review'
-            ? `<button class="btn-primary" onclick="publishCourse('${c.id}')" style="padding:7px 12px;font-size:12px;">Publish</button>`
-            : `<button class="btn-secondary" onclick="alert('Course editor coming soon')" style="padding:7px 12px;font-size:12px;">Edit</button>`}
-        </div>
-      </div>`).join('');
+    : data.map(c => {
+    const statusColor = c.status === 'open' ? '#166534' : c.status === 'production' ? '#374151' : '#1E40AF';
+    const statusBg = c.status === 'open' ? '#DCFCE7' : c.status === 'production' ? '#F3F4F6' : '#DBEAFE';
+    const statusLabel = c.status === 'open' ? 'Open Now' : c.status === 'production' ? 'In Production' : (c.status || 'Ready');
+    return `<div class="t-row" style="grid-template-columns:1fr 110px 80px 80px 100px;">
+      <div class="td">
+        <div style="font-weight:700;font-size:13px;">${c.title || c.course_code || '-'}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:1px;">${c.course_code || ''} ${c.total_pages ? '· ' + c.total_pages + ' pages' : ''}</div>
+      </div>
+      <div class="td" style="font-size:12px;">${c.faculty || '-'}</div>
+      <div class="td"><span style="background:${statusBg};color:${statusColor};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">${statusLabel}</span></div>
+      <div class="td muted" style="font-size:12px;">${c.total_pages || 0}</div>
+      <div class="td" style="display:flex;gap:5px;">
+        <a href="/education/courses/${(c.course_code||'').toLowerCase()}/" target="_blank" style="background:var(--light);color:var(--blue);border:none;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:600;text-decoration:none;">View</a>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 async function createCourse() {
