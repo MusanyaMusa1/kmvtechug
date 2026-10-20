@@ -33,6 +33,13 @@ SUBMIT_FORM_URL = "https://forms.gle/5XstWDPwWvv6i1bb9"
 # Reader comments live in Supabase. The "anon" key below is the PUBLIC key meant for websites:
 # it can only call the two safe comment functions (read approved / submit for review).
 SUPABASE_URL = "https://imvrrrpkjsixfdutcbbj.supabase.co"
+
+# Newsletter. The two consent sentences are saved with every sign-up as proof of what the person
+# agreed to, so they must match the "newsletter-subscribe" Edge Function word for word.
+NEWSLETTER_FN_URL = SUPABASE_URL + "/functions/v1/newsletter-subscribe"
+NEWSLETTER_CONSENT_TEXT = "I agree to receive the King Musah Media newsletter by email, and I understand I can unsubscribe at any time."
+NEWSLETTER_MARKETING_TEXT = "I would also like to receive offers and announcements from King Musah Media."
+NEWSLETTER_FREE_UNTIL = "31 December 2026"
 SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltdnJycnBranNpeGZkdXRjYmJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTczODgsImV4cCI6MjEwMDI5MzM4OH0.gVJAhZcjWanxkdwmWnLrTNErVB7WF4Qn7u3TQtgdDQc"
 SUBMIT_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdfGVQ84w2RtUGjikrDwmHOOWpK3F4BEEX2YHM0e5F_hrn-Eg/viewform?embedded=true"
 
@@ -118,6 +125,7 @@ def mobile_nav_html(depth=""):
         ("category/entertainment.html", "Entertainment"),
         ("category/sports.html", "Sports"),
         ("category/business.html", "Business"),
+        ("newsletter.html", "Newsletter"),
         ("submit.html", "Send Us a Story"),
     ]
     return "".join(
@@ -194,6 +202,7 @@ def footer_block(depth=""):
   <div class="footer-bottom">
     <span>&copy; {datetime.now().year} King Musah Media. All rights reserved.</span>
     <div class="hub-links">
+      <a href="{depth}newsletter.html">Newsletter</a>
       <a href="{depth}submit.html">Send us a story</a>
       <a href="{depth}privacy.html">Privacy Policy</a>
       <a href="{depth}terms.html">Terms of Service</a>
@@ -370,6 +379,14 @@ def build_index(articles):
   </div>
 </section>
 
+<section class="submit-strip" aria-label="Newsletter">
+  <div>
+    <h3>Get the news in your inbox</h3>
+    <p>Choose our weekly or monthly edition, or both. It is free until 31 December 2026.</p>
+  </div>
+  <a class="submit-btn" href="newsletter.html">Subscribe free</a>
+</section>
+
 <section class="submit-strip" aria-label="Submit a story">
   <div>
     <h3>Have a story to tell?</h3>
@@ -486,6 +503,8 @@ def build_article(a, articles):
     <a class="share-btn" target="_blank" rel="noopener" aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={share_url}">f</a>
   </div>
 
+  <p class="nl-inline"><strong>Enjoyed this story?</strong> Get our weekly edition free by email. <a href="../newsletter.html">Subscribe</a></p>
+
 {comments_section(a["slug"], "../")}
   <h2 class="related-heading">More in {CATEGORIES.get(a["category"], a["category"])}</h2>
   <div class="story-grid">
@@ -582,6 +601,7 @@ def build_sitemap(articles):
     urls = [f"{BASE_URL}/index.html", f"{BASE_URL}/stories/index.html"]
     urls += [f"{BASE_URL}/category/{k}.html" for k in CATEGORIES]
     urls.append(f"{BASE_URL}/submit.html")
+    urls.append(f"{BASE_URL}/newsletter.html")
     urls += [f"{BASE_URL}/stories/{a['slug']}.html" for a in articles]
     body = "\n".join(f"  <url><loc>{u}</loc></url>" for u in urls)
     xml = f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}\n</urlset>\n'
@@ -683,6 +703,8 @@ def build_privacy_policy():
     <p><strong>Information we collect.</strong> We do not require you to create an account or provide personal information to read our content. If you choose to contact us by email, WhatsApp, or phone, we receive whatever information you share with us directly. If you send a donation via Mobile Money, we may see your name and phone number as provided by the mobile money network, but we do not store payment card details ourselves.</p>
 
     <p><strong>Comments and story submissions.</strong> If you post a comment, we store the name you enter, your comment and the time. To slow down spam we also store a scrambled (hashed) fingerprint of your network address, not the address itself. Comments are reviewed before they appear and are shown publicly with the name you entered, so please do not include personal details you want to keep private. Stories sent through our submission form are handled through Google Forms and used only by our editors to review and verify your story. To have a comment or submission removed, contact us at the address below.</p>
+
+    <p><strong>Newsletter.</strong> If you subscribe to our newsletter we store the name and email address you give us, your phone number if you choose to give one, which editions you chose, whether you also agreed to receive offers and announcements from us, and the wording you agreed to and the time you agreed. We use this only to send you the editions you asked for and to manage your subscription, including payment when paid subscriptions begin. We send a confirmation email first and never add anyone who does not confirm. Every email has an unsubscribe link, and you can ask us to erase your details at any time by writing to the address below. To slow down abuse we also keep a scrambled (hashed) fingerprint of the network address used to sign up, for a short time only. Your details are stored with our database provider (Supabase) and emails are delivered by our email provider (Resend); both may process data outside Uganda. We do not sell your details or share them with advertisers.</p>
 
     <p><strong>Analytics.</strong> We use Google Analytics to understand how visitors use this site &mdash; for example, which stories are most read and which countries our audience comes from. Google Analytics uses cookies and collects information such as your approximate location, device type, and browsing behaviour on this site. This data is aggregated and does not identify you personally. You can opt out of Google Analytics tracking using browser extensions such as Google's own Analytics Opt-out Browser Add-on.</p>
 
@@ -945,6 +967,289 @@ def comments_section(slug, depth=""):
             .replace("__SLUG__", json.dumps(slug)))
 
 
+NEWSLETTER_PAGE_BODY = r"""
+<section class="support-hero">
+  <span class="sec-tag">Newsletter</span>
+  <h1>The King Musah Media Newsletter</h1>
+  <p>Uganda's news, explained and delivered to your inbox. Choose the weekly edition, the monthly edition, or both. It is free until __FREE_UNTIL__.</p>
+</section>
+
+<div class="submit-wrap">
+  <div class="nl-editions">
+    <div class="submit-card">
+      <h2>The Weekly Edition</h2>
+      <p class="nl-when">Every Saturday morning</p>
+      <ul>
+        <li>The front page and the week's biggest stories</li>
+        <li>Uganda, politics, business, world, sports and entertainment</li>
+        <li>Editor's analysis and explainers</li>
+        <li>A Luganda section and opportunities</li>
+      </ul>
+    </div>
+    <div class="submit-card">
+      <h2>The Monthly Edition</h2>
+      <p class="nl-when">The last day of every month</p>
+      <ul>
+        <li>The month in review, and what it all means</li>
+        <li>Longer analysis of the stories that mattered</li>
+        <li>A Luganda section and opportunities</li>
+        <li>Access to past editions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="submit-card nl-note">
+    <h2>Free until __FREE_UNTIL__</h2>
+    <p>Our first editions are on the way. Sign up now and you will be among the first to receive them. From January 2027 the full editions become a paid subscription, and everyone keeps receiving a free headlines email. We will announce prices before then.</p>
+  </div>
+
+  <form class="nl-form" id="nl-form" novalidate>
+    <h3>Subscribe</h3>
+
+    <label for="nl-name">Full name</label>
+    <input id="nl-name" type="text" maxlength="80" autocomplete="name" required />
+
+    <label for="nl-email">Email address</label>
+    <input id="nl-email" type="email" maxlength="254" autocomplete="email" required />
+
+    <label for="nl-phone">Phone number <span class="nl-opt">(optional)</span></label>
+    <input id="nl-phone" type="tel" maxlength="30" autocomplete="tel" placeholder="e.g. +256 7XX XXX XXX" />
+    <p class="nl-hint">Optional. It will help if you would like to pay by mobile money when subscriptions begin.</p>
+
+    <fieldset class="nl-editions-pick">
+      <legend>Which editions would you like?</legend>
+      <label class="nl-check"><input type="checkbox" id="nl-weekly" /> The Weekly Edition (Saturdays)</label>
+      <label class="nl-check"><input type="checkbox" id="nl-monthly" /> The Monthly Edition (last day of the month)</label>
+    </fieldset>
+
+    <label class="nl-check nl-consent"><input type="checkbox" id="nl-consent" /> <span>__CONSENT__ See our <a href="privacy">Privacy Policy</a>.</span></label>
+    <label class="nl-check"><input type="checkbox" id="nl-marketing" /> <span>__MARKETING__ <span class="nl-opt">(optional)</span></span></label>
+
+    <div class="hp-field" aria-hidden="true"><label>Leave this field empty<input id="nl-website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+
+    <button type="submit" class="submit-btn" id="nl-submit">Subscribe free</button>
+    <p class="c-status" id="nl-status" role="status"></p>
+  </form>
+
+  <div class="submit-card nl-done" id="nl-done" hidden>
+    <h2>Check your inbox</h2>
+    <p id="nl-done-text"></p>
+  </div>
+  <noscript><p class="nl-hint">Please turn on JavaScript to subscribe.</p></noscript>
+</div>
+
+<script>
+(function () {
+  var FN = __FN__, KEY = __KEY__;
+  var form = document.getElementById('nl-form');
+  var nameEl = document.getElementById('nl-name');
+  var emailEl = document.getElementById('nl-email');
+  var phoneEl = document.getElementById('nl-phone');
+  var weeklyEl = document.getElementById('nl-weekly');
+  var monthlyEl = document.getElementById('nl-monthly');
+  var consentEl = document.getElementById('nl-consent');
+  var marketingEl = document.getElementById('nl-marketing');
+  var trapEl = document.getElementById('nl-website');
+  var btn = document.getElementById('nl-submit');
+  var statusEl = document.getElementById('nl-status');
+  var doneBox = document.getElementById('nl-done');
+  var doneText = document.getElementById('nl-done-text');
+
+  function say(text, kind) { statusEl.textContent = text; statusEl.className = 'c-status' + (kind ? ' ' + kind : ''); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = nameEl.value.trim();
+    var email = emailEl.value.trim();
+    if (name.length < 2) { say('Please enter your full name.', 'error'); nameEl.focus(); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { say('Please enter a valid email address.', 'error'); emailEl.focus(); return; }
+    if (!weeklyEl.checked && !monthlyEl.checked) { say('Please choose the weekly edition, the monthly edition, or both.', 'error'); return; }
+    if (!consentEl.checked) { say('Please tick the box to agree to receive the newsletter.', 'error'); return; }
+
+    btn.disabled = true;
+    say('Sending\u2026', '');
+    fetch(FN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY },
+      body: JSON.stringify({
+        name: name, email: email, phone: phoneEl.value.trim(),
+        weekly: weeklyEl.checked, monthly: monthlyEl.checked, marketing: marketingEl.checked,
+        source: 'newsletter-page', website: trapEl.value
+      })
+    })
+      .then(function (r) { return r.json().catch(function () { return null; }); })
+      .then(function (body) {
+        if (body && body.ok) {
+          form.hidden = true;
+          doneText.textContent = body.message;
+          doneBox.hidden = false;
+          doneBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          say((body && body.message) || 'Something went wrong. Please try again.', 'error');
+        }
+      })
+      .catch(function () { say('Could not send your details. Please check your connection and try again.', 'error'); })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+"""
+
+NEWSLETTER_CONFIRM_BODY = r"""
+<section class="support-hero">
+  <span class="sec-tag">Newsletter</span>
+  <h1 id="nc-title">Confirming your subscription&hellip;</h1>
+  <p id="nc-text">One moment, please.</p>
+</section>
+<div class="submit-wrap"><p class="nl-hint" id="nc-extra"></p><noscript><p class="nl-hint">Please turn on JavaScript to confirm your subscription.</p></noscript></div>
+<script>
+(function () {
+  var SB = __SB__, KEY = __KEY__;
+  var titleEl = document.getElementById('nc-title');
+  var textEl = document.getElementById('nc-text');
+  var extraEl = document.getElementById('nc-extra');
+  function show(title, text, extra) { titleEl.textContent = title; textEl.textContent = text; extraEl.textContent = extra || ''; }
+  var token = new URLSearchParams(window.location.search).get('t') || '';
+  if (!/^[a-f0-9]{64}$/.test(token)) {
+    show("This link isn't valid", 'It may be incomplete. Please use the button in your confirmation email, or sign up again on our newsletter page.');
+    return;
+  }
+  fetch(SB + '/rest/v1/rpc/confirm_newsletter', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY },
+    body: JSON.stringify({ p_token: token })
+  })
+    .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); })
+    .then(function (res) {
+      if (res && res.ok) {
+        var first = String(res.name || '').split(' ')[0];
+        var editions = [];
+        if (res.weekly) { editions.push('the Weekly Edition'); }
+        if (res.monthly) { editions.push('the Monthly Edition'); }
+        show(res.already ? 'You are already subscribed' : 'You are subscribed' + (first ? ', ' + first : '') + '!',
+             'You will receive ' + editions.join(' and ') + '. It is free until __FREE_UNTIL__.',
+             'You can unsubscribe at any time using the link at the bottom of every email.');
+      } else if (res && res.code === 'cancelled') {
+        show('This subscription was cancelled', 'If you would like to subscribe again, please sign up on our newsletter page.');
+      } else {
+        show("This link isn't valid", 'It may have expired. Please sign up again on our newsletter page.');
+      }
+    })
+    .catch(function () { show('We could not confirm right now', 'Please check your connection and try the link again in a moment.'); });
+})();
+</script>
+"""
+
+NEWSLETTER_UNSUBSCRIBE_BODY = r"""
+<section class="support-hero">
+  <span class="sec-tag">Newsletter</span>
+  <h1 id="nu-title">Unsubscribe</h1>
+  <p id="nu-text">We are sorry to see you go. Click the button below to stop receiving the King Musah Media newsletter.</p>
+</section>
+<div class="submit-wrap">
+  <div class="submit-cta"><button class="submit-btn" id="nu-btn" type="button" style="border:0;cursor:pointer;font:inherit;font-weight:600">Unsubscribe me</button></div>
+  <p class="nl-hint" id="nu-extra"></p>
+  <noscript><p class="nl-hint">Please turn on JavaScript to unsubscribe, or write to us and we will remove you.</p></noscript>
+</div>
+<script>
+(function () {
+  var SB = __SB__, KEY = __KEY__;
+  var titleEl = document.getElementById('nu-title');
+  var textEl = document.getElementById('nu-text');
+  var extraEl = document.getElementById('nu-extra');
+  var btn = document.getElementById('nu-btn');
+  var token = new URLSearchParams(window.location.search).get('t') || '';
+  if (!/^[a-f0-9]{64}$/.test(token)) {
+    titleEl.textContent = "This link isn't valid";
+    textEl.textContent = 'It may be incomplete. Please use the unsubscribe link in one of our emails, or write to us and we will remove you.';
+    btn.hidden = true;
+    return;
+  }
+  btn.addEventListener('click', function () {
+    btn.disabled = true;
+    fetch(SB + '/rest/v1/rpc/unsubscribe_newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY },
+      body: JSON.stringify({ p_token: token })
+    })
+      .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); })
+      .then(function (res) {
+        if (res && res.ok) {
+          titleEl.textContent = 'You have been unsubscribed';
+          textEl.textContent = 'You will not receive any more newsletters from us. Changed your mind? You can sign up again at any time on our newsletter page.';
+          btn.hidden = true;
+        } else {
+          titleEl.textContent = "This link isn't valid";
+          textEl.textContent = 'It may have expired. Please use the link in a recent email, or write to us and we will remove you.';
+          btn.hidden = true;
+        }
+      })
+      .catch(function () { extraEl.textContent = 'Something went wrong. Please check your connection and click the button again.'; btn.disabled = false; });
+  });
+})();
+</script>
+"""
+
+
+def _newsletter_fill(body):
+    return (body
+            .replace("__FREE_UNTIL__", NEWSLETTER_FREE_UNTIL)
+            .replace("__CONSENT__", NEWSLETTER_CONSENT_TEXT)
+            .replace("__MARKETING__", NEWSLETTER_MARKETING_TEXT)
+            .replace("__FN__", json.dumps(NEWSLETTER_FN_URL))
+            .replace("__SB__", json.dumps(SUPABASE_URL))
+            .replace("__KEY__", json.dumps(SUPABASE_ANON_KEY)))
+
+
+def _newsletter_shell(title, description, canonical_path, body, private=False):
+    # The confirm/unsubscribe pages carry a secret code in their address. They must NOT load Google
+    # Analytics (it would record that address), must not be indexed, and must not leak it in a Referer header.
+    if private:
+        head_extra = '<meta name="robots" content="noindex, nofollow"/>\n  <meta name="referrer" content="no-referrer"/>'
+    else:
+        head_extra = f'<link rel="canonical" href="{BASE_URL}/{canonical_path}"/>\n  {ga_snippet()}'
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{title} — {SITE_NAME}</title>
+  <meta name="description" content="{description}"/>
+  {head_extra}
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css?v={ASSET_VERSION}"/>
+</head>
+<body>
+{header_block(active="newsletter")}
+
+<main id="main">
+{_newsletter_fill(body)}
+</main>
+
+{footer_block()}
+</body>
+</html>'''
+
+
+def build_newsletter():
+    write(os.path.join(ROOT, "newsletter.html"), _newsletter_shell(
+        "Newsletter",
+        "Get the King Musah Media weekly or monthly newsletter by email. Free until " + NEWSLETTER_FREE_UNTIL + ".",
+        "newsletter", NEWSLETTER_PAGE_BODY))
+
+
+def build_newsletter_confirm():
+    write(os.path.join(ROOT, "newsletter-confirm.html"), _newsletter_shell(
+        "Confirm your subscription", "Confirm your King Musah Media newsletter subscription.",
+        "newsletter-confirm", NEWSLETTER_CONFIRM_BODY, private=True))
+
+
+def build_newsletter_unsubscribe():
+    write(os.path.join(ROOT, "newsletter-unsubscribe.html"), _newsletter_shell(
+        "Unsubscribe", "Unsubscribe from the King Musah Media newsletter.",
+        "newsletter-unsubscribe", NEWSLETTER_UNSUBSCRIBE_BODY, private=True))
+
+
 def build_submit():
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -1015,6 +1320,9 @@ def main():
         build_article(a, articles)
     build_support()
     build_submit()
+    build_newsletter()
+    build_newsletter_confirm()
+    build_newsletter_unsubscribe()
     build_privacy_policy()
     build_terms_of_service()
     build_sitemap(articles)
