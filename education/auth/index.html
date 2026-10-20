@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Redirecting — KMVTECH Education</title>
+<style>
+body{font-family:'DM Sans',sans-serif;background:#FAF9F6;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{text-align:center;padding:2rem;max-width:400px}
+.spinner{width:36px;height:36px;border:3px solid #E5E7EB;border-top-color:#2B3FBF;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+p{color:#6B7280;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="spinner"></div>
+  <p>Redirecting you to the right page...</p>
+</div>
+<script>
+// education/auth/ is not a valid path on this platform
+// This redirect page catches any links pointing to /education/auth/
+// and sends the user to the correct destination
+
+const params = new URLSearchParams(window.location.search);
+const type = params.get('type');
+const next = params.get('next') || '/education/';
+const returnUrl = params.get('return') || '/education/';
+
+// Handle Supabase auth callback types
+if (type === 'recovery' || type === 'password_recovery') {
+  window.location.replace('/education/auth-error/?type=recovery');
+} else if (type === 'signup' || type === 'magiclink') {
+  window.location.replace('/education/auth-error/?type=' + type);
+} else if (window.location.hash && window.location.hash.includes('access_token')) {
+  // OAuth or magic link callback — send to auth error handler which processes it
+  window.location.replace('/education/auth-error/' + window.location.search + window.location.hash);
+} else {
+  // Generic — send to login
+  window.location.replace('/education/login/');
+}
+</script>
+</body>
+</html>
