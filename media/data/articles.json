@@ -801,8 +801,8 @@
     "language": "en",
     "author": "MUSANYA MUSA",
     "date": "2026-10-18",
-    "breaking": true,
-    "featured": true,
+    "breaking": false,
+    "featured": false,
     "excerpt": "Public frustration is mounting against Uganda Electricity Distribution Company Limited (UEDCL) over frequent and prolonged power outages, high bills, and slow customer response. Many Ugandans who celebrated the end of Umeme’s concession now say the hoped-for improvement has not materialised, with some pointing to the continued presence of former Umeme managers.",
     "image_alt": "Ugandans expressing frustration over prolonged power outages under UEDCL",
     "content": [
