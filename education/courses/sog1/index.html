@@ -159,63 +159,31 @@ a{color:var(--law);text-decoration:none}
       <p style="margin-top:8px;font-size:14px;color:var(--text-2)">One course: UGX 5,000/month · All courses: UGX 20,000/month · 5 months unlimited: UGX 50,000</p>
     </div>
 
-        <div class="btn-row" id="course-cta">
+        <div class="btn-row" id="course-cta"><!-- cta-v2 -->
       <span style="color:var(--text-3);font-size:13px;">Checking your access...</span>
     </div>
     <script>
-    (async function() {
-      try {
-        const SURL = 'https://nzjojrebyvxuawnkitth.supabase.co';
-        const SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56am9qcmVieXZ4dWF3bmtpdHRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE4MzI5NzcsImV4cCI6MjAzNzQwODk3N30.vK5lSBMigFMoKn-9Nf4onyFiVOehmhFIHzPrr7lL7Tg';
-        const sb = (window.supabase && window.supabase.createClient)
-          ? window.supabase.createClient(SURL, SKEY) : null;
-        const cta = document.getElementById('course-cta');
-        if (!cta) return;
-
-        const COURSE_CODE = document.documentElement.getAttribute('data-course') || '';
-        const firstLink = document.querySelector('.side a[data-mod="1"]');
-        const firstUrl = firstLink ? firstLink.getAttribute('href') : '/education/';
-        const title = document.querySelector('.ltitle');
-        const titleText = title ? title.textContent.trim() : COURSE_CODE;
-        const enrollUrl = '/education/enroll/?course=' + COURSE_CODE
-          + '&name=' + encodeURIComponent(titleText);
-
-        if (!sb) {
-          cta.innerHTML = '<a class="btn btn-primary" href="' + enrollUrl + '">Enroll Now</a>';
-          return;
-        }
-
-        const { data: { session } } = await sb.auth.getSession();
-
-        if (!session) {
-          cta.innerHTML =
-            '<a class="btn btn-primary" href="' + enrollUrl + '">Enroll Now</a>'
-            + '<a class="btn btn-secondary" href="/education/login/?return='
-            + encodeURIComponent(window.location.href) + '">Log In</a>';
-          return;
-        }
-
-        const now = new Date().toISOString();
-        const { data: enr } = await sb
-          .from('enrollments')
-          .select('id, expires_at')
-          .eq('student_id', session.user.id)
-          .eq('course_code', COURSE_CODE)
-          .single();
-
-        const active = enr && (!enr.expires_at || enr.expires_at > now);
-
-        if (active) {
-          cta.innerHTML = '<a class="btn btn-primary" href="' + firstUrl + '">Start Learning</a>';
-        } else {
-          cta.innerHTML = '<a class="btn btn-primary" href="' + enrollUrl + '">Enroll Now</a>';
-        }
-      } catch(e) {
-        const cta = document.getElementById('course-cta');
-        const code = document.documentElement.getAttribute('data-course') || '';
-        if (cta) cta.innerHTML =
-          '<a class="btn btn-primary" href="/education/enroll/?course=' + code + '">Enroll Now</a>';
-      }
+    (async function(){
+      var cta=document.getElementById('course-cta'); if(!cta) return;
+      var code=(document.documentElement.getAttribute('data-course')||'').toUpperCase();
+      var first=document.querySelector('.side a[data-mod="1"]');
+      var firstUrl=first?first.getAttribute('href'):'/education/';
+      var t=document.querySelector('.ltitle');
+      var title=t?t.textContent.trim():code;
+      var enrollUrl='/education/enroll/?course='+code+'&name='+encodeURIComponent(title);
+      function showEnroll(extra){cta.innerHTML='<a class="btn btn-primary" href="'+enrollUrl+'">Enroll Now</a>'+(extra||'');}
+      try{
+        if(typeof supabase==='undefined'){showEnroll();return;}
+        var SB=supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+        var s=await SB.auth.getSession(); var session=s&&s.data&&s.data.session;
+        if(!session){showEnroll('<a class="btn btn-secondary" href="/education/login/?return='+encodeURIComponent(location.href)+'">Log In</a>');return;}
+        var c=await SB.from('courses').select('id').eq('course_code',code).maybeSingle();
+        if(!c.data){showEnroll();return;}
+        var e=await SB.from('enrollments').select('id,expires_at').eq('student_id',session.user.id).eq('course_id',c.data.id).maybeSingle();
+        var en=e.data;
+        var active=en&&(!en.expires_at||new Date(en.expires_at)>new Date());
+        if(active){cta.innerHTML='<a class="btn btn-primary" href="'+firstUrl+'">Start Learning</a>';}else{showEnroll();}
+      }catch(err){showEnroll();}
     })();
     </script>
 
