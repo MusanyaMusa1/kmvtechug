@@ -3,301 +3,192 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Enroll in a Course — KMVTECH Education</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<title>Enroll in a Course | KMVTECH Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#0D1B2A;--gold:#C9922A;--blue:#2B3FBF;--purple:#6B2ECC;--green:#15803D;--red:#DC2626;--gray:#6B7280;--dark:#1C1C1C;--white:#fff;--cream:#FAF9F6;--light:#EEF0FF;--border:#E5E7EB}
 [data-theme="dark"]{--dark:#F9FAFB;--cream:#0F172A;--white:#1E293B;--border:#334155;--light:#1E293B}
-html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;line-height:1.6}
-/* NAV */
 nav{background:var(--navy);padding:.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--gold)}
-.nav-logo{font-family:'Playfair Display',serif;font-weight:900;color:var(--white);font-size:1.1rem;text-decoration:none}
+.nav-logo{font-family:'Playfair Display',serif;font-weight:900;color:#fff;font-size:1.1rem;text-decoration:none}
 .nav-logo span{color:var(--gold)}
 .nav-right{display:flex;align-items:center;gap:1rem}
-.nav-link{color:rgba(255,255,255,.7);text-decoration:none;font-size:.88rem;transition:color .2s}
+.nav-link{color:rgba(255,255,255,.7);text-decoration:none;font-size:.88rem}
 .nav-link:hover{color:var(--gold)}
-.theme-btn{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:1.1rem;padding:.3rem}
-/* MAIN */
+.theme-btn{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.1rem;padding:.3rem}
 .page{max-width:580px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
-/* GATE CARD */
-.gate-card{background:var(--white);border-radius:16px;padding:2.5rem 2rem;text-align:center;border:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,.06)}
-.gate-icon{width:72px;height:72px;background:var(--light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:2rem}
-.gate-card h1{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:.6rem}
-[data-theme="dark"] .gate-card h1{color:#F8FAFC}
-.gate-card p{font-size:.92rem;color:var(--gray);line-height:1.7;margin-bottom:1.6rem}
+.card{background:var(--white);border-radius:16px;padding:2rem;border:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.center{text-align:center}
+.icon{width:72px;height:72px;background:var(--light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:2rem}
+h1{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:.5rem}
+[data-theme="dark"] h1,[data-theme="dark"] h2{color:#F8FAFC}
+h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:.6rem}
+.muted{font-size:.92rem;color:var(--gray);line-height:1.7;margin-bottom:1.4rem}
 .btn-row{display:flex;gap:.8rem;flex-direction:column}
-.btn{display:block;width:100%;padding:.85rem 1.2rem;border-radius:10px;font-size:.95rem;font-weight:600;text-decoration:none;text-align:center;transition:all .2s;cursor:pointer;border:none}
-.btn-primary{background:linear-gradient(135deg,var(--blue),var(--purple));color:var(--white)}
-.btn-primary:hover{opacity:.92;transform:translateY(-1px)}
+.btn{display:block;width:100%;padding:.85rem 1.2rem;border-radius:10px;font-size:.95rem;font-weight:600;text-decoration:none;text-align:center;cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed}
 .btn-secondary{background:transparent;color:var(--blue);border:2px solid var(--blue)}
-.btn-secondary:hover{background:var(--light)}
-/* FORM CARD */
-.form-card{background:var(--white);border-radius:16px;padding:2rem;border:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,.06)}
-.form-header{margin-bottom:1.5rem}
-.form-header h1{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:.3rem}
-[data-theme="dark"] .form-header h1{color:#F8FAFC}
-.form-header p{font-size:.88rem;color:var(--gray)}
-.course-banner{background:var(--light);border-radius:10px;padding:.9rem 1rem;margin-bottom:1.4rem;border-left:4px solid var(--blue)}
-.course-banner .cb-label{font-size:.75rem;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem}
-.course-banner .cb-name{font-size:.95rem;font-weight:600;color:var(--navy)}
-[data-theme="dark"] .course-banner .cb-name{color:#F8FAFC}
-.student-info{background:#F0FDF4;border-radius:10px;padding:.9rem 1rem;margin-bottom:1.4rem;border-left:4px solid var(--green)}
-.student-info .si-label{font-size:.75rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
-.si-row{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:.25rem}
-.si-row span:first-child{color:var(--gray)}
-.si-row span:last-child{font-weight:600;color:var(--dark)}
+.banner{background:var(--light);border-radius:10px;padding:.9rem 1rem;margin-bottom:1.2rem;border-left:4px solid var(--blue)}
+.banner .l{font-size:.75rem;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.05em}
+.banner .v{font-size:.95rem;font-weight:600;color:var(--navy)}
+[data-theme="dark"] .banner .v{color:#F8FAFC}
+.who{background:#F0FDF4;border-radius:10px;padding:.9rem 1rem;margin-bottom:1.2rem;border-left:4px solid var(--green)}
+[data-theme="dark"] .who{background:#14301f}
+.who .l{font-size:.75rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
+.row{display:flex;justify-content:space-between;gap:1rem;font-size:.88rem;margin-bottom:.25rem}
+.row span:first-child{color:var(--gray)}
+.row span:last-child{font-weight:600;text-align:right;word-break:break-all}
 .field{margin-bottom:1.1rem}
-label{display:block;font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:.4rem}
-input,select,textarea{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.92rem;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--dark);transition:border-color .2s}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue)}
+label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.4rem}
+input,textarea{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.95rem;font-family:inherit;background:var(--white);color:var(--dark)}
+input:focus,textarea:focus{outline:none;border-color:var(--blue)}
 textarea{resize:vertical;min-height:80px}
-.plan-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-top:.4rem}
-.plan-opt{border:2px solid var(--border);border-radius:10px;padding:.7rem .5rem;text-align:center;cursor:pointer;transition:all .2s}
-.plan-opt:hover{border-color:var(--blue)}
-.plan-opt.selected{border-color:var(--blue);background:var(--light)}
-.plan-opt input{display:none}
-.plan-opt .po-name{font-size:.8rem;font-weight:600;color:var(--dark);margin-bottom:.2rem}
-.plan-opt .po-price{font-size:.88rem;font-weight:700;color:var(--blue)}
-.plan-opt .po-desc{font-size:.7rem;color:var(--gray);margin-top:.15rem}
-.submit-btn{width:100%;padding:.95rem;background:linear-gradient(135deg,var(--blue),var(--purple));color:var(--white);border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:.5rem}
-.submit-btn:hover{opacity:.92;transform:translateY(-1px)}
-.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-/* SUCCESS */
-.success-card{background:var(--white);border-radius:16px;padding:2.5rem 2rem;text-align:center;border:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,.06)}
-.success-icon{width:72px;height:72px;background:#DCFCE7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:2rem}
-.success-card h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:.6rem}
-[data-theme="dark"] .success-card h2{color:#F8FAFC}
-.success-card p{font-size:.9rem;color:var(--gray);line-height:1.7;margin-bottom:.5rem}
-.student-num-badge{display:inline-block;background:var(--light);color:var(--blue);font-weight:700;padding:.4rem 1rem;border-radius:20px;font-size:.9rem;margin:.5rem 0 1.2rem}
-/* ERROR */
-.error-msg{background:#FEF2F2;border:1px solid #FECACA;color:var(--red);padding:.7rem 1rem;border-radius:8px;font-size:.85rem;margin-bottom:1rem}
-/* LOADING */
-.loading{text-align:center;padding:3rem 1rem;color:var(--gray)}
+.plans{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem}
+.plan{border:2px solid var(--border);border-radius:10px;padding:.7rem .5rem;text-align:center;cursor:pointer}
+.plan.sel{border-color:var(--blue);background:var(--light)}
+.plan .n{font-size:.8rem;font-weight:600}
+.plan .p{font-size:.88rem;font-weight:700;color:var(--blue)}
+.plan .d{font-size:.7rem;color:var(--gray)}
+.err{background:#FEF2F2;border:1px solid #FECACA;color:var(--red);padding:.7rem 1rem;border-radius:8px;font-size:.85rem;margin-bottom:1rem}
+.badge{display:inline-block;background:var(--light);color:var(--blue);font-weight:700;padding:.4rem 1rem;border-radius:20px;font-size:.9rem;margin:.4rem 0 1rem}
 .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:480px){.plan-grid{grid-template-columns:1fr}.btn-row{flex-direction:column}}
+@media(max-width:480px){.plans{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <nav>
   <a href="/education/" class="nav-logo"><span>KMVTECH</span> Education</a>
   <div class="nav-right">
     <a href="/education/" class="nav-link">Home</a>
     <a href="/education/dashboard/" class="nav-link">Dashboard</a>
-    <button class="theme-btn" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">&#127769;</button>
   </div>
 </nav>
+<div class="page"><div id="app"><div class="card center"><div class="spinner"></div><p class="muted" style="margin:0">Loading...</p></div></div></div>
 
-<div class="page">
-  <div id="app">
-    <div class="loading">
-      <div class="spinner"></div>
-      <p>Loading...</p>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = 'https://nzjojrebyvxuawnkitth.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56am9qcmVieXZ4dWF3bmtpdHRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE4MzI5NzcsImV4cCI6MjAzNzQwODk3N30.vK5lSBMigFMoKn-9Nf4onyFiVOehmhFIHzPrr7lL7Tg';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+(function(){
+  var saved=localStorage.getItem('kmv-theme');
+  if(saved) document.documentElement.setAttribute('data-theme',saved);
+  document.getElementById('themeBtn').onclick=function(){
+    var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',n);localStorage.setItem('kmv-theme',n);
+  };
+})();
 
-// Read URL params
-const params = new URLSearchParams(window.location.search);
-const courseCode = params.get('course') || '';
-const courseName = decodeURIComponent(params.get('name') || '');
+var SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co','sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
 
-let selectedPlan = 'per_course';
+var params = new URLSearchParams(location.search);
+var courseCode = (params.get('course') || '').toUpperCase();
+var courseNameParam = params.get('name') || '';
+var selectedPlan = 'per_course';
+var STUDENT = null;
+var APP = document.getElementById('app');
 
-function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('kmv-theme', next);
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function withTimeout(p,ms){return Promise.race([p,new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'));},ms);})]);}
+
+function showGate(){
+  var back = encodeURIComponent(location.href);
+  APP.innerHTML =
+    '<div class="card center"><div class="icon">&#128274;</div><h1>Registration Required</h1>'
+    +'<p class="muted">To enroll in a course you must first be a registered student on KMVTECH Education. Registration is <strong>free</strong> and takes less than a minute.</p>'
+    +(courseNameParam?'<p style="font-size:.85rem;color:var(--blue);font-weight:600;margin-bottom:1.2rem">You are enrolling for: '+esc(courseNameParam)+'</p>':'')
+    +'<div class="btn-row"><a class="btn btn-primary" href="/education/register/?return='+back+'">Register Free - Create My Account</a>'
+    +'<a class="btn btn-secondary" href="/education/login/?return='+back+'">Already Registered - Log In</a></div></div>';
 }
 
-// Apply saved theme
-const savedTheme = localStorage.getItem('kmv-theme');
-if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+function showProblem(msg){
+  APP.innerHTML =
+    '<div class="card center"><div class="icon">&#9888;&#65039;</div><h1>Something went wrong</h1>'
+    +'<p class="muted">'+esc(msg)+'</p>'
+    +'<div class="btn-row"><button class="btn btn-primary" onclick="location.reload()">Try Again</button>'
+    +'<a class="btn btn-secondary" href="https://wa.me/256759405181">WhatsApp Us: +256 759 405 181</a></div></div>';
+}
 
-async function init() {
-  const { data: { session } } = await supabase.auth.getSession();
-
-  if (!session) {
-    showGate();
-    return;
+function showForm(){
+  APP.innerHTML =
+    '<div class="card"><h1>Enroll in a Course</h1>'
+    +'<p class="muted" style="margin-bottom:1.2rem">Complete this form and we will contact you on WhatsApp to confirm payment.</p>'
+    +'<div class="who"><div class="l">Your Student Account</div>'
+    +'<div class="row"><span>Name</span><span>'+esc(STUDENT.name||'Not set')+'</span></div>'
+    +'<div class="row"><span>Student Number</span><span>'+esc(STUDENT.number||'Not assigned yet')+'</span></div>'
+    +'<div class="row"><span>Email</span><span>'+esc(STUDENT.email)+'</span></div></div>'
+    +'<div id="errArea"></div>'
+    +'<div class="field"><label for="cname">Course</label><input type="text" id="cname" value="'+esc(courseNameParam)+'" placeholder="e.g. Evidence Law 1"/></div>'
+    +'<div class="field"><label for="phone">WhatsApp Number for Payment</label><input type="tel" id="phone" value="'+esc(STUDENT.phone)+'" placeholder="+256 7XX XXX XXX"/></div>'
+    +'<div class="field"><label>Choose Your Plan</label><div class="plans">'
+    +'<div class="plan sel" data-plan="per_course"><div class="n">Per Course</div><div class="p">UGX 5,000</div><div class="d">30 days, this course</div></div>'
+    +'<div class="plan" data-plan="monthly"><div class="n">Monthly</div><div class="p">UGX 20,000</div><div class="d">All courses, 30 days</div></div>'
+    +'<div class="plan" data-plan="semester"><div class="n">Semester</div><div class="p">UGX 50,000</div><div class="d">All courses, 5 months</div></div>'
+    +'</div></div>'
+    +'<div class="field"><label for="msg">Anything else? (optional)</label><textarea id="msg" placeholder="Any questions or notes for us"></textarea></div>'
+    +'<button class="btn btn-primary" id="sendBtn">Send Enrollment Request</button></div>';
+  var plans = APP.querySelectorAll('.plan');
+  for (var i=0;i<plans.length;i++){
+    plans[i].onclick=function(){
+      for (var j=0;j<plans.length;j++) plans[j].classList.remove('sel');
+      this.classList.add('sel'); selectedPlan=this.getAttribute('data-plan');
+    };
   }
+  document.getElementById('sendBtn').onclick = submitForm;
+}
 
-  // Get student profile
-  const { data: profile, error } = await supabase
-    .from('profiles')
-    .select('full_name, email, student_number, contact_number')
-    .eq('id', session.user.id)
-    .single();
-
-  if (error || !profile) {
-    showGate();
-    return;
+async function submitForm(){
+  var btn=document.getElementById('sendBtn'), area=document.getElementById('errArea');
+  var cname=document.getElementById('cname').value.trim();
+  var phone=document.getElementById('phone').value.trim();
+  var msg=document.getElementById('msg').value.trim();
+  area.innerHTML='';
+  if(!cname){area.innerHTML='<div class="err">Please enter the course name.</div>';return;}
+  if(!phone){area.innerHTML='<div class="err">Please enter your WhatsApp number.</div>';return;}
+  btn.disabled=true; btn.textContent='Sending...';
+  var labels={per_course:'Per Course - UGX 5,000',monthly:'Monthly Unlimited - UGX 20,000',semester:'Semester Unlimited - UGX 50,000'};
+  try{
+    var res = await withTimeout(SB.from('notify_requests').insert({
+      full_name:STUDENT.name, email:STUDENT.email, phone:phone,
+      course_code:courseCode||'UNKNOWN', course_name:cname,
+      message:'Plan: '+labels[selectedPlan]+(msg?'\n\nNote: '+msg:''),
+      status:'pending', student_number:STUDENT.number||null
+    }),10000);
+    if(res.error) throw res.error;
+    showSuccess(cname);
+  }catch(e){
+    area.innerHTML='<div class="err">We could not send your request ('+esc(e&&e.message?e.message:'unknown error')+'). Please try again or WhatsApp us on +256 759 405 181.</div>';
+    btn.disabled=false; btn.textContent='Send Enrollment Request';
   }
-
-  showForm(profile, session.user.email);
 }
 
-function showGate() {
-  const returnUrl = encodeURIComponent(window.location.href);
-  document.getElementById('app').innerHTML = `
-    <div class="gate-card">
-      <div class="gate-icon">🔒</div>
-      <h1>Registration Required</h1>
-      <p>To enroll in a course you must first be a registered student on KMVTECH Education. Registration is <strong>free</strong> and takes less than a minute.</p>
-      ${courseName ? `<p style="font-size:.85rem;color:var(--blue);font-weight:600;margin-bottom:1.2rem">You are enrolling for: ${courseName}</p>` : ''}
-      <div class="btn-row">
-        <a href="/education/register/?return=${returnUrl}" class="btn btn-primary">Register Free — Create My Account</a>
-        <a href="/education/login/?return=${returnUrl}" class="btn btn-secondary">Already Registered — Log In</a>
-      </div>
-    </div>
-  `;
+function showSuccess(cname){
+  APP.innerHTML =
+    '<div class="card center"><div class="icon" style="background:#DCFCE7">&#9989;</div><h2>Request Received</h2>'
+    +'<div class="badge">'+esc(STUDENT.number||'Account Active')+'</div>'
+    +'<p class="muted" style="margin-bottom:.6rem">Thank you <strong>'+esc(STUDENT.name)+'</strong>. Your enrollment request for <strong>'+esc(cname)+'</strong> has been received.</p>'
+    +'<p class="muted">We will contact you on WhatsApp within 24 hours with payment instructions. Once payment is confirmed your access is activated.</p>'
+    +'<a class="btn btn-primary" href="/education/">Back to Course Catalogue</a></div>';
 }
 
-function showForm(profile, email) {
-  document.getElementById('app').innerHTML = `
-    <div class="form-card">
-      <div class="form-header">
-        <h1>Enroll in a Course</h1>
-        <p>Complete this form and we will contact you via WhatsApp to confirm payment.</p>
-      </div>
-
-      ${courseName ? `
-      <div class="course-banner">
-        <div class="cb-label">Enrolling for</div>
-        <div class="cb-name">${courseName}</div>
-      </div>` : ''}
-
-      <div class="student-info">
-        <div class="si-label">Your Student Account</div>
-        <div class="si-row"><span>Name</span><span>${profile.full_name || 'Not set'}</span></div>
-        <div class="si-row"><span>Student Number</span><span>${profile.student_number || 'Not assigned yet'}</span></div>
-        <div class="si-row"><span>Email</span><span>${email}</span></div>
-      </div>
-
-      <div id="error-area"></div>
-
-      <div class="field">
-        <label>Course You Want to Enroll In</label>
-        <input type="text" id="course-name" value="${courseName}" placeholder="Enter course name e.g. Evidence Law 1" required/>
-      </div>
-
-      <div class="field">
-        <label>WhatsApp Number for Payment</label>
-        <input type="tel" id="phone" value="${profile.contact_number || ''}" placeholder="+256 7XX XXX XXX" required/>
-        <div style="font-size:.78rem;color:var(--gray);margin-top:.3rem">We will send you payment instructions on this number.</div>
-      </div>
-
-      <div class="field">
-        <label>Choose Your Plan</label>
-        <div class="plan-grid">
-          <div class="plan-opt selected" onclick="selectPlan('per_course', this)">
-            <input type="radio" name="plan" value="per_course" checked/>
-            <div class="po-name">Per Course</div>
-            <div class="po-price">UGX 5,000</div>
-            <div class="po-desc">30 days access</div>
-          </div>
-          <div class="plan-opt" onclick="selectPlan('monthly', this)">
-            <input type="radio" name="plan" value="monthly"/>
-            <div class="po-name">Monthly</div>
-            <div class="po-price">UGX 20,000</div>
-            <div class="po-desc">All courses, 30 days</div>
-          </div>
-          <div class="plan-opt" onclick="selectPlan('semester', this)">
-            <input type="radio" name="plan" value="semester"/>
-            <div class="po-name">Semester</div>
-            <div class="po-price">UGX 50,000</div>
-            <div class="po-desc">All courses, 5 months</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Anything else? (optional)</label>
-        <textarea id="message" placeholder="Any questions or notes for us..."></textarea>
-      </div>
-
-      <button class="submit-btn" id="submit-btn" onclick="submitForm('${profile.full_name}', '${email}', '${profile.student_number}')">
-        Send Enrollment Request
-      </button>
-    </div>
-  `;
-}
-
-function selectPlan(plan, el) {
-  selectedPlan = plan;
-  document.querySelectorAll('.plan-opt').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-async function submitForm(fullName, email, studentNumber) {
-  const btn = document.getElementById('submit-btn');
-  const errorArea = document.getElementById('error-area');
-  const courseName = document.getElementById('course-name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const message = document.getElementById('message').value.trim();
-
-  errorArea.innerHTML = '';
-
-  if (!courseName) {
-    errorArea.innerHTML = '<div class="error-msg">Please enter the course name.</div>';
-    return;
+async function init(){
+  try{
+    var s = await withTimeout(SB.auth.getSession(),8000);
+    var session = s && s.data && s.data.session;
+    if(!session){ showGate(); return; }
+    var p = await withTimeout(SB.from('profiles').select('*').eq('id',session.user.id).maybeSingle(),8000);
+    if(p.error || !p.data){ showProblem('We could not load your student profile. Please try again.'); return; }
+    var pr = p.data;
+    STUDENT = {
+      name: pr.full_name||'', email: pr.email||session.user.email||'',
+      number: pr.student_number||'', phone: pr.phone||pr.contact_number||pr.contact||''
+    };
+    showForm();
+  }catch(e){
+    showProblem('The page took too long to load. Please check your internet connection and try again.');
   }
-  if (!phone) {
-    errorArea.innerHTML = '<div class="error-msg">Please enter your WhatsApp number.</div>';
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
-
-  const planLabels = { per_course: 'Per Course - UGX 5,000', monthly: 'Monthly Unlimited - UGX 20,000', semester: 'Semester Unlimited - UGX 50,000' };
-
-  const { error } = await supabase.from('notify_requests').insert({
-    full_name: fullName,
-    email: email,
-    phone: phone,
-    course_code: courseCode || 'UNKNOWN',
-    course_name: courseName,
-    message: `Plan: ${planLabels[selectedPlan]}${message ? '\n\nNote: ' + message : ''}`,
-    status: 'pending',
-    student_number: studentNumber || null
-  });
-
-  if (error) {
-    errorArea.innerHTML = '<div class="error-msg">Something went wrong. Please try again or contact us on WhatsApp.</div>';
-    btn.disabled = false;
-    btn.textContent = 'Send Enrollment Request';
-    return;
-  }
-
-  showSuccess(fullName, studentNumber, courseName);
 }
-
-function showSuccess(name, studentNumber, courseName) {
-  document.getElementById('app').innerHTML = `
-    <div class="success-card">
-      <div class="success-icon">✅</div>
-      <h2>Request Received!</h2>
-      <div class="student-num-badge">${studentNumber || 'Account Active'}</div>
-      <p>Thank you <strong>${name}</strong>. Your enrollment request for <strong>${courseName}</strong> has been received.</p>
-      <p>We will contact you on WhatsApp within 24 hours with payment instructions. Once payment is confirmed your course access will be activated immediately.</p>
-      <p style="margin-top:1rem;font-size:.82rem;color:var(--gray)">Questions? WhatsApp us directly: <a href="https://wa.me/256759405181" style="color:var(--blue);font-weight:600">+256 759 405 181</a></p>
-      <a href="/education/" class="btn btn-primary" style="display:block;margin-top:1.5rem;text-decoration:none">Back to Course Catalogue</a>
-    </div>
-  `;
-}
-
 init();
 </script>
 </body>
