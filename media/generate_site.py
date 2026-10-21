@@ -666,9 +666,27 @@ def clean_page_links(html):
     return re.sub(r'href="([^"]*)"', _clean_relative_href, html)
 
 
+# ---- Tab icon (favicon) on every page --------------------------------------------
+# The icon files live in assets/. Pages sit at different depths (/, /stories/, /category/), so the
+# link is worked out per page here, in one place, instead of in every template.
+FAVICON_LINKS = (
+    '<link rel="icon" type="image/png" sizes="48x48" href="{a}/favicon-48.png"/>\n'
+    '  <link rel="icon" type="image/png" sizes="32x32" href="{a}/favicon-32.png"/>\n'
+    '  <link rel="shortcut icon" href="{a}/favicon.ico"/>\n'
+    '  <link rel="apple-touch-icon" href="{a}/apple-touch-icon.png"/>\n'
+)
+
+
+def add_favicon(path, html):
+    if 'rel="icon"' in html or "</head>" not in html:
+        return html
+    assets = os.path.relpath(os.path.join(ROOT, "assets"), os.path.dirname(path)).replace(os.sep, "/")
+    return html.replace("</head>", "  " + FAVICON_LINKS.format(a=assets) + "</head>", 1)
+
+
 def write(path, content):
     if path.endswith(".html"):
-        content = clean_page_links(content)
+        content = add_favicon(path, clean_page_links(content))
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
