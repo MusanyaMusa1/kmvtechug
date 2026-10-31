@@ -40,6 +40,16 @@ NEWSLETTER_FN_URL = SUPABASE_URL + "/functions/v1/newsletter-subscribe"
 NEWSLETTER_CONSENT_TEXT = "I agree to receive the King Musah Media newsletter by email, and I understand I can unsubscribe at any time."
 NEWSLETTER_MARKETING_TEXT = "I would also like to receive offers and announcements from King Musah Media."
 NEWSLETTER_FREE_UNTIL = "31 December 2026"
+
+# Channels. Put a link between the quotes to show that channel's card on the homepage; leave "" to hide it.
+TELEGRAM_CHANNEL_URL = ""          # e.g. "https://t.me/yourchannel"
+WHATSAPP_CHANNEL_URL = ""          # e.g. "https://whatsapp.com/channel/XXXXXXXX"
+WHATSAPP_TIP_URL = "https://wa.me/256759405181?text=Hello%20King%20Musah%20Media%2C%20I%20have%20a%20news%20tip%3A%20"
+
+# A story marked "breaking" only stays in the ticker this many days after its date.
+BREAKING_MAX_AGE_DAYS = 2
+# A topic page is only created when at least this many stories share the tag (avoids thin pages).
+TOPIC_MIN_STORIES = 3
 SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltdnJycnBranNpeGZkdXRjYmJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTczODgsImV4cCI6MjEwMDI5MzM4OH0.gVJAhZcjWanxkdwmWnLrTNErVB7WF4Qn7u3TQtgdDQc"
 SUBMIT_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdfGVQ84w2RtUGjikrDwmHOOWpK3F4BEEX2YHM0e5F_hrn-Eg/viewform?embedded=true"
 
@@ -49,6 +59,12 @@ CATEGORIES = {
     "entertainment": "Entertainment",
     "sports": "Sports",
     "business": "Business",
+    "international": "International",
+}
+
+# A short honest note shown at the top of a category page.
+CATEGORY_NOTES = {
+    "international": "Our international coverage summarises reporting by leading outlets such as BBC News. Every story names its source and links to the original report. For our own reporting from Uganda, see News and Politics.",
 }
 
 LANG_LABEL = {"en": "English", "lg": "Luganda"}
@@ -111,6 +127,7 @@ def nav_html(depth="", active=""):
         link("category/entertainment.html", "Entertainment", "entertainment"),
         link("category/sports.html", "Sports", "sports"),
         link("category/business.html", "Business", "business"),
+        link("category/international.html", "International", "international"),
     ]
     links.append(f'<li><a href="{depth}support.html" class="nav-cta">Support Us</a></li>')
     return "".join(links)
@@ -125,6 +142,8 @@ def mobile_nav_html(depth=""):
         ("category/entertainment.html", "Entertainment"),
         ("category/sports.html", "Sports"),
         ("category/business.html", "Business"),
+        ("category/international.html", "International"),
+        ("topics.html", "Topics"),
         ("newsletter.html", "Newsletter"),
         ("submit.html", "Send Us a Story"),
     ]
@@ -165,7 +184,8 @@ def header_block(depth="", active=""):
     {nav_html(depth, active)}
   </ul>
   <div class="theme-toggle">
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark and light mode">{theme_icon}</button>
+    <a class="theme-btn search-btn" href="{depth}search.html" aria-label="Search stories">&#128269;</a>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark and light mode">{theme_icon}</button>
     <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mob">
       <span></span><span></span><span></span>
     </button>
@@ -176,8 +196,20 @@ def header_block(depth="", active=""):
 </div>'''
 
 
+def is_breaking_now(a):
+    """A story flagged "breaking" stops counting as breaking after BREAKING_MAX_AGE_DAYS, so a forgotten
+    flag can never leave an old story in the ticker."""
+    if not a.get("breaking"):
+        return False
+    try:
+        age = (datetime.now().date() - datetime.strptime(a["date"], "%Y-%m-%d").date()).days
+    except Exception:
+        return True
+    return age <= BREAKING_MAX_AGE_DAYS
+
+
 def ticker_block(articles, depth=""):
-    breaking = [a for a in articles if a.get("breaking")]
+    breaking = [a for a in articles if is_breaking_now(a)]
     if not breaking:
         return ""
     items = "".join(
@@ -203,6 +235,7 @@ def footer_block(depth=""):
     <span>&copy; {datetime.now().year} King Musah Media. All rights reserved.</span>
     <div class="hub-links">
       <a href="{depth}newsletter.html">Newsletter</a>
+      <a href="{depth}topics.html">Topics</a>
       <a href="{depth}submit.html">Send us a story</a>
       <a href="{depth}privacy.html">Privacy Policy</a>
       <a href="{depth}terms.html">Terms of Service</a>
@@ -271,7 +304,7 @@ def og_image_url(a):
 
 
 def story_card(a, depth=""):
-    breaking_flag = ' <span class="breaking-flag">&bull; Breaking</span>' if a.get("breaking") else ""
+    breaking_flag = ' <span class="breaking-flag">&bull; Breaking</span>' if is_breaking_now(a) else ""
     return f'''<a class="story-card" href="{depth}stories/{a["slug"]}.html">
   <div class="story-media" aria-hidden="true">
     {image_tag(a, depth)}
@@ -295,7 +328,7 @@ def build_index(articles):
     hero = featured[0] if featured else articles[0]
     rest = [a for a in articles if a["slug"] != hero["slug"]][:8]
     cards = "\n".join(story_card(a) for a in rest)
-    top_pad = "150px" if any(a.get("breaking") for a in articles) else "130px"
+    top_pad = "150px" if any(is_breaking_now(a) for a in articles) else "130px"
 
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -350,6 +383,7 @@ def build_index(articles):
     <a class="cat-pill" href="category/entertainment.html">Entertainment</a>
     <a class="cat-pill" href="category/sports.html">Sports</a>
     <a class="cat-pill" href="category/business.html">Business</a>
+    <a class="cat-pill" href="category/international.html">International</a>
   </div>
   <div class="story-grid">
 {cards}
@@ -404,6 +438,7 @@ def build_index(articles):
     <a href="https://www.instagram.com/king_musah_media" target="_blank" rel="noopener" class="platform"><div class="platform-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)">&#128247;</div><div><h4>Instagram</h4><p>@king_musah_media</p></div></a>
     <a href="https://linkedin.com/company/king-musah-media" target="_blank" rel="noopener" class="platform"><div class="platform-icon" style="background:#0A66C2">in</div><div><h4>LinkedIn</h4><p>King Musah Media</p></div></a>
     <a href="https://wa.me/message/XMUHKTZJ6633I1" target="_blank" rel="noopener" class="platform"><div class="platform-icon" style="background:#25D366">&#128172;</div><div><h4>WhatsApp</h4><p>Message King Musah Media</p></div></a>
+    {extra_platform_cards()}
   </div>
 </section>
 
@@ -428,7 +463,11 @@ def build_article(a, articles):
     related = [x for x in articles if x["category"] == a["category"] and x["slug"] != a["slug"]][:3]
     related_html = "\n".join(story_card(r, depth="../") for r in related) or '<p class="empty-state" style="color:var(--text-faint)">More stories coming soon.</p>'
 
-    tags_html = "".join(f'<span class="article-tag">{t}</span>' for t in a.get("tags", []))
+    tags_html = "".join(
+        (f'<a class="article-tag" href="../topic/{topic_slug(t)}.html">{t}</a>' if topic_slug(t) in TOPICS
+         else f'<span class="article-tag">{t}</span>')
+        for t in a.get("tags", [])
+    )
     body_html = "\n".join(f"<p>{p}</p>" for p in a["content"])
 
     lang_note = ""
@@ -526,7 +565,9 @@ def build_category(cat_key, cat_label, articles):
         f'<a class="cat-pill{" active" if k == cat_key else ""}" href="{k}.html">{v}</a>'
         for k, v in CATEGORIES.items()
     )
-    top_pad = "150px" if any(a.get("breaking") for a in articles) else "130px"
+    note = CATEGORY_NOTES.get(cat_key, "")
+    note_html = f'<p class="cat-note">{note}</p>' if note else ""
+    top_pad = "150px" if any(is_breaking_now(a) for a in articles) else "130px"
     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -547,6 +588,7 @@ def build_category(cat_key, cat_label, articles):
 <main id="main">
 <section class="sec" style="padding-top:{top_pad}">
   <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">Category</span><h2 class="sec-title">{cat_label}</h2><p class="sec-sub">All {cat_label.lower()} stories from {SITE_NAME}, newest first.</p></div></div>
+  {note_html}
   <div class="cat-pills">{pills}</div>
   <div class="story-grid">
 {cards}
@@ -563,7 +605,7 @@ def build_category(cat_key, cat_label, articles):
 def build_archive(articles):
     cards = "\n".join(story_card(a, depth="../") for a in articles)
     pills = "".join(f'<a class="cat-pill" href="../category/{k}.html">{v}</a>' for k, v in CATEGORIES.items())
-    top_pad = "150px" if any(a.get("breaking") for a in articles) else "130px"
+    top_pad = "150px" if any(is_breaking_now(a) for a in articles) else "130px"
     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -602,6 +644,9 @@ def build_sitemap(articles):
     urls += [f"{BASE_URL}/category/{k}.html" for k in CATEGORIES]
     urls.append(f"{BASE_URL}/submit.html")
     urls.append(f"{BASE_URL}/newsletter.html")
+    if TOPICS:
+        urls.append(f"{BASE_URL}/topics.html")
+        urls += [f"{BASE_URL}/topic/{slug}.html" for slug in TOPICS]
     urls += [f"{BASE_URL}/stories/{a['slug']}.html" for a in articles]
     body = "\n".join(f"  <url><loc>{u}</loc></url>" for u in urls)
     xml = f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}\n</urlset>\n'
@@ -841,13 +886,6 @@ def build_support():
     <h3>MTN Mobile Money</h3>
     <div class="pay-number">+256 760 108 150</div>
     <p class="pay-note">Send directly via MTN MoMo to this number. Please add "KMM Support" as the reason for reference.</p>
-  </div>
-  <div class="pay-card soon">
-    <span class="pay-badge">Coming Soon</span>
-    <div class="pay-icon" style="background:#EB001B">&#128179;</div>
-    <h3>Card Payment</h3>
-    <div class="pay-number">Mastercard &bull;&bull;&bull;&bull; 4487</div>
-    <p class="pay-note">Secure online card payments are being set up and will be available here shortly.</p>
   </div>
 </div>
 
@@ -1268,6 +1306,201 @@ def build_newsletter_unsubscribe():
         "newsletter-unsubscribe", NEWSLETTER_UNSUBSCRIBE_BODY, private=True))
 
 
+# ---------------------------------------------------------------- topics (pages for subjects that keep recurring)
+TOPICS = {}   # filled by compute_topics(); maps a topic's web name to {"label": ..., "stories": [...]}
+
+
+def topic_slug(tag):
+    return re.sub(r"[^a-z0-9]+", "-", str(tag).lower()).strip("-")
+
+
+def compute_topics(articles):
+    """A topic page is only made when at least TOPIC_MIN_STORIES stories share the tag, so we never
+    publish thin, near-empty pages."""
+    found = {}
+    for a in articles:
+        for tag in a.get("tags", []) or []:
+            slug = topic_slug(tag)
+            if not slug:
+                continue
+            entry = found.setdefault(slug, {"label": str(tag).strip(), "stories": []})
+            if a not in entry["stories"]:
+                entry["stories"].append(a)
+    return {k: v for k, v in found.items() if len(v["stories"]) >= TOPIC_MIN_STORIES}
+
+
+def _simple_page(title, description, canonical, body, articles, depth="", active="", noindex=False, ads=True):
+    if noindex:
+        head_extra = '<meta name="robots" content="noindex, follow"/>'
+    else:
+        head_extra = f'<link rel="canonical" href="{BASE_URL}/{canonical}"/>'
+    ticker = ticker_block(articles, depth=depth)
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{title} — {SITE_NAME}</title>
+  <meta name="description" content="{description}"/>
+  {head_extra}
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{depth}assets/css/style.css?v={ASSET_VERSION}"/>
+  {ga_snippet()}
+  {adsense_snippet() if ads else ""}
+</head>
+<body>
+{header_block(depth=depth, active=active)}
+{ticker}
+
+<main id="main">
+{body}
+</main>
+
+{footer_block(depth=depth)}
+</body>
+</html>'''
+
+
+def build_topics(articles):
+    top_pad = "150px" if any(is_breaking_now(a) for a in articles) else "130px"
+    for slug, t in TOPICS.items():
+        label = t["label"]
+        cards = "\n".join(story_card(a, depth="../") for a in t["stories"])
+        body = f'''<section class="sec" style="padding-top:{top_pad}">
+  <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">Topic</span><h2 class="sec-title">{label}</h2><p class="sec-sub">{len(t["stories"])} stories on {label}, newest first. <a href="../topics.html">Browse all topics</a></p></div></div>
+  <div class="story-grid">
+{cards}
+  </div>
+</section>'''
+        write(os.path.join(ROOT, "topic", f"{slug}.html"), _simple_page(
+            f"{label} — Topic", f"Stories about {label} from {SITE_NAME}.", f"topic/{slug}.html",
+            body, articles, depth="../"))
+
+    ordered = sorted(TOPICS.items(), key=lambda kv: (-len(kv[1]["stories"]), kv[1]["label"].lower()))
+    pills = "".join(
+        f'<a class="cat-pill" href="topic/{slug}.html">{t["label"]} <span class="topic-count">{len(t["stories"])}</span></a>'
+        for slug, t in ordered
+    ) or '<p class="empty-state" style="color:var(--text-faint)">Topics will appear here as we cover subjects in depth.</p>'
+    body = f'''<section class="sec" style="padding-top:{top_pad}">
+  <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">Browse</span><h2 class="sec-title">Topics</h2><p class="sec-sub">The subjects we keep following. Choose one to see every story on it.</p></div></div>
+  <div class="cat-pills">{pills}</div>
+</section>'''
+    write(os.path.join(ROOT, "topics.html"), _simple_page(
+        "Topics", f"Browse {SITE_NAME} stories by topic.", "topics.html", body, articles))
+
+
+# ---------------------------------------------------------------- search
+SEARCH_BODY = r"""
+<section class="sec" style="padding-top:__PAD__">
+  <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">Search</span><h2 class="sec-title">Search our stories</h2><p class="sec-sub">Type a name, place or subject. Press Enter or tap Search.</p></div></div>
+  <form class="search-form" id="s-form" role="search" novalidate>
+    <input id="s-input" type="search" placeholder="e.g. Karamoja, parliament, Cranes" autocomplete="off" aria-label="Search stories" />
+    <button type="submit" class="submit-btn" style="border:0;cursor:pointer;font:inherit;font-weight:600">Search</button>
+  </form>
+  <p class="search-info" id="s-info" aria-live="polite"></p>
+  <div class="search-results" id="s-results"></div>
+  <p class="nl-hint"><a href="topics">Browse by topic</a> &middot; <a href="stories/">All stories</a></p>
+</section>
+<script>
+(function () {
+  var input = document.getElementById('s-input');
+  var form = document.getElementById('s-form');
+  var info = document.getElementById('s-info');
+  var out = document.getElementById('s-results');
+  var data = null, timer = null, failed = false;
+
+  function norm(s) {
+    return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  function fmtDate(iso) {
+    try { return new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
+    catch (e) { return ''; }
+  }
+  function clear() { while (out.firstChild) { out.removeChild(out.firstChild); } }
+
+  function run(query) {
+    clear();
+    var words = norm(query).split(/\s+/).filter(Boolean);
+    if (!words.length) { info.textContent = ''; return; }
+    if (failed) { info.textContent = 'Search is not available right now. Please try again later.'; return; }
+    if (!data) { info.textContent = 'Loading\u2026'; return; }
+    var hits = [];
+    data.forEach(function (item) {
+      var title = norm(item.t), tags = norm((item.g || []).join(' ')), ex = norm(item.e), cat = norm(item.c);
+      var score = 0;
+      for (var i = 0; i < words.length; i++) {
+        var w = words[i];
+        if (title.indexOf(w) !== -1) { score += 3; }
+        else if (tags.indexOf(w) !== -1) { score += 2; }
+        else if (ex.indexOf(w) !== -1 || cat.indexOf(w) !== -1) { score += 1; }
+        else { return; }                       // every word must match somewhere
+      }
+      hits.push({ item: item, score: score });
+    });
+    hits.sort(function (a, b) { return b.score - a.score || (a.item.d < b.item.d ? 1 : -1); });
+    info.textContent = hits.length
+      ? hits.length + (hits.length === 1 ? ' story found' : ' stories found') + (hits.length > 40 ? ' (showing the best 40)' : '')
+      : 'No stories found. Try fewer or different words.';
+    hits.slice(0, 40).forEach(function (h) {
+      var it = h.item;
+      var box = document.createElement('article'); box.className = 'search-item';
+      var a = document.createElement('a'); a.href = it.u; a.textContent = it.t;
+      var meta = document.createElement('div'); meta.className = 'search-meta'; meta.textContent = it.c + ' \u00b7 ' + fmtDate(it.d);
+      var p = document.createElement('p'); p.textContent = it.e;
+      box.appendChild(a); box.appendChild(meta); box.appendChild(p); out.appendChild(box);
+    });
+  }
+
+  fetch('search-index.json?v=__V__')
+    .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); })
+    .then(function (j) { data = j; run(input.value); })
+    .catch(function () { failed = true; info.textContent = 'Search is not available right now. Please try again later.'; });
+
+  input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(function () { run(input.value); }, 150); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    run(input.value);
+    try { history.replaceState(null, '', input.value.trim() ? '?q=' + encodeURIComponent(input.value.trim()) : window.location.pathname); } catch (x) {}
+  });
+
+  var start = new URLSearchParams(window.location.search).get('q');
+  if (start) { input.value = start; }
+})();
+</script>
+"""
+
+
+def build_search(articles):
+    index = [
+        {
+            "t": a["title"],
+            "u": f"stories/{a['slug']}",
+            "c": CATEGORIES.get(a["category"], a["category"]),
+            "d": a["date"],
+            "e": a.get("excerpt", ""),
+            "g": a.get("tags", []) or [],
+        }
+        for a in sorted(articles, key=lambda x: x["date"], reverse=True)
+    ]
+    write(os.path.join(ROOT, "search-index.json"), json.dumps(index, ensure_ascii=False, separators=(",", ":")))
+    top_pad = "150px" if any(is_breaking_now(a) for a in articles) else "130px"
+    body = SEARCH_BODY.replace("__PAD__", top_pad).replace("__V__", ASSET_VERSION)
+    write(os.path.join(ROOT, "search.html"), _simple_page(
+        "Search", f"Search all {SITE_NAME} stories.", "search.html", body, articles, noindex=True, ads=False))
+
+
+# ---------------------------------------------------------------- channel cards (only shown once a link is filled in above)
+def extra_platform_cards():
+    cards = []
+    if TELEGRAM_CHANNEL_URL:
+        cards.append(
+            f'<a href="{TELEGRAM_CHANNEL_URL}" target="_blank" rel="noopener" class="platform"><div class="platform-icon" style="background:#229ED9">&#9992;</div><div><h4>Telegram</h4><p>Our news channel</p></div></a>')
+    if WHATSAPP_CHANNEL_URL:
+        cards.append(
+            f'<a href="{WHATSAPP_CHANNEL_URL}" target="_blank" rel="noopener" class="platform"><div class="platform-icon" style="background:#25D366">&#128226;</div><div><h4>WhatsApp Channel</h4><p>Follow for daily headlines</p></div></a>')
+    return "\n    ".join(cards)
+
+
 def build_submit():
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -1314,6 +1547,7 @@ def build_submit():
   <div class="submit-cta">
     <a class="submit-btn" href="{SUBMIT_FORM_URL}" target="_blank" rel="noopener">Open the submission form</a>
   </div>
+  <p class="submit-alt">Prefer WhatsApp? <a href="{WHATSAPP_TIP_URL}" target="_blank" rel="noopener">Send us your tip</a>. Photos and voice notes are welcome.</p>
 
   <details class="submit-frame-wrap">
     <summary>Or fill it in right here on this page</summary>
@@ -1330,6 +1564,8 @@ def build_submit():
 
 def main():
     articles = load_articles()
+    TOPICS.clear()
+    TOPICS.update(compute_topics(articles))
     build_index(articles)
     build_archive(articles)
     for cat_key, cat_label in CATEGORIES.items():
@@ -1337,6 +1573,8 @@ def main():
     for a in articles:
         build_article(a, articles)
     build_support()
+    build_topics(articles)
+    build_search(articles)
     build_submit()
     build_newsletter()
     build_newsletter_confirm()
