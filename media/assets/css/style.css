@@ -318,3 +318,22 @@ footer{background:var(--bg);color:var(--text-faint);padding:40px 5vw 24px;border
 .nl-inline{background:var(--bg-elev);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:8px;padding:.85rem 1.1rem;font-size:.92rem;color:var(--text-soft);margin:2rem 0 0}
 .nl-inline a{color:var(--red);font-weight:600}
 @media(max-width:768px){.nl-editions{grid-template-columns:1fr;gap:0}.nl-form{padding:1.2rem 1.05rem}}
+
+/* ---- Search, topics, International note, channel extras ---- */
+a.theme-btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.search-form{display:flex;gap:.7rem;max-width:640px;margin:0 0 1rem}
+.search-form input{flex:1;min-width:0;background:var(--bg-elev);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;font:inherit;font-size:1rem}
+.search-form input:focus{outline:2px solid var(--red);outline-offset:1px}
+.search-info{color:var(--text-faint);font-size:.88rem;margin:.4rem 0 1.2rem;min-height:1.2em}
+.search-results{max-width:760px}
+.search-item{padding:1rem 0;border-bottom:1px solid var(--border)}
+.search-item a{font-family:'Merriweather',serif;font-weight:700;font-size:1.05rem;line-height:1.35;color:var(--text);text-decoration:none}
+.search-item a:hover{color:var(--red)}
+.search-meta{color:var(--text-faint);font-size:.78rem;margin:.3rem 0 .4rem}
+.search-item p{color:var(--text-soft);font-size:.92rem;line-height:1.6}
+a.article-tag{text-decoration:none}
+a.article-tag:hover{color:var(--red);border-color:var(--red)}
+.topic-count{color:var(--text-faint);font-size:.75rem;margin-left:.3rem}
+.cat-note{color:var(--text-soft);font-size:.9rem;line-height:1.65;max-width:760px;margin:0 0 1.2rem;padding:.8rem 1rem;border-left:3px solid var(--red);background:var(--bg-elev);border-radius:0 8px 8px 0}
+.submit-alt{text-align:center;color:var(--text-soft);font-size:.92rem;margin:-.4rem 0 1.4rem}
+.submit-alt a{color:var(--red);font-weight:600}
