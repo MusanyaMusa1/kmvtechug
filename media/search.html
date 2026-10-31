@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search — King Musah Media</title>
+  <meta name="description" content="Search all King Musah Media stories."/>
+  <meta name="robots" content="noindex, follow"/>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261031234215"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GEN75BG21K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GEN75BG21K');
+  </script>
+  
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
+  <link rel="shortcut icon" href="assets/favicon.ico"/>
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<nav>
+  <a class="nav-logo" href="./">
+    <img src="assets/logo-kmm.jpg" data-base="assets/logo-kmm" data-ext-idx="0" alt="King Musah Media" onerror="handleImgError(this)"/>
+    <span class="nav-logo-text">King Musah Media</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="./">Home</a></li><li><a href="stories/">All Stories</a></li><li><a href="category/news">News</a></li><li><a href="category/politics">Politics</a></li><li><a href="category/entertainment">Entertainment</a></li><li><a href="category/sports">Sports</a></li><li><a href="category/business">Business</a></li><li><a href="category/international">International</a></li><li><a href="support" class="nav-cta">Support Us</a></li>
+  </ul>
+  <div class="theme-toggle">
+    <a class="theme-btn search-btn" href="search" aria-label="Search stories">&#128269;</a>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark and light mode">&#9728;</button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mob">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="./" onclick="document.getElementById('mob').classList.remove('open')">Home</a><a href="stories/" onclick="document.getElementById('mob').classList.remove('open')">All Stories</a><a href="category/news" onclick="document.getElementById('mob').classList.remove('open')">News</a><a href="category/politics" onclick="document.getElementById('mob').classList.remove('open')">Politics</a><a href="category/entertainment" onclick="document.getElementById('mob').classList.remove('open')">Entertainment</a><a href="category/sports" onclick="document.getElementById('mob').classList.remove('open')">Sports</a><a href="category/business" onclick="document.getElementById('mob').classList.remove('open')">Business</a><a href="category/international" onclick="document.getElementById('mob').classList.remove('open')">International</a><a href="topics" onclick="document.getElementById('mob').classList.remove('open')">Topics</a><a href="newsletter" onclick="document.getElementById('mob').classList.remove('open')">Newsletter</a><a href="submit" onclick="document.getElementById('mob').classList.remove('open')">Send Us a Story</a><a href="support" style="color:var(--red);font-weight:700" onclick="document.getElementById('mob').classList.remove('open')">Support Us</a>
+</div>
+
+
+<main id="main">
+
+<section class="sec" style="padding-top:130px">
+  <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">Search</span><h2 class="sec-title">Search our stories</h2><p class="sec-sub">Type a name, place or subject. Press Enter or tap Search.</p></div></div>
+  <form class="search-form" id="s-form" role="search" novalidate>
+    <input id="s-input" type="search" placeholder="e.g. Karamoja, parliament, Cranes" autocomplete="off" aria-label="Search stories" />
+    <button type="submit" class="submit-btn" style="border:0;cursor:pointer;font:inherit;font-weight:600">Search</button>
+  </form>
+  <p class="search-info" id="s-info" aria-live="polite"></p>
+  <div class="search-results" id="s-results"></div>
+  <p class="nl-hint"><a href="topics">Browse by topic</a> &middot; <a href="stories/">All stories</a></p>
+</section>
+<script>
+(function () {
+  var input = document.getElementById('s-input');
+  var form = document.getElementById('s-form');
+  var info = document.getElementById('s-info');
+  var out = document.getElementById('s-results');
+  var data = null, timer = null, failed = false;
+
+  function norm(s) {
+    return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  function fmtDate(iso) {
+    try { return new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
+    catch (e) { return ''; }
+  }
+  function clear() { while (out.firstChild) { out.removeChild(out.firstChild); } }
+
+  function run(query) {
+    clear();
+    var words = norm(query).split(/\s+/).filter(Boolean);
+    if (!words.length) { info.textContent = ''; return; }
+    if (failed) { info.textContent = 'Search is not available right now. Please try again later.'; return; }
+    if (!data) { info.textContent = 'Loading\u2026'; return; }
+    var hits = [];
+    data.forEach(function (item) {
+      var title = norm(item.t), tags = norm((item.g || []).join(' ')), ex = norm(item.e), cat = norm(item.c);
+      var score = 0;
+      for (var i = 0; i < words.length; i++) {
+        var w = words[i];
+        if (title.indexOf(w) !== -1) { score += 3; }
+        else if (tags.indexOf(w) !== -1) { score += 2; }
+        else if (ex.indexOf(w) !== -1 || cat.indexOf(w) !== -1) { score += 1; }
+        else { return; }                       // every word must match somewhere
+      }
+      hits.push({ item: item, score: score });
+    });
+    hits.sort(function (a, b) { return b.score - a.score || (a.item.d < b.item.d ? 1 : -1); });
+    info.textContent = hits.length
+      ? hits.length + (hits.length === 1 ? ' story found' : ' stories found') + (hits.length > 40 ? ' (showing the best 40)' : '')
+      : 'No stories found. Try fewer or different words.';
+    hits.slice(0, 40).forEach(function (h) {
+      var it = h.item;
+      var box = document.createElement('article'); box.className = 'search-item';
+      var a = document.createElement('a'); a.href = it.u; a.textContent = it.t;
+      var meta = document.createElement('div'); meta.className = 'search-meta'; meta.textContent = it.c + ' \u00b7 ' + fmtDate(it.d);
+      var p = document.createElement('p'); p.textContent = it.e;
+      box.appendChild(a); box.appendChild(meta); box.appendChild(p); out.appendChild(box);
+    });
+  }
+
+  fetch('search-index.json?v=20261031234215')
+    .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); })
+    .then(function (j) { data = j; run(input.value); })
+    .catch(function () { failed = true; info.textContent = 'Search is not available right now. Please try again later.'; });
+
+  input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(function () { run(input.value); }, 150); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    run(input.value);
+    try { history.replaceState(null, '', input.value.trim() ? '?q=' + encodeURIComponent(input.value.trim()) : window.location.pathname); } catch (x) {}
+  });
+
+  var start = new URLSearchParams(window.location.search).get('q');
+  if (start) { input.value = start; }
+})();
+</script>
+
+</main>
+
+<div class="back-bar">
+  <a href="https://kmvtechug.app" class="back-link">&larr; Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="https://kmvtechug.app/tech/">KMVTECH</a>
+    <a href="https://kmvtechug.app/education/">KMVTECH Education</a>
+    <a href="https://kmvtechug.app/musa/">Musanya Musa</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; 2026 King Musah Media. All rights reserved.</span>
+    <div class="hub-links">
+      <a href="newsletter">Newsletter</a>
+      <a href="topics">Topics</a>
+      <a href="submit">Send us a story</a>
+      <a href="privacy">Privacy Policy</a>
+      <a href="terms">Terms of Service</a>
+      <a href="mailto:kingmusahmedia@gmail.com">Contact us</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js?v=20261031234215"></script>
+</body>
+</html>
