@@ -14,6 +14,7 @@ It regenerates:
 Usage:
     python3 generate_site.py
 """
+import hashlib
 import json
 import os
 import re
@@ -246,15 +247,109 @@ def footer_block(depth=""):
 <script src="{depth}assets/js/main.js?v={ASSET_VERSION}"></script>'''
 
 
-def image_tag(a, depth="", css_class=""):
-    """Fallback-chained <img>: tries jfif/jpg/jpeg/png/webp named after the slug,
-    in assets/images/. If none exist, main.js hides it and the placeholder
-    icon behind it shows instead. Uploading a photo is just: name it
-    <slug>.jfif (or .jpg etc.) and drop it in assets/images/ — no code edits."""
-    base = f"{depth}assets/images/{a['slug']}"
+# ---- Photos --------------------------------------------------------------------------------
+# Every photo is also saved at smaller sizes (as WebP) in assets/img-resized/, so a phone downloads a
+# picture that fits its screen instead of the full-size original. This needs the "Pillow" library; if it
+# is not installed the site still works, it just uses the original photos.
+PHOTO_EXTS = ("jfif", "jpg", "jpeg", "png", "webp")
+RESIZE_WIDTHS = (480, 800, 1200)
+RESIZED = {}   # story slug -> {"width": original width, "variants": [(width, "assets/img-resized/...webp"), ...]}
+
+# How wide each kind of photo is drawn (so the browser can choose the right size).
+SIZES_CARD = "(max-width: 640px) 50vw, 340px"
+SIZES_HERO = "(max-width: 800px) 100vw, 600px"
+SIZES_ARTICLE = "(max-width: 800px) 90vw, 700px"
+
+
+def build_resized_images():
+    RESIZED.clear()
+    try:
+        from PIL import Image, ImageOps
+    except Exception:
+        print("Pillow is not installed: photos are used at full size (nothing is broken).")
+        return
+    src_dir = os.path.join(ROOT, "assets", "images")
+    out_dir = os.path.join(ROOT, "assets", "img-resized")
+    if not os.path.isdir(src_dir):
+        return
+    os.makedirs(out_dir, exist_ok=True)
+    manifest_path = os.path.join(out_dir, "manifest.json")
+    try:
+        with open(manifest_path, encoding="utf-8") as f:
+            old = json.load(f)
+    except Exception:
+        old = {}
+    manifest, keep = {}, {"manifest.json"}
+
+    for name in sorted(os.listdir(src_dir)):
+        stem, ext = os.path.splitext(name)
+        ext = ext.lower().lstrip(".")
+        if ext not in PHOTO_EXTS or resolve_image_ext(stem) != ext:
+            continue   # not a photo, or a second file with the same name (the first one wins)
+        path = os.path.join(src_dir, name)
+        try:
+            with open(path, "rb") as f:
+                digest = hashlib.sha1(f.read()).hexdigest()
+            entry = old.get(stem)
+            files_there = bool(entry) and all(os.path.isfile(os.path.join(ROOT, rel)) for rel in entry.get("files", []))
+            if entry and entry.get("sha1") == digest and files_there:
+                width, rels = entry["width"], entry["files"]       # unchanged photo: nothing to do
+            else:
+                with Image.open(path) as im:
+                    im = ImageOps.exif_transpose(im)               # respect the way the camera was held
+                    width, height = im.size
+                    rels = []
+                    for w in RESIZE_WIDTHS:
+                        if width < w * 1.15:
+                            continue                                # never enlarge a small photo
+                        rel = f"assets/img-resized/{stem}-{w}.webp"
+                        alpha = im.mode in ("RGBA", "LA") or (im.mode == "P" and "transparency" in im.info)
+                        small = im.convert("RGBA" if alpha else "RGB").resize((w, round(height * w / width)), Image.LANCZOS)
+                        small.save(os.path.join(ROOT, rel), "WEBP", quality=78, method=4)
+                        rels.append(rel)
+            if rels:
+                manifest[stem] = {"sha1": digest, "width": width, "files": rels}
+                keep.update(os.path.basename(r) for r in rels)
+                RESIZED[stem] = {
+                    "width": width,
+                    "variants": [(int(re.search(r"-(\d+)\.webp$", r).group(1)), r) for r in rels],
+                }
+        except Exception as err:
+            print(f"  could not resize {name}: {err}")
+
+    # tidy: remove resized files whose photo is gone or was replaced
+    for leftover in os.listdir(out_dir):
+        if leftover not in keep:
+            os.remove(os.path.join(out_dir, leftover))
+    if manifest != old:
+        with open(manifest_path, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=1, sort_keys=True)
+    print(f"Resized photos: {len(RESIZED)} stories have smaller versions.")
+
+
+def image_tag(a, depth="", css_class="", priority=False, sizes=""):
+    """The story photo. It points at the file that really exists (found on disk when the page is built),
+    so the browser asks for it straight away instead of guessing .jfif first. If a smaller WebP copy
+    exists it is offered too. `priority=True` is for the big photo at the top of a page: it loads first."""
+    slug = a["slug"]
+    base = f"{depth}assets/images/{slug}"
     alt = a.get("image_alt", a["title"])
     cls = f' class="{css_class}"' if css_class else ""
-    return f'<img{cls} src="{base}.jfif" data-base="{base}" data-ext-idx="0" alt="{alt}" loading="lazy" onerror="handleImgError(this)"/>'
+    ext = resolve_image_ext(slug)
+    idx = PHOTO_EXTS.index(ext) if ext else 0
+    srcset = ""
+    info = RESIZED.get(slug)
+    if info and sizes:
+        candidates = [f"{depth}{rel} {w}w" for w, rel in info["variants"]]
+        if info["width"] <= 1600:
+            candidates.append(f"{base}.{ext} {info['width']}w")   # a modest original is a candidate too
+        srcset = f' srcset="{", ".join(candidates)}" sizes="{sizes}"'
+    if priority and ext:
+        load = 'loading="eager" fetchpriority="high" data-lcp="1"'
+    else:
+        load = 'loading="lazy"'
+    return (f'<img{cls} src="{base}.{ext or "jfif"}" data-base="{base}" data-ext-idx="{idx}"{srcset} '
+            f'alt="{alt}" {load} decoding="async" onerror="handleImgError(this)"/>')
 
 
 def youtube_embed_html(a):
@@ -307,7 +402,7 @@ def story_card(a, depth=""):
     breaking_flag = ' <span class="breaking-flag">&bull; Breaking</span>' if is_breaking_now(a) else ""
     return f'''<a class="story-card" href="{depth}stories/{a["slug"]}.html">
   <div class="story-media" aria-hidden="true">
-    {image_tag(a, depth)}
+    {image_tag(a, depth, sizes=SIZES_CARD)}
     <span class="story-cat-tag">{CATEGORIES.get(a["category"], a["category"])}</span>
     <span class="story-lang-tag">{LANG_LABEL.get(a["language"], a["language"])}</span>
     &#128240;
@@ -358,7 +453,7 @@ def build_index(articles):
 <section class="sec" id="top-story" aria-label="Top story" style="padding-top:{top_pad}">
   <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">Top Story</span><h2 class="sec-title">{CATEGORIES.get(hero["category"], hero["category"])} Spotlight</h2></div></div>
   <a class="hero-story" href="stories/{hero["slug"]}.html">
-    <div class="hero-story-media" aria-hidden="true">{image_tag(hero)}&#128240;</div>
+    <div class="hero-story-media" aria-hidden="true">{image_tag(hero, priority=True, sizes=SIZES_HERO)}&#128240;</div>
     <div class="hero-story-body">
       <span class="story-cat-tag" style="position:static;display:inline-block">{CATEGORIES.get(hero["category"], hero["category"])}</span>
       <h2>{hero["title"]}</h2>
@@ -528,7 +623,7 @@ def build_article(a, articles):
     </div>
   </div>
   {lang_note}
-  <div class="article-media" aria-hidden="true">{image_tag(a, depth="../")}&#128247; {a.get("image_alt", "")}</div>
+  <div class="article-media" aria-hidden="true">{image_tag(a, depth="../", priority=True, sizes=SIZES_ARTICLE)}&#128247; {a.get("image_alt", "")}</div>
   {youtube_embed_html(a) or ""}
   <div class="article-body">
 {body_html}
@@ -729,9 +824,46 @@ def add_favicon(path, html):
     return html.replace("</head>", "  " + FAVICON_LINKS.format(a=assets) + "</head>", 1)
 
 
+# ---- Speed: fonts from this site, and the main photo told to load first ------------------------------
+GOOGLE_FONTS_LINK = re.compile(r"[ \t]*<link[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>[ \t]*\n?", re.I)
+FONT_PRELOADS = ("merriweather-latin-wght-normal.woff2", "dm-sans-latin-400-normal.woff2")
+LCP_IMG = re.compile(r'<img\b[^>]*\bdata-lcp="1"[^>]*>')
+
+
+def _attr(tag, name):
+    m = re.search(r'\b' + name + r'="([^"]*)"', tag)
+    return m.group(1) if m else ""
+
+
+def speed_up_head(path, html):
+    if "</head>" not in html:
+        return html
+    assets = os.path.relpath(os.path.join(ROOT, "assets"), os.path.dirname(path)).replace(os.sep, "/")
+    html = GOOGLE_FONTS_LINK.sub("", html)          # fonts now come from this site (see assets/fonts/)
+    extra = "".join(
+        f'  <link rel="preload" href="{assets}/fonts/{f}" as="font" type="font/woff2" crossorigin/>\n' for f in FONT_PRELOADS
+    )
+    m = LCP_IMG.search(html)
+    if m:
+        tag = m.group(0)
+        src, srcset, sizes = _attr(tag, "src"), _attr(tag, "srcset"), _attr(tag, "sizes")
+        if src:
+            extra += f'  <link rel="preload" as="image" href="{src}"'
+            if srcset:
+                extra += f' imagesrcset="{srcset}" imagesizes="{sizes}"'
+            extra += ' fetchpriority="high"/>\n'
+        html = html.replace(tag, tag.replace(' data-lcp="1"', ""), 1)
+    pos = html.find('<link rel="stylesheet"')
+    if pos == -1:
+        pos = html.find("</head>")
+    else:
+        pos = html.rfind("\n", 0, pos) + 1
+    return html[:pos] + extra + html[pos:]
+
+
 def write(path, content):
     if path.endswith(".html"):
-        content = add_favicon(path, clean_page_links(content))
+        content = speed_up_head(path, add_favicon(path, clean_page_links(content)))
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
@@ -1564,6 +1696,7 @@ def build_submit():
 
 def main():
     articles = load_articles()
+    build_resized_images()
     TOPICS.clear()
     TOPICS.update(compute_topics(articles))
     build_index(articles)
