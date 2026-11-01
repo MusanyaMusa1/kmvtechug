@@ -11,6 +11,9 @@
   <url><loc>https://kmvtechug.app/media/submit</loc></url>
   <url><loc>https://kmvtechug.app/media/newsletter</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/australia</loc></url>
@@ -18,7 +21,6 @@
   <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/uganda</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/spain</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
@@ -44,7 +46,6 @@
   <url><loc>https://kmvtechug.app/media/topic/busiro-south</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/nup</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/election-petition</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elon-musk</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/health</loc></url>
@@ -65,7 +66,6 @@
   <url><loc>https://kmvtechug.app/media/topic/politics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/un</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/canada</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/amelia-earhart</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/military</loc></url>
@@ -139,6 +139,7 @@
   <url><loc>https://kmvtechug.app/media/topic/judiciary</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/ukrainians-describe-survival-in-occupied-oleshky-following-evacuation</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/cape-town-test-set-for-decisive-final-day-as-south-africa-bats-through-day-four</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/congolese-judoka-arno-yafunga-botay-set-to-compete-at-dakar-2026-youth-olympics</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/refugee-athlete-yiech-pur-biel-to-lead-historic-team-at-youth-olympics</loc></url>
