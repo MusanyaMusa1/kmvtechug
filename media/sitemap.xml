@@ -11,6 +11,9 @@
   <url><loc>https://kmvtechug.app/media/submit</loc></url>
   <url><loc>https://kmvtechug.app/media/newsletter</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
@@ -26,9 +29,7 @@
   <url><loc>https://kmvtechug.app/media/topic/first-oil</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/eacop</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/unoc</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/cricket</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/india</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
@@ -69,7 +70,6 @@
   <url><loc>https://kmvtechug.app/media/topic/election-petition</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elon-musk</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/mulago-hospital</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ucc</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/thomas-tayebwa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/volodymyr-zelensky</loc></url>
@@ -147,6 +147,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/nicolas-jackson-continues-impressive-start-at-aston-villa-with-double-against-ma</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/analysis-serbian-president-aleksandar-vuis-electoral-loss-parallels-hungarian-sh</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/judge-dismisses-trump-lawsuit-against-wall-street-journal-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/comedian-kapere-lufotoose-passes-away-nation-mourns</loc></url>
