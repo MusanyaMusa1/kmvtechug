@@ -22,6 +22,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install the image tool (makes smaller photo copies for phones)
+        run: pip install pillow
+
       - name: Rebuild the site from articles.json
         run: |
           cd media
