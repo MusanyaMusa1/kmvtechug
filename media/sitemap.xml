@@ -11,6 +11,10 @@
   <url><loc>https://kmvtechug.app/media/submit</loc></url>
   <url><loc>https://kmvtechug.app/media/newsletter</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/media</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/us-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/death</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/nup</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/entertainment</loc></url>
@@ -23,7 +27,6 @@
   <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/cricket</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/india</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
@@ -52,7 +55,6 @@
   <url><loc>https://kmvtechug.app/media/topic/entebbe</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/technology</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/business</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/us-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/brazil</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/sam-mugumya</loc></url>
@@ -66,8 +68,6 @@
   <url><loc>https://kmvtechug.app/media/topic/busiro-south</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/election-petition</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elon-musk</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/media</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/mulago-hospital</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ucc</loc></url>
@@ -147,6 +147,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/judge-dismisses-trump-lawsuit-against-wall-street-journal-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/comedian-kapere-lufotoose-passes-away-nation-mourns</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/ugandas-most-prolific-blood-donor-lt-col-egesa-to-receive-official-burial</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/updf-flags-off-battle-group-48-for-somalia-mission</loc></url>
