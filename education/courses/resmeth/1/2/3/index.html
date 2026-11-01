@@ -135,6 +135,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 @media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
 @media(min-width:1100px){.out{display:block;}}
 </style>
+<style id="kmv-m1-style">
+.prose h3{font-size:1.05rem;margin:1.6em 0 .5em;color:var(--blue,#2B3FBF)}
+.prose p{line-height:1.75;margin:.6em 0}
+.prose ul,.prose ol{padding-left:1.3em;margin:.5em 0 1em}
+.prose li{line-height:1.7;margin:.25em 0}
+.kmv-tw{overflow-x:auto;margin:1em 0}
+.prose table{width:100%;border-collapse:collapse;font-size:.92rem}
+.prose th{background:#0D1B2A;color:#fff;text-align:left;padding:8px 10px}
+.prose td{border:1px solid rgba(128,128,128,.3);padding:8px 10px;vertical-align:top}
+.kmv-box{border-left:4px solid #C9922A;background:rgba(201,146,42,.1);padding:10px 14px;margin:1em 0;border-radius:0 8px 8px 0}
+.kmv-box p{margin:.3em 0}
+.qfb{display:none;font-size:.88rem;color:var(--text-2,#4B5563);margin:6px 0 2px;padding:8px 10px;background:rgba(128,128,128,.1);border-radius:8px}
+</style>
 </head>
 <body data-course="RESMETH">
 <header class="topbar">
@@ -169,7 +182,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · L1.2 · Page 3 of 3</div><h1 class="ltitle">Feasibility and Scope</h1><div class="chips"><span class="chip">Text</span><span class="chip">~5 min</span></div></header>
-<div class="prose"><a class="pdf-btn" href="/education/courses/resmeth/notes/KMVEDU-RESMETH-M1-L1-Notes.pdf" download>Download Lesson PDF</a><p>Time, money, access, language, and ethics limit what you can study. A smaller well-done study beats an ambitious incomplete one.</p></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/resmeth/notes/KMVEDU-RESMETH-M1-L1-Notes.pdf" download>Download Lesson PDF</a>
+<h3>Why feasibility matters</h3>
+<p>A good idea is not enough. A study must also be possible within your limits. A smaller study done well is better than an ambitious study that is never finished (Saunders et al., 2019). Check feasibility before you commit to a design.</p>
+<h3>What limits a student project</h3>
+<ul><li><strong>Time:</strong> semester deadlines and the time to get permissions.</li><li><strong>Money:</strong> transport, airtime or data, printing and any fees.</li><li><strong>Access:</strong> can you reach the people or records you need? You may need permission from an institution or local leaders.</li><li><strong>Skills:</strong> can you use the method and the analysis you plan to use?</li><li><strong>Language:</strong> can you collect data in the languages your participants use?</li><li><strong>Data:</strong> do the records or statistics you need exist and can you see them?</li><li><strong>Ethics:</strong> studies with people usually need ethics review and permissions.</li></ul>
+<div class="kmv-box"><strong>A note on ethics approval in Uganda</strong><p>Many studies with human participants need approval from an institutional research ethics committee and, depending on the study, registration with the Uganda National Council for Science and Technology (UNCST). Module 6 covers research ethics. Ask your supervisor which rules apply to your project.</p></div>
+<h3>Scope: set clear boundaries</h3>
+<p>Scope is the boundary of your study: which people, which place, which time period and which variables. Write the boundaries down.</p>
+<ul><li><strong>Delimitations</strong> are choices you make to narrow the study. Example: only riders at selected stages in two divisions of Kampala.</li><li><strong>Limitations</strong> are weaknesses you cannot fully control. Example: riders may not remember exactly how much they saved.</li></ul>
+<h3>A quick feasibility checklist</h3>
+<div class="kmv-tw"><table><thead><tr><th>Question</th><th>Yes or No</th></tr></thead><tbody><tr><td>Can I finish within the time I have?</td><td></td></tr><tr><td>Can I afford the costs?</td><td></td></tr><tr><td>Can I reach enough participants or records?</td><td></td></tr><tr><td>Do I have the skills for the method and analysis?</td><td></td></tr><tr><td>Can I collect data in a language participants use?</td><td></td></tr><tr><td>Do I know what permissions and ethics approval I need?</td><td></td></tr></tbody></table></div>
+<p>If you answer No to any item, change the scope, the sample or the method before you continue. Talk to your supervisor and test your plan with a few people first.</p>
+<h3>Worked example: reducing the scope</h3>
+<div class="kmv-tw"><table><thead><tr><th>Too big</th><th>Scoped down</th></tr></thead><tbody><tr><td>All boda boda riders in Uganda</td><td>Riders at selected stages in two Kampala divisions</td></tr><tr><td>Over three years</td><td>Over the last 30 days</td></tr><tr><td>Many variables</td><td>Mobile money frequency, savings, and three control variables</td></tr></tbody></table></div>
+<h3>Key terms</h3>
+<ul><li><strong>Feasibility:</strong> whether the study can be completed with your time, money, access and skills.</li><li><strong>Scope:</strong> the boundaries of the study.</li><li><strong>Delimitation:</strong> a deliberate choice that narrows the study.</li><li><strong>Limitation:</strong> a weakness outside the researcher&#x27;s full control.</li></ul>
+<h3>Check yourself</h3>
+<ul><li>Complete the checklist for your own project and name the one item that worries you most.</li><li>Write one delimitation and one limitation for your project.</li></ul>
+</div>
     <div class="nav-row"><a class="nbtn primary" href="/education/courses/resmeth/1/2/quiz/" onclick="show()">L1.2 Practice Quiz &#8594;</a></div>
   </div>
 </main>
@@ -188,15 +219,44 @@ async function chkAccess() {
   if (en.expires_at && new Date(en.expires_at) < new Date()) { showLk('expired'); return; }
   show();
 }
+/* kmv-lock-v2 */
 function showLk(r) {
-  const lk = document.getElementById('lk');
-  const msgs = {
-    guest: '<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-    no_plan: '<div class="lock-card"><h2>Enrol to continue</h2><p>This course requires enrolment.</p><a class="nbtn primary" href="/education/courses/resmeth/">View course</a></div>',
-    expired: '<div class="lock-card"><h2>Access expired</h2><p>Renew to continue.</p><a class="nbtn primary" href="/education/courses/resmeth/">Renew access</a></div>'
+  var CODE = "RESMETH", NAME = "Research Methods";
+  var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var back = encodeURIComponent(location.href);
+  var enrol = '/education/enroll/?course=' + CODE + '&name=' + encodeURIComponent(NAME);
+  var info = '/education/courses/' + CODE.toLowerCase() + '/';
+  var B = 'display:block;width:100%;max-width:340px;margin:10px auto 0;padding:13px 18px;border-radius:10px;font-weight:700;font-size:14.5px;text-align:center;text-decoration:none;box-sizing:border-box;font-family:inherit;';
+  var P = B + 'background:#2B3FBF;color:#fff;border:1.5px solid #2B3FBF;';
+  var S = B + 'background:transparent;color:#2B3FBF;border:1.5px solid #2B3FBF;';
+  var L = 'display:inline-block;margin-top:16px;font-size:13px;color:#6B7280;text-decoration:underline;';
+  var n = esc(NAME);
+  var cards = {
+    loading: { i: '&#8987;', h: 'Checking your access...', p: 'One moment please.', b: [] },
+    guest: { i: '&#128274;', h: 'Log in to continue',
+      p: 'This lesson is part of <strong>' + n + '</strong>. Log in with your student account, or register free to get your student number. After that, enroll in the course to start studying.',
+      b: [['Log In', '/education/login/?return=' + back, P], ['Register Free', '/education/register/?return=' + back, S]] },
+    no_plan: { i: '&#128218;', h: 'Enroll in ' + n + ' to continue',
+      p: 'Your account is registered, but you are not enrolled in this course yet. Enroll to unlock all lessons, quizzes, notes and your certificate. UGX 5,000 for 30 days in this course, UGX 20,000 for all courses for 30 days, or UGX 50,000 for all courses for 5 months.',
+      b: [['Enroll in this Course', enrol, P]] },
+    expired: { i: '&#9200;', h: 'Your access has ended',
+      p: 'Your plan for <strong>' + n + '</strong> has expired. Renew to continue from where you stopped. Your progress is saved.',
+      b: [['Renew Access', enrol, P]] },
+    error: { i: '&#9888;&#65039;', h: 'We could not check your access',
+      p: 'This can happen on a slow connection. Please try again.',
+      b: [['Try Again', 'javascript:location.reload()', P]] }
   };
-  lk.innerHTML = msgs[r] || msgs.guest; lk.style.display = 'block';
-  document.getElementById('lc').style.display = 'none';
+  var x = cards[r] || cards.guest;
+  var html = '<div style="max-width:520px;margin:48px auto;padding:32px 24px;text-align:center;border:1px solid rgba(128,128,128,.3);border-radius:16px;background:var(--surface,#fff);color:var(--text-1,#1C1C1C);">'
+    + '<div style="font-size:40px;line-height:1;margin-bottom:12px;">' + x.i + '</div>'
+    + '<h2 style="font-size:21px;margin:0 0 10px;font-weight:800;">' + x.h + '</h2>'
+    + '<p style="font-size:14.5px;line-height:1.65;margin:0 0 18px;color:var(--text-2,#4B5563);">' + x.p + '</p>';
+  for (var k = 0; k < x.b.length; k++) { html += '<a href="' + x.b[k][1] + '" style="' + x.b[k][2] + '">' + x.b[k][0] + '</a>'; }
+  if (r !== 'loading') { html += '<a href="' + info + '" style="' + L + '">View course details</a>'; }
+  html += '</div>';
+  var box = document.getElementById('lk');
+  if (box) { box.innerHTML = html; box.style.display = 'block'; }
+  var lc = document.getElementById('lc'); if (lc) lc.style.display = 'none';
 }
 function show() {
   document.getElementById('lk').style.display = 'none';
@@ -211,7 +271,17 @@ function tTheme() {
   const t = document.getElementById('tt');
   if (t) { t.setAttribute('aria-checked', d ? 'false' : 'true'); t.querySelector('.tthumb').innerHTML = d ? '&#9728;' : '&#9790;'; }
 }
-chkAccess();
+/* kmv-lock-v2 */
+(function () {
+  showLk('loading');
+  var settled = false;
+  var timer = setTimeout(function () { if (!settled) showLk('error'); }, 12000);
+  Promise.resolve().then(chkAccess).then(function () {
+    settled = true; clearTimeout(timer);
+    var lc = document.getElementById('lc'), bx = document.getElementById('lk');
+    if (lc && bx && lc.style.display === 'block') bx.style.display = 'none';
+  }).catch(function () { settled = true; clearTimeout(timer); showLk('error'); });
+})();
 </script>
 <script>
 (function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');

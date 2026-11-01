@@ -135,6 +135,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
 @media(min-width:768px){.sb{display:block;}.tname{display:block;}.main{padding:0 32px 100px;}}
 @media(min-width:1100px){.out{display:block;}}
 </style>
+<style id="kmv-m1-style">
+.prose h3{font-size:1.05rem;margin:1.6em 0 .5em;color:var(--blue,#2B3FBF)}
+.prose p{line-height:1.75;margin:.6em 0}
+.prose ul,.prose ol{padding-left:1.3em;margin:.5em 0 1em}
+.prose li{line-height:1.7;margin:.25em 0}
+.kmv-tw{overflow-x:auto;margin:1em 0}
+.prose table{width:100%;border-collapse:collapse;font-size:.92rem}
+.prose th{background:#0D1B2A;color:#fff;text-align:left;padding:8px 10px}
+.prose td{border:1px solid rgba(128,128,128,.3);padding:8px 10px;vertical-align:top}
+.kmv-box{border-left:4px solid #C9922A;background:rgba(201,146,42,.1);padding:10px 14px;margin:1em 0;border-radius:0 8px 8px 0}
+.kmv-box p{margin:.3em 0}
+.qfb{display:none;font-size:.88rem;color:var(--text-2,#4B5563);margin:6px 0 2px;padding:8px 10px;background:rgba(128,128,128,.1);border-radius:8px}
+</style>
 </head>
 <body data-course="RESMETH">
 <header class="topbar">
@@ -169,11 +182,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);l
   <div id="lk"></div>
   <div id="lc" style="display:none;">
     <header class="hdr"><div class="ey">Module 1 · Summary</div><h1 class="ltitle">Module 1 Summary</h1><div class="chips"><span class="chip">Summary</span></div></header>
-<div class="prose"><a class="pdf-btn" href="/education/courses/resmeth/notes/KMVEDU-RESMETH-M1-L1-Notes.pdf" download>Download Lesson PDF</a><ul>
-<li>Research is systematic and question-driven.</li>
-<li>Literature and frameworks justify the study.</li>
-<li>Aims, objectives, and feasibility shape success.</li>
-</ul></div>
+<div class="prose"><a class="pdf-btn" href="/education/courses/resmeth/notes/KMVEDU-RESMETH-M1-L1-Notes.pdf" download>Download Lesson PDF</a>
+<h3>Key points</h3><ul><li>Research is a planned, evidence-based investigation of a clear question that others can check.</li><li>Good research is systematic, empirical, open to checking, focused and ethical.</li><li>Basic research builds understanding. Applied research tackles practical problems. Deductive reasoning tests expectations. Inductive reasoning builds explanations.</li><li>Narrow a topic into a question using who, what, where, when and how. A good question is clear, focused, researchable, relevant, doable and ethical.</li><li>A literature review shows what is known and where the gaps are. A rationale argues why the study is needed. Cite what you use.</li><li>The aim gives the overall purpose. Objectives are specific and measurable. Hypotheses are testable predictions, and data support them or fail to support them.</li><li>A conceptual framework maps the concepts and expected relationships. Check feasibility and set the scope before you start.</li></ul><h3>Key terms</h3><div class="kmv-tw"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td>Research</td><td>Planned, evidence-based investigation of a clear question</td></tr><tr><td>Research question</td><td>A focused, answerable question that guides the study</td></tr><tr><td>Literature review</td><td>A critical summary of earlier work</td></tr><tr><td>Gap</td><td>Something not yet known, studied or settled</td></tr><tr><td>Rationale</td><td>The argument for why the study is needed</td></tr><tr><td>Aim</td><td>The overall purpose of the study</td></tr><tr><td>Objective</td><td>A specific, measurable step to reach the aim</td></tr><tr><td>Hypothesis</td><td>A testable prediction about variables</td></tr><tr><td>Variable</td><td>A concept that can take different values</td></tr><tr><td>Operational definition</td><td>How a variable is measured</td></tr><tr><td>Delimitation / Limitation</td><td>A choice that narrows the study / a weakness outside your control</td></tr><tr><td>Feasibility</td><td>Whether the study can be completed with your time, money, access and skills</td></tr></tbody></table></div><div class="kmv-box"><strong>Before you start the graded quiz</strong><p>You need 70% to pass this module. An 80% average across all six module quizzes earns your certificate.</p></div>
+</div>
     <div class="nav-row"><a class="nbtn primary" href="/education/courses/resmeth/1/quiz/" onclick="show()">Module 1 Graded Quiz &#8594;</a></div>
   </div>
 </main>
@@ -192,15 +203,44 @@ async function chkAccess() {
   if (en.expires_at && new Date(en.expires_at) < new Date()) { showLk('expired'); return; }
   show();
 }
+/* kmv-lock-v2 */
 function showLk(r) {
-  const lk = document.getElementById('lk');
-  const msgs = {
-    guest: '<div class="lock-card"><h2>Sign in required</h2><p>Sign in to access this lesson.</p><a class="nbtn primary" href="/education/auth/">Sign in</a></div>',
-    no_plan: '<div class="lock-card"><h2>Enrol to continue</h2><p>This course requires enrolment.</p><a class="nbtn primary" href="/education/courses/resmeth/">View course</a></div>',
-    expired: '<div class="lock-card"><h2>Access expired</h2><p>Renew to continue.</p><a class="nbtn primary" href="/education/courses/resmeth/">Renew access</a></div>'
+  var CODE = "RESMETH", NAME = "Research Methods";
+  var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var back = encodeURIComponent(location.href);
+  var enrol = '/education/enroll/?course=' + CODE + '&name=' + encodeURIComponent(NAME);
+  var info = '/education/courses/' + CODE.toLowerCase() + '/';
+  var B = 'display:block;width:100%;max-width:340px;margin:10px auto 0;padding:13px 18px;border-radius:10px;font-weight:700;font-size:14.5px;text-align:center;text-decoration:none;box-sizing:border-box;font-family:inherit;';
+  var P = B + 'background:#2B3FBF;color:#fff;border:1.5px solid #2B3FBF;';
+  var S = B + 'background:transparent;color:#2B3FBF;border:1.5px solid #2B3FBF;';
+  var L = 'display:inline-block;margin-top:16px;font-size:13px;color:#6B7280;text-decoration:underline;';
+  var n = esc(NAME);
+  var cards = {
+    loading: { i: '&#8987;', h: 'Checking your access...', p: 'One moment please.', b: [] },
+    guest: { i: '&#128274;', h: 'Log in to continue',
+      p: 'This lesson is part of <strong>' + n + '</strong>. Log in with your student account, or register free to get your student number. After that, enroll in the course to start studying.',
+      b: [['Log In', '/education/login/?return=' + back, P], ['Register Free', '/education/register/?return=' + back, S]] },
+    no_plan: { i: '&#128218;', h: 'Enroll in ' + n + ' to continue',
+      p: 'Your account is registered, but you are not enrolled in this course yet. Enroll to unlock all lessons, quizzes, notes and your certificate. UGX 5,000 for 30 days in this course, UGX 20,000 for all courses for 30 days, or UGX 50,000 for all courses for 5 months.',
+      b: [['Enroll in this Course', enrol, P]] },
+    expired: { i: '&#9200;', h: 'Your access has ended',
+      p: 'Your plan for <strong>' + n + '</strong> has expired. Renew to continue from where you stopped. Your progress is saved.',
+      b: [['Renew Access', enrol, P]] },
+    error: { i: '&#9888;&#65039;', h: 'We could not check your access',
+      p: 'This can happen on a slow connection. Please try again.',
+      b: [['Try Again', 'javascript:location.reload()', P]] }
   };
-  lk.innerHTML = msgs[r] || msgs.guest; lk.style.display = 'block';
-  document.getElementById('lc').style.display = 'none';
+  var x = cards[r] || cards.guest;
+  var html = '<div style="max-width:520px;margin:48px auto;padding:32px 24px;text-align:center;border:1px solid rgba(128,128,128,.3);border-radius:16px;background:var(--surface,#fff);color:var(--text-1,#1C1C1C);">'
+    + '<div style="font-size:40px;line-height:1;margin-bottom:12px;">' + x.i + '</div>'
+    + '<h2 style="font-size:21px;margin:0 0 10px;font-weight:800;">' + x.h + '</h2>'
+    + '<p style="font-size:14.5px;line-height:1.65;margin:0 0 18px;color:var(--text-2,#4B5563);">' + x.p + '</p>';
+  for (var k = 0; k < x.b.length; k++) { html += '<a href="' + x.b[k][1] + '" style="' + x.b[k][2] + '">' + x.b[k][0] + '</a>'; }
+  if (r !== 'loading') { html += '<a href="' + info + '" style="' + L + '">View course details</a>'; }
+  html += '</div>';
+  var box = document.getElementById('lk');
+  if (box) { box.innerHTML = html; box.style.display = 'block'; }
+  var lc = document.getElementById('lc'); if (lc) lc.style.display = 'none';
 }
 function show() {
   document.getElementById('lk').style.display = 'none';
@@ -215,7 +255,17 @@ function tTheme() {
   const t = document.getElementById('tt');
   if (t) { t.setAttribute('aria-checked', d ? 'false' : 'true'); t.querySelector('.tthumb').innerHTML = d ? '&#9728;' : '&#9790;'; }
 }
-chkAccess();
+/* kmv-lock-v2 */
+(function () {
+  showLk('loading');
+  var settled = false;
+  var timer = setTimeout(function () { if (!settled) showLk('error'); }, 12000);
+  Promise.resolve().then(chkAccess).then(function () {
+    settled = true; clearTimeout(timer);
+    var lc = document.getElementById('lc'), bx = document.getElementById('lk');
+    if (lc && bx && lc.style.display === 'block') bx.style.display = 'none';
+  }).catch(function () { settled = true; clearTimeout(timer); showLk('error'); });
+})();
 </script>
 <script>
 (function(){const root=document.documentElement;const saved=localStorage.getItem('kmv-theme');

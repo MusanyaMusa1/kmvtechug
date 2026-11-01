@@ -260,8 +260,8 @@ async function checkAccess(){
 }
 
 function show(){{document.getElementById('locked-state').style.display='none';document.getElementById('quiz-state').style.display='block';trackProgress();}}
-function showLocked(){document.getElementById('locked-state').innerHTML='<div class="locked"><div class="locked-icon">&#128218;</div><h2>Choose a plan to access this quiz</h2><p>You are registered but do not have an active plan. Plans start from UGX 5,000.</p><a href="/education/#pricing" class="btn-unlock">View Plans &#8594;</a></div>';document.getElementById('locked-state').style.display='block';}
-function showLockedExpired(){document.getElementById('locked-state').innerHTML='<div class="locked"><div class="locked-icon">&#9200;</div><h2>Your study plan has expired</h2><p>Renew your plan to continue from where you left off.</p><a href="/education/#pricing" class="btn-unlock">Renew Access &#8594;</a></div>';document.getElementById('locked-state').style.display='block';}
+function showLocked(){document.getElementById('locked-state').innerHTML='<div class="locked"><div class="locked-icon">&#128218;</div><h2>Choose a plan to access this quiz</h2><p>You are registered but do not have an active plan. Plans start from UGX 5,000.</p><a href="/education/enroll/?course=EVL1&name=Evidence%20Law%201" class="btn-unlock">Enroll in this Course &#8594;</a></div>';document.getElementById('locked-state').style.display='block';}
+function showLockedExpired(){document.getElementById('locked-state').innerHTML='<div class="locked"><div class="locked-icon">&#9200;</div><h2>Your study plan has expired</h2><p>Renew your plan to continue from where you left off.</p><a href="/education/enroll/?course=EVL1&name=Evidence%20Law%201" class="btn-unlock">Renew Access &#8594;</a></div>';document.getElementById('locked-state').style.display='block';}
 
 function select(el, qid){
   if(submitted) return;
