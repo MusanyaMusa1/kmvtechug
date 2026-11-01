@@ -6,6 +6,13 @@
 // just name your photo file to match the story slug and drop it in assets/images/.
 window.handleImgError = function (img) {
   var exts = ['jfif', 'jpg', 'jpeg', 'png', 'webp'];
+  // If one of the smaller WebP copies failed to load, forget it and use the original photo.
+  if (img.hasAttribute('srcset')) {
+    img.removeAttribute('srcset');
+    img.removeAttribute('sizes');
+    img.src = img.getAttribute('src');
+    return;
+  }
   var idx = parseInt(img.getAttribute('data-ext-idx') || '0', 10) + 1;
   if (idx < exts.length) {
     img.setAttribute('data-ext-idx', idx);
