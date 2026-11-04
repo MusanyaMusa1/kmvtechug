@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'media/data/articles.json'
+      - 'media/data/authors.json'
       - 'media/generate_site.py'
       - 'media/assets/**'
 
