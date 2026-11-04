@@ -349,3 +349,31 @@ a.article-tag:hover{color:var(--red);border-color:var(--red)}
 .cat-note{color:var(--text-soft);font-size:.9rem;line-height:1.65;max-width:760px;margin:0 0 1.2rem;padding:.8rem 1rem;border-left:3px solid var(--red);background:var(--bg-elev);border-radius:0 8px 8px 0}
 .submit-alt{text-align:center;color:var(--text-soft);font-size:.92rem;margin:-.4rem 0 1.4rem}
 .submit-alt a{color:var(--red);font-weight:600}
+
+/* ---- Authors, trust pages, corrections ---- */
+.card-author{display:inline-flex;align-items:center;gap:.4rem}
+.card-avatar{width:22px;height:22px;font-size:.62rem;flex:0 0 22px;border-radius:50%}
+.avatar-img{object-fit:cover;border-radius:50%;background:var(--bg-elev);display:block}
+.article-byline .avatar-img{width:38px;height:38px;flex:0 0 38px}
+a.byline-name{text-decoration:none;color:var(--text);font-weight:700}
+a.byline-name:hover{color:var(--red)}
+.correction-box{border-left:3px solid var(--red);background:var(--bg-elev);padding:.8rem 1rem;border-radius:0 8px 8px 0;margin:1rem 0;font-size:.92rem;color:var(--text-soft);line-height:1.6}
+.correction-box p{margin:.25rem 0}
+.prose{max-width:760px;line-height:1.75;color:var(--text-soft)}
+.prose h3{font-family:'Merriweather',serif;color:var(--text);margin:2rem 0 .6rem;font-size:1.15rem}
+.prose ul{padding-left:1.2rem;margin:.6rem 0}
+.prose li{margin:.35rem 0}
+.prose a{color:var(--red)}
+.corrections-log{list-style:none;padding:0}
+.corrections-log li{border-bottom:1px solid var(--border);padding:.8rem 0}
+.author-hero{display:flex;gap:1.5rem;align-items:center;margin-bottom:2rem;flex-wrap:wrap}
+.big-avatar{width:112px;height:112px;flex:0 0 112px;font-size:2.2rem;border-radius:50%}
+.author-avatar.big-avatar{display:flex;align-items:center;justify-content:center}
+.author-role{color:var(--red);font-weight:600;font-size:.9rem;margin:.2rem 0}
+.author-bio{color:var(--text-soft);line-height:1.7;max-width:640px;margin:.6rem 0}
+.author-links a{color:var(--red);font-size:.9rem}
+.author-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.2rem;margin:1rem 0}
+.author-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.4rem 1rem;background:var(--bg-elev);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text)}
+.author-card:hover{border-color:var(--red)}
+.author-card h3{font-family:'Merriweather',serif;font-size:1.05rem;margin:.9rem 0 .2rem}
+.author-count{color:var(--text-faint);font-size:.8rem;margin:0}
