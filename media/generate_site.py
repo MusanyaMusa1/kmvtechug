@@ -144,6 +144,7 @@ def mobile_nav_html(depth=""):
         ("category/sports.html", "Sports"),
         ("category/business.html", "Business"),
         ("category/international.html", "International"),
+        ("about.html", "About"),
         ("topics.html", "Topics"),
         ("newsletter.html", "Newsletter"),
         ("submit.html", "Send Us a Story"),
@@ -236,6 +237,9 @@ def footer_block(depth=""):
     <span>&copy; {datetime.now().year} King Musah Media. All rights reserved.</span>
     <div class="hub-links">
       <a href="{depth}newsletter.html">Newsletter</a>
+      <a href="{depth}about.html">About</a>
+      <a href="{depth}standards.html">Editorial standards</a>
+      <a href="{depth}corrections.html">Corrections</a>
       <a href="{depth}topics.html">Topics</a>
       <a href="{depth}submit.html">Send us a story</a>
       <a href="{depth}privacy.html">Privacy Policy</a>
@@ -411,7 +415,7 @@ def story_card(a, depth=""):
     <h3>{a["title"]}</h3>
     <p>{a["excerpt"]}</p>
     <div class="story-meta">
-      <span>{a["author"]}</span><span class="dot">&middot;</span>
+      <span class="card-author">{avatar_html(a, depth, tag="span", cls="author-avatar card-avatar")}<span>{esc(a["author"])}</span></span><span class="dot">&middot;</span>
       <time datetime="{a["date"]}">{fmt_date(a["date"])}</time>{breaking_flag}
     </div>
   </div>
@@ -443,7 +447,7 @@ def build_index(articles):
   {ga_snippet()}
   {adsense_snippet()}
   <script type="application/ld+json">
-  {{"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": "{SITE_NAME}", "url": "{BASE_URL}/index.html"}}
+  {org_jsonld()}
   </script>
 </head>
 <body>
@@ -459,7 +463,7 @@ def build_index(articles):
       <h2>{hero["title"]}</h2>
       <p>{hero["excerpt"]}</p>
       <div class="story-meta">
-        <span>{hero["author"]}</span><span class="dot">&middot;</span>
+        <span class="card-author">{avatar_html(hero, "", tag="span", cls="author-avatar card-avatar")}<span>{esc(hero["author"])}</span></span><span class="dot">&middot;</span>
         <time datetime="{hero["date"]}">{fmt_date(hero["date"])}</time>
       </div>
     </div>
@@ -574,7 +578,7 @@ def build_article(a, articles):
         '{"@context": "https://schema.org", "@type": "NewsArticle", '
         f'"headline": {json.dumps(a["title"])}, '
         f'"datePublished": "{a["date"]}", "dateModified": "{a["date"]}", '
-        f'"author": {{"@type": "Person", "name": {json.dumps(a["author"])}}}, '
+        f'"author": {author_jsonld(a)}, '
         f'"publisher": {{"@type": "Organization", "name": "{SITE_NAME}"}}, '
         f'"articleSection": {json.dumps(CATEGORIES.get(a["category"], a["category"]))}, '
         f'"inLanguage": "{a["language"]}", '
@@ -616,12 +620,13 @@ def build_article(a, articles):
   <span class="article-cat">{CATEGORIES.get(a["category"], a["category"])}</span>
   <h1 class="article-title">{a["title"]}</h1>
   <div class="article-byline">
-    <div class="author-avatar" aria-hidden="true">{initials(a["author"])}</div>
+    {avatar_html(a, "../")}
     <div>
-      <div class="byline-name">{a["author"]}</div>
+      {byline_name_html(a, "../")}
       <div>Published <time datetime="{a["date"]}">{fmt_date(a["date"])}</time> &middot; {LANG_LABEL.get(a["language"], a["language"])}</div>
     </div>
   </div>
+  {corrections_html(a)}
   {lang_note}
   <div class="article-media" aria-hidden="true">{image_tag(a, depth="../", priority=True, sizes=SIZES_ARTICLE)}&#128247; {a.get("image_alt", "")}</div>
   {youtube_embed_html(a) or ""}
@@ -739,6 +744,8 @@ def build_sitemap(articles):
     urls += [f"{BASE_URL}/category/{k}.html" for k in CATEGORIES]
     urls.append(f"{BASE_URL}/submit.html")
     urls.append(f"{BASE_URL}/newsletter.html")
+    urls += [f"{BASE_URL}/about.html", f"{BASE_URL}/standards.html", f"{BASE_URL}/corrections.html", f"{BASE_URL}/authors.html"]
+    urls += [f"{BASE_URL}/author/{slug}.html" for slug in AUTHOR_STORIES]
     if TOPICS:
         urls.append(f"{BASE_URL}/topics.html")
         urls += [f"{BASE_URL}/topic/{slug}.html" for slug in TOPICS]
@@ -1633,6 +1640,242 @@ def extra_platform_cards():
     return "\n    ".join(cards)
 
 
+# ---------------------------------------------------------------- authors, trust pages, corrections
+import html as _html
+
+SOCIAL_PROFILES = [
+    "https://www.youtube.com/@kingmusahmedia",
+    "https://x.com/KingMusahMedia",
+    "https://www.facebook.com/profile.php?id=100082996675651",
+    "https://www.instagram.com/king_musah_media",
+    "https://linkedin.com/company/king-musah-media",
+]
+STANDARDS_UPDATED = "November 2026"
+AUTHORS = {}         # web name -> {"name", "slug", "role", "bio", "photo", "links"}   (from data/authors.json)
+AUTHOR_STORIES = {}  # web name -> that author's stories, newest first (only authors who have a profile)
+
+
+def esc(text):
+    return _html.escape(str(text), quote=True)
+
+
+def safe_json(obj):
+    """JSON for a <script type="application/ld+json"> block (cannot be closed early by the data)."""
+    return json.dumps(obj, ensure_ascii=False).replace("</", "<\\/")
+
+
+def load_authors():
+    AUTHORS.clear()
+    try:
+        with open(os.path.join(ROOT, "data", "authors.json"), encoding="utf-8") as f:
+            raw = json.load(f)
+    except Exception:
+        return
+    if not isinstance(raw, list):
+        return
+    for r in raw:
+        if not isinstance(r, dict) or not str(r.get("name", "")).strip():
+            continue
+        name = str(r["name"]).strip()
+        slug = topic_slug(r.get("slug") or name)
+        if not slug:
+            continue
+        photo = str(r.get("photo", "")).strip()
+        if not (photo and re.fullmatch(r"[\w.-]+", photo) and os.path.isfile(os.path.join(ROOT, "assets", "authors", photo))):
+            photo = ""
+        links = r.get("links") if isinstance(r.get("links"), dict) else {}
+        AUTHORS[slug] = {
+            "name": name, "slug": slug, "role": str(r.get("role", "")).strip(), "bio": str(r.get("bio", "")).strip(),
+            "photo": photo, "links": {k: v for k, v in links.items() if isinstance(v, str) and v.startswith("https://")},
+        }
+
+
+def author_of(a):
+    return AUTHORS.get(topic_slug(a.get("author", "")))
+
+
+def compute_author_pages(articles):
+    AUTHOR_STORIES.clear()
+    for a in sorted(articles, key=lambda x: x["date"], reverse=True):
+        au = author_of(a)
+        if au:
+            AUTHOR_STORIES.setdefault(au["slug"], []).append(a)
+
+
+def avatar_html(a, depth="", tag="div", cls="author-avatar"):
+    """The author's photo if they have one, otherwise their initials in a coloured circle."""
+    au = author_of(a)
+    if au and au["photo"]:
+        return f'<img class="{cls} avatar-img" src="{depth}assets/authors/{au["photo"]}" alt="" width="38" height="38" loading="lazy" decoding="async"/>'
+    return f'<{tag} class="{cls}" aria-hidden="true">{initials(a["author"])}</{tag}>'
+
+
+def byline_name_html(a, depth="../"):
+    au = author_of(a)
+    if au and au["slug"] in AUTHOR_STORIES:
+        return f'<a class="byline-name" href="{depth}author/{au["slug"]}.html">{esc(a["author"])}</a>'
+    return f'<div class="byline-name">{esc(a["author"])}</div>'
+
+
+def author_jsonld(a):
+    au = author_of(a)
+    person = {"@type": "Person", "name": a["author"]}
+    if au and au["slug"] in AUTHOR_STORIES:
+        person["url"] = f"{BASE_URL}/author/{au['slug']}.html"
+    return safe_json(person)
+
+
+def org_jsonld():
+    return safe_json({
+        "@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": SITE_NAME, "url": f"{BASE_URL}/index.html",
+        "logo": f"{BASE_URL}/assets/favicon-192.png", "foundingDate": "2020", "email": CONTACT_EMAIL, "sameAs": SOCIAL_PROFILES,
+        "publishingPrinciples": f"{BASE_URL}/standards.html", "ethicsPolicy": f"{BASE_URL}/standards.html",
+        "correctionsPolicy": f"{BASE_URL}/corrections.html", "actionableFeedbackPolicy": f"{BASE_URL}/standards.html",
+    })
+
+
+# ---- corrections shown at the top of a story
+def corrections_for(a):
+    out = []
+    for c in a.get("corrections", []) or []:
+        if isinstance(c, dict) and str(c.get("note", "")).strip():
+            out.append({"date": str(c.get("date", ""))[:10], "note": str(c["note"]).strip()})
+    return out
+
+
+def _nice_date(iso):
+    try:
+        return fmt_date(iso)
+    except Exception:
+        return esc(iso)
+
+
+def corrections_html(a):
+    items = corrections_for(a)
+    if not items:
+        return ""
+    rows = "".join(f'<p><strong>Correction, {_nice_date(c["date"])}:</strong> {esc(c["note"])}</p>' for c in items)
+    return f'<aside class="correction-box" role="note">{rows}</aside>'
+
+
+# ---- the pages
+def _prose_page(title, tag, sub, inner, canonical, articles, description):
+    pad = "150px" if any(is_breaking_now(a) for a in articles) else "130px"
+    body = f'''<section class="sec" style="padding-top:{pad}">
+  <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">{tag}</span><h1 class="sec-title">{title}</h1><p class="sec-sub">{sub}</p></div></div>
+  <div class="prose">
+{inner}
+  </div>
+</section>'''
+    write(os.path.join(ROOT, canonical), _simple_page(title, description, canonical, body, articles))
+
+
+def _team_cards(depth=""):
+    cards = []
+    for slug, au in sorted(AUTHORS.items(), key=lambda kv: kv[1]["name"].lower()):
+        if slug not in AUTHOR_STORIES:
+            continue
+        pic = (f'<img class="author-avatar avatar-img big-avatar" src="{depth}assets/authors/{au["photo"]}" alt="" loading="lazy" decoding="async"/>'
+               if au["photo"] else f'<div class="author-avatar big-avatar" aria-hidden="true">{initials(au["name"])}</div>')
+        n = len(AUTHOR_STORIES[slug])
+        cards.append(f'<a class="author-card" href="{depth}author/{slug}.html">{pic}<h3>{esc(au["name"])}</h3>'
+                     f'<p class="author-role">{esc(au["role"]) or "Contributor"}</p><p class="author-count">{n} {"story" if n == 1 else "stories"}</p></a>')
+    return "\n".join(cards)
+
+
+def build_trust_pages(articles):
+    team = _team_cards()
+    team_block = f'<h3>Our newsroom</h3>\n<div class="author-grid">\n{team}\n</div>\n<p><a href="authors.html">See everyone who writes for us</a></p>' if team else ""
+    socials = " &middot; ".join(f'<a href="{u}" target="_blank" rel="noopener">{n}</a>' for n, u in
+                                (("YouTube", SOCIAL_PROFILES[0]), ("X", SOCIAL_PROFILES[1]), ("Facebook", SOCIAL_PROFILES[2]), ("Instagram", SOCIAL_PROFILES[3]), ("LinkedIn", SOCIAL_PROFILES[4])))
+    cats = ", ".join(f'<a href="category/{k}.html">{v}</a>' for k, v in CATEGORIES.items())
+
+    _prose_page("About King Musah Media", "About", "Ugandan news, told in English and Luganda.", f'''
+<p>King Musah Media is a Ugandan news outlet, founded in 2020. We report news, politics, entertainment, sports and business from Uganda, and bring you the world's biggest stories in our International section.</p>
+<h3>What we cover</h3>
+<p>{cats}. Many of our stories are in both English and Luganda.</p>
+<h3>How we work</h3>
+<p>An editor reviews every story before it is published. We name our sources, we correct our mistakes in public, and we are open about how we use technology, including AI. Please read our <a href="standards.html">editorial standards</a> and our <a href="corrections.html">corrections policy</a>.</p>
+{team_block}
+<h3>How we are funded</h3>
+<p>We are funded by advertising, and we plan to add paid newsletter subscriptions and sponsorship from businesses. Sponsored content will always be clearly labelled, and no advertiser or sponsor decides what we report.</p>
+<h3>Contact us</h3>
+<ul>
+  <li>Email: <a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></li>
+  <li>Have a story? <a href="submit.html">Send it to us</a>, or <a href="{WHATSAPP_TIP_URL}" target="_blank" rel="noopener">message us on WhatsApp</a>.</li>
+  <li>Find us on {socials}.</li>
+</ul>''', "about.html", articles, f"About {SITE_NAME}: who we are, what we cover, how we work and how we are funded.")
+
+    _prose_page("Editorial standards", "Our principles", f"How we decide what to publish, and how we put things right. Last updated {STANDARDS_UPDATED}.", f'''
+<h3>Accuracy and verification</h3>
+<p>We aim to be accurate before we are first. We check facts against reliable sources, and an editor reviews every story before it is published. When we are not sure of something, we say so or leave it out.</p>
+<h3>Sources and attribution</h3>
+<p>We name our sources wherever we can. When a story is based on another outlet's reporting, we say so and link to the original report. We may protect the identity of a source who could be harmed by being named, and we will say when we have done so.</p>
+<h3>How we use AI</h3>
+<p>We use AI tools to help draft some stories, especially short summaries of international news from outlets such as BBC News, and to suggest headlines. A person always reads and approves an AI-assisted draft before it is published, and stories based on another outlet's reporting say so. We do not use AI to invent quotes, people or events.</p>
+<h3>Independence, advertising and sponsorship</h3>
+<p>Advertisers and sponsors do not decide what we report or how we report it. Paid or sponsored content will always be clearly labelled so you can tell it apart from our reporting.</p>
+<h3>Fairness and right of reply</h3>
+<p>We try to give people and organisations we report on a fair chance to respond. If you think we have treated you unfairly, please tell us.</p>
+<h3>Reader comments and submissions</h3>
+<p>Comments are reviewed before they appear, and we may reject or remove comments that are abusive, unlawful or spam. Stories sent in by readers are checked before we use them.</p>
+<h3>Corrections and complaints</h3>
+<p>If we get something wrong we correct it quickly and say so. Read our <a href="corrections.html">corrections policy</a>. To report an error or make a complaint, email <a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a> with the link to the story and what you think is wrong. We will look into it and reply.</p>''',
+                "standards.html", articles, f"The editorial standards of {SITE_NAME}: accuracy, sources, our use of AI, independence, fairness, comments and corrections.")
+
+    log = sorted(((c, a) for a in articles for c in corrections_for(a)), key=lambda x: x[0]["date"], reverse=True)
+    items = "\n".join(f'<li><a href="stories/{a["slug"]}.html">{a["title"]}</a><br/><strong>{_nice_date(c["date"])}:</strong> {esc(c["note"])}</li>' for c, a in log)
+    log_html = f'<ul class="corrections-log">\n{items}\n</ul>' if items else "<p>We have not had to publish any corrections yet. When we do, they will be listed here, newest first.</p>"
+    _prose_page("Corrections", "Our principles", "When we get something wrong, we say so.", f'''
+<h3>Our policy</h3>
+<p>If we publish something that is wrong, we correct it as soon as we can. We add a note at the top of the story that says what was wrong and when it was corrected, and we list it on this page. We do not quietly change a published story to hide a mistake. Small typing mistakes may be fixed without a note.</p>
+<h3>Report an error</h3>
+<p>Email <a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a> with the link to the story and what you think is wrong. Please see our <a href="standards.html">editorial standards</a> too.</p>
+<h3>Corrections log</h3>
+{log_html}''', "corrections.html", articles, f"Corrections published by {SITE_NAME}, newest first, and how to report an error.")
+
+    _prose_page("Our writers", "People", "The people behind the stories.", f'<div class="author-grid">\n{team}\n</div>' if team else "<p>Profiles of our writers will appear here soon.</p>",
+                "authors.html", articles, f"The writers and editors of {SITE_NAME}.")
+
+    top_pad = "150px" if any(is_breaking_now(a) for a in articles) else "130px"
+    for slug, stories in AUTHOR_STORIES.items():
+        au = AUTHORS[slug]
+        pic = (f'<img class="author-avatar avatar-img big-avatar" src="../assets/authors/{au["photo"]}" alt="{esc(au["name"])}" decoding="async"/>'
+               if au["photo"] else f'<div class="author-avatar big-avatar" aria-hidden="true">{initials(au["name"])}</div>')
+        names = {"x": "X", "facebook": "Facebook", "linkedin": "LinkedIn", "instagram": "Instagram", "website": "Website"}
+        links = " &middot; ".join(f'<a href="{esc(u)}" target="_blank" rel="noopener nofollow">{names.get(k, esc(k.title()))}</a>' for k, u in au["links"].items())
+        cards = "\n".join(story_card(a, depth="../") for a in stories)
+        person = {"@context": "https://schema.org", "@type": "Person", "name": au["name"], "url": f"{BASE_URL}/author/{slug}.html",
+                  "worksFor": {"@type": "NewsMediaOrganization", "name": SITE_NAME, "url": f"{BASE_URL}/index.html"}}
+        if au["role"]:
+            person["jobTitle"] = au["role"]
+        if au["bio"]:
+            person["description"] = au["bio"]
+        if au["photo"]:
+            person["image"] = f"{BASE_URL}/assets/authors/{au['photo']}"
+        if au["links"]:
+            person["sameAs"] = list(au["links"].values())
+        body = f'''<section class="sec" style="padding-top:{top_pad}">
+  <div class="author-hero">
+    {pic}
+    <div>
+      <span class="sec-tag">Author</span>
+      <h1 class="sec-title">{esc(au["name"])}</h1>
+      {f'<p class="author-role">{esc(au["role"])}</p>' if au["role"] else ""}
+      {f'<p class="author-bio">{esc(au["bio"])}</p>' if au["bio"] else ""}
+      {f'<p class="author-links">{links}</p>' if links else ""}
+    </div>
+  </div>
+  <div class="sec-header"><div class="sec-header-text"><h2 class="sec-title" style="font-size:1.3rem">{len(stories)} {"story" if len(stories) == 1 else "stories"} by {esc(au["name"])}</h2></div></div>
+  <div class="story-grid">
+{cards}
+  </div>
+</section>
+<script type="application/ld+json">{safe_json(person)}</script>'''
+        write(os.path.join(ROOT, "author", f"{slug}.html"), _simple_page(
+            f"{au['name']}, author", f"Stories by {au['name']} at {SITE_NAME}.", f"author/{slug}.html", body, articles, depth="../"))
+
+
 def build_submit():
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -1697,8 +1940,10 @@ def build_submit():
 def main():
     articles = load_articles()
     build_resized_images()
+    load_authors()
     TOPICS.clear()
     TOPICS.update(compute_topics(articles))
+    compute_author_pages(articles)
     build_index(articles)
     build_archive(articles)
     for cat_key, cat_label in CATEGORIES.items():
@@ -1707,6 +1952,7 @@ def main():
         build_article(a, articles)
     build_support()
     build_topics(articles)
+    build_trust_pages(articles)
     build_search(articles)
     build_submit()
     build_newsletter()
