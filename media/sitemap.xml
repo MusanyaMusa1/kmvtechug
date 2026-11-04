@@ -15,15 +15,16 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/spain</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/united-states</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/updf</loc></url>
@@ -52,7 +53,6 @@
   <url><loc>https://kmvtechug.app/media/topic/protests</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/dr-congo</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/uk</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/spain</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/poland</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/judiciary</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/north-korea</loc></url>
@@ -154,6 +154,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/spanish-transport-minister-resigns-following-fatal-train-crash-near-madrid</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/un-peacekeeping-mission-in-western-sahara-ends-after-us-russia-standoff</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/tenerife-forward-jess-de-miguel-dies-aged-30-after-on-field-collision</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/florida-plane-crash-jet-may-have-broken-apart-before-impact-bbc-reports</loc></url>
