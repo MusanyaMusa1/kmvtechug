@@ -15,6 +15,14 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/dr-congo</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/uedcl</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/electricity</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kampala</loc></url>
@@ -23,11 +31,7 @@
   <url><loc>https://kmvtechug.app/media/topic/updf</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/aussom</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/teso</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/spain</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/europe</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/security</loc></url>
@@ -37,7 +41,6 @@
   <url><loc>https://kmvtechug.app/media/topic/cybersecurity</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/technology</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/religion</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/united-states</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
@@ -52,7 +55,6 @@
   <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/diplomacy</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/media</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/us-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/death</loc></url>
@@ -66,7 +68,6 @@
   <url><loc>https://kmvtechug.app/media/topic/india</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/buganda</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/protests</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/dr-congo</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/uk</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/poland</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/judiciary</loc></url>
@@ -76,7 +77,6 @@
   <url><loc>https://kmvtechug.app/media/topic/east-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/australia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/uganda</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/entebbe</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/business</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/brazil</loc></url>
@@ -166,6 +166,10 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/iranian-negotiator-frames-us-election-outcome-as-vote-against-war-bbc-reports</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/rwanda-army-basketball-team-removed-from-africa-league-following-us-sanctions</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/republicans-blame-donald-trump-for-midterm-election-setback-bbc-reports</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/annie-andrews-wins-south-carolina-senate-race-reports-bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/major-trading-centres-and-hospitals-face-scheduled-power-interruptions-in-novemb</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/ple-candidature-rises-125-as-920833-pupils-sit-national-exams-across-uganda</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/updf-begins-withdrawal-of-troops-from-somalia-after-nearly-20-years</loc></url>
