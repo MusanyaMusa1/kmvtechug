@@ -24,6 +24,9 @@
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/conflict</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/texas</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
@@ -48,13 +51,11 @@
   <url><loc>https://kmvtechug.app/media/topic/technology</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/religion</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/united-states</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/arrest</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/muhoozi-kainerugaba</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bobi-wine</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/nup</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/diplomacy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/media</loc></url>
@@ -170,6 +171,7 @@
   <url><loc>https://kmvtechug.app/media/stories/us-funded-infant-vaccine-trial-cancelled-in-guinea-bissau-after-ethics-backlash</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/france-prepares-for-widespread-strikes-as-unions-launch-national-action</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/cristiano-ronaldo-retires-from-international-football-bbc-reports</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/ukraine-releases-video-of-deadly-village-strike-bbc-news-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/james-talarico-secures-historic-victory-in-texas-senate-race</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/iranian-negotiator-frames-us-election-outcome-as-vote-against-war-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/rwanda-army-basketball-team-removed-from-africa-league-following-us-sanctions</loc></url>
