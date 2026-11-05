@@ -15,6 +15,8 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/france</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
@@ -22,7 +24,6 @@
   <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/dr-congo</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
@@ -47,7 +48,6 @@
   <url><loc>https://kmvtechug.app/media/topic/united-states</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/arrest</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/muhoozi-kainerugaba</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bobi-wine</loc></url>
@@ -166,6 +166,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/us-funded-infant-vaccine-trial-cancelled-in-guinea-bissau-after-ethics-backlash</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/france-prepares-for-widespread-strikes-as-unions-launch-national-action</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/cristiano-ronaldo-retires-from-international-football-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/iranian-negotiator-frames-us-election-outcome-as-vote-against-war-bbc-reports</loc></url>
