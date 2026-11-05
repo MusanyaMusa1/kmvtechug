@@ -16,6 +16,8 @@
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
@@ -43,8 +45,6 @@
   <url><loc>https://kmvtechug.app/media/topic/religion</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/united-states</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/arrest</loc></url>
@@ -166,6 +166,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/cristiano-ronaldo-retires-from-international-football-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/iranian-negotiator-frames-us-election-outcome-as-vote-against-war-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/rwanda-army-basketball-team-removed-from-africa-league-following-us-sanctions</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/republicans-blame-donald-trump-for-midterm-election-setback-bbc-reports</loc></url>
