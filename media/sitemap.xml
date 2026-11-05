@@ -24,6 +24,8 @@
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/texas</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/dr-congo</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
@@ -53,7 +55,6 @@
   <url><loc>https://kmvtechug.app/media/topic/bobi-wine</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/nup</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/diplomacy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/media</loc></url>
@@ -116,7 +117,6 @@
   <url><loc>https://kmvtechug.app/media/topic/agriculture</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/music</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/obituary</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/texas</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/tooro-kingdom</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/coronation</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/king-oyo</loc></url>
@@ -170,6 +170,7 @@
   <url><loc>https://kmvtechug.app/media/stories/us-funded-infant-vaccine-trial-cancelled-in-guinea-bissau-after-ethics-backlash</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/france-prepares-for-widespread-strikes-as-unions-launch-national-action</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/cristiano-ronaldo-retires-from-international-football-bbc-reports</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/james-talarico-secures-historic-victory-in-texas-senate-race</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/iranian-negotiator-frames-us-election-outcome-as-vote-against-war-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/rwanda-army-basketball-team-removed-from-africa-league-following-us-sanctions</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/republicans-blame-donald-trump-for-midterm-election-setback-bbc-reports</loc></url>
