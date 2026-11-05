@@ -49,6 +49,9 @@ WHATSAPP_TIP_URL = "https://wa.me/256759405181?text=Hello%20King%20Musah%20Media
 
 # A story marked "breaking" only stays in the ticker this many days after its date.
 BREAKING_MAX_AGE_DAYS = 2
+# Analytics and ads load a moment AFTER the page has appeared (or at once on the first tap or scroll), so they
+# never slow down the first view. Set to False to load them immediately again, as before.
+DELAY_THIRD_PARTY = True
 # A topic page is only created when at least this many stories share the tag (avoids thin pages).
 TOPIC_MIN_STORIES = 3
 SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltdnJycnBranNpeGZkdXRjYmJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTczODgsImV4cCI6MjEwMDI5MzM4OH0.gVJAhZcjWanxkdwmWnLrTNErVB7WF4Qn7u3TQtgdDQc"
@@ -265,8 +268,22 @@ SIZES_HERO = "(max-width: 800px) 100vw, 600px"
 SIZES_ARTICLE = "(max-width: 800px) 90vw, 700px"
 
 
+DIMS = {}   # story slug -> (width, height) of the photo as it is shown (camera rotation applied)
+
+
+def _display_size(im):
+    w, h = im.size
+    try:
+        if im.getexif().get(0x0112) in (5, 6, 7, 8):   # camera held sideways: width and height swap
+            w, h = h, w
+    except Exception:
+        pass
+    return w, h
+
+
 def build_resized_images():
     RESIZED.clear()
+    DIMS.clear()
     try:
         from PIL import Image, ImageOps
     except Exception:
@@ -295,29 +312,31 @@ def build_resized_images():
             with open(path, "rb") as f:
                 digest = hashlib.sha1(f.read()).hexdigest()
             entry = old.get(stem)
-            files_there = bool(entry) and all(os.path.isfile(os.path.join(ROOT, rel)) for rel in entry.get("files", []))
-            if entry and entry.get("sha1") == digest and files_there:
-                width, rels = entry["width"], entry["files"]       # unchanged photo: nothing to do
+            same_photo = bool(entry) and entry.get("sha1") == digest and all(
+                os.path.isfile(os.path.join(ROOT, rel)) for rel in entry.get("files", []))
+            if same_photo and entry.get("height"):
+                width, height, rels = entry["width"], entry["height"], entry["files"]   # nothing to do
             else:
-                with Image.open(path) as im:
-                    im = ImageOps.exif_transpose(im)               # respect the way the camera was held
-                    width, height = im.size
-                    rels = []
-                    for w in RESIZE_WIDTHS:
-                        if width < w * 1.15:
-                            continue                                # never enlarge a small photo
-                        rel = f"assets/img-resized/{stem}-{w}.webp"
-                        alpha = im.mode in ("RGBA", "LA") or (im.mode == "P" and "transparency" in im.info)
-                        small = im.convert("RGBA" if alpha else "RGB").resize((w, round(height * w / width)), Image.LANCZOS)
-                        small.save(os.path.join(ROOT, rel), "WEBP", quality=78, method=4)
-                        rels.append(rel)
+                with Image.open(path) as im0:
+                    width, height = _display_size(im0)
+                    if same_photo:
+                        rels = entry["files"]     # the smaller copies are fine; only the height was not recorded yet
+                    else:
+                        im = ImageOps.exif_transpose(im0)       # respect the way the camera was held
+                        rels = []
+                        for w in RESIZE_WIDTHS:
+                            if width < w * 1.15:
+                                continue                         # never enlarge a small photo
+                            rel = f"assets/img-resized/{stem}-{w}.webp"
+                            alpha = im.mode in ("RGBA", "LA") or (im.mode == "P" and "transparency" in im.info)
+                            small = im.convert("RGBA" if alpha else "RGB").resize((w, round(height * w / width)), Image.LANCZOS)
+                            small.save(os.path.join(ROOT, rel), "WEBP", quality=78, method=4)
+                            rels.append(rel)
+            DIMS[stem] = (width, height)
+            manifest[stem] = {"sha1": digest, "width": width, "height": height, "files": rels}
+            keep.update(os.path.basename(r) for r in rels)
             if rels:
-                manifest[stem] = {"sha1": digest, "width": width, "files": rels}
-                keep.update(os.path.basename(r) for r in rels)
-                RESIZED[stem] = {
-                    "width": width,
-                    "variants": [(int(re.search(r"-(\d+)\.webp$", r).group(1)), r) for r in rels],
-                }
+                RESIZED[stem] = {"width": width, "variants": [(int(re.search(r"-(\d+)\.webp$", r).group(1)), r) for r in rels]}
         except Exception as err:
             print(f"  could not resize {name}: {err}")
 
@@ -328,13 +347,14 @@ def build_resized_images():
     if manifest != old:
         with open(manifest_path, "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=1, sort_keys=True)
-    print(f"Resized photos: {len(RESIZED)} stories have smaller versions.")
+    print(f"Resized photos: {len(RESIZED)} stories have smaller versions; {len(DIMS)} photo sizes recorded.")
 
 
 def image_tag(a, depth="", css_class="", priority=False, sizes=""):
     """The story photo. It points at the file that really exists (found on disk when the page is built),
     so the browser asks for it straight away instead of guessing .jfif first. If a smaller WebP copy
-    exists it is offered too. `priority=True` is for the big photo at the top of a page: it loads first."""
+    exists it is offered too. `priority=True` is for the big photo at the top of a page: it loads first
+    and is drawn at once. The photo's real width and height are given so the page never jumps."""
     slug = a["slug"]
     base = f"{depth}assets/images/{slug}"
     alt = a.get("image_alt", a["title"])
@@ -348,12 +368,14 @@ def image_tag(a, depth="", css_class="", priority=False, sizes=""):
         if info["width"] <= 1600:
             candidates.append(f"{base}.{ext} {info['width']}w")   # a modest original is a candidate too
         srcset = f' srcset="{", ".join(candidates)}" sizes="{sizes}"'
+    dims = DIMS.get(slug)
+    size_attr = f' width="{dims[0]}" height="{dims[1]}"' if dims else ""
     if priority and ext:
-        load = 'loading="eager" fetchpriority="high" data-lcp="1"'
+        load = 'loading="eager" fetchpriority="high" data-lcp="1"'      # no async decoding: draw it as soon as it arrives
     else:
-        load = 'loading="lazy"'
-    return (f'<img{cls} src="{base}.{ext or "jfif"}" data-base="{base}" data-ext-idx="{idx}"{srcset} '
-            f'alt="{alt}" {load} decoding="async" onerror="handleImgError(this)"/>')
+        load = 'loading="lazy" decoding="async"'
+    return (f'<img{cls} src="{base}.{ext or "jfif"}" data-base="{base}" data-ext-idx="{idx}"{srcset}{size_attr} '
+            f'alt="{alt}" {load} onerror="handleImgError(this)"/>')
 
 
 def youtube_embed_html(a):
@@ -833,7 +855,18 @@ def add_favicon(path, html):
 
 # ---- Speed: fonts from this site, and the main photo told to load first ------------------------------
 GOOGLE_FONTS_LINK = re.compile(r"[ \t]*<link[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>[ \t]*\n?", re.I)
-FONT_PRELOADS = ("merriweather-latin-wght-normal.woff2", "dm-sans-latin-400-normal.woff2")
+# Only the small body font is preloaded. The big headline font (95 KB) would compete with the main photo for a slow
+# connection, so it loads normally.
+FONT_PRELOADS = ("dm-sans-latin-400-normal.woff2",)
+GA_SRC_TAG = re.compile(r'[ \t]*<script async src="(https://www\.googletagmanager\.com/gtag/js\?id=[^"]+)"></script>[ \t]*\n?')
+ADS_SRC_TAG = re.compile(r'[ \t]*<script async src="(https://pagead2\.googlesyndication\.com/pagead/js/adsbygoogle\.js\?client=([^"&]+))"[^>]*></script>[ \t]*\n?')
+THIRD_PARTY_LOADER = (
+    "<script>(function(){var u=%s,done=false;function go(){if(done){return}done=true;u.forEach(function(x){var s=document.createElement('script');"
+    "s.async=true;s.src=x;if(x.indexOf('adsbygoogle')>-1){s.crossOrigin='anonymous'}document.head.appendChild(s)})}"
+    "function soon(){if('requestIdleCallback' in window){requestIdleCallback(go,{timeout:4000})}else{setTimeout(go,2500)}}"
+    "if(document.readyState==='complete'){soon()}else{window.addEventListener('load',function(){setTimeout(soon,800)})}"
+    "['pointerdown','keydown','scroll','touchstart'].forEach(function(e){window.addEventListener(e,go,{once:true,passive:true})})})();</script>"
+)
 LCP_IMG = re.compile(r'<img\b[^>]*\bdata-lcp="1"[^>]*>')
 
 
@@ -847,9 +880,22 @@ def speed_up_head(path, html):
         return html
     assets = os.path.relpath(os.path.join(ROOT, "assets"), os.path.dirname(path)).replace(os.sep, "/")
     html = GOOGLE_FONTS_LINK.sub("", html)          # fonts now come from this site (see assets/fonts/)
+    late_urls, publisher = [], None
+    if DELAY_THIRD_PARTY:                           # analytics and ads are started by a tiny loader instead
+        m = GA_SRC_TAG.search(html)
+        if m:
+            late_urls.append(m.group(1))
+            html = GA_SRC_TAG.sub("", html, 1)
+        m = ADS_SRC_TAG.search(html)
+        if m:
+            late_urls.append(m.group(1))
+            publisher = m.group(2)
+            html = ADS_SRC_TAG.sub("", html, 1)
     extra = "".join(
         f'  <link rel="preload" href="{assets}/fonts/{f}" as="font" type="font/woff2" crossorigin/>\n' for f in FONT_PRELOADS
     )
+    if publisher:   # lets AdSense recognise the site even though its script is started a moment later
+        extra += f'  <meta name="google-adsense-account" content="{publisher}"/>\n'
     m = LCP_IMG.search(html)
     if m:
         tag = m.group(0)
@@ -865,7 +911,10 @@ def speed_up_head(path, html):
         pos = html.find("</head>")
     else:
         pos = html.rfind("\n", 0, pos) + 1
-    return html[:pos] + extra + html[pos:]
+    out = html[:pos] + extra + html[pos:]
+    if late_urls:
+        out = out.replace("</head>", "  " + THIRD_PARTY_LOADER % json.dumps(late_urls) + "\n</head>", 1)
+    return out
 
 
 def write(path, content):
