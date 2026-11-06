@@ -15,10 +15,13 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/makerere-university</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/europe</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/security</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/makerere-university</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/france</loc></url>
@@ -42,9 +45,6 @@
   <url><loc>https://kmvtechug.app/media/topic/aussom</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/teso</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/spain</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/europe</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/security</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/news-roundup</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/cryptocurrency</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/binance</loc></url>
@@ -168,6 +168,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/european-airlines-and-airports-face-wave-of-hoax-bomb-threats</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/pharmacy-society-orders-victoria-university-to-halt-training-for-over-300-pharma</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/makerere-commemorates-international-day-of-persons-with-disabilities-with-call-f</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/roundup-assessing-the-scope-and-limits-of-democrats-power-in-us-congress</loc></url>
