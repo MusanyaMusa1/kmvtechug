@@ -15,6 +15,9 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/artificial-intelligence</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
@@ -23,8 +26,6 @@
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/makerere-university</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/france</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
@@ -33,7 +34,6 @@
   <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/conflict</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/texas</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/dr-congo</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
@@ -169,6 +169,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/nigerias-opposition-facing-uncertainty-after-high-court-sacks-adc-leadership</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/major-tech-stocks-drop-amid-us-midterm-results-and-ai-slowdown-concerns</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/european-airlines-and-airports-face-wave-of-hoax-bomb-threats</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/pharmacy-society-orders-victoria-university-to-halt-training-for-over-300-pharma</loc></url>
