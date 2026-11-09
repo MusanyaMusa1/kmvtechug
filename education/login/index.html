@@ -1,405 +1,381 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Log In — KMVTECH Education</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-
+<title>Log In | KMVTECH Education</title>
+<meta name="robots" content="noindex"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-/* ============================================================
-   KMVTECH EDUCATION — LOGIN PAGE
-   Same design language as Register / homepage V2
-   ============================================================ */
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --blue: #2B3FBF;
-  --purple: #6B2ECC;
-  --navy: #0D1B2A;
-  --gold: #C9922A;
-  --green: #15803D;
-  --red: #DC2626;
-  --cream: #FAF9F6;
-  --dark: #1C1C1C;
-  --gray: #6B7280;
-  --white: #ffffff;
-  --line: #E8E6E0;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--dark);
-  line-height: 1.6;
-  min-height: 100vh;
-}
-
-:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-
-/* ---- NAV ---- */
-nav { background: var(--cream); border-bottom: 1px solid var(--line); }
-.nav-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 64px; padding: 0 22px; max-width: 1140px; margin: 0 auto;
-}
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo-mark {
-  width: 32px; height: 32px; background: var(--navy); border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif; font-weight: 800; font-size: 13px; color: var(--gold);
-}
-.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
-.nav-logo-text span:first-child { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 15px; color: var(--navy); }
-.nav-logo-text span:last-child { font-size: 9.5px; color: var(--gray); font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; }
-.nav-register-link {
-  background: var(--navy); color: var(--cream); text-decoration: none;
-  font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 7px;
-}
-
-/* ---- PAGE LAYOUT ---- */
-.page-wrap {
-  min-height: calc(100vh - 64px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-}
-
-.login-card {
-  width: 100%;
-  max-width: 420px;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 38px 32px;
-  box-shadow: 0 12px 40px rgba(13,27,42,0.07);
-}
-
-.card-eyebrow {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 10px;
-}
-
-.card-heading {
-  font-family: 'Playfair Display', serif; font-weight: 800;
-  font-size: 1.7rem; color: var(--navy); line-height: 1.2; margin-bottom: 8px;
-}
-
-.card-sub {
-  font-size: 0.88rem; color: var(--gray); line-height: 1.6; margin-bottom: 28px;
-}
-
-/* ---- FORM ---- */
-.form-group { margin-bottom: 18px; }
-
-.form-label {
-  display: block; font-size: 12.5px; font-weight: 600; color: var(--navy);
-  margin-bottom: 7px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 13px 16px;
-  border: 1.5px solid var(--line);
-  border-radius: 10px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14.5px;
-  color: var(--dark);
-  outline: none;
-  transition: border-color 0.2s;
-  background: var(--cream);
-}
-
-.form-input:focus { border-color: var(--blue); background: var(--white); }
-.form-input::placeholder { color: #B0B5BD; }
-.form-input.error { border-color: var(--red); }
-
-.field-error { font-size: 11.5px; color: var(--red); margin-top: 5px; display: none; }
-.field-error.visible { display: block; }
-
-.password-row-label {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 7px;
-}
-.forgot-link { font-size: 12px; color: var(--blue); text-decoration: none; font-weight: 600; }
-.forgot-link:hover { text-decoration: underline; }
-
-/* Remember me */
-.remember-row {
-  display: flex; align-items: center; gap: 9px;
-  margin: 18px 0 24px;
-}
-.remember-checkbox { width: 17px; height: 17px; accent-color: var(--blue); cursor: pointer; }
-.remember-label { font-size: 13px; color: var(--gray); cursor: pointer; }
-
-/* Submit */
-.btn-submit {
-  width: 100%;
-  background: var(--navy);
-  color: var(--cream);
-  font-weight: 700;
-  font-size: 15px;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.2s;
-  font-family: 'DM Sans', sans-serif;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.btn-submit:hover:not(:disabled) { background: var(--blue); }
-.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-
-.spinner {
-  width: 16px; height: 16px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  display: none;
-}
-.spinner.visible { display: inline-block; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.register-link-row {
-  text-align: center;
-  margin-top: 24px;
-  font-size: 13px;
-  color: var(--gray);
-}
-.register-link-row a { color: var(--blue); font-weight: 600; text-decoration: none; }
-.register-link-row a:hover { text-decoration: underline; }
-
-.alert {
-  padding: 13px 16px;
-  border-radius: 10px;
-  font-size: 13px;
-  margin-bottom: 20px;
-  display: none;
-  line-height: 1.5;
-}
-.alert.visible { display: block; }
-.alert-error { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
-.alert-info { background: #EEF0FF; border: 1px solid #C7D2FE; color: var(--blue); }
-
-/* Divider */
-.divider-row {
-  display: flex; align-items: center; gap: 12px;
-  margin: 26px 0;
-}
-.divider-line { flex: 1; height: 1px; background: var(--line); }
-.divider-text { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; }
-
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--bg:#FAF9F6;--surface:#fff;--field:#FAF9F6;--text:#1C1C1C;--muted:#6B7280;--line:#E8E6E0;--tint:#EEF0FF}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--field:#242836;--text:#F0EEE9;--muted:#9CA3AF;--line:#2E3248;--tint:#1E2440}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:8px 14px;border-radius:6px;z-index:99}
+.skip:focus{left:8px}
+.topnav{display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mark{width:34px;height:34px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:var(--gold)}
+.lt{display:flex;flex-direction:column;line-height:1.15}
+.lt b{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;color:var(--text)}
+.lt i{font-style:normal;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.navr{display:flex;align-items:center;gap:8px}
+.navlink{font-size:13px;font-weight:600;text-decoration:none;color:var(--text);padding:10px 12px;border-radius:8px}
+.iconbtn{width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:18px;color:var(--text)}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 48px;display:grid;gap:28px}
+.brand{display:none}
+.stage{width:100%;max-width:460px;margin:0 auto}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--tint);border-radius:12px;padding:4px;margin-bottom:16px}
+.tab{height:46px;border:0;background:transparent;border-radius:9px;font:700 14.5px 'DM Sans',sans-serif;color:var(--muted);cursor:pointer;transition:background .25s,color .25s}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--blue);box-shadow:0 2px 8px rgba(13,27,42,.12)}
+[data-theme="dark"] .tab[aria-selected="true"]{color:#93A4FF}
+.flip{perspective:1400px}
+.flip-inner{display:grid;position:relative;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.2,.8,.2,1),height .35s ease}
+.flip-inner[data-face="register"]{transform:rotateY(180deg)}
+.face{grid-area:1/1;align-self:start;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:18px;padding:28px 22px;box-shadow:0 12px 40px rgba(13,27,42,.08)}
+.face.back{transform:rotateY(180deg)}
+.face[aria-hidden="true"]{visibility:hidden;transition:visibility 0s linear .4s}
+.face[aria-hidden="false"]{visibility:visible;transition:visibility 0s}
+@media (prefers-reduced-motion:reduce){.flip-inner,.face,.tab{transition:none!important}}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+[data-theme="dark"] .eyebrow{color:#93A4FF}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:1.6rem;line-height:1.2;margin-bottom:8px}
+.sub{font-size:.9rem;color:var(--muted);margin-bottom:20px}
+.fg{margin-bottom:16px}
+label,.lab{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.rowlab{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.rowlab label{margin:0}
+input[type=text],input[type=email],input[type=tel],input[type=password],select{width:100%;height:48px;padding:0 14px;border:1.5px solid var(--line);border-radius:10px;font:16px 'DM Sans',sans-serif;color:var(--text);background:var(--field);outline:none}
+input:focus,select:focus{border-color:var(--blue);background:var(--surface)}
+input[aria-invalid="true"]{border-color:var(--red)}
+.phone{display:grid;grid-template-columns:116px 1fr;gap:8px}
+.pw{position:relative}
+.pw input{padding-right:70px}
+.eye{position:absolute;right:6px;top:6px;height:36px;padding:0 10px;border:0;background:transparent;color:var(--blue);font:700 12.5px 'DM Sans',sans-serif;cursor:pointer;border-radius:8px}
+.hint{font-size:12px;color:var(--muted);margin-top:5px}
+.ferr{font-size:12.5px;color:var(--red);margin-top:5px}
+.check{display:flex;gap:10px;align-items:flex-start;margin:4px 0 18px}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--blue);flex-shrink:0}
+.check label{font-weight:400;font-size:12.5px;color:var(--muted);margin:0}
+.btn{width:100%;min-height:50px;border-radius:10px;border:0;cursor:pointer;font:700 15px 'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:opacity .2s,transform .1s}
+.btn.primary{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+.btn.ghost{background:transparent;color:var(--blue);border:2px solid var(--blue);margin-top:10px}
+[data-theme="dark"] .btn.ghost{color:#93A4FF;border-color:#93A4FF}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn:active:not(:disabled){transform:scale(.99)}
+.spin{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+.busy .spin{display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.linkbtn{background:none;border:0;color:var(--blue);font:700 inherit;font-size:inherit;cursor:pointer;text-decoration:underline;padding:0}
+[data-theme="dark"] .linkbtn{color:#93A4FF}
+.rowlab .linkbtn{font-size:12.5px;padding:8px 0}
+.swap{text-align:center;font-size:13.5px;color:var(--muted);margin-top:18px}
+.alert{padding:12px 14px;border-radius:10px;font-size:13.5px;margin-bottom:16px;line-height:1.5}
+.alert[hidden],.ferr[hidden]{display:none}
+.alert.err{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B}
+.alert.info{background:var(--tint);border:1px solid #C7D2FE;color:var(--blue)}
+[data-theme="dark"] .alert.info{color:#C7D2FE}
+.alert.good{background:#F0FDF4;border:1px solid #BBF7D0;color:#166534}
+.sent{text-align:center}
+.sent .big{width:72px;height:72px;border-radius:50%;background:var(--tint);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:2rem}
+.sent .em{display:inline-block;background:var(--tint);color:var(--blue);font-weight:700;padding:6px 14px;border-radius:20px;margin:6px 0 14px;word-break:break-all}
+[data-theme="dark"] .sent .em{color:#C7D2FE}
+.steps{text-align:left;margin:14px 0 6px;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:12px;align-items:flex-start;font-size:14px;margin-bottom:10px}
+.steps li::before{content:counter(s);flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--navy);color:var(--gold);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.helpbox{margin-top:18px;text-align:center;font-size:13px;color:var(--muted)}
+.helpbox a{font-weight:700;text-decoration:none}
+.brand{background:linear-gradient(160deg,var(--navy),#16284a);color:#fff;border-radius:22px;padding:44px 38px;align-self:stretch}
+.brand h2{font-family:'Playfair Display',serif;font-weight:800;font-size:2rem;line-height:1.2;margin-bottom:14px}
+.brand h2 span{color:var(--gold)}
+.brand p{color:rgba(255,255,255,.75);margin-bottom:24px}
+.brand ul{list-style:none;padding:0}
+.brand li{display:flex;gap:12px;margin-bottom:14px;font-size:14.5px;color:rgba(255,255,255,.88)}
+.brand li::before{content:"\2713";color:var(--gold);font-weight:800}
+@media (min-width:900px){.wrap{grid-template-columns:1fr 1fr;align-items:start;padding-top:44px}.brand{display:block;position:sticky;top:24px}}
 </style>
 </head>
 <body>
-
-<nav aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo">
-      <div class="nav-logo-mark">KE</div>
-      <div class="nav-logo-text">
-        <span>KMVTECH Education</span>
-        <span>Part of KMVTECHUG</span>
-      </div>
-    </a>
-    <a href="/education/register/" class="nav-register-link">Register Free</a>
-  </div>
+<a class="skip" href="#main">Skip to main content</a>
+<nav class="topnav" aria-label="Main">
+  <a class="logo" href="/education/"><span class="mark">KE</span><span class="lt"><b>KMVTECH Education</b><i>Part of KMVTECHUG</i></span></a>
+  <div class="navr"><a class="navlink" href="/education/">Browse courses</a><button class="iconbtn" id="themeBtn" type="button" aria-label="Switch between dark and light mode">&#127769;</button></div>
 </nav>
 
-<div class="page-wrap">
-  <div class="login-card">
+<main id="main" class="wrap">
+  <aside class="brand" aria-hidden="true">
+    <h2>Study smarter,<br/>right from your <span>phone</span>.</h2>
+    <p>Practical university courses built around Uganda, in five faculties.</p>
+    <ul>
+      <li>Law, Health Sciences, Social Sciences, Business and IT</li>
+      <li>Video lessons, notes, practice quizzes and graded quizzes</li>
+      <li>Pay with MTN or Airtel Mobile Money</li>
+      <li>A verified certificate when you complete a course</li>
+      <li>Free to register. You only pay when you enroll</li>
+    </ul>
+  </aside>
 
-    <div class="card-eyebrow">Welcome Back</div>
-    <h1 class="card-heading">Log In to Your Account</h1>
-    <p class="card-sub">Continue your studies, check your progress, or manage your plan.</p>
-
-    <div class="alert alert-error" id="error-alert"></div>
-    <div class="alert alert-info" id="info-alert"></div>
-
-    <form id="login-form" novalidate>
-      <div class="form-group">
-        <label class="form-label" for="email">Email Address</label>
-        <input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email" required/>
-        <div class="field-error" id="err-email">Please enter your email address.</div>
-      </div>
-
-      <div class="form-group">
-        <div class="password-row-label">
-          <label class="form-label" for="password" style="margin-bottom:0;">Password</label>
-          <a href="#" class="forgot-link" id="forgot-link">Forgot password?</a>
-        </div>
-        <input type="password" id="password" class="form-input" placeholder="Your password" autocomplete="current-password" required/>
-        <div class="field-error" id="err-password">Please enter your password.</div>
-      </div>
-
-      <div class="remember-row">
-        <input type="checkbox" id="remember_me" class="remember-checkbox"/>
-        <label for="remember_me" class="remember-label">Keep me logged in on this device</label>
-      </div>
-
-      <button type="submit" class="btn-submit" id="submit-btn">
-        <span class="spinner" id="submit-spinner"></span>
-        <span id="submit-text">Log In</span>
-      </button>
-    </form>
-
-    <div class="register-link-row">
-      Don't have an account yet? <a href="/education/register/">Register free</a>
+  <section class="stage">
+    <div class="tabs" role="tablist" aria-label="Log in or register">
+      <button class="tab" role="tab" type="button" id="tab-login" aria-controls="face-login" aria-selected="true">Log In</button>
+      <button class="tab" role="tab" type="button" id="tab-register" aria-controls="face-register" aria-selected="false" tabindex="-1">Register</button>
     </div>
 
-  </div>
-</div>
+    <div class="flip"><div class="flip-inner" id="inner" data-face="login">
+
+      <div class="face" id="face-login" role="tabpanel" aria-labelledby="tab-login" aria-hidden="false">
+        <div class="eyebrow">Welcome back</div>
+        <h1>Log in to your account</h1>
+        <p class="sub">Continue your studies, check your progress, or manage your plan.</p>
+        <div class="alert err" id="l-err" role="alert" hidden></div>
+        <div class="alert info" id="l-info" role="status" hidden></div>
+        <form id="login-form" novalidate>
+          <div class="fg"><label for="l-email">Email address</label>
+            <input type="email" id="l-email" autocomplete="email" inputmode="email" placeholder="you@example.com"/>
+            <div class="ferr" id="l-email-e" hidden></div></div>
+          <div class="fg"><div class="rowlab"><label for="l-pass">Password</label><button type="button" class="linkbtn" id="forgot">Forgot password?</button></div>
+            <div class="pw"><input type="password" id="l-pass" autocomplete="current-password" placeholder="Your password"/><button type="button" class="eye" data-for="l-pass" aria-label="Show password">Show</button></div>
+            <div class="ferr" id="l-pass-e" hidden></div></div>
+          <button type="submit" class="btn primary" id="l-submit"><span class="spin"></span><span class="bt">Log In</span></button>
+          <button type="button" class="btn ghost" id="l-resend" hidden>Resend verification email</button>
+        </form>
+        <p class="swap">New here? <button type="button" class="linkbtn" data-go="register">Create a free account</button></p>
+      </div>
+
+      <div class="face back" id="face-register" role="tabpanel" aria-labelledby="tab-register" aria-hidden="true" inert>
+        <div id="reg-wrap">
+          <div class="eyebrow">Free to join</div>
+          <h1>Create your student account</h1>
+          <p class="sub">Registering is free. Once your email is verified you get your student number, then you enroll in the courses you want.</p>
+          <div class="alert err" id="r-err" role="alert" hidden></div>
+          <form id="register-form" novalidate>
+            <div class="fg"><label for="r-name">Full name</label>
+              <input type="text" id="r-name" autocomplete="name" placeholder="As it should appear on your certificate"/>
+              <div class="hint">Only an administrator can change this later.</div><div class="ferr" id="r-name-e" hidden></div></div>
+            <div class="fg"><label for="r-email">Email address</label>
+              <input type="email" id="r-email" autocomplete="email" inputmode="email" placeholder="you@example.com"/>
+              <div class="ferr" id="r-email-e" hidden></div></div>
+            <div class="fg"><label for="r-phone">Phone number (WhatsApp if possible)</label>
+              <div class="phone"><select id="r-code" aria-label="Country code"><option value="+256" selected>🇺🇬 +256</option><option value="+254">🇰🇪 +254</option><option value="+255">🇹🇿 +255</option><option value="+250">🇷🇼 +250</option><option value="+257">🇧🇮 +257</option><option value="+211">🇸🇸 +211</option><option value="+243">🇨🇩 +243</option><option value="+27">🇿🇦 +27</option><option value="+234">🇳🇬 +234</option><option value="+233">🇬🇭 +233</option><option value="+44">🇬🇧 +44</option><option value="+1">🇺🇸/🇨🇦 +1</option><option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option><option value="+971">🇦🇪 +971</option><option value="other">🌍 Other</option></select>
+              <input type="tel" id="r-phone" autocomplete="tel-national" inputmode="tel" placeholder="7XX XXX XXX"/></div>
+              <div class="ferr" id="r-phone-e" hidden></div></div>
+            <div class="fg"><label for="r-pass">Create a password</label>
+              <div class="pw"><input type="password" id="r-pass" autocomplete="new-password" placeholder="At least 8 characters"/><button type="button" class="eye" data-for="r-pass" aria-label="Show password">Show</button></div>
+              <div class="ferr" id="r-pass-e" hidden></div></div>
+            <div class="fg"><label for="r-pass2">Confirm password</label>
+              <div class="pw"><input type="password" id="r-pass2" autocomplete="new-password" placeholder="Type it again"/><button type="button" class="eye" data-for="r-pass2" aria-label="Show password">Show</button></div>
+              <div class="ferr" id="r-pass2-e" hidden></div></div>
+            <div class="check"><input type="checkbox" id="r-terms"/><label for="r-terms">I agree to the <a href="/education/terms/" target="_blank" rel="noopener">Terms of Service</a> and confirm the details above are correct.</label></div>
+            <div class="ferr" id="r-terms-e" hidden style="margin:-10px 0 14px"></div>
+            <button type="submit" class="btn primary" id="r-submit"><span class="spin"></span><span class="bt">Create My Account</span></button>
+          </form>
+          <p class="swap">Already registered? <button type="button" class="linkbtn" data-go="login">Log in</button></p>
+        </div>
+
+        <div id="reg-sent" class="sent" hidden>
+          <div class="big" aria-hidden="true">&#128231;</div>
+          <h1>Check your inbox</h1>
+          <p class="sub" style="margin-bottom:4px">We sent a verification link to</p>
+          <div class="em" id="sent-email"></div>
+          <ol class="steps">
+            <li>Open the email from KMVTECH Education.</li>
+            <li>Tap the <b>Verify</b> button in it.</li>
+            <li>You will see your student number and go straight to your dashboard.</li>
+          </ol>
+          <p class="hint" style="margin:10px 0 16px">It can take a minute to arrive. Please also look in your <b>Spam</b> or <b>Junk</b> folder.</p>
+          <div class="alert good" id="s-ok" role="status" hidden></div>
+          <div class="alert err" id="s-err" role="alert" hidden></div>
+          <button type="button" class="btn primary" id="s-resend">Send the email again</button>
+          <p class="swap" style="margin-top:14px">Wrong email address? <button type="button" class="linkbtn" id="s-change">Change it</button></p>
+        </div>
+      </div>
+
+    </div></div>
+
+    <p class="helpbox">Need help? WhatsApp <a href="https://wa.me/256759405181">+256 759 405 181</a> or email <a href="mailto:kmvtechug@gmail.com">kmvtechug@gmail.com</a></p>
+  </section>
+</main>
 
 <script>
-/* ============================================================
-   SUPABASE CONNECTION — same project as Register page
-   ============================================================ */
-const SUPABASE_URL = 'https://nzjojrebyvxuawnkitth.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa';
+(function () {
+  var SB = supabase.createClient('https://nzjojrebyvxuawnkitth.supabase.co', 'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa');
+  var $ = function (id) { return document.getElementById(id); };
+  var go = function (u) { (window.__navigate || function (x) { window.location.assign(x); })(u); };
+  var params = new URLSearchParams(location.search);
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-/* ============================================================
-   IF ALREADY LOGGED IN, SKIP STRAIGHT TO DASHBOARD
-   ============================================================ */
-(async function checkExistingSession() {
-  const { data } = await supabaseClient.auth.getSession();
-  if (data.session) {
-    window.location.href = '/education/dashboard/';
+  /* ---------- helpers ---------- */
+  function safeReturn(v) {
+    if (!v) return null;
+    try {
+      var u = new URL(v, location.origin);
+      if (u.origin !== location.origin || u.pathname.indexOf('/education/') !== 0) return null;
+      if (/\/(login|register)\/?$/.test(u.pathname)) return null;
+      return u.pathname + u.search + u.hash;
+    } catch (e) { return null; }
   }
-})();
-
-/* ============================================================
-   FORM LOGIC
-   ============================================================ */
-const form = document.getElementById('login-form');
-const submitBtn = document.getElementById('submit-btn');
-const submitSpinner = document.getElementById('submit-spinner');
-const submitText = document.getElementById('submit-text');
-const errorAlert = document.getElementById('error-alert');
-const infoAlert = document.getElementById('info-alert');
-
-function clearFieldErrors() {
-  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('visible'));
-  document.querySelectorAll('.form-input').forEach(el => el.classList.remove('error'));
-}
-
-function showFieldError(fieldId) {
-  document.getElementById(fieldId).classList.add('error');
-  document.getElementById('err-' + fieldId).classList.add('visible');
-}
-
-function showAlert(message) {
-  infoAlert.classList.remove('visible');
-  errorAlert.textContent = message;
-  errorAlert.classList.add('visible');
-}
-
-function hideAlerts() {
-  errorAlert.classList.remove('visible');
-  infoAlert.classList.remove('visible');
-}
-
-function setLoading(isLoading) {
-  submitBtn.disabled = isLoading;
-  submitSpinner.classList.toggle('visible', isLoading);
-  submitText.textContent = isLoading ? 'Logging In...' : 'Log In';
-}
-
-form.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  hideAlerts();
-  clearFieldErrors();
-
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
-
-  let isValid = true;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    showFieldError('email');
-    isValid = false;
-  }
-  if (password.length < 1) {
-    showFieldError('password');
-    isValid = false;
-  }
-  if (!isValid) return;
-
-  setLoading(true);
-
-  try {
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
-
-    if (error) throw error;
-
-    // Successful login — go to dashboard
-    window.location.href = '/education/dashboard/';
-
-  } catch (err) {
-    setLoading(false);
-
-    let message = 'Could not log in. Please try again.';
-    if (err.message && err.message.includes('Invalid login credentials')) {
-      message = 'Incorrect email or password. Please try again.';
-    } else if (err.message && err.message.includes('Email not confirmed')) {
-      message = 'Please confirm your email address before logging in. Check your inbox for the confirmation link.';
-    } else if (err.message) {
-      message = err.message;
-    }
-
-    showAlert(message);
-  }
-});
-
-/* ---- Forgot password ---- */
-document.getElementById('forgot-link').addEventListener('click', async function(e) {
-  e.preventDefault();
-  hideAlerts();
-
-  const email = document.getElementById('email').value.trim();
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (!emailRegex.test(email)) {
-    showAlert('Please enter your email address above first, then click "Forgot password?" again.');
-    document.getElementById('email').focus();
-    return;
+  var ret = safeReturn(params.get('return'));
+  var after = ret || '/education/dashboard/';
+  function verifyUrl() { return location.origin + '/education/verified/' + (ret ? '?return=' + encodeURIComponent(ret) : ''); }
+  function show(el, msg) { if (msg != null) el.textContent = msg; el.hidden = false; }
+  function hide(el) { el.hidden = true; }
+  function busy(btn, on, label) { btn.disabled = on; btn.classList.toggle('busy', on); var t = btn.querySelector('.bt'); if (t && label) t.textContent = label; }
+  function withTimeout(p, ms) { return Promise.race([p, new Promise(function (_, r) { setTimeout(function () { r(new Error('timeout')); }, ms); })]); }
+  function fieldErr(id, msg) { var i = $(id), e = $(id + '-e'); if (!i || !e) return; if (msg) { i.setAttribute('aria-invalid', 'true'); i.setAttribute('aria-describedby', id + '-e'); show(e, msg); } else { i.removeAttribute('aria-invalid'); hide(e); } }
+  function clearErrs(prefix) { ['name', 'email', 'phone', 'pass', 'pass2', 'terms'].forEach(function (k) { if ($(prefix + k)) fieldErr(prefix + k, ''); }); }
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function friendly(err, ctx) {
+    var m = String((err && err.message) || ''), s = (err && err.status) || 0;
+    if (!navigator.onLine || /failed to fetch|networkerror|load failed|timeout/i.test(m)) return 'We could not reach the server. Please check your internet connection and try again.';
+    if (/invalid login credentials/i.test(m)) return 'Incorrect email or password. Please try again.';
+    if (/email not confirmed/i.test(m)) return 'Please verify your email first. Open the verification email we sent you, or tap the button below to get a new one.';
+    if (/already registered|already been registered/i.test(m)) return 'This email is already registered. Please log in instead.';
+    if (/rate limit|too many|seconds/i.test(m) || s === 429) return 'Too many attempts right now. Please wait a few minutes and try again, or WhatsApp us for help.';
+    if (/sending (confirmation|email)|smtp/i.test(m)) return 'Your account could not be created because the verification email could not be sent. Please WhatsApp us on +256 759 405 181 and we will help you straight away.';
+    if (/password/i.test(m) && ctx === 'register') return 'That password is not accepted. Please use at least 8 characters.';
+    return 'Something went wrong. Please try again, or WhatsApp us on +256 759 405 181 for help.';
   }
 
-  try {
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: '/education/auth-error/'
-    });
+  /* ---------- theme ---------- */
+  var saved = localStorage.getItem('kmv-theme'); if (saved) document.documentElement.setAttribute('data-theme', saved);
+  $('themeBtn').onclick = function () { var n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('kmv-theme', n); };
 
-    if (error) throw error;
-
-    infoAlert.textContent = 'Password reset link sent to ' + email + '. Check your inbox.';
-    infoAlert.classList.add('visible');
-
-  } catch (err) {
-    showAlert('Could not send reset email. Please try again.');
-  }
-});
-
-/* Clear field errors as student types */
-document.querySelectorAll('.form-input').forEach(input => {
-  input.addEventListener('input', function() {
-    this.classList.remove('error');
-    const errEl = document.getElementById('err-' + this.id);
-    if (errEl) errEl.classList.remove('visible');
+  /* ---------- show / hide password ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.eye'), function (b) {
+    b.onclick = function () { var i = $(b.getAttribute('data-for')), t = i.type === 'password'; i.type = t ? 'text' : 'password'; b.textContent = t ? 'Hide' : 'Show'; b.setAttribute('aria-label', t ? 'Hide password' : 'Show password'); };
   });
-});
-</script>
 
+  /* ---------- flip between Log In and Register ---------- */
+  var inner = $('inner'), faces = { login: $('face-login'), register: $('face-register') }, tabs = { login: $('tab-login'), register: $('tab-register') };
+  function fit() { var f = faces[inner.getAttribute('data-face')]; if (f && f.offsetHeight) inner.style.height = f.offsetHeight + 'px'; }
+  function setFace(face, focus) {
+    inner.setAttribute('data-face', face);
+    ['login', 'register'].forEach(function (k) {
+      var on = k === face;
+      faces[k].setAttribute('aria-hidden', on ? 'false' : 'true');
+      if (on) faces[k].removeAttribute('inert'); else faces[k].setAttribute('inert', '');
+      tabs[k].setAttribute('aria-selected', on ? 'true' : 'false'); tabs[k].tabIndex = on ? 0 : -1;
+    });
+    document.title = (face === 'login' ? 'Log In' : 'Register') + ' | KMVTECH Education';
+    try { history.replaceState(null, '', '/education/' + face + '/' + location.search + location.hash); } catch (e) {}
+    fit();
+    if (focus) setTimeout(function () { var f = face === 'login' ? $('l-email') : ($('reg-sent').hidden ? $('r-name') : $('s-resend')); if (f) f.focus(); }, 120);
+  }
+  tabs.login.onclick = function () { setFace('login', true); };
+  tabs.register.onclick = function () { setFace('register', true); };
+  [tabs.login, tabs.register].forEach(function (t) { t.onkeydown = function (e) { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { var f = t === tabs.login ? 'register' : 'login'; setFace(f, false); tabs[f].focus(); } }; });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-go]'), function (b) { b.onclick = function () { setFace(b.getAttribute('data-go'), true); }; });
+  if (window.ResizeObserver) { var ro = new ResizeObserver(fit); ro.observe(faces.login); ro.observe(faces.register); }
+  window.addEventListener('resize', fit);
+
+  /* ---------- resend verification email ---------- */
+  var cool = null;
+  function cooldown(btn, label, secs) {
+    var n = secs; btn.disabled = true; clearInterval(cool);
+    btn.textContent = label + ' (' + n + 's)';
+    cool = setInterval(function () { n--; if (n <= 0) { clearInterval(cool); btn.disabled = false; btn.textContent = label; } else btn.textContent = label + ' (' + n + 's)'; }, 1000);
+  }
+  async function resend(email, okEl, errEl, btn, label) {
+    hide(okEl); hide(errEl);
+    try {
+      var r = await withTimeout(SB.auth.resend({ type: 'signup', email: email, options: { emailRedirectTo: verifyUrl() } }), 15000);
+      if (r.error) throw r.error;
+      show(okEl, 'Done. A new email is on its way. Please check your inbox and spam folder.');
+      cooldown(btn, label, 60);
+    } catch (e) { show(errEl, friendly(e, 'resend')); }
+  }
+
+  /* ---------- LOGIN ---------- */
+  var pendingEmail = '';
+  $('login-form').onsubmit = async function (e) {
+    e.preventDefault(); hide($('l-err')); hide($('l-info')); hide($('l-resend')); clearErrs('l-');
+    var email = $('l-email').value.trim(), pw = $('l-pass').value, ok = true;
+    if (!EMAIL.test(email)) { fieldErr('l-email', 'Please enter a valid email address.'); ok = false; }
+    if (!pw) { fieldErr('l-pass', 'Please enter your password.'); ok = false; }
+    if (!ok) return;
+    busy($('l-submit'), true, 'Logging in...');
+    try {
+      var r = await withTimeout(SB.auth.signInWithPassword({ email: email, password: pw }), 15000);
+      if (r.error) throw r.error;
+      go(after);
+    } catch (err) {
+      busy($('l-submit'), false, 'Log In');
+      show($('l-err'), friendly(err, 'login'));
+      if (/email not confirmed/i.test(String(err && err.message))) { pendingEmail = email; $('l-resend').hidden = false; }
+    }
+  };
+  $('l-resend').onclick = function () {
+    var okEl = $('l-info'), errEl = $('l-err');
+    resend(pendingEmail || $('l-email').value.trim(), okEl, errEl, $('l-resend'), 'Resend verification email');
+  };
+  $('forgot').onclick = async function () {
+    hide($('l-err')); hide($('l-info'));
+    var email = $('l-email').value.trim();
+    if (!EMAIL.test(email)) { show($('l-err'), 'Please type your email address above first, then tap "Forgot password?" again.'); $('l-email').focus(); return; }
+    try {
+      var r = await withTimeout(SB.auth.resetPasswordForEmail(email, { redirectTo: location.origin + '/education/auth-error/' }), 15000);
+      if (r.error) throw r.error;
+      show($('l-info'), 'We sent a password reset link to ' + email + '. Please check your inbox and spam folder.');
+    } catch (err) { show($('l-err'), friendly(err, 'reset')); }
+  };
+
+  /* ---------- REGISTER ---------- */
+  var regValues = null;
+  $('register-form').onsubmit = async function (e) {
+    e.preventDefault(); hide($('r-err')); clearErrs('r-');
+    var name = $('r-name').value.trim().replace(/\s+/g, ' '), email = $('r-email').value.trim(), code = $('r-code').value;
+    var raw = $('r-phone').value.replace(/[\s\-()]/g, ''), pw = $('r-pass').value, pw2 = $('r-pass2').value, ok = true;
+    if (name.length < 3) { fieldErr('r-name', 'Please enter your full name.'); ok = false; } else { $('r-name').value = name; }
+    if (!EMAIL.test(email)) { fieldErr('r-email', 'Please enter a valid email address.'); ok = false; }
+    var contact = '';
+    if (code === 'other') {
+      if (!/^\+\d{8,15}$/.test(raw)) { fieldErr('r-phone', 'Please include the country code, for example +4479XXXXXXXX.'); ok = false; } else contact = raw;
+    } else {
+      var digits = raw.replace(/^0+/, '');
+      if (!/^\d{6,12}$/.test(digits)) { fieldErr('r-phone', 'Please enter a valid phone number.'); ok = false; } else contact = code + digits;
+    }
+    if (pw.length < 8) { fieldErr('r-pass', 'Your password must have at least 8 characters.'); ok = false; }
+    if (pw2 !== pw) { fieldErr('r-pass2', 'The two passwords do not match.'); ok = false; }
+    if (!$('r-terms').checked) { fieldErr('r-terms', 'Please tick the box to agree to the Terms of Service.'); ok = false; }
+    if (!ok) { var bad = document.querySelector('#face-register [aria-invalid="true"]'); if (bad) bad.focus(); return; }
+    busy($('r-submit'), true, 'Creating your account...');
+    try {
+      var r = await withTimeout(SB.auth.signUp({ email: email, password: pw, options: { data: { full_name: name, contact_number: contact }, emailRedirectTo: verifyUrl() } }), 20000);
+      if (r.error) throw r.error;
+      var u = r.data && r.data.user;
+      if (r.data && r.data.session) { go(after); return; }
+      if (u && Array.isArray(u.identities) && u.identities.length === 0) {
+        busy($('r-submit'), false, 'Create My Account');
+        $('l-email').value = email; setFace('login', true);
+        show($('l-info'), 'This email is already registered. Please log in. If you forgot your password, tap "Forgot password?".');
+        return;
+      }
+      regValues = { email: email };
+      $('sent-email').textContent = email; $('reg-wrap').hidden = true; $('reg-sent').hidden = false;
+      busy($('r-submit'), false, 'Create My Account'); fit(); $('s-resend').focus();
+      window.scrollTo(0, 0);
+    } catch (err) {
+      busy($('r-submit'), false, 'Create My Account');
+      if (/already registered|already been registered/i.test(String(err && err.message))) {
+        $('l-email').value = email; setFace('login', true); show($('l-info'), 'This email is already registered. Please log in.'); return;
+      }
+      show($('r-err'), friendly(err, 'register'));
+    }
+  };
+  $('s-resend').onclick = function () { resend(regValues && regValues.email, $('s-ok'), $('s-err'), $('s-resend'), 'Send the email again'); };
+  $('s-change').onclick = function () { $('reg-sent').hidden = true; $('reg-wrap').hidden = false; hide($('s-ok')); hide($('s-err')); clearInterval(cool); $('s-resend').disabled = false; $('s-resend').textContent = 'Send the email again'; fit(); $('r-email').focus(); };
+
+  /* ---------- start up ---------- */
+  var mode = params.get('mode') || (location.hash === '#register' ? 'register' : (/\/register\/?$/.test(location.pathname) ? 'register' : 'login'));
+  if (params.get('email')) $('l-email').value = params.get('email');
+  if (params.get('verified')) show($('l-info'), 'Your email is verified. Please log in to continue.');
+  setFace(mode === 'register' ? 'register' : 'login', false);
+  fit(); setTimeout(fit, 300);
+  withTimeout(SB.auth.getSession(), 6000).then(function (s) { if (s && s.data && s.data.session) go(after); }).catch(function () {});
+})();
+</script>
 </body>
 </html>
