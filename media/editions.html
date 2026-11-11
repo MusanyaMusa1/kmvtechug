@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Past editions — King Musah Media</title>
+  <meta name="description" content="The weekly and monthly King Musah Media newsletter editions."/>
+  <link rel="canonical" href="https://kmvtechug.app/media/editions"/>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GEN75BG21K');
+  </script>
+  <link rel="preload" href="assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261111021729"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
+  <link rel="shortcut icon" href="assets/favicon.ico"/>
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+  <script>(function(){var u=["https://www.googletagmanager.com/gtag/js?id=G-GEN75BG21K"],done=false;function go(){if(done){return}done=true;u.forEach(function(x){var s=document.createElement('script');s.async=true;s.src=x;if(x.indexOf('adsbygoogle')>-1){s.crossOrigin='anonymous'}document.head.appendChild(s)})}function soon(){if('requestIdleCallback' in window){requestIdleCallback(go,{timeout:4000})}else{setTimeout(go,2500)}}if(document.readyState==='complete'){soon()}else{window.addEventListener('load',function(){setTimeout(soon,800)})}['pointerdown','keydown','scroll','touchstart'].forEach(function(e){window.addEventListener(e,go,{once:true,passive:true})})})();</script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<nav>
+  <a class="nav-logo" href="./">
+    <img src="assets/logo-kmm.jpg" data-base="assets/logo-kmm" data-ext-idx="0" alt="King Musah Media" onerror="handleImgError(this)"/>
+    <span class="nav-logo-text">King Musah Media</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="./">Home</a></li><li><a href="stories/">All Stories</a></li><li><a href="category/news">News</a></li><li><a href="category/politics">Politics</a></li><li><a href="category/entertainment">Entertainment</a></li><li><a href="category/sports">Sports</a></li><li><a href="category/business">Business</a></li><li><a href="category/international">International</a></li><li><a href="support" class="nav-cta">Support Us</a></li>
+  </ul>
+  <div class="theme-toggle">
+    <a class="theme-btn search-btn" href="search" aria-label="Search stories">&#128269;</a>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark and light mode">&#9728;</button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mob">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="./" onclick="document.getElementById('mob').classList.remove('open')">Home</a><a href="stories/" onclick="document.getElementById('mob').classList.remove('open')">All Stories</a><a href="category/news" onclick="document.getElementById('mob').classList.remove('open')">News</a><a href="category/politics" onclick="document.getElementById('mob').classList.remove('open')">Politics</a><a href="category/entertainment" onclick="document.getElementById('mob').classList.remove('open')">Entertainment</a><a href="category/sports" onclick="document.getElementById('mob').classList.remove('open')">Sports</a><a href="category/business" onclick="document.getElementById('mob').classList.remove('open')">Business</a><a href="category/international" onclick="document.getElementById('mob').classList.remove('open')">International</a><a href="about" onclick="document.getElementById('mob').classList.remove('open')">About</a><a href="topics" onclick="document.getElementById('mob').classList.remove('open')">Topics</a><a href="newsletter" onclick="document.getElementById('mob').classList.remove('open')">Newsletter</a><a href="submit" onclick="document.getElementById('mob').classList.remove('open')">Send Us a Story</a><a href="support" style="color:var(--red);font-weight:700" onclick="document.getElementById('mob').classList.remove('open')">Support Us</a>
+</div>
+
+<main id="main">
+
+<section class="support-hero">
+  <span class="sec-tag">Newsletter</span>
+  <h1>Past editions</h1>
+  <p>Every weekly and monthly edition we have sent. Subscribers read the full edition from the link in their email. Here you can see the headlines.</p>
+</section>
+<div class="submit-wrap">
+  <p class="nl-hint" id="eds-status" role="status">Loading&hellip;</p>
+  <ul class="eds-list" id="eds-list"></ul>
+  <p class="nl-hint"><a href="newsletter">Subscribe to the newsletter</a></p>
+</div>
+<script>
+(function () {
+  var SB = "https://imvrrrpkjsixfdutcbbj.supabase.co", KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltdnJycnBranNpeGZkdXRjYmJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTczODgsImV4cCI6MjEwMDI5MzM4OH0.gVJAhZcjWanxkdwmWnLrTNErVB7WF4Qn7u3TQtgdDQc";
+  var status = document.getElementById('eds-status'), list = document.getElementById('eds-list');
+  fetch(SB + '/rest/v1/rpc/list_editions', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }, body: '{}' })
+    .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); })
+    .then(function (rows) {
+      if (!Array.isArray(rows) || !rows.length) { status.textContent = 'No editions have been sent yet. The first ones are on the way.'; return; }
+      status.textContent = '';
+      rows.forEach(function (r) {
+        if (!/^[a-z0-9-]{3,60}$/.test(String(r.slug || ''))) { return; }
+        var li = document.createElement('li'), a = document.createElement('a'), m = document.createElement('div');
+        a.href = 'edition?i=' + encodeURIComponent(r.slug); a.textContent = String(r.title || r.slug);
+        var d = ''; try { d = new Date(r.sentAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Kampala' }); } catch (e) { d = ''; }
+        m.className = 'eds-meta'; m.textContent = (r.kind === 'monthly' ? 'Monthly Edition' : 'Weekly Edition') + (d ? ' \u00b7 ' + d : '');
+        li.appendChild(a); li.appendChild(m); list.appendChild(li);
+      });
+    })
+    .catch(function () { status.textContent = 'The list of editions is not available right now. Please try again later.'; });
+})();
+</script>
+
+</main>
+
+<div class="back-bar">
+  <a href="https://kmvtechug.app" class="back-link">&larr; Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="https://kmvtechug.app/tech/">KMVTECH</a>
+    <a href="https://kmvtechug.app/education/">KMVTECH Education</a>
+    <a href="https://kmvtechug.app/musa/">Musanya Musa</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; 2026 King Musah Media. All rights reserved.</span>
+    <div class="hub-links">
+      <a href="newsletter">Newsletter</a>
+      <a href="about">About</a>
+      <a href="standards">Editorial standards</a>
+      <a href="corrections">Corrections</a>
+      <a href="topics">Topics</a>
+      <a href="submit">Send us a story</a>
+      <a href="privacy">Privacy Policy</a>
+      <a href="terms">Terms of Service</a>
+      <a href="mailto:kingmusahmedia@gmail.com">Contact us</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js?v=20261111021729"></script>
+</body>
+</html>

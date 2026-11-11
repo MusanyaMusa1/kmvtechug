@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Newsletter edition — King Musah Media</title>
+  <meta name="description" content="Read a King Musah Media newsletter edition."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta name="referrer" content="no-referrer"/>
+  <link rel="preload" href="assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261111021729"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
+  <link rel="shortcut icon" href="assets/favicon.ico"/>
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<nav>
+  <a class="nav-logo" href="./">
+    <img src="assets/logo-kmm.jpg" data-base="assets/logo-kmm" data-ext-idx="0" alt="King Musah Media" onerror="handleImgError(this)"/>
+    <span class="nav-logo-text">King Musah Media</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="./">Home</a></li><li><a href="stories/">All Stories</a></li><li><a href="category/news">News</a></li><li><a href="category/politics">Politics</a></li><li><a href="category/entertainment">Entertainment</a></li><li><a href="category/sports">Sports</a></li><li><a href="category/business">Business</a></li><li><a href="category/international">International</a></li><li><a href="support" class="nav-cta">Support Us</a></li>
+  </ul>
+  <div class="theme-toggle">
+    <a class="theme-btn search-btn" href="search" aria-label="Search stories">&#128269;</a>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark and light mode">&#9728;</button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mob">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="./" onclick="document.getElementById('mob').classList.remove('open')">Home</a><a href="stories/" onclick="document.getElementById('mob').classList.remove('open')">All Stories</a><a href="category/news" onclick="document.getElementById('mob').classList.remove('open')">News</a><a href="category/politics" onclick="document.getElementById('mob').classList.remove('open')">Politics</a><a href="category/entertainment" onclick="document.getElementById('mob').classList.remove('open')">Entertainment</a><a href="category/sports" onclick="document.getElementById('mob').classList.remove('open')">Sports</a><a href="category/business" onclick="document.getElementById('mob').classList.remove('open')">Business</a><a href="category/international" onclick="document.getElementById('mob').classList.remove('open')">International</a><a href="about" onclick="document.getElementById('mob').classList.remove('open')">About</a><a href="topics" onclick="document.getElementById('mob').classList.remove('open')">Topics</a><a href="newsletter" onclick="document.getElementById('mob').classList.remove('open')">Newsletter</a><a href="submit" onclick="document.getElementById('mob').classList.remove('open')">Send Us a Story</a><a href="support" style="color:var(--red);font-weight:700" onclick="document.getElementById('mob').classList.remove('open')">Support Us</a>
+</div>
+
+<main id="main">
+
+<section class="ed-wrap">
+  <header class="ed-masthead">
+    <img class="ed-logo" src="assets/email-logo.png" alt="King Musah Media" width="120" height="104"/>
+    <div class="ed-kind" id="ed-kind">The Newsletter</div>
+    <h1 class="ed-title" id="ed-title">Loading&hellip;</h1>
+    <div class="ed-date" id="ed-date"></div>
+  </header>
+  <p class="ed-status" id="ed-status" role="status"></p>
+  <div id="ed-root" hidden></div>
+  <noscript><p class="nl-hint">Please turn on JavaScript to read the edition.</p></noscript>
+</section>
+<script>
+(function () {
+  var SB = "https://imvrrrpkjsixfdutcbbj.supabase.co", KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltdnJycnBranNpeGZkdXRjYmJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTczODgsImV4cCI6MjEwMDI5MzM4OH0.gVJAhZcjWanxkdwmWnLrTNErVB7WF4Qn7u3TQtgdDQc", SITE = 'https://kmvtechug.app/media/';
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('i') || '', token = params.get('t') || '';
+  var statusEl = document.getElementById('ed-status'), root = document.getElementById('ed-root');
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) { e.className = cls; } if (text !== undefined) { e.textContent = text; } return e; }
+  function safeSite(u) { return (typeof u === 'string' && u.indexOf(SITE) === 0) ? u : ''; }
+  function say(text) { statusEl.textContent = text; }
+  function rpc(name, args) {
+    return fetch(SB + '/rest/v1/rpc/' + name, { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }, body: JSON.stringify(args) })
+      .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); });
+  }
+  function link(it, medium) {
+    return SITE + 'stories/' + encodeURIComponent(String(it.slug || '')) + '?utm_source=newsletter&utm_medium=' + medium + '&utm_campaign=' + encodeURIComponent(slug);
+  }
+  function paragraphs(text, cls) {
+    var box = el('div', cls || 'ed-text');
+    String(text || '').split(/\n\s*\n/).forEach(function (p) { if (p.trim()) { box.appendChild(el('p', '', p.trim())); } });
+    return box;
+  }
+  function item(it, full, big) {
+    var a = el('article', 'ed-item' + (big ? ' ed-lead' : ''));
+    var img = full ? safeSite(it.image) : '';
+    if (img) { var im = el('img', 'ed-photo'); im.src = img; im.alt = ''; im.loading = big ? 'eager' : 'lazy'; a.appendChild(im); }
+    var h = el('h3', 'ed-headline'); var l = el('a', '', String(it.title || '')); l.href = link(it, 'web-edition'); h.appendChild(l); a.appendChild(h);
+    if (full && (it.author || it.date)) { a.appendChild(el('div', 'ed-meta', [it.author, it.date].filter(Boolean).join(' \u00b7 '))); }
+    if (full && it.excerpt) { a.appendChild(el('p', 'ed-ex', String(it.excerpt))); }
+    return a;
+  }
+  function section(title, items, full) {
+    var s = el('section', 'ed-section'); s.appendChild(el('h2', 'ed-section-title', title));
+    var list = el('div', 'ed-list'); items.forEach(function (it) { list.appendChild(item(it, full, false)); }); s.appendChild(list); return s;
+  }
+  function when(iso) {
+    try { return new Date(iso).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Kampala' }); } catch (e) { return ''; }
+  }
+
+  function render(res) {
+    if (!res || !res.ok) {
+      document.getElementById('ed-title').textContent = res && res.code === 'invalid' ? "This link isn't valid" : "We can't find this edition";
+      say(res && res.code === 'invalid'
+        ? 'Please use the button in your newsletter email, or subscribe on our newsletter page.'
+        : 'It may not have been published yet. See all editions on our archive page.');
+      return;
+    }
+    var c = res.content || {}, full = res.access === 'full';
+    document.title = String(res.title || 'Edition') + ' \u2014 King Musah Media';
+    document.getElementById('ed-kind').textContent = res.kind === 'monthly' ? 'The Monthly Edition' : 'The Weekly Edition';
+    document.getElementById('ed-title').textContent = String(res.title || '');
+    document.getElementById('ed-date').textContent = when(res.sentAt);
+    say(res.name ? 'Hello, ' + res.name + '.' : '');
+    root.textContent = '';
+
+    if (!full) {
+      var b = el('div', 'ed-banner');
+      b.appendChild(el('strong', '', res.name ? 'You are reading the headlines. ' : 'This is the public preview. '));
+      b.appendChild(document.createTextNode(res.name ? 'The full edition is for paying subscribers. ' : 'Subscribers read the full edition from the link in their email. '));
+      var s = el('a', '', 'See how to subscribe'); s.href = 'newsletter'; b.appendChild(s); root.appendChild(b);
+    }
+    if (full && c.editorsNote) { var n = el('aside', 'ed-note'); n.appendChild(el('div', 'ed-note-label', "Editor's note")); n.appendChild(paragraphs(c.editorsNote)); root.appendChild(n); }
+    if (c.lead && c.lead.title) { root.appendChild(item(c.lead, full, true)); }
+    var cols = el('div', 'ed-columns');
+    (c.sections || []).forEach(function (sec) { if (sec && sec.items && sec.items.length) { cols.appendChild(section(String(sec.title || ''), sec.items, full)); } });
+    root.appendChild(cols);
+    if (full && c.analysis && c.analysis.body) { var an = el('section', 'ed-analysis'); an.appendChild(el('h2', 'ed-section-title', String(c.analysis.title || 'Analysis'))); an.appendChild(paragraphs(c.analysis.body)); root.appendChild(an); }
+    if (c.luganda && c.luganda.length) { root.appendChild(section('Luganda', c.luganda, full)); }
+    var f = el('p', 'ed-foot'); var arch = el('a', '', 'All editions'); arch.href = 'editions'; f.appendChild(arch); root.appendChild(f);
+    root.hidden = false;
+  }
+
+  if (!/^[a-z0-9-]{3,60}$/.test(slug)) { render({ ok: false, code: 'not_found' }); return; }
+  var call = /^[a-f0-9]{64}$/.test(token) ? rpc('get_edition', { p_slug: slug, p_token: token }) : rpc('get_edition_teaser', { p_slug: slug });
+  call.then(render).catch(function () { document.getElementById('ed-title').textContent = 'We could not load this edition'; say('Please check your connection and try again in a moment.'); });
+})();
+</script>
+
+</main>
+
+<div class="back-bar">
+  <a href="https://kmvtechug.app" class="back-link">&larr; Back to KMVTECHUG</a>
+  <div class="hub-links">
+    <a href="https://kmvtechug.app/tech/">KMVTECH</a>
+    <a href="https://kmvtechug.app/education/">KMVTECH Education</a>
+    <a href="https://kmvtechug.app/musa/">Musanya Musa</a>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; 2026 King Musah Media. All rights reserved.</span>
+    <div class="hub-links">
+      <a href="newsletter">Newsletter</a>
+      <a href="about">About</a>
+      <a href="standards">Editorial standards</a>
+      <a href="corrections">Corrections</a>
+      <a href="topics">Topics</a>
+      <a href="submit">Send us a story</a>
+      <a href="privacy">Privacy Policy</a>
+      <a href="terms">Terms of Service</a>
+      <a href="mailto:kingmusahmedia@gmail.com">Contact us</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js?v=20261111021729"></script>
+</body>
+</html>

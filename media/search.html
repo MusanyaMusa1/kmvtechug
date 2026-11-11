@@ -7,7 +7,7 @@
   <meta name="description" content="Search all King Musah Media stories."/>
   <meta name="robots" content="noindex, follow"/>
   <link rel="preload" href="assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
-  <link rel="stylesheet" href="assets/css/style.css?v=20261106135535"/>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261111021729"/>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -42,14 +42,11 @@
 <div class="mobile-menu" id="mob">
   <a href="./" onclick="document.getElementById('mob').classList.remove('open')">Home</a><a href="stories/" onclick="document.getElementById('mob').classList.remove('open')">All Stories</a><a href="category/news" onclick="document.getElementById('mob').classList.remove('open')">News</a><a href="category/politics" onclick="document.getElementById('mob').classList.remove('open')">Politics</a><a href="category/entertainment" onclick="document.getElementById('mob').classList.remove('open')">Entertainment</a><a href="category/sports" onclick="document.getElementById('mob').classList.remove('open')">Sports</a><a href="category/business" onclick="document.getElementById('mob').classList.remove('open')">Business</a><a href="category/international" onclick="document.getElementById('mob').classList.remove('open')">International</a><a href="about" onclick="document.getElementById('mob').classList.remove('open')">About</a><a href="topics" onclick="document.getElementById('mob').classList.remove('open')">Topics</a><a href="newsletter" onclick="document.getElementById('mob').classList.remove('open')">Newsletter</a><a href="submit" onclick="document.getElementById('mob').classList.remove('open')">Send Us a Story</a><a href="support" style="color:var(--red);font-weight:700" onclick="document.getElementById('mob').classList.remove('open')">Support Us</a>
 </div>
-<div class="ticker-wrap" role="marquee" aria-label="Breaking news">
-  <span class="ticker-label">Breaking</span>
-  <div class="ticker-track"><a href="stories/updf-begins-withdrawal-of-troops-from-somalia-after-nearly-20-years">UPDF Begins Withdrawal of Troops from Somalia After Nearly 20 Years</a><a href="stories/updf-begins-withdrawal-of-troops-from-somalia-after-nearly-20-years">UPDF Begins Withdrawal of Troops from Somalia After Nearly 20 Years</a></div>
-</div>
+
 
 <main id="main">
 
-<section class="sec" style="padding-top:150px">
+<section class="sec" style="padding-top:130px">
   <div class="sec-header"><div class="sec-header-text"><span class="sec-tag">Search</span><h2 class="sec-title">Search our stories</h2><p class="sec-sub">Type a name, place or subject. Press Enter or tap Search.</p></div></div>
   <form class="search-form" id="s-form" role="search" novalidate>
     <input id="s-input" type="search" placeholder="e.g. Karamoja, parliament, Cranes" autocomplete="off" aria-label="Search stories" />
@@ -109,7 +106,7 @@
     });
   }
 
-  fetch('search-index.json?v=20261106135535')
+  fetch('search-index.json?v=20261111021729')
     .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); })
     .then(function (j) { data = j; run(input.value); })
     .catch(function () { failed = true; info.textContent = 'Search is not available right now. Please try again later.'; });
@@ -152,6 +149,6 @@
     </div>
   </div>
 </footer>
-<script src="assets/js/main.js?v=20261106135535"></script>
+<script src="assets/js/main.js?v=20261111021729"></script>
 </body>
 </html>
