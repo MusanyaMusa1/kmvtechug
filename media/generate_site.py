@@ -766,6 +766,7 @@ def build_sitemap(articles):
     urls += [f"{BASE_URL}/category/{k}.html" for k in CATEGORIES]
     urls.append(f"{BASE_URL}/submit.html")
     urls.append(f"{BASE_URL}/newsletter.html")
+    urls.append(f"{BASE_URL}/editions.html")
     urls += [f"{BASE_URL}/about.html", f"{BASE_URL}/standards.html", f"{BASE_URL}/corrections.html", f"{BASE_URL}/authors.html"]
     urls += [f"{BASE_URL}/author/{slug}.html" for slug in AUTHOR_STORIES]
     if TOPICS:
@@ -956,6 +957,8 @@ def build_privacy_policy():
     <p><strong>Comments and story submissions.</strong> If you post a comment, we store the name you enter, your comment and the time. To slow down spam we also store a scrambled (hashed) fingerprint of your network address, not the address itself. Comments are reviewed before they appear and are shown publicly with the name you entered, so please do not include personal details you want to keep private. Stories sent through our submission form are handled through Google Forms and used only by our editors to review and verify your story. To have a comment or submission removed, contact us at the address below.</p>
 
     <p><strong>Newsletter.</strong> If you subscribe to our newsletter we store the name and email address you give us, your phone number if you choose to give one, which editions you chose, whether you also agreed to receive offers and announcements from us, and the wording you agreed to and the time you agreed. We use this only to send you the editions you asked for and to manage your subscription, including payment when paid subscriptions begin. We send a confirmation email first and never add anyone who does not confirm. Every email has an unsubscribe link, and you can ask us to erase your details at any time by writing to the address below. To slow down abuse we also keep a scrambled (hashed) fingerprint of the network address used to sign up, for a short time only. Your details are stored with our database provider (Supabase) and emails are delivered by our email provider (Resend); both may process data outside Uganda. We do not sell your details or share them with advertisers.</p>
+
+    <p><strong>Newsletter editions.</strong> When you open an edition from the link in your newsletter email, we record that your link was opened (once per edition), so we can see how many people read each one. We do this with your personal link, not with cookies. We do not track what you do afterwards inside the email.</p>
 
     <p><strong>Analytics.</strong> We use Google Analytics to understand how visitors use this site &mdash; for example, which stories are most read and which countries our audience comes from. Google Analytics uses cookies and collects information such as your approximate location, device type, and browsing behaviour on this site. This data is aggregated and does not identify you personally. You can opt out of Google Analytics tracking using browser extensions such as Google's own Analytics Opt-out Browser Add-on.</p>
 
@@ -1925,6 +1928,157 @@ def build_trust_pages(articles):
             f"{au['name']}, author", f"Stories by {au['name']} at {SITE_NAME}.", f"author/{slug}.html", body, articles, depth="../"))
 
 
+# ---------------------------------------------------------------- newsletter editions: story feed, edition page, archive
+def build_edition_feed(articles):
+    """A small public list of stories that the edition builder reads (newest first). It carries the right photo
+    file for each story, so newsletters never guess a photo address."""
+    items = []
+    for a in sorted(articles, key=lambda x: x["date"], reverse=True)[:500]:
+        slug = a["slug"]
+        info, ext, img = RESIZED.get(slug), resolve_image_ext(slug), ""
+        if info:
+            best = {w: rel for w, rel in info["variants"]}
+            img = best.get(800) or best.get(480) or best.get(1200) or (f"assets/images/{slug}.{ext}" if ext else "")
+        elif ext:
+            img = f"assets/images/{slug}.{ext}"
+        items.append({"s": slug, "t": a["title"], "c": a["category"], "l": a.get("language", "en"), "a": a.get("author", ""),
+                      "d": a["date"], "e": a.get("excerpt", ""), "i": img, "f": 1 if a.get("featured") else 0})
+    write(os.path.join(ROOT, "edition-feed.json"), json.dumps(items, ensure_ascii=False, separators=(",", ":")))
+
+
+EDITION_PAGE_BODY = r"""
+<section class="ed-wrap">
+  <header class="ed-masthead">
+    <img class="ed-logo" src="assets/email-logo.png" alt="King Musah Media" width="120" height="104"/>
+    <div class="ed-kind" id="ed-kind">The Newsletter</div>
+    <h1 class="ed-title" id="ed-title">Loading&hellip;</h1>
+    <div class="ed-date" id="ed-date"></div>
+  </header>
+  <p class="ed-status" id="ed-status" role="status"></p>
+  <div id="ed-root" hidden></div>
+  <noscript><p class="nl-hint">Please turn on JavaScript to read the edition.</p></noscript>
+</section>
+<script>
+(function () {
+  var SB = __SB__, KEY = __KEY__, SITE = 'https://kmvtechug.app/media/';
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('i') || '', token = params.get('t') || '';
+  var statusEl = document.getElementById('ed-status'), root = document.getElementById('ed-root');
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) { e.className = cls; } if (text !== undefined) { e.textContent = text; } return e; }
+  function safeSite(u) { return (typeof u === 'string' && u.indexOf(SITE) === 0) ? u : ''; }
+  function say(text) { statusEl.textContent = text; }
+  function rpc(name, args) {
+    return fetch(SB + '/rest/v1/rpc/' + name, { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }, body: JSON.stringify(args) })
+      .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); });
+  }
+  function link(it, medium) {
+    return SITE + 'stories/' + encodeURIComponent(String(it.slug || '')) + '?utm_source=newsletter&utm_medium=' + medium + '&utm_campaign=' + encodeURIComponent(slug);
+  }
+  function paragraphs(text, cls) {
+    var box = el('div', cls || 'ed-text');
+    String(text || '').split(/\n\s*\n/).forEach(function (p) { if (p.trim()) { box.appendChild(el('p', '', p.trim())); } });
+    return box;
+  }
+  function item(it, full, big) {
+    var a = el('article', 'ed-item' + (big ? ' ed-lead' : ''));
+    var img = full ? safeSite(it.image) : '';
+    if (img) { var im = el('img', 'ed-photo'); im.src = img; im.alt = ''; im.loading = big ? 'eager' : 'lazy'; a.appendChild(im); }
+    var h = el('h3', 'ed-headline'); var l = el('a', '', String(it.title || '')); l.href = link(it, 'web-edition'); h.appendChild(l); a.appendChild(h);
+    if (full && (it.author || it.date)) { a.appendChild(el('div', 'ed-meta', [it.author, it.date].filter(Boolean).join(' \u00b7 '))); }
+    if (full && it.excerpt) { a.appendChild(el('p', 'ed-ex', String(it.excerpt))); }
+    return a;
+  }
+  function section(title, items, full) {
+    var s = el('section', 'ed-section'); s.appendChild(el('h2', 'ed-section-title', title));
+    var list = el('div', 'ed-list'); items.forEach(function (it) { list.appendChild(item(it, full, false)); }); s.appendChild(list); return s;
+  }
+  function when(iso) {
+    try { return new Date(iso).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Kampala' }); } catch (e) { return ''; }
+  }
+
+  function render(res) {
+    if (!res || !res.ok) {
+      document.getElementById('ed-title').textContent = res && res.code === 'invalid' ? "This link isn't valid" : "We can't find this edition";
+      say(res && res.code === 'invalid'
+        ? 'Please use the button in your newsletter email, or subscribe on our newsletter page.'
+        : 'It may not have been published yet. See all editions on our archive page.');
+      return;
+    }
+    var c = res.content || {}, full = res.access === 'full';
+    document.title = String(res.title || 'Edition') + ' \u2014 King Musah Media';
+    document.getElementById('ed-kind').textContent = res.kind === 'monthly' ? 'The Monthly Edition' : 'The Weekly Edition';
+    document.getElementById('ed-title').textContent = String(res.title || '');
+    document.getElementById('ed-date').textContent = when(res.sentAt);
+    say(res.name ? 'Hello, ' + res.name + '.' : '');
+    root.textContent = '';
+
+    if (!full) {
+      var b = el('div', 'ed-banner');
+      b.appendChild(el('strong', '', res.name ? 'You are reading the headlines. ' : 'This is the public preview. '));
+      b.appendChild(document.createTextNode(res.name ? 'The full edition is for paying subscribers. ' : 'Subscribers read the full edition from the link in their email. '));
+      var s = el('a', '', 'See how to subscribe'); s.href = 'newsletter'; b.appendChild(s); root.appendChild(b);
+    }
+    if (full && c.editorsNote) { var n = el('aside', 'ed-note'); n.appendChild(el('div', 'ed-note-label', "Editor's note")); n.appendChild(paragraphs(c.editorsNote)); root.appendChild(n); }
+    if (c.lead && c.lead.title) { root.appendChild(item(c.lead, full, true)); }
+    var cols = el('div', 'ed-columns');
+    (c.sections || []).forEach(function (sec) { if (sec && sec.items && sec.items.length) { cols.appendChild(section(String(sec.title || ''), sec.items, full)); } });
+    root.appendChild(cols);
+    if (full && c.analysis && c.analysis.body) { var an = el('section', 'ed-analysis'); an.appendChild(el('h2', 'ed-section-title', String(c.analysis.title || 'Analysis'))); an.appendChild(paragraphs(c.analysis.body)); root.appendChild(an); }
+    if (c.luganda && c.luganda.length) { root.appendChild(section('Luganda', c.luganda, full)); }
+    var f = el('p', 'ed-foot'); var arch = el('a', '', 'All editions'); arch.href = 'editions'; f.appendChild(arch); root.appendChild(f);
+    root.hidden = false;
+  }
+
+  if (!/^[a-z0-9-]{3,60}$/.test(slug)) { render({ ok: false, code: 'not_found' }); return; }
+  var call = /^[a-f0-9]{64}$/.test(token) ? rpc('get_edition', { p_slug: slug, p_token: token }) : rpc('get_edition_teaser', { p_slug: slug });
+  call.then(render).catch(function () { document.getElementById('ed-title').textContent = 'We could not load this edition'; say('Please check your connection and try again in a moment.'); });
+})();
+</script>
+"""
+
+EDITIONS_PAGE_BODY = r"""
+<section class="support-hero">
+  <span class="sec-tag">Newsletter</span>
+  <h1>Past editions</h1>
+  <p>Every weekly and monthly edition we have sent. Subscribers read the full edition from the link in their email. Here you can see the headlines.</p>
+</section>
+<div class="submit-wrap">
+  <p class="nl-hint" id="eds-status" role="status">Loading&hellip;</p>
+  <ul class="eds-list" id="eds-list"></ul>
+  <p class="nl-hint"><a href="newsletter">Subscribe to the newsletter</a></p>
+</div>
+<script>
+(function () {
+  var SB = __SB__, KEY = __KEY__;
+  var status = document.getElementById('eds-status'), list = document.getElementById('eds-list');
+  fetch(SB + '/rest/v1/rpc/list_editions', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY }, body: '{}' })
+    .then(function (r) { if (!r.ok) { throw new Error('http'); } return r.json(); })
+    .then(function (rows) {
+      if (!Array.isArray(rows) || !rows.length) { status.textContent = 'No editions have been sent yet. The first ones are on the way.'; return; }
+      status.textContent = '';
+      rows.forEach(function (r) {
+        if (!/^[a-z0-9-]{3,60}$/.test(String(r.slug || ''))) { return; }
+        var li = document.createElement('li'), a = document.createElement('a'), m = document.createElement('div');
+        a.href = 'edition?i=' + encodeURIComponent(r.slug); a.textContent = String(r.title || r.slug);
+        var d = ''; try { d = new Date(r.sentAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Kampala' }); } catch (e) { d = ''; }
+        m.className = 'eds-meta'; m.textContent = (r.kind === 'monthly' ? 'Monthly Edition' : 'Weekly Edition') + (d ? ' \u00b7 ' + d : '');
+        li.appendChild(a); li.appendChild(m); list.appendChild(li);
+      });
+    })
+    .catch(function () { status.textContent = 'The list of editions is not available right now. Please try again later.'; });
+})();
+</script>
+"""
+
+
+def build_edition_pages():
+    write(os.path.join(ROOT, "edition.html"), _newsletter_shell(
+        "Newsletter edition", "Read a King Musah Media newsletter edition.", "edition", EDITION_PAGE_BODY, private=True))
+    write(os.path.join(ROOT, "editions.html"), _newsletter_shell(
+        "Past editions", "The weekly and monthly King Musah Media newsletter editions.", "editions", EDITIONS_PAGE_BODY))
+
+
 def build_submit():
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -2003,10 +2157,12 @@ def main():
     build_topics(articles)
     build_trust_pages(articles)
     build_search(articles)
+    build_edition_feed(articles)
     build_submit()
     build_newsletter()
     build_newsletter_confirm()
     build_newsletter_unsubscribe()
+    build_edition_pages()
     build_privacy_policy()
     build_terms_of_service()
     build_sitemap(articles)
