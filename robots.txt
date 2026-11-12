@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://kmvtechug.app/media/sitemap.xml
+Sitemap: https://kmvtechug.app/education/sitemap.xml
+Disallow: /education/courses/*/notes/
