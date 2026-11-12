@@ -78,6 +78,8 @@ const SB = supabase.createClient(
   'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
 );
 
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
 // Check if code is in URL path e.g. /education/verify/EVL1-2026-A7K3M9/
 const pathParts = window.location.pathname.split('/').filter(Boolean);
 const urlCode = pathParts[pathParts.length - 1];
@@ -129,12 +131,12 @@ async function verify() {
         </div>
       </div>
       <div class="result-body">
-        <div class="ri"><label>Student Name</label><span>${cert.student_name}</span></div>
-        <div class="ri"><label>Student Number</label><span>${cert.student_number}</span></div>
-        <div class="ri full"><label>Course Completed</label><span>${cert.course_title}</span></div>
-        <div class="ri"><label>Date Issued</label><span>${date}</span></div>
-        <div class="ri"><label>Overall Score</label><span class="score-badge">${cert.overall_score}%</span></div>
-        <div class="ri full"><label>Verification Code</label><span style="font-family:monospace;color:var(--blue);font-weight:600;">${cert.verification_code}</span></div>
+        <div class="ri"><label>Student Name</label><span>${esc(String(cert.student_name||'').toUpperCase())}</span></div>
+        <div class="ri"><label>Student Number</label><span>${esc(cert.student_number)}</span></div>
+        <div class="ri full"><label>Course Completed</label><span>${esc(cert.course_title)}</span></div>
+        <div class="ri"><label>Date Issued</label><span>${esc(date)}</span></div>
+        <div class="ri"><label>Overall Score</label><span class="score-badge">${esc(cert.overall_score)}%</span></div>
+        <div class="ri full"><label>Verification Code</label><span style="font-family:monospace;color:var(--blue);font-weight:600;">${esc(cert.verification_code)}</span></div>
       </div>
     </div>`;
 }
