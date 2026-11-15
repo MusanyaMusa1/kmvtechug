@@ -17,9 +17,12 @@
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/dr-congo</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/ebola</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/health</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/uganda</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/politics</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/succession</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kenya</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa</loc></url>
@@ -42,7 +45,6 @@
   <url><loc>https://kmvtechug.app/media/topic/conflict</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/texas</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/dr-congo</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/donald-trump</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/uedcl</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/electricity</loc></url>
@@ -83,8 +85,6 @@
   <url><loc>https://kmvtechug.app/media/topic/poland</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/judiciary</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/north-korea</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/ebola</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/health</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/east-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/australia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/entebbe</loc></url>
@@ -171,6 +171,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/dr-congo-doctor-shares-ebola-survival-story-amid-misinformation-concerns</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/speculation-grows-over-ugandan-succession-following-generals-actions-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/kenyan-cult-leader-paul-mackenzie-sentenced-to-life-for-191-murders</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/tanzanian-opposition-leader-convicted-of-inciting-unrest-cleared-of-treason</loc></url>
