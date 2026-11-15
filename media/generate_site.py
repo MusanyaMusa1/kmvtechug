@@ -2007,7 +2007,9 @@ EDITION_PAGE_BODY = r"""
     }
     var c = res.content || {}, full = res.access === 'full';
     document.title = String(res.title || 'Edition') + ' \u2014 King Musah Media';
-    document.getElementById('ed-kind').textContent = res.kind === 'monthly' ? 'The Monthly Edition' : 'The Weekly Edition';
+    var kindName = res.kind === 'monthly' ? 'The Monthly Edition' : 'The Weekly Edition', kindEl = document.getElementById('ed-kind');
+    kindEl.textContent = kindName;
+    kindEl.hidden = String(res.title || '').toLowerCase().indexOf(kindName.toLowerCase()) === 0;   // the title already says it
     document.getElementById('ed-title').textContent = String(res.title || '');
     document.getElementById('ed-date').textContent = when(res.sentAt);
     say(res.name ? 'Hello, ' + res.name + '.' : '');
