@@ -16,9 +16,11 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/technology</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ethiopia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/health</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
@@ -44,8 +46,6 @@
   <url><loc>https://kmvtechug.app/media/topic/makerere-university</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/france</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/sports</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/conflict</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/texas</loc></url>
@@ -173,6 +173,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/as-far-retains-womens-african-champions-league-title-with-victory-over-sundowns</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/pope-leo-travels-in-helicopter-cockpit-during-peru-visit-reports-bbc</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/megaspeed-states-suspected-staffer-left-firm-in-2025-amid-nvidia-probe</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/nigeria-issues-health-caution-for-travellers-transiting-ethiopias-main-airport</loc></url>
