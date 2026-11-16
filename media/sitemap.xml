@@ -16,6 +16,9 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/crime</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/europe</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
@@ -23,9 +26,7 @@
   <url><loc>https://kmvtechug.app/media/topic/technology</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elon-musk</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/business</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/nigeria</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/crime</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
@@ -76,7 +77,6 @@
   <url><loc>https://kmvtechug.app/media/topic/binance</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/cybersecurity</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/religion</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/arrest</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/muhoozi-kainerugaba</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bobi-wine</loc></url>
@@ -177,6 +177,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/17-dead-in-two-separate-mass-shootings-in-south-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/five-eu-nations-plan-migrant-return-hub-in-rwanda-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/tech-leaders-back-campaign-to-reinstate-former-nvidia-chief-jensen-huang</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/us-basketball-player-arrested-in-nigeria-over-34kg-cannabis-discovery</loc></url>
