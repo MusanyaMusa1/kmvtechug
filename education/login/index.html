@@ -227,6 +227,7 @@ input[aria-invalid="true"]{border-color:var(--red)}
   function fieldErr(id, msg) { var i = $(id), e = $(id + '-e'); if (!i || !e) return; if (msg) { i.setAttribute('aria-invalid', 'true'); i.setAttribute('aria-describedby', id + '-e'); show(e, msg); } else { i.removeAttribute('aria-invalid'); hide(e); } }
   function clearErrs(prefix) { ['name', 'email', 'phone', 'pass', 'pass2', 'terms'].forEach(function (k) { if ($(prefix + k)) fieldErr(prefix + k, ''); }); }
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var NAMEOK = /^[\p{L}\p{M}][\p{L}\p{M}'\u2019.\- ]{2,79}$/u;
   function friendly(err, ctx) {
     var m = String((err && err.message) || ''), s = (err && err.status) || 0;
     if (!navigator.onLine || /failed to fetch|networkerror|load failed|timeout/i.test(m)) return 'We could not reach the server. Please check your internet connection and try again.';
@@ -328,7 +329,9 @@ input[aria-invalid="true"]{border-color:var(--red)}
     e.preventDefault(); hide($('r-err')); clearErrs('r-');
     var name = $('r-name').value.trim().replace(/\s+/g, ' '), email = $('r-email').value.trim(), code = $('r-code').value;
     var raw = $('r-phone').value.replace(/[\s\-()]/g, ''), pw = $('r-pass').value, pw2 = $('r-pass2').value, ok = true;
-    if (name.length < 3) { fieldErr('r-name', 'Please enter your full name.'); ok = false; } else { $('r-name').value = name; }
+    if (name.length < 3) { fieldErr('r-name', 'Please enter your full name.'); ok = false; }
+    else if (!NAMEOK.test(name)) { fieldErr('r-name', 'Please use letters only in your name. Spaces, hyphens and apostrophes are fine.'); ok = false; }
+    else { $('r-name').value = name; }
     if (!EMAIL.test(email)) { fieldErr('r-email', 'Please enter a valid email address.'); ok = false; }
     var contact = '';
     if (code === 'other') {
