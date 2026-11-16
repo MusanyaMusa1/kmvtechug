@@ -121,7 +121,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);m
   .modal{border-radius:16px;}
 }
 </style>
-<meta name="robots" content="noindex, nofollow"/>
 </head>
 <body>
 
@@ -407,6 +406,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);m
 </div>
 
 <script>
+/* kmv-esc */ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
 const SB = supabase.createClient(
   'https://nzjojrebyvxuawnkitth.supabase.co',
   'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
@@ -486,7 +487,7 @@ async function loadDashboard() {
     if (recent) {
       document.getElementById('recent-courses').innerHTML = recent.map(c => `
         <div class="t-row" style="grid-template-columns:1fr 100px 100px;">
-          <div class="td">${c.title}</div>
+          <div class="td">${esc(c.title)}</div>
           <div class="td"><span class="badge ${c.status || 'draft'}">${c.status || 'draft'}</span></div>
           <div class="td"><button class="btn-secondary" onclick="showPanel('courses')" style="padding:6px 12px;font-size:12px;">View</button></div>
         </div>`).join('');
@@ -509,14 +510,14 @@ async function loadAllCourses() {
     const statusLabel = c.status === 'open' ? 'Open Now' : c.status === 'production' ? 'In Production' : (c.status || 'Ready');
     return `<div class="t-row" style="grid-template-columns:1fr 110px 80px 80px 100px;">
       <div class="td">
-        <div style="font-weight:700;font-size:13px;">${c.title || c.course_code || '-'}</div>
-        <div style="font-size:11px;color:var(--text-3);margin-top:1px;">${c.course_code || ''} ${c.total_pages ? '· ' + c.total_pages + ' pages' : ''}</div>
+        <div style="font-weight:700;font-size:13px;">${esc(c.title || c.course_code || '-')}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:1px;">${esc(c.course_code || '')} ${c.total_pages ? '· ' + c.total_pages + ' pages' : ''}</div>
       </div>
-      <div class="td" style="font-size:12px;">${c.faculty || '-'}</div>
+      <div class="td" style="font-size:12px;">${esc(c.faculty || '-')}</div>
       <div class="td"><span style="background:${statusBg};color:${statusColor};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">${statusLabel}</span></div>
       <div class="td muted" style="font-size:12px;">${c.total_pages || 0}</div>
       <div class="td" style="display:flex;gap:5px;">
-        <a href="/education/courses/${(c.course_code||'').toLowerCase()}/" target="_blank" style="background:var(--light);color:var(--blue);border:none;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:600;text-decoration:none;">View</a>
+        <a href="/education/courses/${esc((c.course_code||'').toLowerCase())}/" target="_blank" style="background:var(--light);color:var(--blue);border:none;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:600;text-decoration:none;">View</a>
       </div>
     </div>`;
   }).join('');
@@ -573,7 +574,7 @@ async function loadPending() {
     ? '<div class="empty-state"><div class="ei">✅</div><p>No courses pending review.</p></div>'
     : data.map(c => `
       <div class="t-row" style="grid-template-columns:1fr 120px 80px 100px;">
-        <div class="td">${c.title}</div>
+        <div class="td">${esc(c.title)}</div>
         <div class="td muted" style="font-size:12px;">${c.profiles?.full_name || 'Unknown'}</div>
         <div class="td muted" style="font-size:12px;">${c.submitted_at ? new Date(c.submitted_at).toLocaleDateString('en-GB') : '-'}</div>
         <div class="td" style="display:flex;gap:6px;">
@@ -614,10 +615,10 @@ function renderStudents(list) {
     : list.map(s => `
       <div class="t-row" style="grid-template-columns:1fr 130px 80px 80px;">
         <div class="td">
-          <div style="font-weight:600;">${s.full_name || 'No name'}</div>
-          <div style="font-size:11.5px;color:var(--text-3);">${s.email || ''}</div>
+          <div style="font-weight:600;">${esc(s.full_name || 'No name')}</div>
+          <div style="font-size:11.5px;color:var(--text-3);">${esc(s.email || '')}</div>
         </div>
-        <div class="td muted" style="font-size:12px;">${s.student_number || '-'}</div>
+        <div class="td muted" style="font-size:12px;">${esc(s.student_number || '-')}</div>
         <div class="td"><span class="badge ${s.role}">${s.role}</span></div>
         <div class="td"><button class="btn-secondary" onclick="viewStudent('${s.id}')" style="padding:7px 10px;font-size:12px;">View</button></div>
       </div>`).join('');
@@ -634,7 +635,7 @@ async function loadLecturers() {
     ? '<div class="empty-state"><div class="ei">🏫</div><p>No lecturers yet.</p></div>'
     : data.map(l => `
       <div class="t-row" style="grid-template-columns:1fr 100px 80px;">
-        <div class="td"><div style="font-weight:600;">${l.full_name}</div><div style="font-size:11.5px;color:var(--text-3);">${l.email}</div></div>
+        <div class="td"><div style="font-weight:600;">${esc(l.full_name)}</div><div style="font-size:11.5px;color:var(--text-3);">${esc(l.email)}</div></div>
         <div class="td muted" style="font-size:12px;">-</div>
         <div class="td"><button class="btn-danger" onclick="removeRole('${l.id}')">Remove</button></div>
       </div>`).join('');
@@ -645,7 +646,7 @@ async function loadLecturersForSelect() {
   const sel = document.getElementById('nc-lecturer');
   if (sel && data) {
     sel.innerHTML = '<option value="">Select Lecturer</option>' +
-      data.map(l => `<option value="${l.id}">${l.full_name}</option>`).join('');
+      data.map(l => `<option value="${l.id}">${esc(l.full_name)}</option>`).join('');
   }
 }
 
@@ -674,7 +675,7 @@ async function loadRoles() {
     ? '<div class="loading-row">No users found.</div>'
     : data.map(u => `
       <div class="t-row" style="grid-template-columns:1fr 80px 100px;">
-        <div class="td"><div style="font-weight:600;font-size:13px;">${u.full_name || u.email}</div></div>
+        <div class="td"><div style="font-weight:600;font-size:13px;">${esc(u.full_name || u.email)}</div></div>
         <div class="td"><span class="badge ${u.role}">${u.role}</span></div>
         <div class="td">
           <select onchange="changeRole('${u.id}', this.value)" style="border:1.5px solid var(--border);border-radius:7px;padding:6px 10px;font-size:12px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text-1);">
@@ -713,10 +714,10 @@ async function loadAnnouncements() {
   el.innerHTML = data.map(a => `
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:12px;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;">
-        <div style="font-weight:700;font-size:14px;">${a.title}</div>
+        <div style="font-weight:700;font-size:14px;">${esc(a.title)}</div>
         <span class="badge draft" style="flex-shrink:0;">${a.course_id ? 'Course' : 'Platform-wide'}</span>
       </div>
-      <div style="font-size:13px;color:var(--text-2);line-height:1.6;">${a.body}</div>
+      <div style="font-size:13px;color:var(--text-2);line-height:1.6;">${esc(a.body)}</div>
       <div style="font-size:11.5px;color:var(--text-3);margin-top:10px;">${new Date(a.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div>
     </div>`).join('');
 }
@@ -751,7 +752,7 @@ async function loadCertificates() {
     : data.map(c => `
       <div class="t-row" style="grid-template-columns:1fr 100px 100px 80px;">
         <div class="td">${c.profiles?.full_name || 'Unknown'}</div>
-        <div class="td muted">${c.course_code}</div>
+        <div class="td muted">${esc(c.course_code)}</div>
         <div class="td" style="color:var(--green);font-weight:700;">${c.percentage}%</div>
         <div class="td"><button class="btn-secondary" style="padding:6px 10px;font-size:12px;">View</button></div>
       </div>`).join('');
@@ -782,64 +783,75 @@ function showAlert(containerId, type, msg) {
 // PASTE THIS FUNCTION before the signOut() function in your admin portal:
 
 async function loadRequests() {
-  const { data } = await SB.from('notify_requests')
+  const { data, error } = await SB.from('notify_requests')
     .select('*')
     .order('created_at', { ascending: false })
     .limit(100);
 
-  const pendingCount = data ? data.filter(r => r.status === 'pending').length : 0;
+  const rows = data || [];
+  const pending = rows.filter(r => (r.status || 'pending') === 'pending').length;
   const badge = document.getElementById('requests-count');
-  if (badge) badge.textContent = pendingCount > 0 ? pendingCount : '';
+  if (badge) badge.textContent = pending > 0 ? pending : '';
 
   const el = document.getElementById('requests-list');
   if (!el) return;
 
-  if (!data || data.length === 0) {
-    el.innerHTML = '<div class="empty-state"><div class="ei">📋</div><p>No enrollment requests yet.<br/>Students must be registered and logged in to submit enrollment requests.</p></div>';
+  if (error) {
+    el.innerHTML = '<div class="empty-state"><p>Could not load enrollment requests. Please refresh the page.</p></div>';
+    return;
+  }
+  if (rows.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="ei">&#128203;</div><p>No enrollment requests yet.<br/>Students must be registered and logged in to send an enrollment request.</p></div>';
     return;
   }
 
-  const planLabel = (msg) => {
-    if (!msg) return '-';
+  const planLabel = msg => {
+    msg = String(msg || '');
     if (msg.includes('5,000')) return 'Per Course';
     if (msg.includes('20,000')) return 'Monthly';
     if (msg.includes('50,000')) return 'Semester';
-    return msg.substring(0, 30);
+    return msg ? msg.substring(0, 30) : '-';
   };
 
-  el.innerHTML = data.map(r => {
-    const date = r.created_at ? new Date(r.created_at).toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'}) : '-';
-    const phone = r.phone ? r.phone.replace(/[^0-9]/g, '').replace(/^0/, '256') : '';
-    const waMsg = 'Hello ' + (r.full_name || '') + ', thank you for your enrollment request for ' + (r.course_name || r.course_code || 'the course') + ' on KMVTECH Education. We will send you the payment details shortly.';
-    const waLink = phone ? 'https://wa.me/' + phone + '?text=' + encodeURIComponent(waMsg) : '#';
-    const isPending = r.status === 'pending' || !r.status;
-    const isContacted = r.status === 'contacted';
-    const isDone = r.status === 'done';
-    const statusColor = isDone ? '#166534' : isContacted ? '#1E40AF' : '#92400E';
-    const statusBg = isDone ? '#DCFCE7' : isContacted ? '#DBEAFE' : '#FEF3C7';
-    const statusLabel = isDone ? 'Done' : isContacted ? 'Contacted' : 'Pending';
+  el.innerHTML = rows.map(r => {
+    const date = r.created_at ? new Date(r.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '-';
+    const digits = String(r.phone || '').replace(/[^0-9]/g, '').replace(/^0/, '256');
+    const waText = 'Hello ' + (r.full_name || '') + ', thank you for your enrollment request for ' + (r.course_name || r.course_code || 'the course') + ' on KMVTECH Education. We will send you the payment details shortly.';
+    const waLink = digits ? 'https://wa.me/' + digits + '?text=' + encodeURIComponent(waText) : '';
+    const status = r.status || 'pending';
+    const colors = { done: ['#DCFCE7', '#166534', 'Done'], contacted: ['#DBEAFE', '#1E40AF', 'Contacted'], pending: ['#FEF3C7', '#92400E', 'Pending'] };
+    const c = colors[status] || colors.pending;
+    const sn = r.student_number
+      ? `<div style="font-size:11px;color:var(--blue);font-weight:600;margin-top:1px;">${esc(r.student_number)}</div>`
+      : '<div style="font-size:11px;color:var(--amber);margin-top:1px;">No student number</div>';
+    const wa = waLink
+      ? `<a href="${esc(waLink)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:11.5px;padding:6px 9px;border-radius:7px;">&#128172; WA</a>`
+      : '';
+    const btnContacted = (status !== 'contacted' && status !== 'done')
+      ? `<button onclick="updateRequestStatus('${esc(r.id)}','contacted')" style="background:var(--blue);color:#fff;border:none;border-radius:7px;padding:6px 8px;font-size:11px;cursor:pointer;">Contacted</button>` : '';
+    const btnDone = status !== 'done'
+      ? `<button onclick="updateRequestStatus('${esc(r.id)}','done')" style="background:var(--green);color:#fff;border:none;border-radius:7px;padding:6px 8px;font-size:11px;cursor:pointer;">&#10003; Done</button>` : '';
 
-    return '<div class="t-row" style="grid-template-columns:1fr 90px 90px 160px;">'
-      + '<div class="td">'
-      + '<div style="font-weight:700;font-size:13px;">' + (r.full_name || 'Unknown') + '</div>'
-      + (r.student_number ? '<div style="font-size:11px;color:var(--blue);font-weight:600;margin-top:1px;">' + r.student_number + '</div>' : '<div style="font-size:11px;color:var(--amber);margin-top:1px;">No student number</div>')
-      + '<div style="font-size:11.5px;color:var(--text-3);margin-top:2px;">' + (r.course_name || r.course_code || '-') + '</div>'
-      + '<div style="font-size:11px;color:var(--text-3);margin-top:1px;">' + (r.phone || '-') + (r.email ? ' · ' + r.email : '') + '</div>'
-      + '</div>'
-      + '<div class="td" style="font-size:11.5px;color:var(--text-2);">' + planLabel(r.message) + '</div>'
-      + '<div class="td" style="font-size:12px;color:var(--text-3);">' + date + '</div>'
-      + '<div class="td" style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">'
-      + '<span style="background:' + statusBg + ';color:' + statusColor + ';font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">' + statusLabel + '</span>'
-      + (phone ? '<a href="' + waLink + '" target="_blank" style="display:inline-flex;align-items:center;gap:4px;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:11.5px;padding:6px 9px;border-radius:7px;">&#128172; WA</a>' : '')
-      + (!isContacted && !isDone ? '<button onclick="updateRequestStatus('' + r.id + '','contacted')" style="background:var(--blue);color:#fff;border:none;border-radius:7px;padding:6px 8px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">Contacted</button>' : '')
-      + (!isDone ? '<button onclick="updateRequestStatus('' + r.id + '','done')" style="background:var(--green);color:#fff;border:none;border-radius:7px;padding:6px 8px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">&#10003; Done</button>' : '')
-      + '</div>'
-      + '</div>';
+    return `<div class="t-row" style="grid-template-columns:1fr 90px 90px 160px;">
+      <div class="td">
+        <div style="font-weight:700;font-size:13px;">${esc(r.full_name || 'Unknown')}</div>
+        ${sn}
+        <div style="font-size:11.5px;color:var(--text-3);margin-top:2px;">${esc(r.course_name || r.course_code || '-')}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:1px;">${esc(r.phone || '-')}${r.email ? ' &middot; ' + esc(r.email) : ''}</div>
+      </div>
+      <div class="td" style="font-size:11.5px;color:var(--text-2);">${esc(planLabel(r.message))}</div>
+      <div class="td" style="font-size:12px;color:var(--text-3);">${esc(date)}</div>
+      <div class="td" style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+        <span style="background:${c[0]};color:${c[1]};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">${c[2]}</span>
+        ${wa}${btnContacted}${btnDone}
+      </div>
+    </div>`;
   }).join('');
 }
 
 async function updateRequestStatus(id, newStatus) {
-  await SB.from('notify_requests').update({ status: newStatus }).eq('id', id);
+  const { error } = await SB.from('notify_requests').update({ status: newStatus }).eq('id', id);
+  if (error) { alert('Could not update this request. Please try again.'); return; }
   loadRequests();
 }
 
