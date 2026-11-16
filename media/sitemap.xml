@@ -17,11 +17,13 @@
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/technology</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/artificial-intelligence</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/starlink</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elon-musk</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/united-states</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
@@ -35,7 +37,6 @@
   <url><loc>https://kmvtechug.app/media/topic/africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/crime</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/artificial-intelligence</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/europe</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/security</loc></url>
@@ -62,7 +63,6 @@
   <url><loc>https://kmvtechug.app/media/topic/cryptocurrency</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/binance</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/cybersecurity</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/technology</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/religion</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/arrest</loc></url>
@@ -172,6 +172,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/south-koreas-top-tax-exam-scorer-admits-to-cheating-with-ai</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/zelensky-urges-us-and-elon-musk-to-lift-starlink-restrictions-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/three-sentenced-to-death-in-jordan-over-fatal-church-mass-shooting</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/iran-drone-attack-targets-us-military-base-in-bahrain-bbc-reports</loc></url>
