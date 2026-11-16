@@ -17,11 +17,13 @@
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/crime</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/court</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/music</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/entertainment</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/mexico</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/afcon-2027</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/football</loc></url>
@@ -46,7 +48,6 @@
   <url><loc>https://kmvtechug.app/media/topic/succession</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kenya</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/crime</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/elections</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/europe</loc></url>
@@ -136,7 +137,6 @@
   <url><loc>https://kmvtechug.app/media/topic/accountability</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/muwanga-kivumbi</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bail</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/court</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/tourism</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/murder</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/best-kemigisa</loc></url>
@@ -177,6 +177,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/man-sentenced-over-attempted-murder-of-three-children</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/raye-rosala-and-dolly-parton-recognized-in-grammy-nominations-bbc-reports</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/mexican-drug-lord-miguel-ngel-flix-gallardo-dies-at-80-report</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/mohamed-salah-stars-as-egypt-and-nigeria-claim-afcon-2027-qualifying-victories</loc></url>
