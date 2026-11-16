@@ -82,8 +82,8 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){retur
 
 // Check if code is in URL path e.g. /education/verify/EVL1-2026-A7K3M9/
 const pathParts = window.location.pathname.split('/').filter(Boolean);
-const urlCode = pathParts[pathParts.length - 1];
-if (urlCode && urlCode !== 'verify') {
+const urlCode = new URLSearchParams(window.location.search).get('code') || pathParts[pathParts.length - 1];
+if (urlCode && urlCode !== 'verify' && urlCode !== 'index.html') {
   document.getElementById('code-input').value = urlCode;
   window.addEventListener('load', () => verify());
 }
