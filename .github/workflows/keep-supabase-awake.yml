@@ -1,0 +1,35 @@
+# Keeps the KMVTECH Education database from being paused for inactivity, and emails you if it is down.
+# Put this file at:  .github/workflows/keep-supabase-awake.yml
+name: Keep Supabase awake
+
+on:
+  schedule:
+    - cron: '17 6 * * *'    # every day at 06:17 UTC
+    - cron: '43 18 * * *'   # every day at 18:43 UTC
+  workflow_dispatch: {}      # lets you press "Run workflow" by hand to test it
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Contact Supabase
+        env:
+          SUPABASE_URL: https://nzjojrebyvxuawnkitth.supabase.co
+          SUPABASE_KEY: sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa
+        run: |
+          fail=0
+          check() {
+            code=$(curl -s -o /tmp/out.txt -w '%{http_code}' --retry 3 --retry-delay 10 --max-time 30 \
+                   -H "apikey: $SUPABASE_KEY" "$1")
+            echo "$2: HTTP $code"
+            if [ "$code" != "200" ]; then echo "Response: $(head -c 300 /tmp/out.txt)"; fail=1; fi
+          }
+          check "$SUPABASE_URL/rest/v1/courses?select=course_code&limit=1" "database read"
+          check "$SUPABASE_URL/auth/v1/settings" "login service"
+          if [ "$fail" -ne 0 ]; then
+            echo "Supabase did not answer correctly. The project may be paused or down. Open the Supabase dashboard."
+          fi
+          exit $fail
