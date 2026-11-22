@@ -1,91 +1,86 @@
--- =====================================================================================
--- KMVTECH Education - ADS: schedule your own banners, they stop and clear themselves
--- Run once in the Supabase SQL Editor (after 001-security-and-plans.sql). Safe to run again.
--- =====================================================================================
+/*
+ * KMVTECH Education - sponsored banners (managed from the admin portal).
+ * Put this file at: education/js/kmv-ads.js
+ * On a page, add:  <div data-kmv-ad="home"></div>   (or "dashboard" or "courses")
+ * and, once near the end of the page:  <script src="/education/js/kmv-ads.js" defer></script>
+ * It never breaks a page: if anything goes wrong, nothing is shown.
+ */
+(function () {
+  'use strict';
+  var BASE = 'https://nzjojrebyvxuawnkitth.supabase.co';
+  var KEY = 'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa';
 
--- ---- 1. the ads and their daily view/click counts --------------------------------------
-create table if not exists public.ads (
-  id          uuid primary key default gen_random_uuid(),
-  title       text not null check (char_length(btrim(title)) between 1 and 120),
-  advertiser  text check (advertiser is null or char_length(advertiser) <= 120),
-  image_path  text,
-  link_url    text not null check (link_url ~* '^https?://[^[:space:]]+$' and char_length(link_url) <= 500),
-  placements  text[] not null default array['home']
-              check (cardinality(placements) >= 1 and placements <@ array['home', 'dashboard', 'courses']),
-  starts_at   timestamptz not null,
-  ends_at     timestamptz not null,
-  is_paused   boolean not null default false,
-  note        text,
-  created_by  uuid references public.profiles(id),
-  created_at  timestamptz not null default now(),
-  check (ends_at > starts_at)
-);
-create index if not exists ads_schedule_idx on public.ads (starts_at, ends_at);
+  function rpc(name, body) {
+    return fetch(BASE + '/rest/v1/rpc/' + name, {
+      method: 'POST', keepalive: true,
+      headers: { apikey: KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+  }
+  function track(id, event) { try { rpc('ad_track', { p_ad_id: id, p_event: event }).catch(function () {}); } catch (e) {} }
 
-create table if not exists public.ad_stats (
-  ad_id       uuid not null references public.ads(id) on delete cascade,
-  day         date not null,
-  impressions integer not null default 0,
-  clicks      integer not null default 0,
-  primary key (ad_id, day)
-);
+  function styles() {
+    if (document.getElementById('kmv-ad-css')) return;
+    var s = document.createElement('style'); s.id = 'kmv-ad-css';
+    s.textContent =
+      '.kmv-ad{margin:22px auto;max-width:1200px;padding:0 16px}' +
+      '.kmv-ad-label{display:block;font:600 10.5px/1.4 "DM Sans",system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6B7280;margin:0 0 6px}' +
+      '.kmv-ad a{display:block;border-radius:12px;overflow:hidden;border:1px solid rgba(128,128,128,.28);background:#fff;line-height:0}' +
+      '.kmv-ad img{display:block;width:100%;height:auto;max-height:320px;object-fit:contain}' +
+      '[data-theme="dark"] .kmv-ad-label{color:#9CA3AF}';
+    document.head.appendChild(s);
+  }
 
--- ---- 2. who can touch them: administrators only; visitors use the two functions below -----
-alter table public.ads      enable row level security;
-alter table public.ad_stats enable row level security;
-drop policy if exists "Admins manage ads"      on public.ads;
-drop policy if exists "Admins read ad stats"   on public.ad_stats;
-create policy "Admins manage ads"    on public.ads      for all    using (public.is_admin()) with check (public.is_admin());
-create policy "Admins read ad stats" on public.ad_stats for select using (public.is_admin());
-revoke all on public.ads, public.ad_stats from anon;
-grant  all on public.ads, public.ad_stats to authenticated, service_role;
+  function seenKey(id) { return 'kmv-ad-seen-' + id; }
+  function alreadyCounted(id) { try { return !!sessionStorage.getItem(seenKey(id)); } catch (e) { return false; } }
+  function markCounted(id) { try { sessionStorage.setItem(seenKey(id), '1'); } catch (e) {} }
 
--- ---- 3. what a visitor's browser asks for: only live ads, only the public details -----------
-create or replace function public.get_ads(p_placement text, p_limit integer default 1)
-returns table (id uuid, title text, advertiser text, image_path text, link_url text)
-language sql security definer set search_path = public as $$
-  select a.id, a.title, a.advertiser, a.image_path, a.link_url
-    from public.ads a
-   where not a.is_paused and a.starts_at <= now() and a.ends_at > now()
-     and a.image_path is not null and p_placement = any (a.placements)
-   order by random()
-   limit greatest(1, least(coalesce(p_limit, 1), 5));
-$$;
-revoke all on function public.get_ads(text, integer) from public;
-grant execute on function public.get_ads(text, integer) to anon, authenticated, service_role;
+  function watchView(el, ad) {
+    if (alreadyCounted(ad.id)) return;
+    var done = false;
+    function count() { if (done) return; done = true; markCounted(ad.id); track(ad.id, 'view'); }
+    if (!('IntersectionObserver' in window)) { count(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { count(); io.disconnect(); } });
+    }, { threshold: 0.5 });
+    io.observe(el);
+  }
 
--- ---- 4. count a view or a click (only for ads that are live right now) ----------------------
-create or replace function public.ad_track(p_ad_id uuid, p_event text)
-returns void language plpgsql security definer set search_path = public as $$
-begin
-  if p_event not in ('view', 'click') then return; end if;
-  if not exists (select 1 from public.ads where id = p_ad_id and not is_paused and starts_at <= now() and ends_at > now()) then return; end if;
-  insert into public.ad_stats (ad_id, day, impressions, clicks)
-  values (p_ad_id, (now() at time zone 'Africa/Kampala')::date, (p_event = 'view')::int, (p_event = 'click')::int)
-  on conflict (ad_id, day) do update
-    set impressions = public.ad_stats.impressions + excluded.impressions,
-        clicks      = public.ad_stats.clicks + excluded.clicks;
-end $$;
-revoke all on function public.ad_track(uuid, text) from public;
-grant execute on function public.ad_track(uuid, text) to anon, authenticated, service_role;
+  function render(box, ad) {
+    if (!ad || !ad.image_path || !/^https?:\/\//i.test(String(ad.link_url || ''))) return;
+    var img = new Image();
+    img.onload = function () {
+      var wrap = document.createElement('aside'); wrap.className = 'kmv-ad'; wrap.setAttribute('aria-label', 'Sponsored message');
+      var label = document.createElement('span'); label.className = 'kmv-ad-label';
+      label.textContent = 'Sponsored' + (ad.advertiser ? ' \u00b7 ' + ad.advertiser : '');
+      var a = document.createElement('a'); a.href = ad.link_url; a.target = '_blank'; a.rel = 'sponsored noopener noreferrer';
+      a.setAttribute('aria-label', 'Sponsored: ' + ad.title);
+      a.appendChild(img); wrap.appendChild(label); wrap.appendChild(a);
+      box.appendChild(wrap);
+      var clicked = function () { track(ad.id, 'click'); };
+      a.addEventListener('click', clicked); a.addEventListener('auxclick', clicked);
+      watchView(wrap, ad);
+    };
+    img.onerror = function () {};
+    img.alt = String(ad.title || ''); img.decoding = 'async';
+    img.src = BASE + '/storage/v1/object/public/ads/' + encodeURI(ad.image_path);
+  }
 
--- ---- 5. ads clear themselves: removed 30 days after they end (the numbers are kept until then) ----
-create or replace function public.kmv_cleanup_ads(p_keep_days integer default 30)
-returns integer language plpgsql security definer set search_path = public as $$
-declare v_n integer;
-begin
-  delete from public.ads where ends_at < now() - make_interval(days => greatest(coalesce(p_keep_days, 30), 7));
-  get diagnostics v_n = row_count;
-  return v_n;
-end $$;
-revoke all on function public.kmv_cleanup_ads(integer) from public;
-grant execute on function public.kmv_cleanup_ads(integer) to anon, authenticated, service_role;
+  function fill(box) {
+    var place = box.getAttribute('data-kmv-ad');
+    rpc('get_ads', { p_placement: place, p_limit: 1 })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (list) { if (list && list.length) render(box, list[0]); })
+      .catch(function () {});
+  }
 
--- ---- 6. a public place for the banner pictures, only administrators can add or remove them -----
-insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('ads', 'ads', true, 2097152, array['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
-on conflict (id) do update set public = true, file_size_limit = 2097152,
-  allowed_mime_types = array['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-drop policy if exists "Admins manage ad images" on storage.objects;
-create policy "Admins manage ad images" on storage.objects for all
-  using (bucket_id = 'ads' and public.is_admin()) with check (bucket_id = 'ads' and public.is_admin());
+  function start() {
+    try {
+      var boxes = document.querySelectorAll('[data-kmv-ad]');
+      if (!boxes.length || !window.fetch) return;
+      styles();
+      Array.prototype.forEach.call(boxes, function (b) { try { fill(b); } catch (e) {} });
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
