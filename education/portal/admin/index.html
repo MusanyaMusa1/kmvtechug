@@ -1,91 +1,1248 @@
--- =====================================================================================
--- KMVTECH Education - ADS: schedule your own banners, they stop and clear themselves
--- Run once in the Supabase SQL Editor (after 001-security-and-plans.sql). Safe to run again.
--- =====================================================================================
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="theme-color" content="#0D1B2A"/>
+<title>Admin Portal - KMVTECH Education</title>
+<link rel="manifest" href="/education/portal/manifest.json"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#2B3FBF;--purple:#6B2ECC;--navy:#0D1B2A;--gold:#C9922A;--green:#15803D;--red:#DC2626;--amber:#D97706;--bg:#FAF9F6;--surface:#fff;--surface-2:#F4F3EF;--border:#E8E6E0;--text-1:#1C1C1C;--text-2:#6B7280;--text-3:#9CA3AF;--sidebar:240px;}
+[data-theme="dark"]{--bg:#0F1117;--surface:#1A1D27;--surface-2:#22263A;--border:#2E3248;--text-1:#F0EEE9;--text-2:#9CA3AF;--text-3:#6B7280;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;}
 
--- ---- 1. the ads and their daily view/click counts --------------------------------------
-create table if not exists public.ads (
-  id          uuid primary key default gen_random_uuid(),
-  title       text not null check (char_length(btrim(title)) between 1 and 120),
-  advertiser  text check (advertiser is null or char_length(advertiser) <= 120),
-  image_path  text,
-  link_url    text not null check (link_url ~* '^https?://[^[:space:]]+$' and char_length(link_url) <= 500),
-  placements  text[] not null default array['home']
-              check (cardinality(placements) >= 1 and placements <@ array['home', 'dashboard', 'courses']),
-  starts_at   timestamptz not null,
-  ends_at     timestamptz not null,
-  is_paused   boolean not null default false,
-  note        text,
-  created_by  uuid references public.profiles(id),
-  created_at  timestamptz not null default now(),
-  check (ends_at > starts_at)
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:var(--navy);height:100vh;position:fixed;top:0;left:0;z-index:100;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform 0.3s;}
+.sidebar.open{transform:translateX(0);}
+.sb-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.sb-mark{display:flex;align-items:center;gap:10px;}
+.sb-mark-box{width:32px;height:32px;background:rgba(201,146,42,0.15);border:1.5px solid rgba(201,146,42,0.35);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:12px;color:var(--gold);}
+.sb-mark-text{font-family:'Playfair Display',serif;font-weight:800;font-size:13px;color:#fff;line-height:1.2;}
+.sb-mark-sub{font-size:9px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;}
+.sb-role{padding:10px 18px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-nav{flex:1;overflow-y:auto;padding:8px 0;}
+.sb-section{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:14px 18px 6px;}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;width:100%;transition:all 0.15s;}
+.sb-link:hover{background:rgba(255,255,255,0.06);color:#fff;}
+.sb-link.active{background:rgba(43,63,191,0.25);color:#fff;border-left:3px solid var(--blue);}
+.sb-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
+.sb-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;}
+.sb-bottom{padding:16px 18px;border-top:1px solid rgba(255,255,255,0.08);}
+.sb-user{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:10px;line-height:1.5;}
+.sb-user strong{color:rgba(255,255,255,0.85);display:block;font-size:13px;}
+.btn-signout{width:100%;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);color:#F87171;border-radius:8px;padding:9px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-signout:hover{background:rgba(220,38,38,0.25);}
+/* TOPBAR */
+.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 20px;position:sticky;top:0;z-index:50;}
+.menu-btn{width:36px;height:36px;border:1.5px solid var(--border);border-radius:8px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.top-title{font-family:'Playfair Display',serif;font-weight:800;font-size:15px;color:var(--text-1);flex:1;}
+.tbtn{width:36px;height:20px;background:var(--border);border-radius:10px;border:none;cursor:pointer;position:relative;}
+.tbtn[aria-checked="true"]{background:var(--blue);}
+.tthumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.25s;font-size:9px;display:flex;align-items:center;justify-content:center;}
+.tbtn[aria-checked="true"] .tthumb{transform:translateX(16px);}
+
+/* MAIN */
+.main{padding:24px 20px 80px;transition:margin-left 0.3s;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;}
+.overlay.show{display:block;}
+
+/* PANELS */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:28px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 16px;}
+.stat-num{font-family:'Playfair Display',serif;font-weight:800;font-size:1.8rem;color:var(--text-1);line-height:1;margin-bottom:4px;}
+.stat-num.blue{color:var(--blue);}
+.stat-num.green{color:var(--green);}
+.stat-num.gold{color:var(--gold);}
+.stat-num.purple{color:var(--purple);}
+.stat-lbl{font-size:11.5px;color:var(--text-2);}
+
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;color:var(--text-1);}
+.btn-primary{background:var(--navy);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;transition:background 0.2s;}
+.btn-primary:hover{background:var(--blue);}
+.btn-secondary{background:none;color:var(--text-2);border:1.5px solid var(--border);border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue);}
+.btn-danger{background:none;color:var(--red);border:1.5px solid rgba(220,38,38,0.3);border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* TABLES */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.t-head{display:grid;background:var(--navy);padding:12px 16px;}
+.th{font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+.t-row{display:grid;padding:13px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.15s;}
+.t-row:last-child{border-bottom:none;}
+.t-row:hover{background:var(--surface-2);}
+.td{font-size:13px;color:var(--text-1);}
+.td.muted{color:var(--text-2);}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.badge.draft{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border);}
+.badge.pending{background:#FEF3C7;color:#92400E;}
+.badge.published{background:#DCFCE7;color:#166534;}
+.badge.admin{background:rgba(107,46,204,0.12);color:var(--purple);}
+.badge.lecturer{background:rgba(43,63,191,0.1);color:var(--blue);}
+.badge.student{background:var(--surface-2);color:var(--text-2);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(13,27,42,0.7);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:520px;transform:translateY(30px);transition:transform 0.3s;}
+.modal-overlay.open .modal{transform:translateY(0);}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px;}
+.modal-title{font-family:'Playfair Display',serif;font-weight:800;font-size:1.1rem;color:var(--text-1);margin-bottom:16px;}
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:5px;}
+.form-input,.form-select,.form-textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-1);background:var(--surface-2);outline:none;transition:border-color 0.2s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);background:var(--surface);}
+.form-textarea{min-height:100px;resize:vertical;}
+.modal-actions{display:flex;gap:10px;margin-top:18px;}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-2);}
+.empty-state .ei{font-size:36px;margin-bottom:12px;}
+.empty-state p{font-size:13.5px;line-height:1.6;}
+.loading-row{padding:24px;text-align:center;color:var(--text-3);font-size:13px;}
+.alert{border-radius:9px;padding:12px 14px;font-size:13px;margin-bottom:16px;}
+.alert.success{background:rgba(21,128,61,0.08);border:1px solid rgba(21,128,61,0.25);color:#166534;}
+.alert.error{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.2);color:#991B1B;}
+@media(min-width:768px){
+  .sidebar{transform:translateX(0);}
+  .main{margin-left:var(--sidebar);padding:28px 32px 80px;}
+  .topbar{margin-left:var(--sidebar);}
+  .menu-btn{display:none;}
+  .stats-grid{grid-template-columns:repeat(4,1fr);}
+  .modal-overlay{align-items:center;}
+  .modal{border-radius:16px;}
+}
+.kmv-modal-bg{position:fixed;inset:0;background:rgba(13,27,42,.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.kmv-modal{background:var(--surface);color:var(--text-1);border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.kmv-modal h3{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:14px}
+.g-who{font-size:12.5px;margin-top:5px;min-height:18px}.g-who.ok{color:var(--green);font-weight:600}.g-who.bad{color:var(--red)}
+.g-hint{font-size:11.5px;color:var(--text-3);margin-top:4px}
+.g-err{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;padding:10px 12px;border-radius:8px;font-size:13px;margin:10px 0}
+.g-err[hidden]{display:none}
+.g-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+.grant-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.kmv-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 18px;border-radius:10px;font-size:13.5px;z-index:1100;max-width:90vw}
+.kmv-toast.bad{background:var(--red)}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-mark">
+      <div class="sb-mark-box">KE</div>
+      <div>
+        <div class="sb-mark-text">KMVTECH Education</div>
+        <div class="sb-mark-sub">Staff Portal</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-role">&#9679; Admin Access</div>
+  <nav class="sb-nav">
+    <div class="sb-section">Overview</div>
+    <button class="sb-link active" onclick="showPanel('dashboard')"><span class="sb-icon">&#128200;</span>Dashboard</button>
+
+    <div class="sb-section">Content</div>
+    <button class="sb-link" onclick="showPanel('courses')"><span class="sb-icon">&#128218;</span>All Courses</button>
+    <button class="sb-link" onclick="showPanel('pending')"><span class="sb-icon">&#128336;</span>Pending Review<span class="sb-badge" id="pending-count">0</span></button>
+    <button class="sb-link" onclick="showPanel('new-course')"><span class="sb-icon">&#43;</span>New Course</button>
+
+    <div class="sb-section">Students</div>
+    <button class="sb-link" onclick="showPanel('students')"><span class="sb-icon">&#128101;</span>All Students</button>
+    <button class="sb-link" onclick="showPanel('requests')"><span class="sb-icon">&#128276;</span>Enroll Requests<span class="sb-badge" id="requests-count">0</span></button>
+    <button class="sb-link" onclick="showPanel('grant')"><span class="sb-icon">&#9989;</span>Activate Access</button>
+
+    <div class="sb-section">Staff</div>
+    <button class="sb-link" onclick="showPanel('lecturers')"><span class="sb-icon">&#127979;</span>Lecturers</button>
+    <button class="sb-link" onclick="showPanel('roles')"><span class="sb-icon">&#128273;</span>Manage Roles</button>
+
+    <div class="sb-section">Platform</div>
+    <button class="sb-link" onclick="showPanel('announcements')"><span class="sb-icon">&#128226;</span>Announcements</button>
+    <button class="sb-link" onclick="showPanel('ads')"><span class="sb-icon">&#128227;</span>Ads</button>
+    <button class="sb-link" onclick="showPanel('certificates')"><span class="sb-icon">&#127891;</span>Certificates</button>
+    <button class="sb-link" onclick="window.open('/education/','_blank')"><span class="sb-icon">&#127758;</span>View Live Site</button>
+  </nav>
+  <div class="sb-bottom">
+    <div class="sb-user">Signed in as<strong id="admin-name">Admin</strong></div>
+    <button class="btn-signout" onclick="signOut()">Sign Out</button>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">&#9776;</button>
+  <div class="top-title" id="top-title">Dashboard</div>
+  <button class="tbtn" id="tt" role="switch" aria-checked="false" aria-label="Toggle dark mode" onclick="tTheme()"><div class="tthumb">&#9728;</div></button>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- DASHBOARD PANEL -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card"><div class="stat-num blue" id="stat-courses">-</div><div class="stat-lbl">Total Courses</div></div>
+      <div class="stat-card"><div class="stat-num green" id="stat-published">-</div><div class="stat-lbl">Published</div></div>
+      <div class="stat-card"><div class="stat-num gold" id="stat-pending">-</div><div class="stat-lbl">Pending Review</div></div>
+      <div class="stat-card"><div class="stat-num purple" id="stat-students">-</div><div class="stat-lbl">Students</div></div>
+    </div>
+
+    <div class="sec-hdr"><div class="sec-title">Recent Activity</div></div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 100px 100px;">
+        <div class="th">Course</div><div class="th">Status</div><div class="th">Action</div>
+      </div>
+      <div id="recent-courses"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- COURSES PANEL -->
+  <div class="panel" id="panel-courses">
+    <div class="sec-hdr">
+      <div class="sec-title">All Courses</div>
+      <button class="btn-primary" onclick="showPanel('new-course')">&#43; New Course</button>
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 110px 80px 80px 100px;">
+        <div class="th">Course</div><div class="th">Faculty</div><div class="th">Status</div><div class="th">Pages</div><div class="th">Actions</div>
+      </div>
+      <div id="all-courses-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- PENDING REVIEW PANEL -->
+  <div class="panel" id="panel-pending">
+    <div class="sec-hdr"><div class="sec-title">Pending Review</div></div>
+    <div id="pending-alert"></div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 120px 80px 100px;">
+        <div class="th">Course</div><div class="th">Submitted By</div><div class="th">Date</div><div class="th">Action</div>
+      </div>
+      <div id="pending-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- NEW COURSE PANEL -->
+  <div class="panel" id="panel-new-course">
+    <div class="sec-hdr"><div class="sec-title">Create New Course</div></div>
+    <div id="new-course-alert"></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;">
+      <div class="form-group">
+        <label class="form-label">Course Title</label>
+        <input class="form-input" id="nc-title" placeholder="e.g. Family Law 1"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Course Code</label>
+        <input class="form-input" id="nc-code" placeholder="e.g. FAM1" style="text-transform:uppercase;"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Faculty</label>
+        <select class="form-select" id="nc-faculty">
+          <option value="">Select Faculty</option>
+          <option>Law</option>
+          <option>Health Sciences</option>
+          <option>Social Sciences</option>
+          <option>Business</option>
+          <option>IT and Digital Skills</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Level</label>
+        <select class="form-select" id="nc-level">
+          <option value="">Select Level</option>
+          <option>Year 1</option>
+          <option>Year 1-2</option>
+          <option>Year 2</option>
+          <option>Year 2-3</option>
+          <option>Year 3</option>
+          <option>Year 3-4</option>
+          <option>Year 4</option>
+          <option>Professional</option>
+          <option>Beginner</option>
+          <option>Intermediate</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Assign Lecturer</label>
+        <select class="form-select" id="nc-lecturer">
+          <option value="">Select Lecturer</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Course Description</label>
+        <textarea class="form-textarea" id="nc-desc" placeholder="Brief description of what this course covers..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Number of Modules</label>
+        <input class="form-input" id="nc-modules" type="number" min="1" max="20" placeholder="e.g. 8"/>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px;">
+        <button class="btn-primary" onclick="createCourse()">Create Course</button>
+        <button class="btn-secondary" onclick="showPanel('courses')">Cancel</button>
+      </div>
+    </div>
+  </div>
+<div class="panel" id="panel-requests">
+  <div class="sec-hdr">
+    <div class="sec-title">Enrollment Requests</div>
+    <button class="btn-secondary" onclick="loadRequests()">&#8635; Refresh</button>
+  </div>
+  <div class="table-wrap">
+    <div class="t-head" style="grid-template-columns:1fr 90px 90px 190px;">
+      <div class="th">Student</div>
+      <div class="th">Plan</div>
+      <div class="th">Date</div>
+      <div class="th">Action</div>
+    </div>
+    <div id="requests-list"><div class="loading-row">Loading...</div></div>
+  </div>
+</div>
+  
+<div class="panel" id="panel-grant">
+  <div class="sec-hdr">
+    <div class="sec-title">Activate Access</div>
+    <button class="btn-primary" onclick="openGrant()">+ Activate for a student</button>
+  </div>
+  <p style="font-size:13px;color:var(--text-2);margin-bottom:14px;">When a student has paid by Mobile Money, activate their plan here. A monthly or semester plan opens every course at once.</p>
+  <div class="grant-card">
+    <label class="form-label" for="lk-student">Check a student's access</label>
+    <div style="display:flex;gap:8px;"><input class="form-input" id="lk-student" placeholder="Student number or email" onkeydown="if(event.key==='Enter')lookupAccess()"/><button class="btn-secondary" onclick="lookupAccess()">Look up</button></div>
+    <div id="lk-result"></div>
+  </div>
+  <div class="sec-hdr" style="margin-top:22px;"><div class="sec-title" style="font-size:1rem;">Recent activations</div></div>
+  <div class="table-wrap">
+    <div class="t-head" style="grid-template-columns:1fr 110px 90px 130px 90px;"><div class="th">Student</div><div class="th">Plan</div><div class="th">Amount</div><div class="th">Reference</div><div class="th">Date</div></div>
+    <div id="grant-list"><div class="loading-row">Loading...</div></div>
+  </div>
+</div>
+<div class="panel" id="panel-ads">
+  <div class="sec-hdr"><div class="sec-title">Ads</div><button class="btn-primary" onclick="openAdForm()">+ New ad</button></div>
+  <p style="font-size:13px;color:var(--text-2);margin-bottom:10px;">Schedule banners for local businesses. They start and stop by themselves at the times you set, and are removed 30 days after they end. Visitors see them labelled "Sponsored". They are never shown inside lessons or quizzes.</p>
+  <div id="ads-summary" style="font-size:13px;margin-bottom:12px;"></div>
+  <div class="table-wrap">
+    <div class="t-head" style="grid-template-columns:72px 1fr 130px 110px 150px;"><div class="th">Banner</div><div class="th">Ad</div><div class="th">Schedule</div><div class="th">Results</div><div class="th">Actions</div></div>
+    <div id="ads-list"><div class="loading-row">Loading...</div></div>
+  </div>
+</div>
+  <!-- STUDENTS PANEL -->
+  <div class="panel" id="panel-students">
+    <div class="sec-hdr">
+      <div class="sec-title">All Students</div>
+      <input class="form-input" id="student-search" placeholder="Search by name or email..." style="max-width:260px;padding:9px 14px;font-size:13px;" oninput="filterStudents()"/>
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 130px 80px 80px;">
+        <div class="th">Student</div><div class="th">Student No.</div><div class="th">Role</div><div class="th">Action</div>
+      </div>
+      <div id="students-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- LECTURERS PANEL -->
+  <div class="panel" id="panel-lecturers">
+    <div class="sec-hdr">
+      <div class="sec-title">Lecturers</div>
+      <button class="btn-primary" onclick="openAddLecturerModal()">&#43; Add Lecturer</button>
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 100px 80px;">
+        <div class="th">Name</div><div class="th">Courses</div><div class="th">Action</div>
+      </div>
+      <div id="lecturers-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- ROLES PANEL -->
+  <div class="panel" id="panel-roles">
+    <div class="sec-hdr"><div class="sec-title">Manage User Roles</div></div>
+    <div class="alert" style="background:rgba(201,146,42,0.08);border:1px solid rgba(201,146,42,0.25);color:#92400E;border-radius:9px;padding:12px 14px;font-size:13px;margin-bottom:16px;">
+      Changing roles is permanent until changed again. Admin role gives full access to everything.
+    </div>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 80px 100px;">
+        <div class="th">User</div><div class="th">Current Role</div><div class="th">Change To</div>
+      </div>
+      <div id="roles-list"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- ANNOUNCEMENTS PANEL -->
+  <div class="panel" id="panel-announcements">
+    <div class="sec-hdr">
+      <div class="sec-title">Announcements</div>
+      <button class="btn-primary" onclick="openAnnouncementModal()">&#43; New Announcement</button>
+    </div>
+    <div id="announcements-list"><div class="loading-row">Loading...</div></div>
+  </div>
+
+  <!-- CERTIFICATES PANEL -->
+  <div class="panel" id="panel-certificates">
+    <div class="sec-hdr"><div class="sec-title">Certificate Management</div></div>
+    <p style="font-size:13.5px;color:var(--text-2);margin-bottom:20px;line-height:1.65;">Certificates are issued automatically when a student reaches 80% average. Use this panel to manually issue or revoke certificates in exceptional cases.</p>
+    <div class="table-wrap">
+      <div class="t-head" style="grid-template-columns:1fr 100px 100px 80px;">
+        <div class="th">Student</div><div class="th">Course</div><div class="th">Score</div><div class="th">Action</div>
+      </div>
+      <div id="certs-list"><div class="loading-row">Loading certificate records...</div></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ADD LECTURER MODAL -->
+<div class="modal-overlay" id="lecturer-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add Lecturer</div>
+    <div class="form-group">
+      <label class="form-label">Search existing user by email</label>
+      <input class="form-input" id="lec-email" placeholder="lecturer@email.com"/>
+    </div>
+    <p style="font-size:12px;color:var(--text-3);margin-bottom:14px;">The user must already have a registered account. This will change their role to Lecturer.</p>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="addLecturer()">Add as Lecturer</button>
+      <button class="btn-secondary" onclick="closeModal('lecturer-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENT MODAL -->
+<div class="modal-overlay" id="announce-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">New Announcement</div>
+    <div class="form-group">
+      <label class="form-label">Audience</label>
+      <select class="form-select" id="ann-audience">
+        <option value="">Platform-wide (all students)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input class="form-input" id="ann-title" placeholder="Announcement title"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message</label>
+      <textarea class="form-textarea" id="ann-body" placeholder="Write your announcement here..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="postAnnouncement()">Post Announcement</button>
+      <button class="btn-secondary" onclick="closeModal('announce-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* kmv-esc */ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+const SB = supabase.createClient(
+  'https://nzjojrebyvxuawnkitth.supabase.co',
+  'sb_publishable_EKcJxtkPvorUeuLB9Q2xLA_SYIWzDDa'
 );
-create index if not exists ads_schedule_idx on public.ads (starts_at, ends_at);
 
-create table if not exists public.ad_stats (
-  ad_id       uuid not null references public.ads(id) on delete cascade,
-  day         date not null,
-  impressions integer not null default 0,
-  clicks      integer not null default 0,
-  primary key (ad_id, day)
-);
+let currentAdmin = null;
+let allStudents = [];
 
--- ---- 2. who can touch them: administrators only; visitors use the two functions below -----
-alter table public.ads      enable row level security;
-alter table public.ad_stats enable row level security;
-drop policy if exists "Admins manage ads"      on public.ads;
-drop policy if exists "Admins read ad stats"   on public.ad_stats;
-create policy "Admins manage ads"    on public.ads      for all    using (public.is_admin()) with check (public.is_admin());
-create policy "Admins read ad stats" on public.ad_stats for select using (public.is_admin());
-revoke all on public.ads, public.ad_stats from anon;
-grant  all on public.ads, public.ad_stats to authenticated, service_role;
+// ============================================================
+// INIT
+// ============================================================
+async function init() {
+  const { data: { session } } = await SB.auth.getSession();
+  if (!session) { window.location.href = '/education/portal/'; return; }
 
--- ---- 3. what a visitor's browser asks for: only live ads, only the public details -----------
-create or replace function public.get_ads(p_placement text, p_limit integer default 1)
-returns table (id uuid, title text, advertiser text, image_path text, link_url text)
-language sql security definer set search_path = public as $$
-  select a.id, a.title, a.advertiser, a.image_path, a.link_url
-    from public.ads a
-   where not a.is_paused and a.starts_at <= now() and a.ends_at > now()
-     and a.image_path is not null and p_placement = any (a.placements)
-   order by random()
-   limit greatest(1, least(coalesce(p_limit, 1), 5));
-$$;
-revoke all on function public.get_ads(text, integer) from public;
-grant execute on function public.get_ads(text, integer) to anon, authenticated, service_role;
+  const { data: profile } = await SB.from('profiles').select('full_name, role').eq('id', session.user.id).maybeSingle();
+  if (!profile || profile.role !== 'admin') { window.location.href = '/education/portal/'; return; }
 
--- ---- 4. count a view or a click (only for ads that are live right now) ----------------------
-create or replace function public.ad_track(p_ad_id uuid, p_event text)
-returns void language plpgsql security definer set search_path = public as $$
-begin
-  if p_event not in ('view', 'click') then return; end if;
-  if not exists (select 1 from public.ads where id = p_ad_id and not is_paused and starts_at <= now() and ends_at > now()) then return; end if;
-  insert into public.ad_stats (ad_id, day, impressions, clicks)
-  values (p_ad_id, (now() at time zone 'Africa/Kampala')::date, (p_event = 'view')::int, (p_event = 'click')::int)
-  on conflict (ad_id, day) do update
-    set impressions = public.ad_stats.impressions + excluded.impressions,
-        clicks      = public.ad_stats.clicks + excluded.clicks;
-end $$;
-revoke all on function public.ad_track(uuid, text) from public;
-grant execute on function public.ad_track(uuid, text) to anon, authenticated, service_role;
+  currentAdmin = { id: session.user.id, ...profile };
+  document.getElementById('admin-name').textContent = profile.full_name || 'Admin';
 
--- ---- 5. ads clear themselves: removed 30 days after they end (the numbers are kept until then) ----
-create or replace function public.kmv_cleanup_ads(p_keep_days integer default 30)
-returns integer language plpgsql security definer set search_path = public as $$
-declare v_n integer;
-begin
-  delete from public.ads where ends_at < now() - make_interval(days => greatest(coalesce(p_keep_days, 30), 7));
-  get diagnostics v_n = row_count;
-  return v_n;
-end $$;
-revoke all on function public.kmv_cleanup_ads(integer) from public;
-grant execute on function public.kmv_cleanup_ads(integer) to anon, authenticated, service_role;
+  loadDashboard();
+  // Only load what is needed - other panels load on demand
+}
 
--- ---- 6. a public place for the banner pictures, only administrators can add or remove them -----
-insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('ads', 'ads', true, 2097152, array['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
-on conflict (id) do update set public = true, file_size_limit = 2097152,
-  allowed_mime_types = array['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-drop policy if exists "Admins manage ad images" on storage.objects;
-create policy "Admins manage ad images" on storage.objects for all
-  using (bucket_id = 'ads' and public.is_admin()) with check (bucket_id = 'ads' and public.is_admin());
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('top-title').textContent = name.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+  closeSidebar();
+  if (name === 'grant') { document.getElementById('top-title').textContent = 'Activate Access'; loadGrantPanel(); }
+  if (name === 'ads') { document.getElementById('top-title').textContent = 'Ads'; loadAds(); }
+
+  if (name === 'courses') loadAllCourses();
+  if (name === 'pending') loadPending();
+  if (name === 'students') loadStudents();
+  if (name === 'lecturers') loadLecturers();
+  if (name === 'roles') loadRoles();
+  if (name === 'announcements') loadAnnouncements();
+  if (name === 'certificates') loadCertificates();
+  if (name === 'requests') loadRequests();
+  if (name === 'new-course') loadLecturersForSelect();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+async function loadDashboard() {
+  try {
+    const [courses, students, pending, published] = await Promise.all([
+      SB.from('courses').select('id', { count: 'exact', head: true }),
+      SB.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'student'),
+      SB.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'pending_review'),
+      SB.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'published'),
+    ]);
+
+    document.getElementById('stat-courses').textContent = courses.count || 0;
+    document.getElementById('stat-students').textContent = students.count || 0;
+    document.getElementById('stat-pending').textContent = pending.count || 0;
+    document.getElementById('stat-published').textContent = published.count || 0;
+    document.getElementById('pending-count').textContent = pending.count || 0;
+
+    const { data: recent } = await SB.from('courses').select('*').order('created_at', { ascending: false }).limit(8);
+    if (recent) {
+      document.getElementById('recent-courses').innerHTML = recent.map(c => `
+        <div class="t-row" style="grid-template-columns:1fr 100px 100px;">
+          <div class="td">${esc(c.title)}</div>
+          <div class="td"><span class="badge ${c.status || 'draft'}">${c.status || 'draft'}</span></div>
+          <div class="td"><button class="btn-secondary" onclick="showPanel('courses')" style="padding:6px 12px;font-size:12px;">View</button></div>
+        </div>`).join('');
+    }
+  } catch(e) { console.log(e); }
+}
+
+// ============================================================
+// COURSES
+// ============================================================
+async function loadAllCourses() {
+  const { data, error: cErr } = await SB.from('courses').select('*').order('course_code', { ascending: true });
+  if (cErr) { console.log('Courses error:', cErr); }
+  if (!data) return;
+  document.getElementById('all-courses-list').innerHTML = data.length === 0
+    ? '<div class="empty-state"><div class="ei">📚</div><p>No courses yet. Create the first one.</p></div>'
+    : data.map(c => {
+    const statusColor = c.status === 'open' ? '#166534' : c.status === 'production' ? '#374151' : '#1E40AF';
+    const statusBg = c.status === 'open' ? '#DCFCE7' : c.status === 'production' ? '#F3F4F6' : '#DBEAFE';
+    const statusLabel = c.status === 'open' ? 'Open Now' : c.status === 'production' ? 'In Production' : (c.status || 'Ready');
+    return `<div class="t-row" style="grid-template-columns:1fr 110px 80px 80px 100px;">
+      <div class="td">
+        <div style="font-weight:700;font-size:13px;">${esc(c.title || c.course_code || '-')}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:1px;">${esc(c.course_code || '')} ${c.total_pages ? '· ' + c.total_pages + ' pages' : ''}</div>
+      </div>
+      <div class="td" style="font-size:12px;">${esc(c.faculty || '-')}</div>
+      <div class="td"><span style="background:${statusBg};color:${statusColor};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">${statusLabel}</span></div>
+      <div class="td muted" style="font-size:12px;">${c.total_pages || 0}</div>
+      <div class="td" style="display:flex;gap:5px;">
+        <a href="/education/courses/${esc((c.course_code||'').toLowerCase())}/" target="_blank" style="background:var(--light);color:var(--blue);border:none;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:600;text-decoration:none;">View</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function createCourse() {
+  const title = document.getElementById('nc-title').value.trim();
+  const code = document.getElementById('nc-code').value.trim().toUpperCase();
+  const faculty = document.getElementById('nc-faculty').value;
+  const level = document.getElementById('nc-level').value;
+  const lecturer = document.getElementById('nc-lecturer').value;
+  const desc = document.getElementById('nc-desc').value.trim();
+  const modules = parseInt(document.getElementById('nc-modules').value);
+
+  if (!title || !code || !faculty) {
+    showAlert('new-course-alert', 'error', 'Title, code, and faculty are required.');
+    return;
+  }
+
+  const insertData = {
+    title,
+    course_code: code,
+    faculty,
+    status: 'draft'
+  };
+  if (level) insertData.level = level;
+  if (lecturer) insertData.lecturer_id = lecturer;
+  if (desc) insertData.description = desc;
+
+  const { error } = await SB.from('courses').insert(insertData);
+
+  if (error) { showAlert('new-course-alert', 'error', 'Error: ' + error.message); return; }
+  showAlert('new-course-alert', 'success', 'Course created successfully.');
+  setTimeout(() => showPanel('courses'), 1500);
+}
+
+async function publishCourse(id) {
+  if (!confirm('Publish this course? It will go live on the platform.')) return;
+  await SB.from('courses').update({ status: 'published', published_at: new Date().toISOString() }).eq('id', id);
+  loadAllCourses();
+  loadDashboard();
+}
+
+// ============================================================
+// PENDING REVIEW
+// ============================================================
+async function loadPending() {
+  const { data } = await SB.from('courses')
+    .select('id, title, submitted_at, lecturer_id, profiles(full_name)')
+    .eq('status', 'pending_review')
+    .order('submitted_at');
+
+  document.getElementById('pending-list').innerHTML = !data || data.length === 0
+    ? '<div class="empty-state"><div class="ei">✅</div><p>No courses pending review.</p></div>'
+    : data.map(c => `
+      <div class="t-row" style="grid-template-columns:1fr 120px 80px 100px;">
+        <div class="td">${esc(c.title)}</div>
+        <div class="td muted" style="font-size:12px;">${c.profiles?.full_name || 'Unknown'}</div>
+        <div class="td muted" style="font-size:12px;">${c.submitted_at ? new Date(c.submitted_at).toLocaleDateString('en-GB') : '-'}</div>
+        <div class="td" style="display:flex;gap:6px;">
+          <button class="btn-primary" onclick="publishCourse('${c.id}')" style="padding:7px 10px;font-size:12px;">Publish</button>
+          <button class="btn-danger" onclick="rejectCourse('${c.id}')">Reject</button>
+        </div>
+      </div>`).join('');
+}
+
+async function rejectCourse(id) {
+  if (!confirm('Return this course to draft?')) return;
+  await SB.from('courses').update({ status: 'draft' }).eq('id', id);
+  loadPending();
+}
+
+// ============================================================
+// STUDENTS
+// ============================================================
+async function loadStudents() {
+  const { data, error: sErr } = await SB.from('profiles').select('*').order('full_name');
+  if (sErr) console.log('Students error:', sErr.message);
+  allStudents = data || [];
+  renderStudents(allStudents);
+}
+
+function filterStudents() {
+  const q = document.getElementById('student-search').value.toLowerCase();
+  renderStudents(allStudents.filter(s =>
+    (s.full_name || '').toLowerCase().includes(q) ||
+    (s.email || '').toLowerCase().includes(q) ||
+    (s.student_number || '').toLowerCase().includes(q)
+  ));
+}
+
+function renderStudents(list) {
+  document.getElementById('students-list').innerHTML = list.length === 0
+    ? '<div class="empty-state"><div class="ei">👥</div><p>No students found.</p></div>'
+    : list.map(s => `
+      <div class="t-row" style="grid-template-columns:1fr 130px 80px 80px;">
+        <div class="td">
+          <div style="font-weight:600;">${esc(s.full_name || 'No name')}</div>
+          <div style="font-size:11.5px;color:var(--text-3);">${esc(s.email || '')}</div>
+        </div>
+        <div class="td muted" style="font-size:12px;">${esc(s.student_number || '-')}</div>
+        <div class="td"><span class="badge ${s.role}">${s.role}</span></div>
+        <div class="td"><button class="btn-secondary" onclick="viewStudent('${s.id}')" style="padding:7px 10px;font-size:12px;">View</button></div>
+      </div>`).join('');
+}
+
+function viewStudent(id) { alert('Student detail view coming in next update.'); }
+
+// ============================================================
+// LECTURERS
+// ============================================================
+async function loadLecturers() {
+  const { data } = await SB.from('profiles').select('id, full_name, email').eq('role', 'lecturer');
+  document.getElementById('lecturers-list').innerHTML = !data || data.length === 0
+    ? '<div class="empty-state"><div class="ei">🏫</div><p>No lecturers yet.</p></div>'
+    : data.map(l => `
+      <div class="t-row" style="grid-template-columns:1fr 100px 80px;">
+        <div class="td"><div style="font-weight:600;">${esc(l.full_name)}</div><div style="font-size:11.5px;color:var(--text-3);">${esc(l.email)}</div></div>
+        <div class="td muted" style="font-size:12px;">-</div>
+        <div class="td"><button class="btn-danger" onclick="removeRole('${l.id}')">Remove</button></div>
+      </div>`).join('');
+}
+
+async function loadLecturersForSelect() {
+  const { data } = await SB.from('profiles').select('id, full_name').eq('role', 'lecturer').order('full_name');
+  const sel = document.getElementById('nc-lecturer');
+  if (sel && data) {
+    sel.innerHTML = '<option value="">Select Lecturer</option>' +
+      data.map(l => `<option value="${l.id}">${esc(l.full_name)}</option>`).join('');
+  }
+}
+
+function openAddLecturerModal() {
+  document.getElementById('lec-email').value = '';
+  openModal('lecturer-modal');
+}
+
+async function addLecturer() {
+  const email = document.getElementById('lec-email').value.trim();
+  if (!email) { alert('Enter an email address.'); return; }
+  const { data } = await SB.from('profiles').select('id').eq('email', email).maybeSingle();
+  if (!data) { alert('No registered user found with that email.'); return; }
+  await SB.from('profiles').update({ role: 'lecturer' }).eq('id', data.id);
+  closeModal('lecturer-modal');
+  loadLecturers();
+}
+
+// ============================================================
+// ROLES
+// ============================================================
+async function loadRoles() {
+  const { data, error: rErr } = await SB.from('profiles').select('*').order('full_name').limit(50);
+  if (rErr) console.log('Roles error:', rErr.message);
+  document.getElementById('roles-list').innerHTML = !data || data.length === 0
+    ? '<div class="loading-row">No users found.</div>'
+    : data.map(u => `
+      <div class="t-row" style="grid-template-columns:1fr 80px 100px;">
+        <div class="td"><div style="font-weight:600;font-size:13px;">${esc(u.full_name || u.email)}</div></div>
+        <div class="td"><span class="badge ${u.role}">${u.role}</span></div>
+        <div class="td">
+          <select onchange="changeRole('${u.id}', this.value)" style="border:1.5px solid var(--border);border-radius:7px;padding:6px 10px;font-size:12px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text-1);">
+            <option value="">Change...</option>
+            <option value="admin">Admin</option>
+            <option value="lecturer">Lecturer</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+      </div>`).join('');
+}
+
+async function changeRole(userId, newRole) {
+  if (!newRole) return;
+  if (!confirm('Change this user to ' + newRole + '?')) return;
+  await SB.from('profiles').update({ role: newRole }).eq('id', userId);
+  loadRoles();
+}
+
+async function removeRole(userId) {
+  if (!confirm('Remove lecturer role? They will become a student.')) return;
+  await SB.from('profiles').update({ role: 'student' }).eq('id', userId);
+  loadLecturers();
+}
+
+// ============================================================
+// ANNOUNCEMENTS
+// ============================================================
+async function loadAnnouncements() {
+  const { data } = await SB.from('announcements').select('id, title, body, created_at, course_id').order('created_at', { ascending: false }).limit(20);
+  const el = document.getElementById('announcements-list');
+  if (!data || data.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="ei">📢</div><p>No announcements yet.</p></div>';
+    return;
+  }
+  el.innerHTML = data.map(a => `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;">
+        <div style="font-weight:700;font-size:14px;">${esc(a.title)}</div>
+        <span class="badge draft" style="flex-shrink:0;">${a.course_id ? 'Course' : 'Platform-wide'}</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-2);line-height:1.6;">${esc(a.body)}</div>
+      <div style="font-size:11.5px;color:var(--text-3);margin-top:10px;">${new Date(a.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div>
+    </div>`).join('');
+}
+
+function openAnnouncementModal() { openModal('announce-modal'); }
+
+async function postAnnouncement() {
+  const title = document.getElementById('ann-title').value.trim();
+  const body = document.getElementById('ann-body').value.trim();
+  if (!title || !body) { alert('Title and message are required.'); return; }
+  const { error: annErr } = await SB.from('announcements').insert({
+    author_id: currentAdmin.id, title, body, course_id: null
+  });
+  if (annErr) { alert('Error posting: ' + annErr.message); return; }
+  closeModal('announce-modal');
+  document.getElementById('ann-title').value = '';
+  document.getElementById('ann-body').value = '';
+  showPanel('announcements');
+}
+
+// ============================================================
+// CERTIFICATES
+// ============================================================
+async function loadCertificates() {
+  const { data } = await SB.from('quiz_attempts')
+    .select('student_id, course_code, percentage, attempted_at, profiles(full_name)')
+    .gte('percentage', 80)
+    .order('attempted_at', { ascending: false })
+    .limit(30);
+  document.getElementById('certs-list').innerHTML = !data || data.length === 0
+    ? '<div class="empty-state"><div class="ei">🎓</div><p>No certificates issued yet.</p></div>'
+    : data.map(c => `
+      <div class="t-row" style="grid-template-columns:1fr 100px 100px 80px;">
+        <div class="td">${c.profiles?.full_name || 'Unknown'}</div>
+        <div class="td muted">${esc(c.course_code)}</div>
+        <div class="td" style="color:var(--green);font-weight:700;">${c.percentage}%</div>
+        <div class="td"><button class="btn-secondary" style="padding:6px 10px;font-size:12px;">View</button></div>
+      </div>`).join('');
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function showAlert(containerId, type, msg) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = `<div class="alert ${type}">${msg}</div>`;
+  setTimeout(() => { el.innerHTML = ''; }, 4000);
+}
+
+  /**
+ * KMVTECH Education - Add Enrollment Requests Panel to Admin Portal
+ * 
+ * This is a JavaScript snippet to paste into your existing admin portal
+ * at education/portal/admin/index.html
+ * 
+ * Instructions:
+ * 1. Open education/portal/admin/index.html in your text editor
+ * 2. Find the comment: // PANEL SWITCHING
+ * 3. Paste the loadRequests function before that comment
+ * 4. Add the sidebar link and panel HTML as described below
+ */
+
+// PASTE THIS FUNCTION before the signOut() function in your admin portal:
+
+async function loadRequests() {
+  const { data, error } = await SB.from('notify_requests')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(100);
+
+  const rows = data || [];
+  window.__reqRows = {}; rows.forEach(r => { window.__reqRows[r.id] = r; });
+  const pending = rows.filter(r => (r.status || 'pending') === 'pending').length;
+  const badge = document.getElementById('requests-count');
+  if (badge) badge.textContent = pending > 0 ? pending : '';
+
+  const el = document.getElementById('requests-list');
+  if (!el) return;
+
+  if (error) {
+    el.innerHTML = '<div class="empty-state"><p>Could not load enrollment requests. Please refresh the page.</p></div>';
+    return;
+  }
+  if (rows.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="ei">&#128203;</div><p>No enrollment requests yet.<br/>Students must be registered and logged in to send an enrollment request.</p></div>';
+    return;
+  }
+
+  const planLabel = msg => {
+    msg = String(msg || '');
+    if (msg.includes('5,000')) return 'Per Course';
+    if (msg.includes('20,000')) return 'Monthly';
+    if (msg.includes('50,000')) return 'Semester';
+    return msg ? msg.substring(0, 30) : '-';
+  };
+
+  el.innerHTML = rows.map(r => {
+    const date = r.created_at ? new Date(r.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '-';
+    const digits = String(r.phone || '').replace(/[^0-9]/g, '').replace(/^0/, '256');
+    const waText = 'Hello ' + (r.full_name || '') + ', thank you for your enrollment request for ' + (r.course_name || r.course_code || 'the course') + ' on KMVTECH Education. We will send you the payment details shortly.';
+    const waLink = digits ? 'https://wa.me/' + digits + '?text=' + encodeURIComponent(waText) : '';
+    const status = r.status || 'pending';
+    const colors = { done: ['#DCFCE7', '#166534', 'Done'], contacted: ['#DBEAFE', '#1E40AF', 'Contacted'], pending: ['#FEF3C7', '#92400E', 'Pending'] };
+    const c = colors[status] || colors.pending;
+    const sn = r.student_number
+      ? `<div style="font-size:11px;color:var(--blue);font-weight:600;margin-top:1px;">${esc(r.student_number)}</div>`
+      : '<div style="font-size:11px;color:var(--amber);margin-top:1px;">No student number</div>';
+    const wa = waLink
+      ? `<a href="${esc(waLink)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:11.5px;padding:6px 9px;border-radius:7px;">&#128172; WA</a>`
+      : '';
+    const btnActivate = status !== 'done'
+      ? `<button onclick="openGrantFromRequest('${esc(r.id)}')" style="background:var(--gold);color:#0D1B2A;border:none;border-radius:7px;padding:6px 9px;font-size:11px;font-weight:700;cursor:pointer;">Activate</button>` : '';
+    const btnContacted = (status !== 'contacted' && status !== 'done')
+      ? `<button onclick="updateRequestStatus('${esc(r.id)}','contacted')" style="background:var(--blue);color:#fff;border:none;border-radius:7px;padding:6px 8px;font-size:11px;cursor:pointer;">Contacted</button>` : '';
+    const btnDone = status !== 'done'
+      ? `<button onclick="updateRequestStatus('${esc(r.id)}','done')" style="background:var(--green);color:#fff;border:none;border-radius:7px;padding:6px 8px;font-size:11px;cursor:pointer;">&#10003; Done</button>` : '';
+
+    return `<div class="t-row" style="grid-template-columns:1fr 90px 90px 190px;">
+      <div class="td">
+        <div style="font-weight:700;font-size:13px;">${esc(r.full_name || 'Unknown')}</div>
+        ${sn}
+        <div style="font-size:11.5px;color:var(--text-3);margin-top:2px;">${esc(r.course_name || r.course_code || '-')}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:1px;">${esc(r.phone || '-')}${r.email ? ' &middot; ' + esc(r.email) : ''}</div>
+      </div>
+      <div class="td" style="font-size:11.5px;color:var(--text-2);">${esc(planLabel(r.message))}</div>
+      <div class="td" style="font-size:12px;color:var(--text-3);">${esc(date)}</div>
+      <div class="td" style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+        <span style="background:${c[0]};color:${c[1]};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">${c[2]}</span>
+        ${btnActivate}${wa}${btnContacted}${btnDone}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function updateRequestStatus(id, newStatus) {
+  const { error } = await SB.from('notify_requests').update({ status: newStatus }).eq('id', id);
+  if (error) { alert('Could not update this request. Please try again.'); return; }
+  loadRequests();
+}
+
+/* ===================== ACTIVATE ACCESS ===================== */
+const PLANS = {
+  course:   { label: 'Per course (30 days)', short: 'Per course', price: 5000 },
+  monthly:  { label: 'Monthly unlimited, all courses (30 days)', short: 'Monthly', price: 20000 },
+  semester: { label: 'Semester unlimited, all courses (5 months)', short: 'Semester', price: 50000 }
+};
+function money(n) { return 'UGX ' + Number(n || 0).toLocaleString('en-US'); }
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '-'; }
+function toast(msg, bad) {
+  const t = document.createElement('div'); t.className = 'kmv-toast' + (bad ? ' bad' : ''); t.setAttribute('role', 'status'); t.textContent = msg;
+  document.body.appendChild(t); setTimeout(() => t.remove(), 6000);
+}
+function planFromMessage(msg) {
+  msg = String(msg || '');
+  if (msg.includes('50,000')) return 'semester';
+  if (msg.includes('20,000')) return 'monthly';
+  return 'course';
+}
+async function findStudent(v) {
+  v = String(v || '').trim(); if (!v) return null;
+  const q = SB.from('profiles').select('id,full_name,student_number,email,contact_number');
+  const { data } = await (v.includes('@') ? q.eq('email', v.toLowerCase()) : q.eq('student_number', v.toUpperCase())).limit(1);
+  return (data && data[0]) || null;
+}
+function closeGrant() { const m = document.getElementById('grant-modal'); if (m) m.remove(); }
+function openGrantFromRequest(id) {
+  const r = (window.__reqRows || {})[id]; if (!r) return;
+  openGrant({ student: r.student_number || r.email || '', plan: planFromMessage(r.message), course: r.course_code || '', requestId: r.id });
+}
+function openGrant(pre) {
+  pre = pre || {}; closeGrant();
+  const plan = PLANS[pre.plan] ? pre.plan : 'monthly';
+  const wrap = document.createElement('div'); wrap.id = 'grant-modal'; wrap.className = 'kmv-modal-bg';
+  wrap.innerHTML = `<div class="kmv-modal" role="dialog" aria-modal="true" aria-labelledby="g-title">
+    <h3 id="g-title">Activate access</h3>
+    <div class="form-group"><label class="form-label" for="g-student">Student number or email</label>
+      <input class="form-input" id="g-student" value="${esc(pre.student || '')}" autocomplete="off"/>
+      <div id="g-who" class="g-who"></div></div>
+    <div class="form-group"><label class="form-label" for="g-plan">Plan</label>
+      <select class="form-select" id="g-plan">${Object.keys(PLANS).map(k => `<option value="${k}"${k === plan ? ' selected' : ''}>${esc(PLANS[k].label)} - ${money(PLANS[k].price)}</option>`).join('')}</select></div>
+    <div class="form-group" id="g-course-row"><label class="form-label" for="g-course">Course code</label>
+      <input class="form-input" id="g-course" value="${esc(pre.course || '')}" placeholder="e.g. FAM1" autocomplete="off"/></div>
+    <div class="form-group"><label class="form-label" for="g-amount">Amount received (UGX)</label>
+      <input class="form-input" id="g-amount" type="number" min="0" value="${PLANS[plan].price}"/></div>
+    <div class="form-group"><label class="form-label" for="g-ref">Mobile Money transaction ID</label>
+      <input class="form-input" id="g-ref" placeholder="Paste the MTN or Airtel reference" autocomplete="off"/>
+      <div class="g-hint">Each reference can only be used once, which protects you from activating the same payment twice.</div></div>
+    <div class="form-group"><label class="form-label" for="g-note">Note (optional)</label><input class="form-input" id="g-note" autocomplete="off"/></div>
+    <div id="g-err" class="g-err" role="alert" hidden></div>
+    <div class="g-actions"><button type="button" class="btn-secondary" id="g-cancel">Cancel</button><button type="button" class="btn-primary" id="g-submit">Activate access</button></div>
+  </div>`;
+  document.body.appendChild(wrap);
+  const $ = id => document.getElementById(id);
+  const sync = () => { $('g-course-row').style.display = $('g-plan').value === 'course' ? '' : 'none'; };
+  sync();
+  $('g-plan').onchange = () => { sync(); if (!$('g-amount').dataset.touched) $('g-amount').value = PLANS[$('g-plan').value].price; };
+  $('g-amount').oninput = () => { $('g-amount').dataset.touched = '1'; };
+  const who = async () => {
+    const out = $('g-who'); const v = $('g-student').value.trim();
+    if (!v) { out.textContent = ''; out.className = 'g-who'; return; }
+    const p = await findStudent(v);
+    out.className = 'g-who ' + (p ? 'ok' : 'bad');
+    out.textContent = p ? p.full_name + ' (' + p.student_number + ')' : 'No student found with that number or email.';
+  };
+  $('g-student').onchange = who; $('g-student').onblur = who; if (pre.student) who();
+  $('g-cancel').onclick = closeGrant;
+  wrap.onclick = e => { if (e.target === wrap) closeGrant(); };
+  $('g-submit').onclick = () => submitGrant(pre.requestId);
+  setTimeout(() => { const f = $(pre.student ? 'g-ref' : 'g-student'); if (f) f.focus(); }, 50);
+}
+async function submitGrant(requestId) {
+  const $ = id => document.getElementById(id), err = $('g-err'), btn = $('g-submit');
+  const student = $('g-student').value.trim(), plan = $('g-plan').value, course = $('g-course').value.trim();
+  const amount = parseInt($('g-amount').value, 10), ref = $('g-ref').value.trim(), note = $('g-note').value.trim();
+  const fail = m => { err.textContent = m; err.hidden = false; };
+  err.hidden = true;
+  if (!student) return fail('Please enter the student number or email.');
+  if (plan === 'course' && !course) return fail('Please enter the course code for a per-course plan.');
+  if (!(amount >= 0)) return fail('Please enter the amount received.');
+  btn.disabled = true; btn.textContent = 'Activating...';
+  const { data, error } = await SB.rpc('admin_grant_plan', {
+    p_student_number: student, p_plan: plan, p_course_code: plan === 'course' ? course : null,
+    p_amount: amount, p_reference: ref || null, p_note: note || null
+  });
+  if (error) { btn.disabled = false; btn.textContent = 'Activate access'; return fail(error.message || 'Something went wrong. Nothing was activated.'); }
+  if (requestId) await SB.from('notify_requests').update({ status: 'done' }).eq('id', requestId);
+  closeGrant();
+  toast('Activated ' + PLANS[data.plan].short + ' for ' + data.student_name + ' until ' + fmtDate(data.expires_at) + (data.plan === 'course' ? ' (' + data.course_code + ')' : ' (' + data.courses + ' courses)'));
+  loadRequests();
+  if (document.getElementById('panel-grant').classList.contains('active')) loadGrantPanel();
+}
+async function loadGrantPanel() {
+  const el = document.getElementById('grant-list'); if (!el) return;
+  const { data: pays, error } = await SB.from('payments').select('*').order('created_at', { ascending: false }).limit(30);
+  if (error) { el.innerHTML = '<div class="empty-state"><p>Could not load activations. Please refresh.</p></div>'; return; }
+  if (!pays || pays.length === 0) { el.innerHTML = '<div class="empty-state"><div class="ei">&#9989;</div><p>No activations yet.<br/>They will appear here after you activate a student.</p></div>'; return; }
+  const ids = [...new Set(pays.map(p => p.student_id))];
+  const { data: profs } = await SB.from('profiles').select('id,full_name,student_number').in('id', ids);
+  const by = {}; (profs || []).forEach(p => { by[p.id] = p; });
+  el.innerHTML = pays.map(p => {
+    const s = by[p.student_id] || {};
+    return `<div class="t-row" style="grid-template-columns:1fr 110px 90px 130px 90px;">
+      <div class="td"><div style="font-weight:700;font-size:13px;">${esc(s.full_name || 'Unknown')}</div><div style="font-size:11px;color:var(--blue);">${esc(s.student_number || '')}</div></div>
+      <div class="td" style="font-size:12px;">${esc((PLANS[p.plan] || {}).short || p.plan)}${p.course_code ? ' <span style="color:var(--text-3)">' + esc(p.course_code) + '</span>' : ''}</div>
+      <div class="td" style="font-size:12px;">${esc(money(p.amount_ugx))}</div>
+      <div class="td" style="font-size:11.5px;color:var(--text-2);word-break:break-all;">${esc(p.reference || '-')}</div>
+      <div class="td" style="font-size:12px;color:var(--text-3);">${esc(fmtDate(p.created_at))}</div>
+    </div>`;
+  }).join('');
+}
+async function lookupAccess() {
+  const out = document.getElementById('lk-result'); const v = document.getElementById('lk-student').value.trim();
+  if (!v) { out.innerHTML = ''; return; }
+  const p = await findStudent(v);
+  if (!p) { out.innerHTML = '<div class="g-err">No student found with that number or email.</div>'; return; }
+  const [{ data: enr }, { data: crs }] = await Promise.all([
+    SB.from('enrollments').select('course_id,access_type,expires_at').eq('student_id', p.id),
+    SB.from('courses').select('id,course_code,title')
+  ]);
+  const cmap = {}; (crs || []).forEach(c => { cmap[c.id] = c; });
+  const now = Date.now();
+  const rows = (enr || []).map(e => ({ ...e, c: cmap[e.course_id] || {}, active: !e.expires_at || new Date(e.expires_at).getTime() > now }))
+    .sort((a, b) => String(a.c.course_code || '').localeCompare(String(b.c.course_code || '')));
+  const active = rows.filter(r => r.active), permanent = active.filter(r => !r.expires_at);
+  const timed = active.filter(r => r.expires_at).map(r => new Date(r.expires_at).getTime());
+  const until = timed.length ? fmtDate(new Date(Math.max(...timed))) : '';
+  out.innerHTML = `<div style="margin-top:12px;">
+    <div style="font-weight:700;">${esc(p.full_name)} <span style="color:var(--blue);font-weight:600;font-size:12px;">${esc(p.student_number)}</span></div>
+    <div style="font-size:12px;color:var(--text-2);">${esc(p.email || '')}${p.contact_number ? ' &middot; ' + esc(p.contact_number) : ''}</div>
+    <div style="margin:8px 0;font-size:13.5px;">${active.length === 0 ? 'No active access.' : 'Active access to <strong>' + active.length + '</strong> course' + (active.length === 1 ? '' : 's') + (until ? ', latest ends <strong>' + esc(until) + '</strong>' : '') + (permanent.length ? ', <strong>' + permanent.length + '</strong> kept permanently' : '') + '.'}</div>
+    ${rows.length ? '<details style="margin:6px 0 10px;"><summary style="cursor:pointer;font-size:13px;">Show every course</summary><div style="font-size:12.5px;line-height:1.9;">' + rows.map(r => esc(r.c.course_code || '?') + ' - ' + esc(r.access_type) + ' - ' + (r.expires_at ? (r.active ? 'until ' : 'ended ') + esc(fmtDate(r.expires_at)) : 'permanent')).join('<br/>') + '</div></details>' : ''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-primary" id="lk-activate">Activate access</button>
+      ${active.length ? '<button class="btn-danger" id="lk-end">End access now</button>' : ''}
+    </div></div>`;
+  document.getElementById('lk-activate').onclick = () => openGrant({ student: p.student_number });
+  const end = document.getElementById('lk-end');
+  if (end) end.onclick = async () => {
+    if (!confirm('End access for ' + p.full_name + ' now? Courses they completed stay open for them.')) return;
+    const { data, error } = await SB.rpc('admin_revoke_access', { p_student_number: p.student_number });
+    if (error) return toast(error.message || 'Could not end access.', true);
+    toast('Ended access to ' + data + ' course' + (data === 1 ? '' : 's') + ' for ' + p.full_name + '.');
+    lookupAccess();
+  };
+}
+
+/* ===================== ADS ===================== */
+const AD_PLACES = { home: 'Homepage', dashboard: 'Student dashboard', courses: 'Course pages' };
+const AD_BADGE = { live: ['#DCFCE7', '#166534', 'Live'], scheduled: ['#DBEAFE', '#1E40AF', 'Scheduled'], paused: ['#FEF3C7', '#92400E', 'Paused'], ended: ['#F3F4F6', '#374151', 'Ended'] };
+function adStatus(a) {
+  const n = Date.now(), s = new Date(a.starts_at).getTime(), e = new Date(a.ends_at).getTime();
+  if (e <= n) return 'ended'; if (a.is_paused) return 'paused'; if (s > n) return 'scheduled'; return 'live';
+}
+function fmtDateTime(d) { return new Date(d).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); }
+function toLocalInput(d) {
+  d = new Date(d); const p = n => String(n).padStart(2, '0');
+  return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+function adImageUrl(path) { return SB.storage.from('ads').getPublicUrl(path).data.publicUrl; }
+function friendlyAdError(ex) {
+  const m = String((ex && ex.message) || ex || '');
+  if (/link_url/.test(m)) return 'The link is not accepted. It must start with https:// and have no spaces.';
+  if (/maximum allowed size|too large|exceeded/i.test(m)) return 'The picture is too large. Please use a smaller one.';
+  if (/mime|not supported|invalid.*type/i.test(m)) return 'That kind of picture is not accepted. Please use JPG, PNG, WebP or GIF.';
+  if (/row-level security|permission|not allowed/i.test(m)) return 'You are not allowed to do that. Please log in again as an administrator.';
+  return m || 'Something went wrong. Nothing was saved.';
+}
+async function compressBanner(file) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('That picture could not be read. Please try another file.')); i.src = url; });
+    let w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+    if (w > 1200) { h = Math.round(h * 1200 / w); w = 1200; }
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); ctx.drawImage(img, 0, 0, w, h);
+    for (const q of [0.85, 0.75, 0.65, 0.5]) {
+      const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', q));
+      if (blob && blob.size <= 1900000) return blob;
+    }
+    throw new Error('That picture is still too large after shrinking. Please use a simpler image.');
+  } finally { URL.revokeObjectURL(url); }
+}
+async function loadAds() {
+  const el = document.getElementById('ads-list'); if (!el) return;
+  SB.rpc('kmv_cleanup_ads').then(() => {}, () => {});
+  const { data: ads, error } = await SB.from('ads').select('*').order('starts_at', { ascending: false });
+  if (error) { el.innerHTML = '<div class="empty-state"><p>Could not load ads. Please refresh the page.</p></div>'; return; }
+  const { data: st } = await SB.from('ad_stats').select('ad_id,impressions,clicks');
+  const tot = {}; (st || []).forEach(s => { const t = tot[s.ad_id] = tot[s.ad_id] || { v: 0, c: 0 }; t.v += s.impressions; t.c += s.clicks; });
+  window.__ads = {}; (ads || []).forEach(a => { window.__ads[a.id] = a; });
+  const list = ads || [], count = k => list.filter(a => adStatus(a) === k).length;
+  document.getElementById('ads-summary').innerHTML = list.length
+    ? '<strong>' + count('live') + '</strong> live &middot; <strong>' + count('scheduled') + '</strong> scheduled &middot; <strong>' + count('paused') + '</strong> paused &middot; <strong>' + count('ended') + '</strong> ended' : '';
+  if (!list.length) { el.innerHTML = '<div class="empty-state"><div class="ei">&#128227;</div><p>No ads yet.<br/>Press "+ New ad" to schedule your first banner.</p></div>'; return; }
+  el.innerHTML = list.map(a => {
+    const k = adStatus(a), b = AD_BADGE[k], t = tot[a.id] || { v: 0, c: 0 };
+    const ctr = t.v ? (t.c / t.v * 100).toFixed(1) + '% clicked' : '';
+    const left = k === 'live' ? Math.max(0, Math.ceil((new Date(a.ends_at) - Date.now()) / 864e5)) + ' day(s) left' : '';
+    const id = esc(a.id);
+    const btn = (label, fn, bg) => `<button onclick="${fn}('${id}')" style="background:${bg || 'var(--light)'};color:${bg ? '#fff' : 'var(--blue)'};border:none;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:600;cursor:pointer;">${label}</button>`;
+    return `<div class="t-row" style="grid-template-columns:72px 1fr 130px 110px 150px;">
+      <div class="td">${a.image_path ? `<img src="${esc(adImageUrl(a.image_path))}" alt="" style="width:64px;height:32px;object-fit:cover;border-radius:6px;border:1px solid var(--border);">` : ''}</div>
+      <div class="td"><div style="font-weight:700;font-size:13px;">${esc(a.title)}</div><div style="font-size:11.5px;color:var(--text-3);">${esc(a.advertiser || '')}</div>
+        <div style="font-size:11px;color:var(--text-2);margin-top:3px;">${a.placements.map(p => esc(AD_PLACES[p] || p)).join(', ')}</div></div>
+      <div class="td" style="font-size:11.5px;"><span style="background:${b[0]};color:${b[1]};font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">${b[2]}</span>
+        <div style="margin-top:4px;">${esc(fmtDateTime(a.starts_at))}</div><div>to ${esc(fmtDateTime(a.ends_at))}</div><div style="color:var(--text-3);">${esc(left)}</div></div>
+      <div class="td" style="font-size:12px;"><strong>${esc(t.v)}</strong> views<br/><strong>${esc(t.c)}</strong> clicks<br/><span style="color:var(--text-3);">${esc(ctr)}</span></div>
+      <div class="td" style="display:flex;gap:5px;flex-wrap:wrap;align-items:flex-start;">
+        ${btn('Edit', 'openAdForm')}
+        ${k !== 'ended' ? btn(a.is_paused ? 'Resume' : 'Pause', 'toggleAdPause') + btn('+7 days', 'extendAd') : btn('Run again', 'rerunAd')}
+        ${btn('Delete', 'deleteAd', 'var(--red)')}
+      </div></div>`;
+  }).join('');
+  tidyAdFiles(list);
+}
+async function tidyAdFiles(ads) {
+  try {
+    const { data: files } = await SB.storage.from('ads').list('', { limit: 200 });
+    const used = new Set((ads || []).map(a => a.image_path).filter(Boolean)), cutoff = Date.now() - 3600000;
+    const orphans = (files || []).filter(f => f.name && !f.name.startsWith('.') && !used.has(f.name) && (!f.created_at || new Date(f.created_at).getTime() < cutoff)).map(f => f.name);
+    if (orphans.length) await SB.storage.from('ads').remove(orphans);
+  } catch (e) {}
+}
+function closeAdForm() { const m = document.getElementById('ad-modal'); if (m) m.remove(); }
+function rerunAd(id) { openAdForm(id, true); }
+function openAdForm(id, rerun) {
+  closeAdForm();
+  const a = id ? (window.__ads || {})[id] : null;
+  const start = (!a || rerun) ? new Date() : new Date(a.starts_at), end = (!a || rerun) ? new Date(Date.now() + 7 * 864e5) : new Date(a.ends_at);
+  const places = a ? a.placements : ['home'];
+  const wrap = document.createElement('div'); wrap.id = 'ad-modal'; wrap.className = 'kmv-modal-bg';
+  wrap.innerHTML = `<div class="kmv-modal" role="dialog" aria-modal="true" aria-labelledby="ad-h" style="max-width:520px;">
+    <h3 id="ad-h">${a ? (rerun ? 'Run this ad again' : 'Edit ad') : 'New ad'}</h3>
+    <div class="form-group"><label class="form-label" for="ad-title">Ad name</label><input class="form-input" id="ad-title" maxlength="120" value="${esc(a ? a.title : '')}" placeholder="e.g. Fresh Juice Bar - 20% off"/>
+      <div class="g-hint">Read aloud by screen readers, so describe the ad in a few words.</div></div>
+    <div class="form-group"><label class="form-label" for="ad-adv">Business (optional)</label><input class="form-input" id="ad-adv" maxlength="120" value="${esc(a ? a.advertiser || '' : '')}"/>
+      <div class="g-hint">Shown to visitors next to the word "Sponsored".</div></div>
+    <div class="form-group"><label class="form-label" for="ad-link">Where the ad leads (link)</label><input class="form-input" id="ad-link" type="url" value="${esc(a ? a.link_url : '')}" placeholder="https://..."/></div>
+    <div class="form-group"><label class="form-label" for="ad-file">Banner picture${a ? ' (leave empty to keep the current one)' : ''}</label>
+      ${a && a.image_path ? `<img src="${esc(adImageUrl(a.image_path))}" alt="Current banner" style="max-width:100%;max-height:90px;border-radius:8px;border:1px solid var(--border);margin-bottom:6px;display:block;"/>` : ''}
+      <input class="form-input" id="ad-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif"/>
+      <div class="g-hint">Best size: a wide banner, about 1200 x 300 pixels. It is shrunk automatically. Animated pictures become still pictures.</div></div>
+    <div class="form-group"><span class="form-label">Where to show it</span>
+      ${Object.keys(AD_PLACES).map(k => `<label style="display:flex;gap:8px;align-items:center;font-size:13.5px;margin:4px 0;"><input type="checkbox" id="ad-pl-${k}"${places.includes(k) ? ' checked' : ''}/> ${esc(AD_PLACES[k])}</label>`).join('')}
+      <div class="g-hint">Ads are never shown inside lessons or quizzes.</div></div>
+    <div class="form-group"><label class="form-label" for="ad-start">Starts</label><input class="form-input" id="ad-start" type="datetime-local" value="${toLocalInput(start)}"/></div>
+    <div class="form-group"><label class="form-label" for="ad-end">Ends</label><input class="form-input" id="ad-end" type="datetime-local" value="${toLocalInput(end)}"/>
+      <div style="display:flex;gap:6px;margin-top:6px;">${[7, 14, 30].map(d => `<button type="button" class="btn-secondary" data-days="${d}" style="padding:5px 10px;font-size:12px;">${d} days</button>`).join('')}</div>
+      <div class="g-hint">The ad stops by itself at this time, and is deleted 30 days later.</div></div>
+    <div class="form-group"><label class="form-label" for="ad-note">Private note (optional)</label><input class="form-input" id="ad-note" value="${esc(a ? a.note || '' : '')}" placeholder="e.g. paid UGX 150,000 in cash"/><div class="g-hint">Only you can see this.</div></div>
+    <div id="ad-err" class="g-err" role="alert" hidden></div>
+    <div class="g-actions"><button type="button" class="btn-secondary" id="ad-cancel">Cancel</button><button type="button" class="btn-primary" id="ad-save">${a && !rerun ? 'Save changes' : (rerun ? 'Run again' : 'Create ad')}</button></div>
+  </div>`;
+  document.body.appendChild(wrap);
+  const $ = x => document.getElementById(x);
+  wrap.querySelectorAll('[data-days]').forEach(b => { b.onclick = () => { const s = new Date($('ad-start').value); if (!isNaN(s)) $('ad-end').value = toLocalInput(new Date(s.getTime() + b.dataset.days * 864e5)); }; });
+  $('ad-cancel').onclick = closeAdForm; wrap.onclick = e => { if (e.target === wrap) closeAdForm(); };
+  $('ad-save').onclick = () => submitAd(id, rerun);
+}
+async function submitAd(id, rerun) {
+  const g = x => document.getElementById(x), err = g('ad-err'), btn = g('ad-save');
+  const fail = m => { err.textContent = m; err.hidden = false; };
+  err.hidden = true;
+  const old = id ? window.__ads[id] : null;
+  const title = g('ad-title').value.trim(), adv = g('ad-adv').value.trim(), link = g('ad-link').value.trim(), note = g('ad-note').value.trim();
+  const places = Object.keys(AD_PLACES).filter(k => g('ad-pl-' + k).checked);
+  const s = new Date(g('ad-start').value), e = new Date(g('ad-end').value);
+  const file = g('ad-file').files && g('ad-file').files[0];
+  if (!title) return fail('Please give the ad a name.');
+  if (!/^https?:\/\/\S+$/i.test(link) || link.length > 500) return fail('The link must start with https:// and have no spaces.');
+  if (!places.length) return fail('Please choose at least one place to show the ad.');
+  if (isNaN(s) || isNaN(e)) return fail('Please set when the ad starts and ends.');
+  if (e <= s) return fail('The ad must end after it starts.');
+  if ((!old || rerun) && e <= new Date()) return fail('The end time is already in the past.');
+  if (!old && !file) return fail('Please choose the banner picture.');
+  if (file && !/^image\/(jpeg|png|webp|gif)$/.test(file.type)) return fail('The picture must be a JPG, PNG, WebP or GIF.');
+  if (file && file.size > 10 * 1024 * 1024) return fail('That picture is too big. Please use one under 10 MB.');
+  btn.disabled = true; const label = btn.textContent; btn.textContent = 'Saving...';
+  let newPath = null;
+  try {
+    if (file) {
+      const blob = await (window.__kmvCompress || compressBanner)(file);
+      newPath = 'ad-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.jpg';
+      const up = await SB.storage.from('ads').upload(newPath, blob, { contentType: 'image/jpeg', cacheControl: '31536000' });
+      if (up.error) throw up.error;
+    }
+    const row = { title, advertiser: adv || null, link_url: link, placements: places, starts_at: s.toISOString(), ends_at: e.toISOString(), note: note || null };
+    if (newPath) row.image_path = newPath;
+    let res;
+    if (old) { if (rerun) row.is_paused = false; res = await SB.from('ads').update(row).eq('id', id); }
+    else { const { data: { session } } = await SB.auth.getSession(); row.created_by = session ? session.user.id : null; res = await SB.from('ads').insert(row); }
+    if (res.error) throw res.error;
+    if (newPath && old && old.image_path) await SB.storage.from('ads').remove([old.image_path]);
+  } catch (ex) {
+    if (newPath) { try { await SB.storage.from('ads').remove([newPath]); } catch (_) {} }
+    btn.disabled = false; btn.textContent = label;
+    return fail(friendlyAdError(ex));
+  }
+  closeAdForm(); toast(old ? 'Ad saved.' : 'Ad created. It will appear at its start time.'); loadAds();
+}
+async function toggleAdPause(id) {
+  const a = window.__ads[id]; if (!a) return;
+  const { error } = await SB.from('ads').update({ is_paused: !a.is_paused }).eq('id', id);
+  if (error) return toast(friendlyAdError(error), true);
+  toast(a.is_paused ? 'Ad resumed.' : 'Ad paused. Visitors no longer see it.'); loadAds();
+}
+async function extendAd(id) {
+  const a = window.__ads[id]; if (!a) return;
+  const base = Math.max(new Date(a.ends_at).getTime(), Date.now());
+  const { error } = await SB.from('ads').update({ ends_at: new Date(base + 7 * 864e5).toISOString() }).eq('id', id);
+  if (error) return toast(friendlyAdError(error), true);
+  toast('Extended by 7 days.'); loadAds();
+}
+async function deleteAd(id) {
+  const a = window.__ads[id]; if (!a) return;
+  if (!confirm('Delete "' + a.title + '" now? Its picture and its results will be removed for good.')) return;
+  const { error } = await SB.from('ads').delete().eq('id', id);
+  if (error) return toast(friendlyAdError(error), true);
+  if (a.image_path) { try { await SB.storage.from('ads').remove([a.image_path]); } catch (e) {} }
+  toast('Ad deleted.'); loadAds();
+}
+
+async function signOut() {
+  await SB.auth.signOut();
+  window.location.href = '/education/portal/';
+}
+
+function tTheme() {
+  const h = document.documentElement, t = document.getElementById('tt'), th = t.querySelector('.tthumb');
+  const d = h.getAttribute('data-theme') === 'dark';
+  h.setAttribute('data-theme', d ? 'light' : 'dark');
+  t.setAttribute('aria-checked', d ? 'false' : 'true');
+  th.textContent = d ? '☀' : '🌙';
+  localStorage.setItem('kmv-theme', d ? 'light' : 'dark');
+}
+(function() {
+  const s = localStorage.getItem('kmv-theme'), p = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if ((s || (p ? 'dark' : 'light')) === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const t = document.getElementById('tt');
+    if (t) { t.setAttribute('aria-checked', 'true'); t.querySelector('.tthumb').textContent = '🌙'; }
+  }
+})();
+
+init();
+</script>
+</body>
+</html>
