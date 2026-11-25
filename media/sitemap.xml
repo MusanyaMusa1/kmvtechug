@@ -16,6 +16,10 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/thomas-tayebwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/music</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/concert</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/entertainment</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/museveni</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/updf</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kampala</loc></url>
@@ -39,8 +43,6 @@
   <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/court</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/music</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/entertainment</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/mexico</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/afcon-2027</loc></url>
@@ -117,7 +119,6 @@
   <url><loc>https://kmvtechug.app/media/topic/election-petition</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/mulago-hospital</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ucc</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/thomas-tayebwa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/volodymyr-zelensky</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/pakistan</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/us</loc></url>
@@ -167,7 +168,6 @@
   <url><loc>https://kmvtechug.app/media/topic/road-safety</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/state-house</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/john-baptist-nambeshe</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/concert</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/yoweri-museveni</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/susan-magara</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/uganda-politics</loc></url>
@@ -178,6 +178,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/deputy-speaker-hails-jose-chameleone-as-national-brand-ahead-of-december-concert</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/museveni-hails-luweero-industries-and-nec-technologies-for-homegrown-defence-sys</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/traders-shut-shops-in-nationwide-strike-over-taxes-and-customs-delays</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/eight-arrested-as-police-and-unbs-seize-600-bags-of-counterfeit-cement-in-kampal</loc></url>
