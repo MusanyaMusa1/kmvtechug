@@ -16,6 +16,11 @@
   <url><loc>https://kmvtechug.app/media/corrections</loc></url>
   <url><loc>https://kmvtechug.app/media/authors</loc></url>
   <url><loc>https://kmvtechug.app/media/topics</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/brazil</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/france</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/agriculture</loc></url>
+  <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa-region</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/makerere-university</loc></url>
@@ -41,7 +46,6 @@
   <url><loc>https://kmvtechug.app/media/topic/business</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/south-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/crime</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/international</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/europe</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/rwanda</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/king-musah-media</loc></url>
@@ -50,7 +54,6 @@
   <url><loc>https://kmvtechug.app/media/topic/nigeria</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ukraine</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/bbc-news</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/court</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/mexico</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/world-news</loc></url>
@@ -73,7 +76,6 @@
   <url><loc>https://kmvtechug.app/media/topic/aviation</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/security</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/us-politics</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/france</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/russia</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/conflict</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/texas</loc></url>
@@ -109,7 +111,6 @@
   <url><loc>https://kmvtechug.app/media/topic/north-korea</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/east-africa</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/entebbe</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/brazil</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/bbc</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/sam-mugumya</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/high-court</loc></url>
@@ -136,7 +137,6 @@
   <url><loc>https://kmvtechug.app/media/topic/human-rights</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/environment</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/ministry-of-health</loc></url>
-  <url><loc>https://kmvtechug.app/media/topic/agriculture</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/obituary</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/tooro-kingdom</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/coronation</loc></url>
@@ -180,6 +180,7 @@
   <url><loc>https://kmvtechug.app/media/topic/policy</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/moses-ali</loc></url>
   <url><loc>https://kmvtechug.app/media/topic/kapchorwa</loc></url>
+  <url><loc>https://kmvtechug.app/media/stories/brazil-rejects-french-president-macrons-comments-calling-its-meat-doped</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/guinea-bissau-military-delays-return-to-civilian-rule-until-2028</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/museveni-appoints-prof-nawangwe-nche-chairperson-for-five-year-term</loc></url>
   <url><loc>https://kmvtechug.app/media/stories/uganda-signs-10-year-deal-with-vitol-to-market-pearl-sweet-crude-oil</loc></url>
